@@ -4,41 +4,35 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>在Github创建静态网站预览的方法 | Master a Day</title>
+    <title>Hibernate出现Caused by: java.sql.SQLException: Field &#39;id&#39; doesn&#39;t have a default value的解决方法 | Master a Day</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Roy Leong">
     
 
     
-    <meta name="description" content="前段时间参加了百度前端学院的前端学习，想着不用把别人前端页面代码下载下来就能预览的话，就方便多了，既能看代码，又能看到效果，还可以用chrome调试
-
-
-正文
-方法一：通过第三方开源项目预览
-访问http://htmlpreview.github.io/enter link description here 填写你要预览的页面地址，Enter–&amp;gt;Get
-得到这样格式的访问连接：http://">
+    <meta name="description" content="Hibernate出现Caused by: java.sql.SQLException: Field ‘id’ doesn’t have a default value解决方法
+原因：设计Mysql的id的时候，id使用主键策略，但是没有设置自动生成造成
+解决方案：
+取消主键策略(下下策)；
+更改结构语句：为主键id添加auto_increment属性；也就是更改表结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在Github创建静态网站预览的方法">
-<meta property="og:url" content="http://yoursite.com/2016/03/16/在Github创建静态网站预览的方法/index.html">
+<meta property="og:title" content="Hibernate出现Caused by: java.sql.SQLException: Field 'id' doesn't have a default value的解决方法">
+<meta property="og:url" content="http://yoursite.com/2016/06/05/Hibernate出现Caused-by-java-sql-SQLException-Field-id-doesn-t-have-a-default-value的解决方法/index.html">
 <meta property="og:site_name" content="Master a Day">
-<meta property="og:description" content="前段时间参加了百度前端学院的前端学习，想着不用把别人前端页面代码下载下来就能预览的话，就方便多了，既能看代码，又能看到效果，还可以用chrome调试
-
-
-正文
-方法一：通过第三方开源项目预览
-访问http://htmlpreview.github.io/enter link description here 填写你要预览的页面地址，Enter–&amp;gt;Get
-得到这样格式的访问连接：http://">
-<meta property="og:updated_time" content="2016-03-16T04:30:21.951Z">
+<meta property="og:description" content="Hibernate出现Caused by: java.sql.SQLException: Field ‘id’ doesn’t have a default value解决方法
+原因：设计Mysql的id的时候，id使用主键策略，但是没有设置自动生成造成
+解决方案：
+取消主键策略(下下策)；
+更改结构语句：为主键id添加auto_increment属性；也就是更改表结构">
+<meta property="og:updated_time" content="2016-06-05T15:57:38.752Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在Github创建静态网站预览的方法">
-<meta name="twitter:description" content="前段时间参加了百度前端学院的前端学习，想着不用把别人前端页面代码下载下来就能预览的话，就方便多了，既能看代码，又能看到效果，还可以用chrome调试
-
-
-正文
-方法一：通过第三方开源项目预览
-访问http://htmlpreview.github.io/enter link description here 填写你要预览的页面地址，Enter–&amp;gt;Get
-得到这样格式的访问连接：http://">
+<meta name="twitter:title" content="Hibernate出现Caused by: java.sql.SQLException: Field 'id' doesn't have a default value的解决方法">
+<meta name="twitter:description" content="Hibernate出现Caused by: java.sql.SQLException: Field ‘id’ doesn’t have a default value解决方法
+原因：设计Mysql的id的时候，id使用主键策略，但是没有设置自动生成造成
+解决方案：
+取消主键策略(下下策)；
+更改结构语句：为主键id添加auto_increment属性；也就是更改表结构">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -99,14 +93,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/03/16/在Github创建静态网站预览的方法/" title="在Github创建静态网站预览的方法" itemprop="url">在Github创建静态网站预览的方法</a>
+      <a href="/2016/06/05/Hibernate出现Caused-by-java-sql-SQLException-Field-id-doesn-t-have-a-default-value的解决方法/" title="Hibernate出现Caused by: java.sql.SQLException: Field &#39;id&#39; doesn&#39;t have a default value的解决方法" itemprop="url">Hibernate出现Caused by: java.sql.SQLException: Field &#39;id&#39; doesn&#39;t have a default value的解决方法</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2016-03-16T03:51:09.000Z" itemprop="datePublished"> 发表于 2016-03-16</time>
+    <time datetime="2016-06-05T15:53:46.000Z" itemprop="datePublished"> 发表于 2016-06-05</time>
     
   </p>
 </header>
@@ -115,23 +109,15 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6B63_u6587"><span class="toc-number">1.</span> <span class="toc-text">正文</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hibernate_u51FA_u73B0Caused_by_3A_java-sql-SQLException_3A_Field__u2018id_u2019_doesn_u2019t_have_a_default_value_u89E3_u51B3_u65B9_u6CD5"><span class="toc-number">1.</span> <span class="toc-text">Hibernate出现Caused by: java.sql.SQLException: Field ‘id’ doesn’t have a default value解决方法</span></a></li></ol>
 		
 		</div>
 		
-		<ul>
-<li>前段时间参加了百度前端学院的前端学习，想着不用把别人前端页面代码下载下来就能预览的话，就方便多了，既能看代码，又能看到效果，还可以用chrome调试</li>
-</ul>
-<hr>
-<h2 id="u6B63_u6587"><a href="#u6B63_u6587" class="headerlink" title="正文"></a>正文</h2><ul>
-<li>方法一：通过第三方开源项目预览<ul>
-<li>访问<code>http://htmlpreview.github.io/</code><a href="http://htmlpreview.github.io/" target="_blank" rel="external">enter link description here</a> 填写你要预览的页面地址，Enter–&gt;Get</li>
-<li>得到这样格式的访问连接：<code>http://htmlpreview.github.io/?https://github.com/liangqian/ifeFPGetting/blob/master/Part1/task_01_01_01.html</code> 也就是 ：<code>http://htmlpreview.github.io/?</code>+目标预览页面地址</li>
-</ul>
-</li>
-<li>方法二：创建gh-pages分支进行预览<ul>
-<li>创建gh-pages分支进行预览，创建分支之后，访问<code>http://你的Github名.github.io/</code>+页面地址<br>例如：liangqian.github.io/preview/test.html</li>
-<li>这是官方的推荐方法 <a href="https://help.github.com/articles/creating-project-pages-manually/" target="_blank" rel="external">enter link description here</a></li>
+		<h2 id="Hibernate_u51FA_u73B0Caused_by_3A_java-sql-SQLException_3A_Field__u2018id_u2019_doesn_u2019t_have_a_default_value_u89E3_u51B3_u65B9_u6CD5"><a href="#Hibernate_u51FA_u73B0Caused_by_3A_java-sql-SQLException_3A_Field__u2018id_u2019_doesn_u2019t_have_a_default_value_u89E3_u51B3_u65B9_u6CD5" class="headerlink" title="Hibernate出现Caused by: java.sql.SQLException: Field ‘id’ doesn’t have a default value解决方法"></a>Hibernate出现Caused by: java.sql.SQLException: Field ‘id’ doesn’t have a default value解决方法</h2><ul>
+<li>原因：设计Mysql的id的时候，id使用主键策略，但是没有设置自动生成造成</li>
+<li>解决方案：<ul>
+<li>取消主键策略(下下策)；</li>
+<li>更改结构语句：为主键id添加<code>auto_increment</code>属性；也就是更改表结构</li>
 </ul>
 </li>
 </ul>
@@ -143,7 +129,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/小技巧/">小技巧</a>
+  <span></span> <a href="/tags/Hibernate/">Hibernate</a>
   </div>
 
 </div>
@@ -152,7 +138,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/03/16/在Github创建静态网站预览的方法/" data-title="在Github创建静态网站预览的方法 | Master a Day" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://yoursite.com/2016/06/05/Hibernate出现Caused-by-java-sql-SQLException-Field-id-doesn-t-have-a-default-value的解决方法/" data-title="Hibernate出现Caused by: java.sql.SQLException: Field &#39;id&#39; doesn&#39;t have a default value的解决方法 | Master a Day" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -165,19 +151,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/05/07/Java常识之构造器/" title="Java常识之构造器">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Java常识之构造器</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/02/13/hello-world/"  title="Hello World">
+<a href="/2016/06/05/关于Maven-打包时-缺失properties和xml后缀的文件/"  title="关于Maven 打包时 缺失properties和xml后缀的文件">
  <strong>下一篇：</strong><br/> 
- <span>Hello World
+ <span>关于Maven 打包时 缺失properties和xml后缀的文件
 </span>
 </a>
 </div>
@@ -186,7 +164,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/03/16/在Github创建静态网站预览的方法/" data-title="在Github创建静态网站预览的方法" data-url="http://yoursite.com/2016/03/16/在Github创建静态网站预览的方法/"></div>
+	<div class="ds-thread" data-thread-key="2016/06/05/Hibernate出现Caused-by-java-sql-SQLException-Field-id-doesn-t-have-a-default-value的解决方法/" data-title="Hibernate出现Caused by: java.sql.SQLException: Field 'id' doesn't have a default value的解决方法" data-url="http://yoursite.com/2016/06/05/Hibernate出现Caused-by-java-sql-SQLException-Field-id-doesn-t-have-a-default-value的解决方法/"></div>
 </section>
 
 
@@ -196,7 +174,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6B63_u6587"><span class="toc-number">1.</span> <span class="toc-text">正文</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hibernate_u51FA_u73B0Caused_by_3A_java-sql-SQLException_3A_Field__u2018id_u2019_doesn_u2019t_have_a_default_value_u89E3_u51B3_u65B9_u6CD5"><span class="toc-number">1.</span> <span class="toc-text">Hibernate出现Caused by: java.sql.SQLException: Field ‘id’ doesn’t have a default value解决方法</span></a></li></ol>
  
   </div>
 

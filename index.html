@@ -82,6 +82,71 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/06/05/Hibernate出现Caused-by-java-sql-SQLException-Field-id-doesn-t-have-a-default-value的解决方法/" title="Hibernate出现Caused by: java.sql.SQLException: Field &#39;id&#39; doesn&#39;t have a default value的解决方法" itemprop="url">Hibernate出现Caused by: java.sql.SQLException: Field &#39;id&#39; doesn&#39;t have a default value的解决方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-05T15:53:46.000Z" itemprop="datePublished"> 发表于 2016-06-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="Hibernate_u51FA_u73B0Caused_by_3A_java-sql-SQLException_3A_Field__u2018id_u2019_doesn_u2019t_have_a_default_value_u89E3_u51B3_u65B9_u6CD5"><a href="#Hibernate_u51FA_u73B0Caused_by_3A_java-sql-SQLException_3A_Field__u2018id_u2019_doesn_u2019t_have_a_default_value_u89E3_u51B3_u65B9_u6CD5" class="headerlink" title="Hibernate出现Caused by: java.sql.SQLException: Field ‘id’ doesn’t have a default value解决方法"></a>Hibernate出现Caused by: java.sql.SQLException: Field ‘id’ doesn’t have a default value解决方法</h2><ul>
+<li>原因：设计Mysql的id的时候，id使用主键策略，但是没有设置自动生成造成</li>
+<li>解决方案：<ul>
+<li>取消主键策略(下下策)；</li>
+<li>更改结构语句：为主键id添加<code>auto_increment</code>属性；也就是更改表结构</li>
+</ul>
+</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Hibernate/">Hibernate</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/06/05/Hibernate出现Caused-by-java-sql-SQLException-Field-id-doesn-t-have-a-default-value的解决方法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/05/Hibernate出现Caused-by-java-sql-SQLException-Field-id-doesn-t-have-a-default-value的解决方法/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/06/05/关于Maven-打包时-缺失properties和xml后缀的文件/" title="关于Maven 打包时 缺失properties和xml后缀的文件" itemprop="url">关于Maven 打包时 缺失properties和xml后缀的文件</a>
   </h1>
   <p class="article-author">By
@@ -572,6 +637,10 @@
 <div class="tagslist">
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Hibernate/" title="Hibernate">Hibernate<sup>1</sup></a></li>
+			
 		
 			
 				<li><a href="/tags/小笔记/" title="小笔记">小笔记<sup>1</sup></a></li>
