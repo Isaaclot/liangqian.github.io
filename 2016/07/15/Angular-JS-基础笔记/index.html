@@ -4,26 +4,50 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Hello World | Master a Day</title>
+    <title>Angular JS 基础笔记 | Master a Day</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Roy Leong">
     
 
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+    <meta name="description" content="AngularJS 开发
+使得开发现代的单一页面应用程序（SPAs：Single Page Applications）变得更加容易。
+Angular JS 把应用程序数据绑定到HTML元素
+Angular JS 可以克隆和重复HTML元素
+Angular JS 可以隐藏/显示HTML元素
+Angular JS 可以在元素背后添加代码
+Angular JS 支持输入验证
+
+$scope 作用域
+$s">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://royleo.xyz/2016/02/13/hello-world/index.html">
+<meta property="og:title" content="Angular JS 基础笔记">
+<meta property="og:url" content="http://royleo.xyz/2016/07/15/Angular-JS-基础笔记/index.html">
 <meta property="og:site_name" content="Master a Day">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-02-13T01:57:09.696Z">
+<meta property="og:description" content="AngularJS 开发
+使得开发现代的单一页面应用程序（SPAs：Single Page Applications）变得更加容易。
+Angular JS 把应用程序数据绑定到HTML元素
+Angular JS 可以克隆和重复HTML元素
+Angular JS 可以隐藏/显示HTML元素
+Angular JS 可以在元素背后添加代码
+Angular JS 支持输入验证
+
+$scope 作用域
+$s">
+<meta property="og:updated_time" content="2016-07-14T16:51:42.059Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="Angular JS 基础笔记">
+<meta name="twitter:description" content="AngularJS 开发
+使得开发现代的单一页面应用程序（SPAs：Single Page Applications）变得更加容易。
+Angular JS 把应用程序数据绑定到HTML元素
+Angular JS 可以克隆和重复HTML元素
+Angular JS 可以隐藏/显示HTML元素
+Angular JS 可以在元素背后添加代码
+Angular JS 支持输入验证
+
+$scope 作用域
+$s">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -84,14 +108,14 @@ Quick">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/02/13/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2016/07/15/Angular-JS-基础笔记/" title="Angular JS 基础笔记" itemprop="url">Angular JS 基础笔记</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-13T01:57:09.696Z" itemprop="datePublished"> 发表于 2016-02-13</time>
+    <time datetime="2016-07-14T16:48:37.000Z" itemprop="datePublished"> 发表于 2016-07-15</time>
     
   </p>
 </header>
@@ -100,24 +124,69 @@ Quick">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AngularJS__u5F00_u53D1"><span class="toc-number">1.</span> <span class="toc-text">AngularJS 开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#24scope__u4F5C_u7528_u57DF"><span class="toc-number">2.</span> <span class="toc-text">$scope 作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Angular_JS__u670D_u52A1"><span class="toc-number">3.</span> <span class="toc-text">Angular JS 服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Angular_JS__u6307_u4EE4"><span class="toc-number">4.</span> <span class="toc-text">Angular JS 指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Angular_JS__u4E8B_u4EF6"><span class="toc-number">5.</span> <span class="toc-text">Angular JS 事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u672A_u5B8C_u5F85_u7EED_u2026_u2026"><span class="toc-number">6.</span> <span class="toc-text">未完待续……</span></a></li></ol>
 		
 		</div>
 		
-		<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server"><a href="#Run_server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files"><a href="#Generate_static_files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-  
+		<h2 id="AngularJS__u5F00_u53D1"><a href="#AngularJS__u5F00_u53D1" class="headerlink" title="AngularJS 开发"></a>AngularJS 开发</h2><ul>
+<li>使得开发现代的单一页面应用程序（SPAs：Single Page Applications）变得更加容易。</li>
+<li>Angular JS 把应用程序数据绑定到HTML元素</li>
+<li>Angular JS 可以克隆和重复HTML元素</li>
+<li>Angular JS 可以隐藏/显示HTML元素</li>
+<li>Angular JS 可以在元素背后添加代码</li>
+<li>Angular JS 支持输入验证</li>
+</ul>
+<h2 id="24scope__u4F5C_u7528_u57DF"><a href="#24scope__u4F5C_u7528_u57DF" class="headerlink" title="$scope 作用域"></a>$scope 作用域</h2><ul>
+<li>$scope 对象当作一个参数传递</li>
+<li>带有属性和方法，这些属性和方法可以在视图和控制器中使用</li>
+<li>根作用域<code>$rootScope</code>: 可作用于整个应用中。是各个 controller 中 scope 的桥梁。用 rootscope 定义的值，可以在各个 controller 中使用。</li>
+</ul>
+<h2 id="Angular_JS__u670D_u52A1"><a href="#Angular_JS__u670D_u52A1" class="headerlink" title="Angular JS 服务"></a>Angular JS 服务</h2><ul>
+<li>$location : 返回当前页面的 URL 地址 ($location.absUrl();)</li>
+<li><p>$http :(例子)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var app = angular.module(&#39;myApp&#39;, []);&#10;app.controller(&#39;myCtrl&#39;, function($scope, $http) &#123;&#10;    $http.get(&#34;welcome.htm&#34;).then(function (response) &#123;&#10;        $scope.myWelcome = response.data;&#10;    &#125;);&#10;&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>$timeout 访问在规定的毫秒数后执行指定函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$timeout(function () &#123;&#10;      $scope.myHeader = &#34;How are you today?&#34;;&#10;  &#125;, 2000);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>$interval 访问在指定的周期(以毫秒计)来调用函数或计算表达式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$interval(function () &#123;&#10;     $scope.theTime = new Date().toLocaleTimeString();&#10; &#125;, 1000);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建自定义服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.service(&#39;hexafy&#39;, function() &#123;&#10;    this.myFunc = function (x) &#123;&#10;        return x.toString(16);&#10;    &#125;&#10;&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用自定义服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.controller(&#39;myCtrl&#39;, function($scope, hexafy) &#123;&#10;    $scope.hex = hexafy.myFunc(255);&#10;&#125;); //&#19981;&#21152;`$`&#21306;&#20998;&#33258;&#24102;&#21644;&#33258;&#23450;&#20041;&#26381;&#21153;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Angular_JS__u6307_u4EE4"><a href="#Angular_JS__u6307_u4EE4" class="headerlink" title="Angular JS 指令"></a>Angular JS 指令</h2><ul>
+<li>ng-app 指令初始化一个AngularJS应用程序</li>
+<li>ng-init 初始化一个应用程序数据</li>
+<li>ng-model 把元素值(比如输入域的值)绑定到应用程序中</li>
+<li><p>ng-repeat 指令会重复一个HTML元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;div ng-app=&#34;&#34; ng-init=&#34;names=[&#39;Jani&#39;,&#39;Hege&#39;,&#39;dasd&#39;];in=100&#34;&#62;&#10;  &#60;p&#62;&#20351;&#29992; ng-repeat &#26469;&#24490;&#29615;&#25968;&#32452;&#60;/p&#62;&#10;&#9;&#60;input type=number ng-model=&#34;in&#34; &#62;&#10;  &#60;ul&#62;&#10;    &#60;li ng-repeat=&#34;x in names&#34;&#62;&#10;      &#123;&#123; x &#125;&#125;&#10;    &#60;/li&#62;&#10;&#9;  &#60;li&#62;&#123;&#123;in&#125;&#125;&#60;/li&#62;&#10;  &#60;/ul&#62;&#10;&#60;/div&#62;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ng-disabled : 直接绑定应用程序数据到HTML的disabled属性 ; 当 标记记作 <code>true</code> 被标记的元素失效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;button ng-disabled=&#34;mySwitch&#34;&#62;&#28857;&#25105;!&#60;/button&#62;&#10;&#60;input type=&#34;checkbox&#34; ng-model=&#34;mySwitch&#34;&#62;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ng-show : 被标记元素标记为true时，改元素可见</p>
+</li>
+<li>ng-hide :  true —&gt; 不可见</li>
+</ul>
+<h2 id="Angular_JS__u4E8B_u4EF6"><a href="#Angular_JS__u4E8B_u4EF6" class="headerlink" title="Angular JS 事件"></a>Angular JS 事件</h2><ul>
+<li>ng-click : 定义ng的点击触发事件</li>
+</ul>
+<hr>
+<h2 id="u672A_u5B8C_u5F85_u7EED_u2026_u2026"><a href="#u672A_u5B8C_u5F85_u7EED_u2026_u2026" class="headerlink" title="未完待续……"></a>未完待续……</h2>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Angular-JS/">Angular JS</a>
+  </div>
 
 </div>
 
@@ -125,7 +194,7 @@ Quick">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://royleo.xyz/2016/02/13/hello-world/" data-title="Hello World | Master a Day" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://royleo.xyz/2016/07/15/Angular-JS-基础笔记/" data-title="Angular JS 基础笔记 | Master a Day" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -138,20 +207,20 @@ Quick">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/03/16/在Github创建静态网站预览的方法/" title="在Github创建静态网站预览的方法">
-  <strong>上一篇：</strong><br/>
-  <span>
-  在Github创建静态网站预览的方法</span>
+
+<div class="next">
+<a href="/2016/07/08/hibernate实现原理与思考/"  title="hibernate实现原理与思考">
+ <strong>下一篇：</strong><br/> 
+ <span>hibernate实现原理与思考
+</span>
 </a>
 </div>
-
 
 </nav>
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/02/13/hello-world/" data-title="Hello World" data-url="http://royleo.xyz/2016/02/13/hello-world/"></div>
+	<div class="ds-thread" data-thread-key="2016/07/15/Angular-JS-基础笔记/" data-title="Angular JS 基础笔记" data-url="http://royleo.xyz/2016/07/15/Angular-JS-基础笔记/"></div>
 </section>
 
 
@@ -161,7 +230,7 @@ Quick">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AngularJS__u5F00_u53D1"><span class="toc-number">1.</span> <span class="toc-text">AngularJS 开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#24scope__u4F5C_u7528_u57DF"><span class="toc-number">2.</span> <span class="toc-text">$scope 作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Angular_JS__u670D_u52A1"><span class="toc-number">3.</span> <span class="toc-text">Angular JS 服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Angular_JS__u6307_u4EE4"><span class="toc-number">4.</span> <span class="toc-text">Angular JS 指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Angular_JS__u4E8B_u4EF6"><span class="toc-number">5.</span> <span class="toc-text">Angular JS 事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u672A_u5B8C_u5F85_u7EED_u2026_u2026"><span class="toc-number">6.</span> <span class="toc-text">未完待续……</span></a></li></ol>
  
   </div>
 
