@@ -82,6 +82,80 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/07/16/AngularJS-核心特性/" title="AngularJS 核心特性" itemprop="url">AngularJS 核心特性</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2016-07-16T08:26:00.000Z" itemprop="datePublished"> 发表于 2016-07-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ul>
+<li>MVC : model - view - controller<ul>
+<li>切分代码职责</li>
+<li>便于模块化管理</li>
+</ul>
+</li>
+<li>模块化Module：一起都是从模块开始，其他都是在module的基础上调用</li>
+<li><p>指令系统</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">angular.module(&#34;mymodule&#34;,[]).directive(&#34;hello&#34;,function()&#123;&#10;&#9;return &#123;&#10;&#9;&#9;restrict: &#34;E&#34;,&#10;&#9;&#9;template: &#39;&#60;div&#62;Hi everyone&#60;/div&#62;&#39;&#10;&#9;&#9;replace: true&#10;&#9;&#125;&#10;&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>双向数据绑定</p>
+<ul>
+<li>单向数据绑定：先定义好模板跟数据结合，通过数据绑定机制，将模板跟数据生成一段html标签，再把生成的HTML标签加入到文档流中，但是当数据变化的时候，再去改变view页面的数据，复杂度高；并且view中的数据变换(输入)的时候，无法将改变传回来给model数据<br><img src="http://7xqvf0.com1.z0.glb.clouddn.com/%E5%8D%95%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A.png" alt="单向数据绑定"></li>
+<li>双向数据绑定：view中的数据变化的时候，数据模型发生变化，当model中的数据发生变化的时候，其中改变能直接反馈给view页面<br><img src="http://7xqvf0.com1.z0.glb.clouddn.com/%E5%8F%8C%E5%90%91.png" alt="双向数据绑定"></li>
+</ul>
+</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Angular-JS/">Angular JS</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/07/16/AngularJS-核心特性/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/07/16/AngularJS-核心特性/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/07/16/Spring-MVC请求处理工作流程/" title="Spring-MVC请求处理工作流程" itemprop="url">Spring-MVC请求处理工作流程</a>
   </h1>
   <p class="article-author">By
@@ -852,79 +926,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/03/16/在Github创建静态网站预览的方法/" title="在Github创建静态网站预览的方法" itemprop="url">在Github创建静态网站预览的方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-03-16T03:51:09.000Z" itemprop="datePublished"> 发表于 2016-03-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <ul>
-<li>前段时间参加了百度前端学院的前端学习，想着不用把别人前端页面代码下载下来就能预览的话，就方便多了，既能看代码，又能看到效果，还可以用chrome调试</li>
-</ul>
-<hr>
-<h2 id="u6B63_u6587"><a href="#u6B63_u6587" class="headerlink" title="正文"></a>正文</h2><ul>
-<li>方法一：通过第三方开源项目预览<ul>
-<li>访问<code>http://htmlpreview.github.io/</code><a href="http://htmlpreview.github.io/" target="_blank" rel="external">enter link description here</a> 填写你要预览的页面地址，Enter–&gt;Get</li>
-<li>得到这样格式的访问连接：<code>http://htmlpreview.github.io/?https://github.com/liangqian/ifeFPGetting/blob/master/Part1/task_01_01_01.html</code> 也就是 ：<code>http://htmlpreview.github.io/?</code>+目标预览页面地址</li>
-</ul>
-</li>
-<li>方法二：创建gh-pages分支进行预览<ul>
-<li>创建gh-pages分支进行预览，创建分支之后，访问<code>http://你的Github名.github.io/</code>+页面地址<br>例如：liangqian.github.io/preview/test.html</li>
-<li>这是官方的推荐方法 <a href="https://help.github.com/articles/creating-project-pages-manually/" target="_blank" rel="external">enter link description here</a></li>
-</ul>
-</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/小技巧/">小技巧</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/03/16/在Github创建静态网站预览的方法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/16/在Github创建静态网站预览的方法/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -959,6 +960,10 @@
 			
 		
 			
+				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/小笔记/" title="小笔记">小笔记<sup>1</sup></a></li>
 			
 		
@@ -980,10 +985,6 @@
 		
 			
 				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>1</sup></a></li>
 			
 		
 		</ul>
