@@ -4,35 +4,36 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>无法连接远程Mysql数据库的解决办法 I | Master a Day</title>
+    <title>Spring-MVC请求处理工作流程 | Master a Day</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Roy Leong">
     
 
     
-    <meta name="description" content="tips: “Can not connet to mysql  server on ‘192.168.2.3’ (10061)”
-很多时候想要远程登陆Mysql服务器，进行操作，发现弹出上面的提示…
-解决方案：
-可能没有启动Mysql服务：/etc/init.d/mysql start 启动服务
-查看配置文件 /etc/mysql/my.cnf 文件中绑定的ip地址是否为默认ip(127.0.0.">
+    <meta name="description" content="前言
+Spring Web MVC框架提供了model-view-controller 的体系结构，可以用来开发灵活的，借助spring的AOP特性，实现松耦合的Web应用程序组件；
+MVC模式导致了应用程序不同方面的分离(输入业务、逻辑业务和UI逻辑)，同时提供了这些元素之间的松散耦合
+Model：封装应用程序数据，并且通常由POJO组成
+View: 主要用于呈现模型数据，并且由它生成客户端浏览">
 <meta property="og:type" content="article">
-<meta property="og:title" content="无法连接远程Mysql数据库的解决办法 I">
-<meta property="og:url" content="http://royleo.xyz/2016/05/10/无法连接远程Mysql数据库的解决办法-I/index.html">
+<meta property="og:title" content="Spring-MVC请求处理工作流程">
+<meta property="og:url" content="http://royleo.xyz/2016/07/16/Spring-MVC请求处理工作流程/index.html">
 <meta property="og:site_name" content="Master a Day">
-<meta property="og:description" content="tips: “Can not connet to mysql  server on ‘192.168.2.3’ (10061)”
-很多时候想要远程登陆Mysql服务器，进行操作，发现弹出上面的提示…
-解决方案：
-可能没有启动Mysql服务：/etc/init.d/mysql start 启动服务
-查看配置文件 /etc/mysql/my.cnf 文件中绑定的ip地址是否为默认ip(127.0.0.">
-<meta property="og:updated_time" content="2016-05-10T15:21:15.674Z">
+<meta property="og:description" content="前言
+Spring Web MVC框架提供了model-view-controller 的体系结构，可以用来开发灵活的，借助spring的AOP特性，实现松耦合的Web应用程序组件；
+MVC模式导致了应用程序不同方面的分离(输入业务、逻辑业务和UI逻辑)，同时提供了这些元素之间的松散耦合
+Model：封装应用程序数据，并且通常由POJO组成
+View: 主要用于呈现模型数据，并且由它生成客户端浏览">
+<meta property="og:image" content="http://7xqvf0.com1.z0.glb.clouddn.com/mvc1.png">
+<meta property="og:updated_time" content="2016-07-16T07:42:39.264Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="无法连接远程Mysql数据库的解决办法 I">
-<meta name="twitter:description" content="tips: “Can not connet to mysql  server on ‘192.168.2.3’ (10061)”
-很多时候想要远程登陆Mysql服务器，进行操作，发现弹出上面的提示…
-解决方案：
-可能没有启动Mysql服务：/etc/init.d/mysql start 启动服务
-查看配置文件 /etc/mysql/my.cnf 文件中绑定的ip地址是否为默认ip(127.0.0.">
+<meta name="twitter:title" content="Spring-MVC请求处理工作流程">
+<meta name="twitter:description" content="前言
+Spring Web MVC框架提供了model-view-controller 的体系结构，可以用来开发灵活的，借助spring的AOP特性，实现松耦合的Web应用程序组件；
+MVC模式导致了应用程序不同方面的分离(输入业务、逻辑业务和UI逻辑)，同时提供了这些元素之间的松散耦合
+Model：封装应用程序数据，并且通常由POJO组成
+View: 主要用于呈现模型数据，并且由它生成客户端浏览">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -93,14 +94,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/05/10/无法连接远程Mysql数据库的解决办法-I/" title="无法连接远程Mysql数据库的解决办法 I" itemprop="url">无法连接远程Mysql数据库的解决办法 I</a>
+      <a href="/2016/07/16/Spring-MVC请求处理工作流程/" title="Spring-MVC请求处理工作流程" itemprop="url">Spring-MVC请求处理工作流程</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2016-05-10T15:02:32.000Z" itemprop="datePublished"> 发表于 2016-05-10</time>
+    <time datetime="2016-07-16T07:04:58.000Z" itemprop="datePublished"> 发表于 2016-07-16</time>
     
   </p>
 </header>
@@ -109,25 +110,42 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tips_3A__u201CCan_not_connet_to_mysql_server_on__u2018192-168-2-3_u2019__2810061_29_u201D"><span class="toc-number">1.</span> <span class="toc-text">tips: “Can not connet to mysql  server on ‘192.168.2.3’ (10061)”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u89E3_u51B3_u65B9_u6848_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">解决方案：</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u524D_u8A00"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DispatcherServlet"><span class="toc-number">2.</span> <span class="toc-text">DispatcherServlet</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u5DE5_u4F5C_u6D41_u7A0B_u5982_u4E0B_uFF1A"><span class="toc-number">2.0.1.</span> <span class="toc-text">工作流程如下：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5F53_u8BF7_u6C42_u89E6_u53D1_u7684_u65F6_u5019_u2026"><span class="toc-number">2.0.2.</span> <span class="toc-text">当请求触发的时候…</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u90E8_u5206_u914D_u7F6E_u4EE5_u53CA_u4EE3_u7801_u8BF4_u660E"><span class="toc-number">3.</span> <span class="toc-text">部分配置以及代码说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u62D3_u5C55"><span class="toc-number">4.</span> <span class="toc-text">拓展</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="tips_3A__u201CCan_not_connet_to_mysql_server_on__u2018192-168-2-3_u2019__2810061_29_u201D"><a href="#tips_3A__u201CCan_not_connet_to_mysql_server_on__u2018192-168-2-3_u2019__2810061_29_u201D" class="headerlink" title="tips: “Can not connet to mysql  server on ‘192.168.2.3’ (10061)”"></a>tips: “Can not connet to mysql  server on ‘192.168.2.3’ (10061)”</h2><ul>
-<li><p>很多时候想要远程登陆Mysql服务器，进行操作，发现弹出上面的提示…</p>
-<h2 id="u89E3_u51B3_u65B9_u6848_uFF1A"><a href="#u89E3_u51B3_u65B9_u6848_uFF1A" class="headerlink" title="解决方案："></a>解决方案：</h2><ul>
-<li>可能没有启动Mysql服务：<code>/etc/init.d/mysql start</code> 启动服务</li>
-<li><p>查看配置文件 <code>/etc/mysql/my.cnf</code> 文件中绑定的ip地址是否为默认ip(127.0.0.1)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu: vim /etc/mysql/my.cnf&#10;root@ubuntu:                      #&#20462;&#25913;my.cnf&#30340;&#25991;&#20214;&#37324;&#38754;&#30340;&#37197;&#32622;&#10;&#20462;&#25913; bind-adress = 127.0.0.1&#10;&#20026; bind-adress = &#26381;&#21153;&#22120;IP&#10;#&#36825;&#31181;&#24773;&#20917;&#26368;&#26174;&#33879;&#30340;&#29616;&#35937;&#26159;&#65306;&#36828;&#31243;&#30331;&#38470;&#19981;&#19978;Mysql&#26381;&#21153;&#22120;&#65292;&#20294;&#26159;&#26381;&#21153;&#22120;&#26412;&#22320;&#33021;&#30331;&#38470;&#36827;&#21435;mysql&#31243;&#24207;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>检查或者重置my.ini配置文件是否正确</p>
-</li>
-<li>Mysql服务器连接池已满，重新释放一下连接池，这时候你要重新评估你的连接数或者检测是否有恶意访问攻击什么的</li>
+		<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><ul>
+<li>Spring Web MVC框架提供了model-view-controller 的体系结构，可以用来开发灵活的，借助spring的AOP特性，实现松耦合的Web应用程序组件；</li>
+<li>MVC模式导致了应用程序不同方面的分离(输入业务、逻辑业务和UI逻辑)，同时提供了这些元素之间的松散耦合<ul>
+<li>Model：封装应用程序数据，并且通常由POJO组成</li>
+<li>View: 主要用于呈现模型数据，并且由它生成客户端浏览器能够解析的HTML输出</li>
+<li>Controller：主要用于处理客户请求，并且构建合适的模型，并传递给视图呈现<h2 id="DispatcherServlet"><a href="#DispatcherServlet" class="headerlink" title="DispatcherServlet"></a>DispatcherServlet</h2></li>
 </ul>
 </li>
+<li>Spring MVC框架中，DispatcherServlet用来处理所有的HTTP请求和响应<h4 id="u5DE5_u4F5C_u6D41_u7A0B_u5982_u4E0B_uFF1A"><a href="#u5DE5_u4F5C_u6D41_u7A0B_u5982_u4E0B_uFF1A" class="headerlink" title="工作流程如下："></a>工作流程如下：</h4><img src="http://7xqvf0.com1.z0.glb.clouddn.com/mvc1.png" alt="DispatcherServlet"><h4 id="u5F53_u8BF7_u6C42_u89E6_u53D1_u7684_u65F6_u5019_u2026"><a href="#u5F53_u8BF7_u6C42_u89E6_u53D1_u7684_u65F6_u5019_u2026" class="headerlink" title="当请求触发的时候…"></a>当请求触发的时候…</h4></li>
+<li>收到一个HTTP请求之后，DispatcherServlet根据HandlerMapping来选择并且调用适当的控制器</li>
+<li>控制器接受请求，并基于使用GET或者POST方法来调用适当的Service方法。Service方法将设置基于定义业务逻辑的数据模型，并返回视图名称到DispatcherServlet中</li>
+<li>DispatcherServlet在ViewResolver的协助下，检索获取指定的视图</li>
+<li>当视图确定之后，DispatcherServlet把模型数据传递给视图，最后在浏览器中呈现<h2 id="u90E8_u5206_u914D_u7F6E_u4EE5_u53CA_u4EE3_u7801_u8BF4_u660E"><a href="#u90E8_u5206_u914D_u7F6E_u4EE5_u53CA_u4EE3_u7801_u8BF4_u660E" class="headerlink" title="部分配置以及代码说明"></a>部分配置以及代码说明</h2></li>
+<li><p>初始化DispatcherServlet,导入Servlet-Name的应用配置文件<code>{servlet-name}-servlet.xml</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;servlet&#62;&#10;      &#60;servlet-name&#62;HelloWeb&#60;/servlet-name&#62;&#10;      &#60;servlet-class&#62;&#10;         org.springframework.web.servlet.DispatcherServlet&#10;      &#60;/servlet-class&#62;&#10;      &#60;load-on-startup&#62;1&#60;/load-on-startup&#62;&#10;   &#60;/servlet&#62;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义处理的URL类型(对应servlet-name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;servlet-mapping&#62;&#10;      &#60;servlet-name&#62;HelloWeb&#60;/servlet-name&#62;&#10;      &#60;url-pattern&#62;*.jsp&#60;/url-pattern&#62;&#10;   &#60;/servlet-mapping&#62;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义视图解决方案</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;bean class=&#34;org.springframework.web.servlet.view.InternalResourceViewResolver&#34;&#62;&#10;      &#60;property name=&#34;prefix&#34; value=&#34;/WEB-INF/jsp/&#34; /&#62;&#10;      &#60;property name=&#34;suffix&#34; value=&#34;.jsp&#34; /&#62;&#9;//&#25910;&#21040;DispatcherServlet&#36820;&#22238;&#30340;&#35270;&#22270;&#21517;&#31216;&#20043;&#21518;&#65292;&#26174;&#31034;`[viewName].jsp`&#25991;&#20214;&#10;   &#60;/bean&#62;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义控制器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Controller&#10;@RequestMapping(&#34;/hello&#34;)  //url&#36335;&#24452;&#10;public class HelloController&#123;&#10;   @RequestMapping(method = RequestMethod.GET) &#9;&#9;//&#20351;&#29992;GET&#26041;&#27861;&#10;   public String printHello(ModelMap model) &#123;&#10;      model.addAttribute(&#34;message&#34;, &#34;Hello Spring MVC Framework!&#34;); &#9;//&#32465;&#23450;Message&#23646;&#24615;&#30340;&#20540;&#65292;&#24182;&#20256;&#36882;&#32473;DispatcherServlet&#10;      return &#34;viewName&#34;;  &#9;&#9;//&#36820;&#22238;&#32473;DispatcherServlet&#30340;&#35270;&#22270;&#21517;&#31216;&#10;   &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>视图,下例是一个jsp文件的部分代码，message是在控制器内部设置的属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;html&#62;&#10;   &#60;head&#62;&#10;   &#60;title&#62;Hello Spring MVC&#60;/title&#62;&#10;   &#60;/head&#62;&#10;   &#60;body&#62;&#10;   &#60;h2&#62;$&#123;message&#125;&#60;/h2&#62;&#10;   &#60;/body&#62;&#10;&#60;/html&#62;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<hr>
-<p>  如果找partner，要物色好可靠的人选；不然，两人的价值观不一样，做事情的效率跟质量都不一样。</p>
+<h2 id="u62D3_u5C55"><a href="#u62D3_u5C55" class="headerlink" title="拓展"></a>拓展</h2><ul>
+<li>目前流行的Restful风格的设计，可以借助Spring-MVC实现，更好的实现前后端分离，控制器之间通过DispatcherServlet，给View页面传递一组 JSON 或者是 XML 等形式的数据，view接受到数据之后，通过Angular JS等其他一些Javascript的一些单页框架，处理后端传过来的数据，并显示出来.</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -136,7 +154,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/小笔记/">小笔记</a>
+  <span></span> <a href="/tags/Spring/">Spring</a>
   </div>
 
 </div>
@@ -145,7 +163,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://royleo.xyz/2016/05/10/无法连接远程Mysql数据库的解决办法-I/" data-title="无法连接远程Mysql数据库的解决办法 I | Master a Day" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://royleo.xyz/2016/07/16/Spring-MVC请求处理工作流程/" data-title="Spring-MVC请求处理工作流程 | Master a Day" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -158,19 +176,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/06/05/关于Maven-打包时-缺失properties和xml后缀的文件/" title="关于Maven 打包时 缺失properties和xml后缀的文件">
-  <strong>上一篇：</strong><br/>
-  <span>
-  关于Maven 打包时 缺失properties和xml后缀的文件</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/05/08/Java垃圾回收之finalize/"  title="Java垃圾回收之finalize()">
+<a href="/2016/07/15/Angular-JS-基础笔记/"  title="Angular JS 基础笔记">
  <strong>下一篇：</strong><br/> 
- <span>Java垃圾回收之finalize()
+ <span>Angular JS 基础笔记
 </span>
 </a>
 </div>
@@ -179,7 +189,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/05/10/无法连接远程Mysql数据库的解决办法-I/" data-title="无法连接远程Mysql数据库的解决办法 I" data-url="http://royleo.xyz/2016/05/10/无法连接远程Mysql数据库的解决办法-I/"></div>
+	<div class="ds-thread" data-thread-key="2016/07/16/Spring-MVC请求处理工作流程/" data-title="Spring-MVC请求处理工作流程" data-url="http://royleo.xyz/2016/07/16/Spring-MVC请求处理工作流程/"></div>
 </section>
 
 
@@ -189,7 +199,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tips_3A__u201CCan_not_connet_to_mysql_server_on__u2018192-168-2-3_u2019__2810061_29_u201D"><span class="toc-number">1.</span> <span class="toc-text">tips: “Can not connet to mysql  server on ‘192.168.2.3’ (10061)”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u89E3_u51B3_u65B9_u6848_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">解决方案：</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u524D_u8A00"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DispatcherServlet"><span class="toc-number">2.</span> <span class="toc-text">DispatcherServlet</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u5DE5_u4F5C_u6D41_u7A0B_u5982_u4E0B_uFF1A"><span class="toc-number">2.0.1.</span> <span class="toc-text">工作流程如下：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5F53_u8BF7_u6C42_u89E6_u53D1_u7684_u65F6_u5019_u2026"><span class="toc-number">2.0.2.</span> <span class="toc-text">当请求触发的时候…</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u90E8_u5206_u914D_u7F6E_u4EE5_u53CA_u4EE3_u7801_u8BF4_u660E"><span class="toc-number">3.</span> <span class="toc-text">部分配置以及代码说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u62D3_u5C55"><span class="toc-number">4.</span> <span class="toc-text">拓展</span></a></li></ol>
  
   </div>
 

@@ -82,6 +82,95 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/07/16/Spring-MVC请求处理工作流程/" title="Spring-MVC请求处理工作流程" itemprop="url">Spring-MVC请求处理工作流程</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2016-07-16T07:04:58.000Z" itemprop="datePublished"> 发表于 2016-07-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><ul>
+<li>Spring Web MVC框架提供了model-view-controller 的体系结构，可以用来开发灵活的，借助spring的AOP特性，实现松耦合的Web应用程序组件；</li>
+<li>MVC模式导致了应用程序不同方面的分离(输入业务、逻辑业务和UI逻辑)，同时提供了这些元素之间的松散耦合<ul>
+<li>Model：封装应用程序数据，并且通常由POJO组成</li>
+<li>View: 主要用于呈现模型数据，并且由它生成客户端浏览器能够解析的HTML输出</li>
+<li>Controller：主要用于处理客户请求，并且构建合适的模型，并传递给视图呈现<h2 id="DispatcherServlet"><a href="#DispatcherServlet" class="headerlink" title="DispatcherServlet"></a>DispatcherServlet</h2></li>
+</ul>
+</li>
+<li>Spring MVC框架中，DispatcherServlet用来处理所有的HTTP请求和响应<h4 id="u5DE5_u4F5C_u6D41_u7A0B_u5982_u4E0B_uFF1A"><a href="#u5DE5_u4F5C_u6D41_u7A0B_u5982_u4E0B_uFF1A" class="headerlink" title="工作流程如下："></a>工作流程如下：</h4><img src="http://7xqvf0.com1.z0.glb.clouddn.com/mvc1.png" alt="DispatcherServlet"><h4 id="u5F53_u8BF7_u6C42_u89E6_u53D1_u7684_u65F6_u5019_u2026"><a href="#u5F53_u8BF7_u6C42_u89E6_u53D1_u7684_u65F6_u5019_u2026" class="headerlink" title="当请求触发的时候…"></a>当请求触发的时候…</h4></li>
+<li>收到一个HTTP请求之后，DispatcherServlet根据HandlerMapping来选择并且调用适当的控制器</li>
+<li>控制器接受请求，并基于使用GET或者POST方法来调用适当的Service方法。Service方法将设置基于定义业务逻辑的数据模型，并返回视图名称到DispatcherServlet中</li>
+<li>DispatcherServlet在ViewResolver的协助下，检索获取指定的视图</li>
+<li>当视图确定之后，DispatcherServlet把模型数据传递给视图，最后在浏览器中呈现<h2 id="u90E8_u5206_u914D_u7F6E_u4EE5_u53CA_u4EE3_u7801_u8BF4_u660E"><a href="#u90E8_u5206_u914D_u7F6E_u4EE5_u53CA_u4EE3_u7801_u8BF4_u660E" class="headerlink" title="部分配置以及代码说明"></a>部分配置以及代码说明</h2></li>
+<li><p>初始化DispatcherServlet,导入Servlet-Name的应用配置文件<code>{servlet-name}-servlet.xml</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;servlet&#62;&#10;      &#60;servlet-name&#62;HelloWeb&#60;/servlet-name&#62;&#10;      &#60;servlet-class&#62;&#10;         org.springframework.web.servlet.DispatcherServlet&#10;      &#60;/servlet-class&#62;&#10;      &#60;load-on-startup&#62;1&#60;/load-on-startup&#62;&#10;   &#60;/servlet&#62;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义处理的URL类型(对应servlet-name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;servlet-mapping&#62;&#10;      &#60;servlet-name&#62;HelloWeb&#60;/servlet-name&#62;&#10;      &#60;url-pattern&#62;*.jsp&#60;/url-pattern&#62;&#10;   &#60;/servlet-mapping&#62;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义视图解决方案</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;bean class=&#34;org.springframework.web.servlet.view.InternalResourceViewResolver&#34;&#62;&#10;      &#60;property name=&#34;prefix&#34; value=&#34;/WEB-INF/jsp/&#34; /&#62;&#10;      &#60;property name=&#34;suffix&#34; value=&#34;.jsp&#34; /&#62;&#9;//&#25910;&#21040;DispatcherServlet&#36820;&#22238;&#30340;&#35270;&#22270;&#21517;&#31216;&#20043;&#21518;&#65292;&#26174;&#31034;`[viewName].jsp`&#25991;&#20214;&#10;   &#60;/bean&#62;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义控制器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Controller&#10;@RequestMapping(&#34;/hello&#34;)  //url&#36335;&#24452;&#10;public class HelloController&#123;&#10;   @RequestMapping(method = RequestMethod.GET) &#9;&#9;//&#20351;&#29992;GET&#26041;&#27861;&#10;   public String printHello(ModelMap model) &#123;&#10;      model.addAttribute(&#34;message&#34;, &#34;Hello Spring MVC Framework!&#34;); &#9;//&#32465;&#23450;Message&#23646;&#24615;&#30340;&#20540;&#65292;&#24182;&#20256;&#36882;&#32473;DispatcherServlet&#10;      return &#34;viewName&#34;;  &#9;&#9;//&#36820;&#22238;&#32473;DispatcherServlet&#30340;&#35270;&#22270;&#21517;&#31216;&#10;   &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>视图,下例是一个jsp文件的部分代码，message是在控制器内部设置的属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;html&#62;&#10;   &#60;head&#62;&#10;   &#60;title&#62;Hello Spring MVC&#60;/title&#62;&#10;   &#60;/head&#62;&#10;   &#60;body&#62;&#10;   &#60;h2&#62;$&#123;message&#125;&#60;/h2&#62;&#10;   &#60;/body&#62;&#10;&#60;/html&#62;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="u62D3_u5C55"><a href="#u62D3_u5C55" class="headerlink" title="拓展"></a>拓展</h2><ul>
+<li>目前流行的Restful风格的设计，可以借助Spring-MVC实现，更好的实现前后端分离，控制器之间通过DispatcherServlet，给View页面传递一组 JSON 或者是 XML 等形式的数据，view接受到数据之后，通过Angular JS等其他一些Javascript的一些单页框架，处理后端传过来的数据，并显示出来.</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Spring/">Spring</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/07/16/Spring-MVC请求处理工作流程/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/07/16/Spring-MVC请求处理工作流程/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/07/15/Angular-JS-基础笔记/" title="Angular JS 基础笔记" itemprop="url">Angular JS 基础笔记</a>
   </h1>
   <p class="article-author">By
@@ -834,67 +923,10 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/02/13/hello-world/" title="Hello World" itemprop="url">Hello World</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-02-13T01:57:09.696Z" itemprop="datePublished"> 发表于 2016-02-13</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server"><a href="#Run_server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files"><a href="#Generate_static_files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/02/13/hello-world/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/13/hello-world/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
+  <nav id="page-nav" class="clearfix">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+  </nav>
 
 </div>
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
@@ -934,6 +966,10 @@
 		
 			
 				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Spring/" title="Spring">Spring<sup>1</sup></a></li>
 			
 		
 			
