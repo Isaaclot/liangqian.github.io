@@ -1,0 +1,579 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Spring MVC常用的控制器方法与使用 | Master a Day</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Roy Leong">
+    
+
+    
+    <meta name="description" content="Spring mvc 控制器与方法@Controller定义一个Controller控制器
+在使用这个标记主注解之前需要配置控制器(两种方法)    
+在Spring MVC配置文件中添加&amp;lt;bean&amp;gt;对象：&amp;lt;bean class=&amp;quot;xyz.royleo.vice&amp;quot;/&amp;gt;
+在spring配置文件中@Controller控制器的位置：1&amp;#60; contex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring MVC常用的控制器方法与使用">
+<meta property="og:url" content="http://royleo.xyz/2016/07/19/Spring-MVC常用的控制器方法与使用/index.html">
+<meta property="og:site_name" content="Master a Day">
+<meta property="og:description" content="Spring mvc 控制器与方法@Controller定义一个Controller控制器
+在使用这个标记主注解之前需要配置控制器(两种方法)    
+在Spring MVC配置文件中添加&amp;lt;bean&amp;gt;对象：&amp;lt;bean class=&amp;quot;xyz.royleo.vice&amp;quot;/&amp;gt;
+在spring配置文件中@Controller控制器的位置：1&amp;#60; contex">
+<meta property="og:updated_time" content="2016-07-18T16:28:35.516Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring MVC常用的控制器方法与使用">
+<meta name="twitter:description" content="Spring mvc 控制器与方法@Controller定义一个Controller控制器
+在使用这个标记主注解之前需要配置控制器(两种方法)    
+在Spring MVC配置文件中添加&amp;lt;bean&amp;gt;对象：&amp;lt;bean class=&amp;quot;xyz.royleo.vice&amp;quot;/&amp;gt;
+在spring配置文件中@Controller控制器的位置：1&amp;#60; contex">
+<link rel="publisher" href="+RoyLeong">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Master a Day" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Master a Day" title="Master a Day"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Master a Day">Master a Day</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:royleo.xyz">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/07/19/Spring-MVC常用的控制器方法与使用/" title="Spring MVC常用的控制器方法与使用" itemprop="url">Spring MVC常用的控制器方法与使用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2016-07-18T16:27:20.000Z" itemprop="datePublished"> 发表于 2016-07-19</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring_mvc__u63A7_u5236_u5668_u4E0E_u65B9_u6CD5"><span class="toc-number">1.</span> <span class="toc-text">Spring mvc 控制器与方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#@Controller_u5B9A_u4E49_u4E00_u4E2AController_u63A7_u5236_u5668"><span class="toc-number">1.0.1.</span> <span class="toc-text">@Controller定义一个Controller控制器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#@RequestMapping_u6765_u6620_u5C04Request_u8BF7_u6C42_u4E0E_u63A7_u5236_u5668"><span class="toc-number">1.0.2.</span> <span class="toc-text">@RequestMapping来映射Request请求与控制器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HttpServletRequest__26amp_3B_HttpServletResponse__26amp_3B_HttpSession_u2026"><span class="toc-number">1.0.3.</span> <span class="toc-text">HttpServletRequest & HttpServletResponse & HttpSession…</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u63A7_u5236_u5668_u7684_u91CD_u5B9A_u5411"><span class="toc-number">1.0.4.</span> <span class="toc-text">控制器的重定向</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528@CookieValue_u7ED1_u5B9Acookie_u6570_u503C_u5230Controller_u65B9_u6CD5_u53C2_u6570"><span class="toc-number">1.0.5.</span> <span class="toc-text">使用@CookieValue绑定cookie数值到Controller方法参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528@RequestHeader_u6CE8_u89E3_u7ED1_u5B9AHttpServletRequest_u5934_u4FE1_u606F_u5230Controller_u65B9_u6CD5_u53C2_u6570"><span class="toc-number">1.0.6.</span> <span class="toc-text">使用@RequestHeader注解绑定HttpServletRequest头信息到Controller方法参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#@RequestMapping_u7684_u4E00_u4E9B_u9AD8_u7EA7_u5E94_u7528"><span class="toc-number">1.0.7.</span> <span class="toc-text">@RequestMapping的一些高级应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4EE5_@RequestMapping__u6807_u8BB0_u7684_u5904_u7406_u5668_u65B9_u6CD5_u652F_u6301_u7684_u65B9_u6CD5_u53C2_u6570_u548C_u8FD4_u56DE_u7C7B_u578B"><span class="toc-number">1.0.8.</span> <span class="toc-text">以 @RequestMapping 标记的处理器方法支持的方法参数和返回类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528_@ModelAttribute__u548C_@SessionAttributes__u4F20_u9012_u548C_u4FDD_u5B58_u6570_u636E"><span class="toc-number">1.0.9.</span> <span class="toc-text">使用 @ModelAttribute 和 @SessionAttributes 传递和保存数据</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="Spring_mvc__u63A7_u5236_u5668_u4E0E_u65B9_u6CD5"><a href="#Spring_mvc__u63A7_u5236_u5668_u4E0E_u65B9_u6CD5" class="headerlink" title="Spring mvc 控制器与方法"></a>Spring mvc 控制器与方法</h2><h4 id="@Controller_u5B9A_u4E49_u4E00_u4E2AController_u63A7_u5236_u5668"><a href="#@Controller_u5B9A_u4E49_u4E00_u4E2AController_u63A7_u5236_u5668" class="headerlink" title="@Controller定义一个Controller控制器"></a>@Controller定义一个Controller控制器</h4><ul>
+<li>在使用这个标记主注解之前需要配置控制器(两种方法)    <ul>
+<li>在Spring MVC配置文件中添加<code>&lt;bean&gt;</code>对象：<code>&lt;bean class=&quot;xyz.royleo.vice&quot;/&gt;</code></li>
+<li>在spring配置文件中@Controller控制器的位置：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60; context:component-scan base-package = &#34;com.host.app.web.controller&#34; &#62;  &#10;   &#60; context:exclude-filter type = &#34;annotation&#34;  &#10;       expression = &#34;org.springframework.stereotype.Service&#34; /&#62;  &#10;&#60;/ context:component-scan &#62;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="@RequestMapping_u6765_u6620_u5C04Request_u8BF7_u6C42_u4E0E_u63A7_u5236_u5668"><a href="#@RequestMapping_u6765_u6620_u5C04Request_u8BF7_u6C42_u4E0E_u63A7_u5236_u5668" class="headerlink" title="@RequestMapping来映射Request请求与控制器"></a>@RequestMapping来映射Request请求与控制器</h4><ul>
+<li><p>通过URL模板实现 : 在URL模板中含有变量值,再在<code>@requestMapping</code>的方法里面，通过<code>@PathVariable</code>获取通过RUL传过来的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Controller  &#10;@RequestMapping ( &#34;/test/&#123;variable1&#125;&#34; )  &#10;public class MyController &#123;  &#10;    @RequestMapping ( &#34;/showView/&#123;variable2&#125;&#34; )  &#10;    public ModelAndView showView( @PathVariable String variable1, @PathVariable ( &#34;variable2&#34; ) int variable2) &#123;  &#10;&#9;&#9;//do something &#10;       return modelAndView;  &#10;    &#125;  &#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用<code>@RequestParam</code>绑定HttpServletRequest请求参数到控制器方法参数</p>
+<ul>
+<li>其中，有requested=false是可选的参数，默认是必须的<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping ( &#34;requestParam&#34; )  &#10;ublic String testRequestParam( @RequestParam(required=false) String name, @RequestParam ( &#34;age&#34; ) int age) &#123;  &#10;   return &#34;requestParam&#34; ;  &#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="HttpServletRequest__26amp_3B_HttpServletResponse__26amp_3B_HttpSession_u2026"><a href="#HttpServletRequest__26amp_3B_HttpServletResponse__26amp_3B_HttpSession_u2026" class="headerlink" title="HttpServletRequest &amp; HttpServletResponse &amp; HttpSession…"></a>HttpServletRequest &amp; HttpServletResponse &amp; HttpSession…</h4><ul>
+<li>跟普通的Servlet一样，spring mvc中也可以用servlet里面的方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&#34;/somePath&#34;)&#10;   public String requestResponseExample(HttpServletRequest request, HttpServletResponse reponses, HttpSession session, Model model) &#123;&#10;&#9; // Todo something here&#10;       return &#34;someView&#34;;&#10;   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="u63A7_u5236_u5668_u7684_u91CD_u5B9A_u5411"><a href="#u63A7_u5236_u5668_u7684_u91CD_u5B9A_u5411" class="headerlink" title="控制器的重定向"></a>控制器的重定向</h4><ul>
+<li>使用前缀：<code>redirect</code>该方法返回字符串，可以重定向到另一页面<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value = &#34;/redirect&#34;, method = RequestMethod.GET)&#10;    public String authorInfo(Model model) &#123;&#10;&#9; // Do somethong here&#10;&#9;  return &#34;redirect:/hello&#34;;&#10;    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="u4F7F_u7528@CookieValue_u7ED1_u5B9Acookie_u6570_u503C_u5230Controller_u65B9_u6CD5_u53C2_u6570"><a href="#u4F7F_u7528@CookieValue_u7ED1_u5B9Acookie_u6570_u503C_u5230Controller_u65B9_u6CD5_u53C2_u6570" class="headerlink" title="使用@CookieValue绑定cookie数值到Controller方法参数"></a>使用<code>@CookieValue</code>绑定cookie数值到Controller方法参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping ( &#34;cookieValue&#34; )&#10;public String testCookieValue( @CookieValue ( &#34;hello&#34; ) String cookieValue, @CookieValue String hello) &#123;&#10; //do something&#10;   return &#34;cookieValue&#34; ;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="u4F7F_u7528@RequestHeader_u6CE8_u89E3_u7ED1_u5B9AHttpServletRequest_u5934_u4FE1_u606F_u5230Controller_u65B9_u6CD5_u53C2_u6570"><a href="#u4F7F_u7528@RequestHeader_u6CE8_u89E3_u7ED1_u5B9AHttpServletRequest_u5934_u4FE1_u606F_u5230Controller_u65B9_u6CD5_u53C2_u6570" class="headerlink" title="使用@RequestHeader注解绑定HttpServletRequest头信息到Controller方法参数"></a>使用<code>@RequestHeader</code>注解绑定HttpServletRequest头信息到Controller方法参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping ( &#34;testRequestHeader&#34; )&#10;public String testRequestHeader( @RequestHeader ( &#34;Host&#34; ) String hostAddr, @RequestHeader String Host, @RequestHeader String host ) &#123;&#10;   //use Host... do something&#10;    return &#34;requestHeader&#34; ;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="@RequestMapping_u7684_u4E00_u4E9B_u9AD8_u7EA7_u5E94_u7528"><a href="#@RequestMapping_u7684_u4E00_u4E9B_u9AD8_u7EA7_u5E94_u7528" class="headerlink" title="@RequestMapping的一些高级应用"></a><code>@RequestMapping</code>的一些高级应用</h4><ul>
+<li>RequestMapping除了指定的路径value值之外，还有其他的一些属性，如：params，method，headers等,便于缩小映射范围</li>
+<li><p><code>params</code>属性：</p>
+<ul>
+<li>例子说明：代码中定义了映射的路径，params的三个参数，当映射路径<code>/testParams.do</code>并且满足params的规则(param1等于value1，param2必须存在，值无所谓，param3必须不存在)，才能正确映射到testParams()方法. 即：<code>/testParams.do?param2=value&amp;param2=value2</code>才能访问指定方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping (value= &#34;testParams&#34; , params=&#123; &#34;param1=value1&#34; , &#34;param2&#34; , &#34;!param3&#34; &#125;)  &#10;public String testParams() &#123;  &#10;   System. out .println( &#34;test Params...........&#34; );  &#10;   return &#34;testParams&#34; ;  &#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>method属性:主要用于限制能访问的方法类型(GET,POST,DELETE…)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping (value= &#34;testMethod&#34; , method=&#123;RequestMethod. GET , RequestMethod. DELETE &#125;)  &#10;public String testMethod() &#123;  &#10;   return &#34;method&#34; ;  &#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>headers</code>属性</p>
+<ul>
+<li>headers 属性的用法和功能与params 属性相似。在上面的代码中当请求/testHeaders.do 的时候只有当请求头包含Accept 信息，且请求的host 为localhost 的时候才能正确的访问到testHeaders 方法。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping (value= &#34;testHeaders&#34; , headers=&#123; &#34;host=localhost&#34; , &#34;Accept&#34; &#125;)  &#10;public String testHeaders() &#123;  &#10;   return &#34;headers&#34; ;  &#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="u4EE5_@RequestMapping__u6807_u8BB0_u7684_u5904_u7406_u5668_u65B9_u6CD5_u652F_u6301_u7684_u65B9_u6CD5_u53C2_u6570_u548C_u8FD4_u56DE_u7C7B_u578B"><a href="#u4EE5_@RequestMapping__u6807_u8BB0_u7684_u5904_u7406_u5668_u65B9_u6CD5_u652F_u6301_u7684_u65B9_u6CD5_u53C2_u6570_u548C_u8FD4_u56DE_u7C7B_u578B" class="headerlink" title="以 @RequestMapping 标记的处理器方法支持的方法参数和返回类型"></a>以 @RequestMapping 标记的处理器方法支持的方法参数和返回类型</h4><ul>
+<li>支持的方法参数类型<ul>
+<li>HttpServlet对象：HttpServletRequest、HttpServletResponse、HttpSession</li>
+<li>Spring自己的WebRequest对象</li>
+<li>InputStream、OutputStream、read、write</li>
+<li>使用 @pathVariable @RequestParam @CookieValue @RequestHeader 标记的参数</li>
+<li>使用 @ModelAttribute 标记的参数</li>
+<li>java.util.Map 、Spring 封装的Model 和ModelMap：用来展现视图</li>
+<li>实体类</li>
+<li>Spring封装的MutipartFile,用来上传文件</li>
+<li>Spring 封装的Errors 和BindingResult 对象</li>
+</ul>
+</li>
+<li>支持的返回类型<ul>
+<li>一个包含模型和视图的ModelAndView 对象</li>
+<li>一个模型对象，这主要包括Spring 封装好的Model 和ModelMap ，以及java.util.Map ，当没有视图返回的时候视图名称将由RequestToViewNameTranslator 来决定</li>
+<li>一个View 对象。这个时候如果在渲染视图的过程中模型的话就可以给处理器方法定义一个模型参数，然后在方法体里面往模型中添加值</li>
+<li>一个String字符串、返回JSON对象(主要是Restful风格，前后端通信)</li>
+<li>返回值是void：主要方法体接受传值，执行相关逻辑，返回值可以忽略</li>
+<li>如果处理器方法被注解@ResponseBody 标记的话，那么处理器方法的任何返回类型都会通过HttpMessageConverters 转换之后写到HttpServletResponse 中，而不会像上面的那些情况一样当做视图或者模型来处理</li>
+<li>除以上几种情况之外的其他任何返回类型都会被当做模型中的一个属性来处理，而返回的视图还是由RequestToViewNameTranslator 来决定，添加到模型中的属性名称可以在该方法上用@ModelAttribute(“attributeName”) 来定义，否则将使用返回类型的类名称的首字母小写形式来表示。使用@ModelAttribute 标记的方法会在@RequestMapping 标记的方法执行之前执行<h4 id="u4F7F_u7528_@ModelAttribute__u548C_@SessionAttributes__u4F20_u9012_u548C_u4FDD_u5B58_u6570_u636E"><a href="#u4F7F_u7528_@ModelAttribute__u548C_@SessionAttributes__u4F20_u9012_u548C_u4FDD_u5B58_u6570_u636E" class="headerlink" title="使用 @ModelAttribute 和 @SessionAttributes 传递和保存数据"></a>使用 @ModelAttribute 和 @SessionAttributes 传递和保存数据</h4></li>
+</ul>
+</li>
+<li>@ModelAttribute标记一般放在需要标记的上面，并指定相关值，当@RequestMapping调用属性参数获取的时候执行</li>
+<li>@SessionAttribute 标记一般放在@RequestMapping注解的下面，类名的上面。被@SessionAttribute标记的参数的数值需要被添加到Session中之后，在读取出来之后才有内容；当然，添加的标记的参数类型可以是字符串，数组，实体对象等</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Spring/">Spring</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://royleo.xyz/2016/07/19/Spring-MVC常用的控制器方法与使用/" data-title="Spring MVC常用的控制器方法与使用 | Master a Day" data-tsina="5357792662" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/07/16/AngularJS-核心特性/"  title="AngularJS 核心特性">
+ <strong>下一篇：</strong><br/> 
+ <span>AngularJS 核心特性
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/07/19/Spring-MVC常用的控制器方法与使用/" data-title="Spring MVC常用的控制器方法与使用" data-url="http://royleo.xyz/2016/07/19/Spring-MVC常用的控制器方法与使用/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring_mvc__u63A7_u5236_u5668_u4E0E_u65B9_u6CD5"><span class="toc-number">1.</span> <span class="toc-text">Spring mvc 控制器与方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#@Controller_u5B9A_u4E49_u4E00_u4E2AController_u63A7_u5236_u5668"><span class="toc-number">1.0.1.</span> <span class="toc-text">@Controller定义一个Controller控制器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#@RequestMapping_u6765_u6620_u5C04Request_u8BF7_u6C42_u4E0E_u63A7_u5236_u5668"><span class="toc-number">1.0.2.</span> <span class="toc-text">@RequestMapping来映射Request请求与控制器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HttpServletRequest__26amp_3B_HttpServletResponse__26amp_3B_HttpSession_u2026"><span class="toc-number">1.0.3.</span> <span class="toc-text">HttpServletRequest & HttpServletResponse & HttpSession…</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u63A7_u5236_u5668_u7684_u91CD_u5B9A_u5411"><span class="toc-number">1.0.4.</span> <span class="toc-text">控制器的重定向</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528@CookieValue_u7ED1_u5B9Acookie_u6570_u503C_u5230Controller_u65B9_u6CD5_u53C2_u6570"><span class="toc-number">1.0.5.</span> <span class="toc-text">使用@CookieValue绑定cookie数值到Controller方法参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528@RequestHeader_u6CE8_u89E3_u7ED1_u5B9AHttpServletRequest_u5934_u4FE1_u606F_u5230Controller_u65B9_u6CD5_u53C2_u6570"><span class="toc-number">1.0.6.</span> <span class="toc-text">使用@RequestHeader注解绑定HttpServletRequest头信息到Controller方法参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#@RequestMapping_u7684_u4E00_u4E9B_u9AD8_u7EA7_u5E94_u7528"><span class="toc-number">1.0.7.</span> <span class="toc-text">@RequestMapping的一些高级应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4EE5_@RequestMapping__u6807_u8BB0_u7684_u5904_u7406_u5668_u65B9_u6CD5_u652F_u6301_u7684_u65B9_u6CD5_u53C2_u6570_u548C_u8FD4_u56DE_u7C7B_u578B"><span class="toc-number">1.0.8.</span> <span class="toc-text">以 @RequestMapping 标记的处理器方法支持的方法参数和返回类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528_@ModelAttribute__u548C_@SessionAttributes__u4F20_u9012_u548C_u4FDD_u5B58_u6570_u636E"><span class="toc-number">1.0.9.</span> <span class="toc-text">使用 @ModelAttribute 和 @SessionAttributes 传递和保存数据</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="liangqian" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Hibernate/" title="Hibernate">Hibernate<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Spring/" title="Spring">Spring<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/小笔记/" title="小笔记">小笔记<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/小技巧/" title="小技巧">小技巧<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=5357792662&verifier=747e40f9&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 大音希声，重剑无锋 <br/>
+			In solitude, be a multitude to yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/5357792662" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/liangqian" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		<a href="https://www.facebook.com/roy.leong.589" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		<a href="https://plus.google.com/+RoyLeong?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:liangqian0723@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Roy Leong">Roy Leong</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"liangqian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

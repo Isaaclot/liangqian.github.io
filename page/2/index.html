@@ -82,6 +82,82 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/05/07/Java常识之构造器/" title="Java常识之构造器" itemprop="url">Java常识之构造器</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-07T15:55:51.000Z" itemprop="datePublished"> 发表于 2016-05-07</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u6784_u9020_u5668_u786E_u4FDD_u521D_u59CB_u5316"><a href="#u6784_u9020_u5668_u786E_u4FDD_u521D_u59CB_u5316" class="headerlink" title="构造器确保初始化"></a>构造器确保初始化</h2><ul>
+<li>创建对象时，会为对象分配存储空间，并调用相应的构造器，这样就确保了你操作对象之前，它已经被初始化；</li>
+<li>如果类中没有定义构造器，编译器会自动帮你创建一个默认构造器，当你定义了构造器，就不能使用默认构造器;</li>
+<li>要求构造器的名字与类名一致，可以有多个构造器，但是每个构造器要有区分(有参数\无参数\参数顺序\参数类型)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Rock&#123;&#10;  Rock()&#123;&#10;    System.out.print(&#34;Constructor Initialize&#34;)&#10;  &#125;&#10;  public static void main(String[] args)&#123;&#10;    for(int i = 0; i &#60; 5 ; i++ )&#123;&#10;      new Rock();&#10;    &#125;&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="u65B9_u6CD5_u91CD_u8F7D"><a href="#u65B9_u6CD5_u91CD_u8F7D" class="headerlink" title="方法重载"></a>方法重载</h2><ul>
+<li>一个类中，可以有相同的命名的方法，但是这些方法需要有区分</li>
+<li>区分重载方法：<ul>
+<li>是否有参数;</li>
+<li>参数的顺序;</li>
+<li>参数的类型;<ul>
+<li>当传入的实际参数小于重载方法声明的形式参数时，实际数据类型就会被提升，而实际参数是char型，如果无法找到插好接受char参数的方法，就会把char型提升到int型;</li>
+<li>当传入的实际参数大于重载方法声明的形式参数时，实际参数需要进行类型转换来窄化转换，否则会报错;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="Best_Wish__3A_Happy_Mathors_Day_21_To_My_Mon"><a href="#Best_Wish__3A_Happy_Mathors_Day_21_To_My_Mon" class="headerlink" title="Best Wish : Happy Mathors Day! To My Mon ."></a>Best Wish : Happy Mathors Day! To My Mon .</h5>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/05/07/Java常识之构造器/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/07/Java常识之构造器/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/03/16/在Github创建静态网站预览的方法/" title="在Github创建静态网站预览的方法" itemprop="url">在Github创建静态网站预览的方法</a>
   </h1>
   <p class="article-author">By
@@ -244,6 +320,10 @@
 			
 		
 			
+				<li><a href="/tags/Spring/" title="Spring">Spring<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
 			
 		
@@ -257,10 +337,6 @@
 		
 			
 				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Spring/" title="Spring">Spring<sup>1</sup></a></li>
 			
 		
 			

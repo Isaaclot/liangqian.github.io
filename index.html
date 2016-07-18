@@ -82,6 +82,136 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/07/19/Spring-MVC常用的控制器方法与使用/" title="Spring MVC常用的控制器方法与使用" itemprop="url">Spring MVC常用的控制器方法与使用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2016-07-18T16:27:20.000Z" itemprop="datePublished"> 发表于 2016-07-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="Spring_mvc__u63A7_u5236_u5668_u4E0E_u65B9_u6CD5"><a href="#Spring_mvc__u63A7_u5236_u5668_u4E0E_u65B9_u6CD5" class="headerlink" title="Spring mvc 控制器与方法"></a>Spring mvc 控制器与方法</h2><h4 id="@Controller_u5B9A_u4E49_u4E00_u4E2AController_u63A7_u5236_u5668"><a href="#@Controller_u5B9A_u4E49_u4E00_u4E2AController_u63A7_u5236_u5668" class="headerlink" title="@Controller定义一个Controller控制器"></a>@Controller定义一个Controller控制器</h4><ul>
+<li>在使用这个标记主注解之前需要配置控制器(两种方法)    <ul>
+<li>在Spring MVC配置文件中添加<code>&lt;bean&gt;</code>对象：<code>&lt;bean class=&quot;xyz.royleo.vice&quot;/&gt;</code></li>
+<li>在spring配置文件中@Controller控制器的位置：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60; context:component-scan base-package = &#34;com.host.app.web.controller&#34; &#62;  &#10;   &#60; context:exclude-filter type = &#34;annotation&#34;  &#10;       expression = &#34;org.springframework.stereotype.Service&#34; /&#62;  &#10;&#60;/ context:component-scan &#62;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="@RequestMapping_u6765_u6620_u5C04Request_u8BF7_u6C42_u4E0E_u63A7_u5236_u5668"><a href="#@RequestMapping_u6765_u6620_u5C04Request_u8BF7_u6C42_u4E0E_u63A7_u5236_u5668" class="headerlink" title="@RequestMapping来映射Request请求与控制器"></a>@RequestMapping来映射Request请求与控制器</h4><ul>
+<li><p>通过URL模板实现 : 在URL模板中含有变量值,再在<code>@requestMapping</code>的方法里面，通过<code>@PathVariable</code>获取通过RUL传过来的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Controller  &#10;@RequestMapping ( &#34;/test/&#123;variable1&#125;&#34; )  &#10;public class MyController &#123;  &#10;    @RequestMapping ( &#34;/showView/&#123;variable2&#125;&#34; )  &#10;    public ModelAndView showView( @PathVariable String variable1, @PathVariable ( &#34;variable2&#34; ) int variable2) &#123;  &#10;&#9;&#9;//do something &#10;       return modelAndView;  &#10;    &#125;  &#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用<code>@RequestParam</code>绑定HttpServletRequest请求参数到控制器方法参数</p>
+<ul>
+<li>其中，有requested=false是可选的参数，默认是必须的<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping ( &#34;requestParam&#34; )  &#10;ublic String testRequestParam( @RequestParam(required=false) String name, @RequestParam ( &#34;age&#34; ) int age) &#123;  &#10;   return &#34;requestParam&#34; ;  &#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="HttpServletRequest__26amp_3B_HttpServletResponse__26amp_3B_HttpSession_u2026"><a href="#HttpServletRequest__26amp_3B_HttpServletResponse__26amp_3B_HttpSession_u2026" class="headerlink" title="HttpServletRequest &amp; HttpServletResponse &amp; HttpSession…"></a>HttpServletRequest &amp; HttpServletResponse &amp; HttpSession…</h4><ul>
+<li>跟普通的Servlet一样，spring mvc中也可以用servlet里面的方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&#34;/somePath&#34;)&#10;   public String requestResponseExample(HttpServletRequest request, HttpServletResponse reponses, HttpSession session, Model model) &#123;&#10;&#9; // Todo something here&#10;       return &#34;someView&#34;;&#10;   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="u63A7_u5236_u5668_u7684_u91CD_u5B9A_u5411"><a href="#u63A7_u5236_u5668_u7684_u91CD_u5B9A_u5411" class="headerlink" title="控制器的重定向"></a>控制器的重定向</h4><ul>
+<li>使用前缀：<code>redirect</code>该方法返回字符串，可以重定向到另一页面<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value = &#34;/redirect&#34;, method = RequestMethod.GET)&#10;    public String authorInfo(Model model) &#123;&#10;&#9; // Do somethong here&#10;&#9;  return &#34;redirect:/hello&#34;;&#10;    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="u4F7F_u7528@CookieValue_u7ED1_u5B9Acookie_u6570_u503C_u5230Controller_u65B9_u6CD5_u53C2_u6570"><a href="#u4F7F_u7528@CookieValue_u7ED1_u5B9Acookie_u6570_u503C_u5230Controller_u65B9_u6CD5_u53C2_u6570" class="headerlink" title="使用@CookieValue绑定cookie数值到Controller方法参数"></a>使用<code>@CookieValue</code>绑定cookie数值到Controller方法参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping ( &#34;cookieValue&#34; )&#10;public String testCookieValue( @CookieValue ( &#34;hello&#34; ) String cookieValue, @CookieValue String hello) &#123;&#10; //do something&#10;   return &#34;cookieValue&#34; ;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="u4F7F_u7528@RequestHeader_u6CE8_u89E3_u7ED1_u5B9AHttpServletRequest_u5934_u4FE1_u606F_u5230Controller_u65B9_u6CD5_u53C2_u6570"><a href="#u4F7F_u7528@RequestHeader_u6CE8_u89E3_u7ED1_u5B9AHttpServletRequest_u5934_u4FE1_u606F_u5230Controller_u65B9_u6CD5_u53C2_u6570" class="headerlink" title="使用@RequestHeader注解绑定HttpServletRequest头信息到Controller方法参数"></a>使用<code>@RequestHeader</code>注解绑定HttpServletRequest头信息到Controller方法参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping ( &#34;testRequestHeader&#34; )&#10;public String testRequestHeader( @RequestHeader ( &#34;Host&#34; ) String hostAddr, @RequestHeader String Host, @RequestHeader String host ) &#123;&#10;   //use Host... do something&#10;    return &#34;requestHeader&#34; ;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="@RequestMapping_u7684_u4E00_u4E9B_u9AD8_u7EA7_u5E94_u7528"><a href="#@RequestMapping_u7684_u4E00_u4E9B_u9AD8_u7EA7_u5E94_u7528" class="headerlink" title="@RequestMapping的一些高级应用"></a><code>@RequestMapping</code>的一些高级应用</h4><ul>
+<li>RequestMapping除了指定的路径value值之外，还有其他的一些属性，如：params，method，headers等,便于缩小映射范围</li>
+<li><p><code>params</code>属性：</p>
+<ul>
+<li>例子说明：代码中定义了映射的路径，params的三个参数，当映射路径<code>/testParams.do</code>并且满足params的规则(param1等于value1，param2必须存在，值无所谓，param3必须不存在)，才能正确映射到testParams()方法. 即：<code>/testParams.do?param2=value&amp;param2=value2</code>才能访问指定方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping (value= &#34;testParams&#34; , params=&#123; &#34;param1=value1&#34; , &#34;param2&#34; , &#34;!param3&#34; &#125;)  &#10;public String testParams() &#123;  &#10;   System. out .println( &#34;test Params...........&#34; );  &#10;   return &#34;testParams&#34; ;  &#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>method属性:主要用于限制能访问的方法类型(GET,POST,DELETE…)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping (value= &#34;testMethod&#34; , method=&#123;RequestMethod. GET , RequestMethod. DELETE &#125;)  &#10;public String testMethod() &#123;  &#10;   return &#34;method&#34; ;  &#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>headers</code>属性</p>
+<ul>
+<li>headers 属性的用法和功能与params 属性相似。在上面的代码中当请求/testHeaders.do 的时候只有当请求头包含Accept 信息，且请求的host 为localhost 的时候才能正确的访问到testHeaders 方法。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping (value= &#34;testHeaders&#34; , headers=&#123; &#34;host=localhost&#34; , &#34;Accept&#34; &#125;)  &#10;public String testHeaders() &#123;  &#10;   return &#34;headers&#34; ;  &#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="u4EE5_@RequestMapping__u6807_u8BB0_u7684_u5904_u7406_u5668_u65B9_u6CD5_u652F_u6301_u7684_u65B9_u6CD5_u53C2_u6570_u548C_u8FD4_u56DE_u7C7B_u578B"><a href="#u4EE5_@RequestMapping__u6807_u8BB0_u7684_u5904_u7406_u5668_u65B9_u6CD5_u652F_u6301_u7684_u65B9_u6CD5_u53C2_u6570_u548C_u8FD4_u56DE_u7C7B_u578B" class="headerlink" title="以 @RequestMapping 标记的处理器方法支持的方法参数和返回类型"></a>以 @RequestMapping 标记的处理器方法支持的方法参数和返回类型</h4><ul>
+<li>支持的方法参数类型<ul>
+<li>HttpServlet对象：HttpServletRequest、HttpServletResponse、HttpSession</li>
+<li>Spring自己的WebRequest对象</li>
+<li>InputStream、OutputStream、read、write</li>
+<li>使用 @pathVariable @RequestParam @CookieValue @RequestHeader 标记的参数</li>
+<li>使用 @ModelAttribute 标记的参数</li>
+<li>java.util.Map 、Spring 封装的Model 和ModelMap：用来展现视图</li>
+<li>实体类</li>
+<li>Spring封装的MutipartFile,用来上传文件</li>
+<li>Spring 封装的Errors 和BindingResult 对象</li>
+</ul>
+</li>
+<li>支持的返回类型<ul>
+<li>一个包含模型和视图的ModelAndView 对象</li>
+<li>一个模型对象，这主要包括Spring 封装好的Model 和ModelMap ，以及java.util.Map ，当没有视图返回的时候视图名称将由RequestToViewNameTranslator 来决定</li>
+<li>一个View 对象。这个时候如果在渲染视图的过程中模型的话就可以给处理器方法定义一个模型参数，然后在方法体里面往模型中添加值</li>
+<li>一个String字符串、返回JSON对象(主要是Restful风格，前后端通信)</li>
+<li>返回值是void：主要方法体接受传值，执行相关逻辑，返回值可以忽略</li>
+<li>如果处理器方法被注解@ResponseBody 标记的话，那么处理器方法的任何返回类型都会通过HttpMessageConverters 转换之后写到HttpServletResponse 中，而不会像上面的那些情况一样当做视图或者模型来处理</li>
+<li>除以上几种情况之外的其他任何返回类型都会被当做模型中的一个属性来处理，而返回的视图还是由RequestToViewNameTranslator 来决定，添加到模型中的属性名称可以在该方法上用@ModelAttribute(“attributeName”) 来定义，否则将使用返回类型的类名称的首字母小写形式来表示。使用@ModelAttribute 标记的方法会在@RequestMapping 标记的方法执行之前执行<h4 id="u4F7F_u7528_@ModelAttribute__u548C_@SessionAttributes__u4F20_u9012_u548C_u4FDD_u5B58_u6570_u636E"><a href="#u4F7F_u7528_@ModelAttribute__u548C_@SessionAttributes__u4F20_u9012_u548C_u4FDD_u5B58_u6570_u636E" class="headerlink" title="使用 @ModelAttribute 和 @SessionAttributes 传递和保存数据"></a>使用 @ModelAttribute 和 @SessionAttributes 传递和保存数据</h4></li>
+</ul>
+</li>
+<li>@ModelAttribute标记一般放在需要标记的上面，并指定相关值，当@RequestMapping调用属性参数获取的时候执行</li>
+<li>@SessionAttribute 标记一般放在@RequestMapping注解的下面，类名的上面。被@SessionAttribute标记的参数的数值需要被添加到Session中之后，在读取出来之后才有内容；当然，添加的标记的参数类型可以是字符串，数组，实体对象等</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Spring/">Spring</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/07/19/Spring-MVC常用的控制器方法与使用/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/07/19/Spring-MVC常用的控制器方法与使用/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/07/16/AngularJS-核心特性/" title="AngularJS 核心特性" itemprop="url">AngularJS 核心特性</a>
   </h1>
   <p class="article-author">By
@@ -852,82 +982,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/05/07/Java常识之构造器/" title="Java常识之构造器" itemprop="url">Java常识之构造器</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-05-07T15:55:51.000Z" itemprop="datePublished"> 发表于 2016-05-07</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u6784_u9020_u5668_u786E_u4FDD_u521D_u59CB_u5316"><a href="#u6784_u9020_u5668_u786E_u4FDD_u521D_u59CB_u5316" class="headerlink" title="构造器确保初始化"></a>构造器确保初始化</h2><ul>
-<li>创建对象时，会为对象分配存储空间，并调用相应的构造器，这样就确保了你操作对象之前，它已经被初始化；</li>
-<li>如果类中没有定义构造器，编译器会自动帮你创建一个默认构造器，当你定义了构造器，就不能使用默认构造器;</li>
-<li>要求构造器的名字与类名一致，可以有多个构造器，但是每个构造器要有区分(有参数\无参数\参数顺序\参数类型)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Rock&#123;&#10;  Rock()&#123;&#10;    System.out.print(&#34;Constructor Initialize&#34;)&#10;  &#125;&#10;  public static void main(String[] args)&#123;&#10;    for(int i = 0; i &#60; 5 ; i++ )&#123;&#10;      new Rock();&#10;    &#125;&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="u65B9_u6CD5_u91CD_u8F7D"><a href="#u65B9_u6CD5_u91CD_u8F7D" class="headerlink" title="方法重载"></a>方法重载</h2><ul>
-<li>一个类中，可以有相同的命名的方法，但是这些方法需要有区分</li>
-<li>区分重载方法：<ul>
-<li>是否有参数;</li>
-<li>参数的顺序;</li>
-<li>参数的类型;<ul>
-<li>当传入的实际参数小于重载方法声明的形式参数时，实际数据类型就会被提升，而实际参数是char型，如果无法找到插好接受char参数的方法，就会把char型提升到int型;</li>
-<li>当传入的实际参数大于重载方法声明的形式参数时，实际参数需要进行类型转换来窄化转换，否则会报错;</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h5 id="Best_Wish__3A_Happy_Mathors_Day_21_To_My_Mon"><a href="#Best_Wish__3A_Happy_Mathors_Day_21_To_My_Mon" class="headerlink" title="Best Wish : Happy Mathors Day! To My Mon ."></a>Best Wish : Happy Mathors Day! To My Mon .</h5>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Java/">Java</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/05/07/Java常识之构造器/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/07/Java常识之构造器/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -962,6 +1016,10 @@
 			
 		
 			
+				<li><a href="/tags/Spring/" title="Spring">Spring<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
 			
 		
@@ -975,10 +1033,6 @@
 		
 			
 				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Spring/" title="Spring">Spring<sup>1</sup></a></li>
 			
 		
 			
