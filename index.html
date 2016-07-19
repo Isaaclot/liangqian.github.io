@@ -78,6 +78,77 @@
 
    
     
+    <article class="post-expand w" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/07/19/比较http请求方法中的GET与POST方法/" title="比较http请求方法中的GET与POST方法" itemprop="url">比较http请求方法中的GET与POST方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2016-07-19T10:41:35.000Z" itemprop="datePublished"> 发表于 2016-07-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="GET_u65B9_u6CD5_u548CPOST_u65B9_u6CD5_u7684_u5F02_u540C"><a href="#GET_u65B9_u6CD5_u548CPOST_u65B9_u6CD5_u7684_u5F02_u540C" class="headerlink" title="GET方法和POST方法的异同"></a>GET方法和POST方法的异同</h2><ul>
+<li>GET方法：向页面请求发送已编码的用户信息；页面与已编码信息之间用<code>?</code>隔开传递:<code>http://localhost/test?key1=value&amp;key2=value2</code><ul>
+<li>GET方法的特点是将需要传递信息暴露在URL上面，因此不宜传输敏信息</li>
+<li>同时，GET方法有大小限制：请求字符串最多只能有1024个字符</li>
+</ul>
+</li>
+<li>POST方法：通过比较可靠的方式向后台程序传递数据；但是在传递方式上与GET方法不同，POST方法是通过标准输的形式将一个单独的消息传递给后台程序<h2 id="u5728_u540E_u53F0_u7A0B_u5E8F_u4E2D_u8BFB_u53D6_u4F20_u9012_u8FC7_u6765_u7684_u6570_u636E"><a href="#u5728_u540E_u53F0_u7A0B_u5E8F_u4E2D_u8BFB_u53D6_u4F20_u9012_u8FC7_u6765_u7684_u6570_u636E" class="headerlink" title="在后台程序中读取传递过来的数据"></a>在后台程序中读取传递过来的数据</h2></li>
+<li>解析方法：<ul>
+<li>String getParameter(String str); 获取表单参数值</li>
+<li>String[] getParameterValues(String str); 获取在同一个参数里多个值,并以数组形式返</li>
+<li>String[] getParameterNames();获取请求中所有参数的完整列表</li>
+</ul>
+</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Servlet/">Servlet</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/07/19/比较http请求方法中的GET与POST方法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/07/19/比较http请求方法中的GET与POST方法/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
     <article class="post-expand post" itemprop="articleBody"> 
         <header class="article-info clearfix">
   <h1 itemprop="name">
@@ -916,72 +987,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/05/08/Java垃圾回收之finalize/" title="Java垃圾回收之finalize()" itemprop="url">Java垃圾回收之finalize()</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-05-07T16:07:13.000Z" itemprop="datePublished"> 发表于 2016-05-08</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="Java_u5783_u573E_u56DE_u6536"><a href="#Java_u5783_u573E_u56DE_u6536" class="headerlink" title="Java垃圾回收"></a>Java垃圾回收</h2><ul>
-<li>Java垃圾回收器负责回收无用对象占据的内存资源</li>
-<li>但是，无论是“垃圾回收”或者“终结”，JVM都不保证会发生，因为JVM在没有面临内存耗尽的情况下，它是不会浪费时间去执行垃圾回收以恢复内存</li>
-<li>JVM不会主动去发现一些无用特殊的内存区块，并清除它，所以引入<code>finalize()</code>方法</li>
-</ul>
-<h2 id="finalize_28_29_u7528_u6CD5"><a href="#finalize_28_29_u7528_u6CD5" class="headerlink" title="finalize()用法"></a><code>finalize()</code>用法</h2><ul>
-<li>对象可能不被垃圾回收</li>
-<li>垃圾回收并不等于“析构”</li>
-<li>垃圾回收只与内存有关</li>
-</ul>
-<h5 id="finalize_28_29_u5DE5_u4F5C_u539F_u7406"><a href="#finalize_28_29_u5DE5_u4F5C_u539F_u7406" class="headerlink" title="finalize()工作原理"></a><code>finalize()</code>工作原理</h5><ul>
-<li>一旦垃圾回收器准备好释放对象占用的存储空间，将首先调用<code>finalize()</code>方法，并且在下一次垃圾回收动作发生时，才会真正回收对象占用的内存</li>
-</ul>
-<h4 id="u4E0B_u9762_u4E00_u4E2A_u4F8B_u5B50_u793A_u8303finalize_28_29_u53EF_u80FD_u7684_u4F7F_u7528_u65B9_u5F0F_28_u7EC8_u7ED3_u6761_u4EF6_29"><a href="#u4E0B_u9762_u4E00_u4E2A_u4F8B_u5B50_u793A_u8303finalize_28_29_u53EF_u80FD_u7684_u4F7F_u7528_u65B9_u5F0F_28_u7EC8_u7ED3_u6761_u4EF6_29" class="headerlink" title="下面一个例子示范finalize()可能的使用方式(终结条件)"></a>下面一个例子示范<code>finalize()</code>可能的使用方式(终结条件)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Book&#123;&#10;  boolean checkedOut = false;&#10;  Book(boolean checkOut)&#123;&#10;    checkedOut = checkOut;&#10;  &#125;&#10;  void chechIn()&#123;&#10;    checkedOut = false;&#10;  &#125;&#10;  protected void finalize()&#123;&#10;    if(checkedOut)&#123;&#10;      System.out.print(&#34;error:check out&#34;);&#10;    &#125;&#10;  &#125;&#10;&#125;&#10;public class Terminal&#123;&#10;  public static void main(String[] args)&#123;&#10;    Book novel = new Book(true);&#10;    novel.chechIn();&#10;    new Book(true);&#10;    System.gc();&#10;  &#125;&#10;&#125;&#10;/*&#10;*output:&#10;*error:check out&#10;*/</span><br></pre></td></tr></table></figure>
-<h6 id="u672C_u4F8B_u7684_u7EC8_u7ED3_u6761_u4EF6_uFF1A_u6240_u6709_u7684Book_u5BF9_u8C61_u5728_u88AB_u5F53_u4F5C_u5783_u573E_u56DE_u6536_u524D_u90FD_u5E94_u8BE5_u88AB_u7B7E_u5165_28chechIn_29_3B_u4F46_u662Fmain_28_29_u65B9_u6CD5_u4E2D_uFF0C_u6709_u4E00_u672C_u4E66_u6CA1_u88AB_u7B7E_u5165_uFF0C_u6240_u4EE5_u5982_u679C_u6CA1_u6709finalize_28_29_u6765_u9A8C_u8BC1_u7EC8_u7ED3_u6761_u4EF6_uFF0C_u90A3_u4E48_u8FD9_u4E2A_u7F3A_u9677_u5F88_u96BE_u88AB_u53D1_u73B0"><a href="#u672C_u4F8B_u7684_u7EC8_u7ED3_u6761_u4EF6_uFF1A_u6240_u6709_u7684Book_u5BF9_u8C61_u5728_u88AB_u5F53_u4F5C_u5783_u573E_u56DE_u6536_u524D_u90FD_u5E94_u8BE5_u88AB_u7B7E_u5165_28chechIn_29_3B_u4F46_u662Fmain_28_29_u65B9_u6CD5_u4E2D_uFF0C_u6709_u4E00_u672C_u4E66_u6CA1_u88AB_u7B7E_u5165_uFF0C_u6240_u4EE5_u5982_u679C_u6CA1_u6709finalize_28_29_u6765_u9A8C_u8BC1_u7EC8_u7ED3_u6761_u4EF6_uFF0C_u90A3_u4E48_u8FD9_u4E2A_u7F3A_u9677_u5F88_u96BE_u88AB_u53D1_u73B0" class="headerlink" title="本例的终结条件：所有的Book对象在被当作垃圾回收前都应该被签入(chechIn);但是main()方法中，有一本书没被签入，所以如果没有finalize()来验证终结条件，那么这个缺陷很难被发现."></a>本例的终结条件：所有的Book对象在被当作垃圾回收前都应该被签入(chechIn);但是<code>main()</code>方法中，有一本书没被签入，所以如果没有<code>finalize()</code>来验证终结条件，那么这个缺陷很难被发现.</h6>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/05/08/Java垃圾回收之finalize/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/08/Java垃圾回收之finalize/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -1021,6 +1026,10 @@
 		
 			
 				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>1</sup></a></li>
 			
 		
 			
