@@ -78,6 +78,187 @@
 
    
     
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/07/22/struts2基础笔记/" title="struts2基础笔记" itemprop="url">struts2基础笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2016-07-22T15:34:26.000Z" itemprop="datePublished"> 发表于 2016-07-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="Sturts2_u8BBF_u95EEServlet_API"><a href="#Sturts2_u8BBF_u95EEServlet_API" class="headerlink" title="Sturts2访问Servlet API"></a>Sturts2访问Servlet API</h3><ul>
+<li><p>访问Servlet API的三种方式</p>
+<ul>
+<li><p>ActionContext：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> ActionContext actionContext=ActionContext.getContext();  &#10;Map&#60;String,Object&#62; map=actionContext.getSession();  &#10;map.put(&#34;hello&#34;,&#34;helloworld&#34;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现<em>*</em>Aware接口：通过实现指定接口ServletContextAware，ServletRequestAware，ServletResponseAware，这种方式不推荐使用，与ServletAPI的耦合性大</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class LoginAction extends ActionSupport implements ServletRequestAware&#123; &#10;&#9;HttpSession session=request.getSession();&#10;&#9;//something same as httpSetvlet&#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ServletActionContext：ServletActionContext是面向action,特定于上下文的信息。继承于ActionContext</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HttpServletRequest request=ServletActionContext.getRequest();  &#10;    HttpSession session=request.getSession();  &#10;    session.setAttribute(&#34;hello&#34;, &#34;helloworld&#34;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Action_u7684_u641C_u7D22_u987A_u5E8F"><a href="#Action_u7684_u641C_u7D22_u987A_u5E8F" class="headerlink" title="Action的搜索顺序"></a>Action的搜索顺序</h3><ol>
+<li>发生URL请求：<code>http://localhost:80/projectName/path1/path2/path3/test.action</code></li>
+<li>首先会检索namespace为<code>/path1/path2/path3/</code>的package里面的test；如果找到则访问<ul>
+<li>否则，转向默认表空间[namespace=””]里面寻找该action，找到则访问<ul>
+<li>否则，转向默认表空间[namespace=””]寻找默认的action，找到则访问改action<ul>
+<li>如果默认空间中没有设置默认的action，则返回404….[not found]</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>首先会检索namespace为<code>/path1/path2/</code>的package里面的test；如果找到则访问<ul>
+<li>否则，转向默认表空间[namespace=””]里面寻找该action，找到则访问<ul>
+<li>否则，转向默认表空间[namespace=””]寻找默认的action，找到则访问改action<ul>
+<li>如果默认空间中没有设置默认的action，则返回404….[not found]</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>首先会检索namespace为<code>/path1/</code>的package里面的test；如果找到则访问<ul>
+<li>否则，转向默认表空间[namespace=””]里面寻找该action，找到则访问<ul>
+<li>否则，转向默认表空间[namespace=””]寻找默认的action，找到则访问改action<ul>
+<li>如果默认空间中没有设置默认的action，则返回404….[not found]</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果仍然不存在这个package,就去默认的namaspace的package下面去找名字为test的action(默认的命名空间为空字符串””),<br>如果还是找不到,页面提示找不到action,报404找不到内容的错误</li>
+</ol>
+<h3 id="u52A8_u6001_u65B9_u6CD5_u8C03_u7528"><a href="#u52A8_u6001_u65B9_u6CD5_u8C03_u7528" class="headerlink" title="动态方法调用"></a>动态方法调用</h3><ul>
+<li>概述：解决一个action对应多个请求的处理的问题，简化开发，避免Action太多</li>
+<li>方法一：指定Method属性<ul>
+<li>在配置文件中指定访问方法(method)：<figure class="highlight"><figcaption><span>name="hello" class="hellow" method="execute"></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;result name=&#34;success&#34;&#62;/result.jsp&#60;/result&#62;&#10;&#60;/action&#62;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>方法二：感叹号方式<ul>
+<li>开启常量值配置：<code>&lt;constant name=&quot;struts.enable.DynamicMethodInvocation&quot; value=&quot;true&quot;&gt;&lt;/constant&gt;</code></li>
+<li>根据返回值在<code>&lt;result&gt;</code>里面用name指定视图：<code>&lt;result name=&quot;result&quot;&gt;/result.jsp&lt;/result&gt;</code></li>
+<li>调用在action后缀之前添加感叹号和方法的方式访问：<code>http://localhost:8080/testStruts2/hello!result.action</code></li>
+</ul>
+</li>
+<li>方法三：通配符方式<ul>
+<li>在<code>&lt;action&gt;</code>配置里面name属性后面用<code>_*</code>的方式统配参数：第一个星号对应参数{1},第二个星号对应第二个参数{2}，可以统配包名，类名，方法名，或者部分名称的切割</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> &#60;action name=&#34;hello_*_*&#34; class=&#34;&#123;1&#125;&#34; method=&#34;execute&#34;&#62;&#10;&#60;result name=&#34;success&#34;&#62;/&#123;2&#125;.jsp&#60;/result&#62;&#10;  &#60;/action&#62;</span><br></pre></td></tr></table></figure>
+<h3 id="u6307_u5B9A_u591A_u4E2A_u914D_u7F6E_u6587_u4EF6"><a href="#u6307_u5B9A_u591A_u4E2A_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="指定多个配置文件"></a>指定多个配置文件</h3><ul>
+<li>项目中action特别多，如果全在一个<code>struts.xml</code>里面，就很复杂</li>
+<li>可以通过<include>导入多个分割了的action配置文件模块：<code>&lt;include file=&quot;hello.xml&quot;&gt;&lt;/include&gt;</code></include></li>
+<li>也可以统一配置文件的编码：用<code>&lt;constrant&gt;</code><h3 id="u9ED8_u8BA4action"><a href="#u9ED8_u8BA4action" class="headerlink" title="默认action"></a>默认action</h3></li>
+<li>防止出现尴尬页面…..</li>
+<li>在<code>struts.xml</code>配置文件配置:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;default-action-ref name=&#34;hello&#34;&#62;&#60;/default-action-ref&#62;&#10;&#60;action name=&#34;hello&#34;&#62;&#60;result name=&#34;error&#34;&#62;/error.jsp&#60;/result&#62;&#60;/action&#62;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="struts2_u540E_u7F00_uFF1A"><a href="#struts2_u540E_u7F00_uFF1A" class="headerlink" title="struts2后缀："></a>struts2后缀：</h3><ul>
+<li>伪造页面，安全，防hacker</li>
+<li>改成html后缀：<code>&lt;constant name=&quot;struts.action.extension&quot; value=&quot;html&quot;/&gt;</code></li>
+<li>取消后缀,只需消息value的值：<code>&lt;constant name=&quot;struts.action.extension&quot; value=&quot;&quot;/&gt;</code></li>
+<li>也可以在struts.properties里面配置，还可以在里面配置多个参数</li>
+<li>可以在web.xml里面配置<init-param>来指定后缀<h3 id="u63A5_u6536_u53C2_u6570_uFF1A"><a href="#u63A5_u6536_u53C2_u6570_uFF1A" class="headerlink" title="接收参数："></a>接收参数：</h3></init-param></li>
+<li>方法一：使用Action属性接收：<ul>
+<li>在接受的类中创建与提交部分命名一致的属性，以及getter，setter；传过来 的时候就能接收</li>
+</ul>
+</li>
+<li><p>方法二：使用Domain Model接收：</p>
+<ul>
+<li>创建对象model来接收，为了将数据存入到指定的对象模型，在提交数据的时候，需要指定存入的已经实例化的对象的属性<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;label&#62;&#29992;&#25143;&#21517;&#65306;&#60;/label&#62;&#60;input type=&#34;text&#34; name=&#34;us.username&#34;&#62;&#10; &#60;label&#62;&#23494;  &#30721;&#65306;&#60;/label&#62;&#60;input type=&#34;password&#34; name=&#34;us.password&#34;&#62;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>方法三：使用ModelDriven接收：</p>
+<ul>
+<li>实现ModelDriven的接口；如果通过对象接受数据，必须实例化，并且，在提交数据的时候，不需要再指定属性传输的对象<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;label&#62;&#29992;&#25143;&#21517;&#65306;&#60;/label&#62;&#60;input type=&#34;text&#34; name=&#34;username&#34;&#62;&#10;&#60;label&#62;&#23494;  &#30721;&#65306;&#60;/label&#62;&#60;input type=&#34;password&#34; name=&#34;password&#34;&#62;&#10;&#60;label&#62;&#20070;&#31821;1&#65306;&#60;/label&#62;&#60;input type=&#34;text&#34; name=&#34;booklist[0]&#34;&#62;&#10;&#60;label&#62;&#20070;&#31821;2&#65306;&#60;/label&#62;&#60;input type=&#34;text&#34; name=&#34;booklist[1]&#34;&#62;&#10;&#60;label&#62;&#20070;&#31821;3&#65306;&#60;/label&#62;&#60;input type=&#34;text&#34; name=&#34;booklist[2]&#34;&#62;  //user&#23545;&#35937;&#37324;&#38754;&#35774;&#32622;List&#38598;&#21512;&#25509;&#25910;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class hwaction extends ActionSupport implements ModelDriven&#60;user&#62; &#123;  //&#27867;&#22411;&#23450;&#20041;&#38656;&#35201;&#36171;&#20540;&#36716;&#25442;&#30340;&#31867;&#10;    private user us = new user();  \\&#19981;&#38656;&#35201;getter setter...&#10;    public String login()&#123;&#10;System.out.println(us.getUsername());&#10; System.out.println(us.getBooklist().get(2));&#10;System.out.println(us.getBooklist().get(1));&#10;System.out.println(us.getBooklist().get(0));&#10;        return SUCCESS;&#125;&#10;     @Override&#10;    public user getModel() &#123; &#10;        return us; //&#36820;&#22238;&#38656;&#35201;&#36716;&#25442;&#30340;&#23545;&#35937; &#125;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>方法四：使用request方法接受 </li>
+</ul>
+<p>###处理结果类型</p>
+<ul>
+<li>处理结果标签里面：type属性，默认(dispatcher)是定义jsp模板，还有其他的xstl,chain,redirect,stream,plaintext….</li>
+<li>五个系统内置属性：success，none，error，login，input</li>
+<li>success：正确执行完成，返回响应的视图</li>
+<li>none：正确执行，但是不返回视图</li>
+<li>error：执行失败，返回到错误处理视图</li>
+<li>login：由于用户没有登陆的原因没有正确执行，将返回登陆视图，要求用户进行登陆身份验证</li>
+<li>input：Action的执行需要前端界面获取参数，input就是代表这个参数的输入界面<ul>
+<li>表单验证的出现类型转换错误的时候会跳转回去</li>
+<li>在判断验证部分使用<code>this.addFieldError(&quot;username&quot;,&quot;用户名不为空&quot;)</code>，使用<code>return input;</code>跳转，并在前端部分使用struts标签显示username的提示</li>
+<li>继承ActionSupport里面的Validate()方法，也可以实现跳转<h3 id="u6839_u636E_u4F4D_u7F6E_u4E0D_u540C_u6765_u5212_u5206_u5904_u7406_u7ED3_u679C_u7C7B_u578B_uFF1A"><a href="#u6839_u636E_u4F4D_u7F6E_u4E0D_u540C_u6765_u5212_u5206_u5904_u7406_u7ED3_u679C_u7C7B_u578B_uFF1A" class="headerlink" title="根据位置不同来划分处理结果类型："></a>根据位置不同来划分处理结果类型：</h3><ul>
+<li>局部结果</li>
+<li>全局结果：所有的包下面的请求都可以公用其中返回功能</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/struts2/">struts2</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/07/22/struts2基础笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/07/22/struts2基础笔记/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
     <article class="post-expand w" itemprop="articleBody"> 
         <header class="article-info clearfix">
   <h1 itemprop="name">
@@ -915,78 +1096,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/05/10/无法连接远程Mysql数据库的解决办法-I/" title="无法连接远程Mysql数据库的解决办法 I" itemprop="url">无法连接远程Mysql数据库的解决办法 I</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-05-10T15:02:32.000Z" itemprop="datePublished"> 发表于 2016-05-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="tips_3A__u201CCan_not_connet_to_mysql_server_on__u2018192-168-2-3_u2019__2810061_29_u201D"><a href="#tips_3A__u201CCan_not_connet_to_mysql_server_on__u2018192-168-2-3_u2019__2810061_29_u201D" class="headerlink" title="tips: “Can not connet to mysql  server on ‘192.168.2.3’ (10061)”"></a>tips: “Can not connet to mysql  server on ‘192.168.2.3’ (10061)”</h2><ul>
-<li><p>很多时候想要远程登陆Mysql服务器，进行操作，发现弹出上面的提示…</p>
-<h2 id="u89E3_u51B3_u65B9_u6848_uFF1A"><a href="#u89E3_u51B3_u65B9_u6848_uFF1A" class="headerlink" title="解决方案："></a>解决方案：</h2><ul>
-<li>可能没有启动Mysql服务：<code>/etc/init.d/mysql start</code> 启动服务</li>
-<li><p>查看配置文件 <code>/etc/mysql/my.cnf</code> 文件中绑定的ip地址是否为默认ip(127.0.0.1)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu: vim /etc/mysql/my.cnf&#10;root@ubuntu:                      #&#20462;&#25913;my.cnf&#30340;&#25991;&#20214;&#37324;&#38754;&#30340;&#37197;&#32622;&#10;&#20462;&#25913; bind-adress = 127.0.0.1&#10;&#20026; bind-adress = &#26381;&#21153;&#22120;IP&#10;#&#36825;&#31181;&#24773;&#20917;&#26368;&#26174;&#33879;&#30340;&#29616;&#35937;&#26159;&#65306;&#36828;&#31243;&#30331;&#38470;&#19981;&#19978;Mysql&#26381;&#21153;&#22120;&#65292;&#20294;&#26159;&#26381;&#21153;&#22120;&#26412;&#22320;&#33021;&#30331;&#38470;&#36827;&#21435;mysql&#31243;&#24207;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>检查或者重置my.ini配置文件是否正确</p>
-</li>
-<li>Mysql服务器连接池已满，重新释放一下连接池，这时候你要重新评估你的连接数或者检测是否有恶意访问攻击什么的</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p>  如果找partner，要物色好可靠的人选；不然，两人的价值观不一样，做事情的效率跟质量都不一样。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/小笔记/">小笔记</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/05/10/无法连接远程Mysql数据库的解决办法-I/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/10/无法连接远程Mysql数据库的解决办法-I/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -1042,6 +1151,10 @@
 		
 			
 				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
 			
 		
 			

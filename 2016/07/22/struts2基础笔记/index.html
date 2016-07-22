@@ -1,0 +1,641 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>struts2基础笔记 | Master a Day</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Roy Leong">
+    
+
+    
+    <meta name="description" content="Sturts2访问Servlet API
+访问Servlet API的三种方式
+
+ActionContext：
+1 ActionContext actionContext=ActionContext.getContext();  &amp;#10;Map&amp;#60;String,Object&amp;#62; map=actionContext.getSession();  &amp;#10;map.put(&amp;#34;he">
+<meta property="og:type" content="article">
+<meta property="og:title" content="struts2基础笔记">
+<meta property="og:url" content="http://royleo.xyz/2016/07/22/struts2基础笔记/index.html">
+<meta property="og:site_name" content="Master a Day">
+<meta property="og:description" content="Sturts2访问Servlet API
+访问Servlet API的三种方式
+
+ActionContext：
+1 ActionContext actionContext=ActionContext.getContext();  &amp;#10;Map&amp;#60;String,Object&amp;#62; map=actionContext.getSession();  &amp;#10;map.put(&amp;#34;he">
+<meta property="og:updated_time" content="2016-07-22T15:35:11.529Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="struts2基础笔记">
+<meta name="twitter:description" content="Sturts2访问Servlet API
+访问Servlet API的三种方式
+
+ActionContext：
+1 ActionContext actionContext=ActionContext.getContext();  &amp;#10;Map&amp;#60;String,Object&amp;#62; map=actionContext.getSession();  &amp;#10;map.put(&amp;#34;he">
+<link rel="publisher" href="+RoyLeong">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Master a Day" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Master a Day" title="Master a Day"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Master a Day">Master a Day</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:royleo.xyz">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/07/22/struts2基础笔记/" title="struts2基础笔记" itemprop="url">struts2基础笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2016-07-22T15:34:26.000Z" itemprop="datePublished"> 发表于 2016-07-22</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sturts2_u8BBF_u95EEServlet_API"><span class="toc-number">1.</span> <span class="toc-text">Sturts2访问Servlet API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Action_u7684_u641C_u7D22_u987A_u5E8F"><span class="toc-number">2.</span> <span class="toc-text">Action的搜索顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u52A8_u6001_u65B9_u6CD5_u8C03_u7528"><span class="toc-number">3.</span> <span class="toc-text">动态方法调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6307_u5B9A_u591A_u4E2A_u914D_u7F6E_u6587_u4EF6"><span class="toc-number">4.</span> <span class="toc-text">指定多个配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u9ED8_u8BA4action"><span class="toc-number">5.</span> <span class="toc-text">默认action</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#struts2_u540E_u7F00_uFF1A"><span class="toc-number">6.</span> <span class="toc-text">struts2后缀：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u63A5_u6536_u53C2_u6570_uFF1A"><span class="toc-number">7.</span> <span class="toc-text">接收参数：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6839_u636E_u4F4D_u7F6E_u4E0D_u540C_u6765_u5212_u5206_u5904_u7406_u7ED3_u679C_u7C7B_u578B_uFF1A"><span class="toc-number">8.</span> <span class="toc-text">根据位置不同来划分处理结果类型：</span></a></li></ol>
+		
+		</div>
+		
+		<h3 id="Sturts2_u8BBF_u95EEServlet_API"><a href="#Sturts2_u8BBF_u95EEServlet_API" class="headerlink" title="Sturts2访问Servlet API"></a>Sturts2访问Servlet API</h3><ul>
+<li><p>访问Servlet API的三种方式</p>
+<ul>
+<li><p>ActionContext：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> ActionContext actionContext=ActionContext.getContext();  &#10;Map&#60;String,Object&#62; map=actionContext.getSession();  &#10;map.put(&#34;hello&#34;,&#34;helloworld&#34;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现<em>*</em>Aware接口：通过实现指定接口ServletContextAware，ServletRequestAware，ServletResponseAware，这种方式不推荐使用，与ServletAPI的耦合性大</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class LoginAction extends ActionSupport implements ServletRequestAware&#123; &#10;&#9;HttpSession session=request.getSession();&#10;&#9;//something same as httpSetvlet&#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ServletActionContext：ServletActionContext是面向action,特定于上下文的信息。继承于ActionContext</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HttpServletRequest request=ServletActionContext.getRequest();  &#10;    HttpSession session=request.getSession();  &#10;    session.setAttribute(&#34;hello&#34;, &#34;helloworld&#34;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Action_u7684_u641C_u7D22_u987A_u5E8F"><a href="#Action_u7684_u641C_u7D22_u987A_u5E8F" class="headerlink" title="Action的搜索顺序"></a>Action的搜索顺序</h3><ol>
+<li>发生URL请求：<code>http://localhost:80/projectName/path1/path2/path3/test.action</code></li>
+<li>首先会检索namespace为<code>/path1/path2/path3/</code>的package里面的test；如果找到则访问<ul>
+<li>否则，转向默认表空间[namespace=””]里面寻找该action，找到则访问<ul>
+<li>否则，转向默认表空间[namespace=””]寻找默认的action，找到则访问改action<ul>
+<li>如果默认空间中没有设置默认的action，则返回404….[not found]</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>首先会检索namespace为<code>/path1/path2/</code>的package里面的test；如果找到则访问<ul>
+<li>否则，转向默认表空间[namespace=””]里面寻找该action，找到则访问<ul>
+<li>否则，转向默认表空间[namespace=””]寻找默认的action，找到则访问改action<ul>
+<li>如果默认空间中没有设置默认的action，则返回404….[not found]</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>首先会检索namespace为<code>/path1/</code>的package里面的test；如果找到则访问<ul>
+<li>否则，转向默认表空间[namespace=””]里面寻找该action，找到则访问<ul>
+<li>否则，转向默认表空间[namespace=””]寻找默认的action，找到则访问改action<ul>
+<li>如果默认空间中没有设置默认的action，则返回404….[not found]</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果仍然不存在这个package,就去默认的namaspace的package下面去找名字为test的action(默认的命名空间为空字符串””),<br>如果还是找不到,页面提示找不到action,报404找不到内容的错误</li>
+</ol>
+<h3 id="u52A8_u6001_u65B9_u6CD5_u8C03_u7528"><a href="#u52A8_u6001_u65B9_u6CD5_u8C03_u7528" class="headerlink" title="动态方法调用"></a>动态方法调用</h3><ul>
+<li>概述：解决一个action对应多个请求的处理的问题，简化开发，避免Action太多</li>
+<li>方法一：指定Method属性<ul>
+<li>在配置文件中指定访问方法(method)：<figure class="highlight"><figcaption><span>name="hello" class="hellow" method="execute"></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;result name=&#34;success&#34;&#62;/result.jsp&#60;/result&#62;&#10;&#60;/action&#62;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>方法二：感叹号方式<ul>
+<li>开启常量值配置：<code>&lt;constant name=&quot;struts.enable.DynamicMethodInvocation&quot; value=&quot;true&quot;&gt;&lt;/constant&gt;</code></li>
+<li>根据返回值在<code>&lt;result&gt;</code>里面用name指定视图：<code>&lt;result name=&quot;result&quot;&gt;/result.jsp&lt;/result&gt;</code></li>
+<li>调用在action后缀之前添加感叹号和方法的方式访问：<code>http://localhost:8080/testStruts2/hello!result.action</code></li>
+</ul>
+</li>
+<li>方法三：通配符方式<ul>
+<li>在<code>&lt;action&gt;</code>配置里面name属性后面用<code>_*</code>的方式统配参数：第一个星号对应参数{1},第二个星号对应第二个参数{2}，可以统配包名，类名，方法名，或者部分名称的切割</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> &#60;action name=&#34;hello_*_*&#34; class=&#34;&#123;1&#125;&#34; method=&#34;execute&#34;&#62;&#10;&#60;result name=&#34;success&#34;&#62;/&#123;2&#125;.jsp&#60;/result&#62;&#10;  &#60;/action&#62;</span><br></pre></td></tr></table></figure>
+<h3 id="u6307_u5B9A_u591A_u4E2A_u914D_u7F6E_u6587_u4EF6"><a href="#u6307_u5B9A_u591A_u4E2A_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="指定多个配置文件"></a>指定多个配置文件</h3><ul>
+<li>项目中action特别多，如果全在一个<code>struts.xml</code>里面，就很复杂</li>
+<li>可以通过<include>导入多个分割了的action配置文件模块：<code>&lt;include file=&quot;hello.xml&quot;&gt;&lt;/include&gt;</code></include></li>
+<li>也可以统一配置文件的编码：用<code>&lt;constrant&gt;</code><h3 id="u9ED8_u8BA4action"><a href="#u9ED8_u8BA4action" class="headerlink" title="默认action"></a>默认action</h3></li>
+<li>防止出现尴尬页面…..</li>
+<li>在<code>struts.xml</code>配置文件配置:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;default-action-ref name=&#34;hello&#34;&#62;&#60;/default-action-ref&#62;&#10;&#60;action name=&#34;hello&#34;&#62;&#60;result name=&#34;error&#34;&#62;/error.jsp&#60;/result&#62;&#60;/action&#62;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="struts2_u540E_u7F00_uFF1A"><a href="#struts2_u540E_u7F00_uFF1A" class="headerlink" title="struts2后缀："></a>struts2后缀：</h3><ul>
+<li>伪造页面，安全，防hacker</li>
+<li>改成html后缀：<code>&lt;constant name=&quot;struts.action.extension&quot; value=&quot;html&quot;/&gt;</code></li>
+<li>取消后缀,只需消息value的值：<code>&lt;constant name=&quot;struts.action.extension&quot; value=&quot;&quot;/&gt;</code></li>
+<li>也可以在struts.properties里面配置，还可以在里面配置多个参数</li>
+<li>可以在web.xml里面配置<init-param>来指定后缀<h3 id="u63A5_u6536_u53C2_u6570_uFF1A"><a href="#u63A5_u6536_u53C2_u6570_uFF1A" class="headerlink" title="接收参数："></a>接收参数：</h3></init-param></li>
+<li>方法一：使用Action属性接收：<ul>
+<li>在接受的类中创建与提交部分命名一致的属性，以及getter，setter；传过来 的时候就能接收</li>
+</ul>
+</li>
+<li><p>方法二：使用Domain Model接收：</p>
+<ul>
+<li>创建对象model来接收，为了将数据存入到指定的对象模型，在提交数据的时候，需要指定存入的已经实例化的对象的属性<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;label&#62;&#29992;&#25143;&#21517;&#65306;&#60;/label&#62;&#60;input type=&#34;text&#34; name=&#34;us.username&#34;&#62;&#10; &#60;label&#62;&#23494;  &#30721;&#65306;&#60;/label&#62;&#60;input type=&#34;password&#34; name=&#34;us.password&#34;&#62;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>方法三：使用ModelDriven接收：</p>
+<ul>
+<li>实现ModelDriven的接口；如果通过对象接受数据，必须实例化，并且，在提交数据的时候，不需要再指定属性传输的对象<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;label&#62;&#29992;&#25143;&#21517;&#65306;&#60;/label&#62;&#60;input type=&#34;text&#34; name=&#34;username&#34;&#62;&#10;&#60;label&#62;&#23494;  &#30721;&#65306;&#60;/label&#62;&#60;input type=&#34;password&#34; name=&#34;password&#34;&#62;&#10;&#60;label&#62;&#20070;&#31821;1&#65306;&#60;/label&#62;&#60;input type=&#34;text&#34; name=&#34;booklist[0]&#34;&#62;&#10;&#60;label&#62;&#20070;&#31821;2&#65306;&#60;/label&#62;&#60;input type=&#34;text&#34; name=&#34;booklist[1]&#34;&#62;&#10;&#60;label&#62;&#20070;&#31821;3&#65306;&#60;/label&#62;&#60;input type=&#34;text&#34; name=&#34;booklist[2]&#34;&#62;  //user&#23545;&#35937;&#37324;&#38754;&#35774;&#32622;List&#38598;&#21512;&#25509;&#25910;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class hwaction extends ActionSupport implements ModelDriven&#60;user&#62; &#123;  //&#27867;&#22411;&#23450;&#20041;&#38656;&#35201;&#36171;&#20540;&#36716;&#25442;&#30340;&#31867;&#10;    private user us = new user();  \\&#19981;&#38656;&#35201;getter setter...&#10;    public String login()&#123;&#10;System.out.println(us.getUsername());&#10; System.out.println(us.getBooklist().get(2));&#10;System.out.println(us.getBooklist().get(1));&#10;System.out.println(us.getBooklist().get(0));&#10;        return SUCCESS;&#125;&#10;     @Override&#10;    public user getModel() &#123; &#10;        return us; //&#36820;&#22238;&#38656;&#35201;&#36716;&#25442;&#30340;&#23545;&#35937; &#125;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>方法四：使用request方法接受 </li>
+</ul>
+<p>###处理结果类型</p>
+<ul>
+<li>处理结果标签里面：type属性，默认(dispatcher)是定义jsp模板，还有其他的xstl,chain,redirect,stream,plaintext….</li>
+<li>五个系统内置属性：success，none，error，login，input</li>
+<li>success：正确执行完成，返回响应的视图</li>
+<li>none：正确执行，但是不返回视图</li>
+<li>error：执行失败，返回到错误处理视图</li>
+<li>login：由于用户没有登陆的原因没有正确执行，将返回登陆视图，要求用户进行登陆身份验证</li>
+<li>input：Action的执行需要前端界面获取参数，input就是代表这个参数的输入界面<ul>
+<li>表单验证的出现类型转换错误的时候会跳转回去</li>
+<li>在判断验证部分使用<code>this.addFieldError(&quot;username&quot;,&quot;用户名不为空&quot;)</code>，使用<code>return input;</code>跳转，并在前端部分使用struts标签显示username的提示</li>
+<li>继承ActionSupport里面的Validate()方法，也可以实现跳转<h3 id="u6839_u636E_u4F4D_u7F6E_u4E0D_u540C_u6765_u5212_u5206_u5904_u7406_u7ED3_u679C_u7C7B_u578B_uFF1A"><a href="#u6839_u636E_u4F4D_u7F6E_u4E0D_u540C_u6765_u5212_u5206_u5904_u7406_u7ED3_u679C_u7C7B_u578B_uFF1A" class="headerlink" title="根据位置不同来划分处理结果类型："></a>根据位置不同来划分处理结果类型：</h3><ul>
+<li>局部结果</li>
+<li>全局结果：所有的包下面的请求都可以公用其中返回功能</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/struts2/">struts2</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://royleo.xyz/2016/07/22/struts2基础笔记/" data-title="struts2基础笔记 | Master a Day" data-tsina="5357792662" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/07/19/比较http请求方法中的GET与POST方法/"  title="比较http请求方法中的GET与POST方法">
+ <strong>下一篇：</strong><br/> 
+ <span>比较http请求方法中的GET与POST方法
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/07/22/struts2基础笔记/" data-title="struts2基础笔记" data-url="http://royleo.xyz/2016/07/22/struts2基础笔记/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sturts2_u8BBF_u95EEServlet_API"><span class="toc-number">1.</span> <span class="toc-text">Sturts2访问Servlet API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Action_u7684_u641C_u7D22_u987A_u5E8F"><span class="toc-number">2.</span> <span class="toc-text">Action的搜索顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u52A8_u6001_u65B9_u6CD5_u8C03_u7528"><span class="toc-number">3.</span> <span class="toc-text">动态方法调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6307_u5B9A_u591A_u4E2A_u914D_u7F6E_u6587_u4EF6"><span class="toc-number">4.</span> <span class="toc-text">指定多个配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u9ED8_u8BA4action"><span class="toc-number">5.</span> <span class="toc-text">默认action</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#struts2_u540E_u7F00_uFF1A"><span class="toc-number">6.</span> <span class="toc-text">struts2后缀：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u63A5_u6536_u53C2_u6570_uFF1A"><span class="toc-number">7.</span> <span class="toc-text">接收参数：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6839_u636E_u4F4D_u7F6E_u4E0D_u540C_u6765_u5212_u5206_u5904_u7406_u7ED3_u679C_u7C7B_u578B_uFF1A"><span class="toc-number">8.</span> <span class="toc-text">根据位置不同来划分处理结果类型：</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="liangqian" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Hibernate/" title="Hibernate">Hibernate<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Spring/" title="Spring">Spring<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/小笔记/" title="小笔记">小笔记<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/小技巧/" title="小技巧">小技巧<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=5357792662&verifier=747e40f9&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 大音希声，重剑无锋 <br/>
+			In solitude, be a multitude to yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/5357792662" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/liangqian" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		<a href="https://www.facebook.com/roy.leong.589" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		<a href="https://plus.google.com/+RoyLeong?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:liangqian0723@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Roy Leong">Roy Leong</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"liangqian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

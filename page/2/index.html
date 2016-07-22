@@ -82,6 +82,78 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/05/10/无法连接远程Mysql数据库的解决办法-I/" title="无法连接远程Mysql数据库的解决办法 I" itemprop="url">无法连接远程Mysql数据库的解决办法 I</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-10T15:02:32.000Z" itemprop="datePublished"> 发表于 2016-05-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="tips_3A__u201CCan_not_connet_to_mysql_server_on__u2018192-168-2-3_u2019__2810061_29_u201D"><a href="#tips_3A__u201CCan_not_connet_to_mysql_server_on__u2018192-168-2-3_u2019__2810061_29_u201D" class="headerlink" title="tips: “Can not connet to mysql  server on ‘192.168.2.3’ (10061)”"></a>tips: “Can not connet to mysql  server on ‘192.168.2.3’ (10061)”</h2><ul>
+<li><p>很多时候想要远程登陆Mysql服务器，进行操作，发现弹出上面的提示…</p>
+<h2 id="u89E3_u51B3_u65B9_u6848_uFF1A"><a href="#u89E3_u51B3_u65B9_u6848_uFF1A" class="headerlink" title="解决方案："></a>解决方案：</h2><ul>
+<li>可能没有启动Mysql服务：<code>/etc/init.d/mysql start</code> 启动服务</li>
+<li><p>查看配置文件 <code>/etc/mysql/my.cnf</code> 文件中绑定的ip地址是否为默认ip(127.0.0.1)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu: vim /etc/mysql/my.cnf&#10;root@ubuntu:                      #&#20462;&#25913;my.cnf&#30340;&#25991;&#20214;&#37324;&#38754;&#30340;&#37197;&#32622;&#10;&#20462;&#25913; bind-adress = 127.0.0.1&#10;&#20026; bind-adress = &#26381;&#21153;&#22120;IP&#10;#&#36825;&#31181;&#24773;&#20917;&#26368;&#26174;&#33879;&#30340;&#29616;&#35937;&#26159;&#65306;&#36828;&#31243;&#30331;&#38470;&#19981;&#19978;Mysql&#26381;&#21153;&#22120;&#65292;&#20294;&#26159;&#26381;&#21153;&#22120;&#26412;&#22320;&#33021;&#30331;&#38470;&#36827;&#21435;mysql&#31243;&#24207;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查或者重置my.ini配置文件是否正确</p>
+</li>
+<li>Mysql服务器连接池已满，重新释放一下连接池，这时候你要重新评估你的连接数或者检测是否有恶意访问攻击什么的</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>  如果找partner，要物色好可靠的人选；不然，两人的价值观不一样，做事情的效率跟质量都不一样。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/小笔记/">小笔记</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/05/10/无法连接远程Mysql数据库的解决办法-I/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/10/无法连接远程Mysql数据库的解决办法-I/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/05/08/Java垃圾回收之finalize/" title="Java垃圾回收之finalize()" itemprop="url">Java垃圾回收之finalize()</a>
   </h1>
   <p class="article-author">By
@@ -407,6 +479,10 @@
 		
 			
 				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
 			
 		
 			
