@@ -82,6 +82,126 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/07/24/Java-实现TCP-IP-Socket通信/" title="Java 实现TCP/IP Socket通信" itemprop="url">Java 实现TCP/IP Socket通信</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2016-07-23T16:30:07.000Z" itemprop="datePublished"> 发表于 2016-07-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h5 id="Java_u63D0_u4F9B_u7684_u7F51_u7EDC_u529F_u80FD_u6709_u56DB_u5927_u7C7B"><a href="#Java_u63D0_u4F9B_u7684_u7F51_u7EDC_u529F_u80FD_u6709_u56DB_u5927_u7C7B" class="headerlink" title="Java提供的网络功能有四大类"></a>Java提供的网络功能有四大类</h5><ul>
+<li>InetAddress; 用于标识网络上的硬件资源，比如MAC地址等．．．</li>
+<li>URL：统一资源定位符 通过URL可以直接读取或写入网络上的数据</li>
+<li>Sockets：使用TCP协议实现网络通信的Socket的相关类</li>
+<li>Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行通信<br>#####InetAddress类：表示互联网协议(IP)地址</li>
+<li>通过静态方法获取实例：(然后就可以根据jdk文档，使用相关方法)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">InetAddress address = InetAddress.getLocalHost();//&#25110;&#32773;&#10;InetAddress address1 = InetAddress.getByName(&#34;10.2.18.87&#34;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="Socket_u5B9E_u73B0TCP_u901A_u4FE1_28_u57FA_u4E8E_u6570_u636E_u6D41_u5957_u63A5_u5B57_29"><a href="#Socket_u5B9E_u73B0TCP_u901A_u4FE1_28_u57FA_u4E8E_u6570_u636E_u6D41_u5957_u63A5_u5B57_29" class="headerlink" title="Socket实现TCP通信(基于数据流套接字)"></a>Socket实现TCP通信(基于数据流套接字)</h5><ul>
+<li>建立连接流程： 服务器处于监听状态，等待并接受客户端创建的socket向服务器发送请求，服务器接收请求之后，创建连接Socket进行通信</li>
+<li>开始通信：通过相关的输入流(InputStream)、输出流(OutputStream)，发送接收数据</li>
+<li>结束通信：关闭客户端和服务端的socket，释放资源</li>
+<li>实现步骤：<ol>
+<li>创建ServerSocket和Socket</li>
+<li>打开连接到Socket的输入/输出流</li>
+<li>按照协议对Socket进行读写操作</li>
+<li>通信完毕，关闭输出流，关闭Socket</li>
+</ol>
+</li>
+<li>服务端实现步骤：<ol>
+<li>创建ServerSocket对象，绑定监听端口</li>
+<li>通过accept()方法绑定客户端请求</li>
+<li>建立连接后，通过输入流读取客户端发送的请求信息</li>
+<li>通过输出流向客户端发送响应信息</li>
+<li>关闭相关资源</li>
+</ol>
+</li>
+<li>客户端实现步骤：<ol>
+<li>创建Socket对象，指明需要连接的服务器的地址与端口号</li>
+<li>连接创建后，通过输出流向服务器发送请求信息</li>
+<li>关闭相关资源</li>
+</ol>
+</li>
+<li>主要方法：getInputStream(), getOutPutStream();实现发送/接受数据 </li>
+<li>多线程实现服务器与多客户端之间通信<ul>
+<li>基本步骤：<ol>
+<li>在服务器端创建ServerSock，循环调用accept()等待客户端连接</li>
+<li>客户端创建一个Socket并请求和服务端连接</li>
+<li>服务端就收客户端请求，创建socket与该客户简历专线连接</li>
+<li>建立链接的两个Socket在一个单独的线程上对话</li>
+<li>服务器机箱等待新的连接<h5 id="UDP_Socket_u7F16_u7A0B"><a href="#UDP_Socket_u7F16_u7A0B" class="headerlink" title="UDP Socket编程"></a>UDP Socket编程</h5></li>
+</ol>
+</li>
+</ul>
+</li>
+<li>使用的类：DatagramPacket类，DatagramSocket类；可以在jdk文档里面了解其中方法的用法</li>
+<li>服务端实现步骤：<ol>
+<li>创建DatagramSocket，指定端口号</li>
+<li>创建DatagramPacket，用于接收客户端数据</li>
+<li>接受客户端发送的数据</li>
+<li>读取数据</li>
+</ol>
+</li>
+<li>客户端实现步骤<ol>
+<li>定义发送信息</li>
+<li>创建DatagramPacket，包含要发送的数据信息</li>
+<li>创建DatagramSocket</li>
+<li>发送数据</li>
+</ol>
+</li>
+<li>同样，也可以通过像tcp Socket通信那样完善，添加多线程监控客户端请求并相应;</li>
+<li>备注：程序代码都在Github 仓库：<a href="https://github.com/liangqian/socketDemo.git" target="_blank" rel="external">enter link description here</a> </li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/07/24/Java-实现TCP-IP-Socket通信/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/07/24/Java-实现TCP-IP-Socket通信/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/07/22/struts2基础笔记/" title="struts2基础笔记(1)" itemprop="url">struts2基础笔记(1)</a>
   </h1>
   <p class="article-author">By
@@ -972,130 +1092,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/06/05/关于Maven-打包时-缺失properties和xml后缀的文件/" title="关于Maven 打包时 缺失properties和xml后缀的文件" itemprop="url">关于Maven 打包时 缺失properties和xml后缀的文件</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-05T03:00:33.000Z" itemprop="datePublished"> 发表于 2016-06-05</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <ul>
-<li>背景<ul>
-<li>Intellij IDEA 14.1.5</li>
-<li>Maven 项目</li>
-</ul>
-</li>
-<li>问题<h3 id="u6253_u5305Maven_u9879_u76EE_u7684_u65F6_u5019_uFF0C_u62A5_u9519"><a href="#u6253_u5305Maven_u9879_u76EE_u7684_u65F6_u5019_uFF0C_u62A5_u9519" class="headerlink" title="打包Maven项目的时候，报错"></a>打包Maven项目的时候，报错</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log4j:WARN No appenders could be found for logger (logmain).&#10;log4j:WARN Please initialize the log4j system properly.&#10;log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="u4F46_u662F_u6211_u7684_u76EE_u5F55_u4E0B_u6709log4j-properties_u914D_u7F6E_u6587_u4EF6"><a href="#u4F46_u662F_u6211_u7684_u76EE_u5F55_u4E0B_u6709log4j-properties_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="但是我的目录下有log4j.properties配置文件"></a>但是我的目录下有<code>log4j.properties</code>配置文件</h3><h3 id="u5C55_u5F00_u624D_u53D1_u73B0_uFF1A_u8F93_u51FA_u7684_u7C7B_u6CA1_u6709_u2019log4j-properties_u2019_u914D_u7F6E_u6587_u4EF6"><a href="#u5C55_u5F00_u624D_u53D1_u73B0_uFF1A_u8F93_u51FA_u7684_u7C7B_u6CA1_u6709_u2019log4j-properties_u2019_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="展开才发现：输出的类没有’log4j.properties’配置文件"></a>展开才发现：输出的类没有’log4j.properties’配置文件</h3><h2 id="u89E3_u51B3_u65B9_u6848"><a href="#u89E3_u51B3_u65B9_u6848" class="headerlink" title="解决方案"></a>解决方案</h2><ul>
-<li>在pom中添加resources配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;build&#62;&#10;        &#60;resources&#62;&#10;            &#60;resource&#62;&#10;                &#60;directory&#62;src/main/java&#60;/directory&#62;&#10;                &#60;includes&#62;&#10;                    &#60;include&#62;**/*.properties&#60;/include&#62;&#10;                &#60;/includes&#62;&#10;            &#60;/resource&#62;&#10;        &#60;/resources&#62;&#10;    &#60;/build&#62;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="u8BF4_u660E"><a href="#u8BF4_u660E" class="headerlink" title="说明"></a>说明</h2><ul>
-<li>Maven的生命周期：</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>生命周期阶段</th>
-<th>目标</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>process-resources</td>
-<td>resources:resources</td>
-</tr>
-<tr>
-<td>compile</td>
-<td>compile:compile</td>
-</tr>
-<tr>
-<td>process-test-resources</td>
-<td>resources:testResource</td>
-</tr>
-<tr>
-<td>test-compile</td>
-<td>compile:testCompile</td>
-</tr>
-<tr>
-<td>test</td>
-<td>surefire:test</td>
-</tr>
-<tr>
-<td>package</td>
-<td>war:war</td>
-</tr>
-<tr>
-<td>install</td>
-<td>install:install</td>
-</tr>
-<tr>
-<td>deploy</td>
-<td>deploy:deploy</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><p>经测试</p>
-<ol>
-<li>当pom中不增加resources配置时，<br>执行process-resources，class文件夹下只包含src/main/resources下的文件<br>执行compile，class文件夹下包含src/main/resources下的文件与src/main/java下的<em>.class文件，丢失src/main/java下的</em>.properties文件</li>
-<li>当pom中增加resources配置时<br>执行process-resources，class文件夹下只包含src/main/resources下的文件与src/main/java下的<em>.properties文件<br>执行compile，class文件夹下包含src/main/resources下的文件与src/main/java下的</em>.class文件与*.properties文件</li>
-</ol>
-</li>
-</ul>
-<h3 id="u540C_u6837_uFF0C_u5BF9_u4E8Emaven_u9879_u76EE_u52A0_u8F7D_u4E0D_u51FA_u6765xml_u6587_u4EF6_u7684_u60C5_u51B5_uFF0C_u89E3_u51B3_u65B9_u6CD5_u7C7B_u4F3C"><a href="#u540C_u6837_uFF0C_u5BF9_u4E8Emaven_u9879_u76EE_u52A0_u8F7D_u4E0D_u51FA_u6765xml_u6587_u4EF6_u7684_u60C5_u51B5_uFF0C_u89E3_u51B3_u65B9_u6CD5_u7C7B_u4F3C" class="headerlink" title="同样，对于maven项目加载不出来xml文件的情况，解决方法类似"></a>同样，对于maven项目加载不出来<code>xml</code>文件的情况，解决方法类似</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;build&#62;&#10;        &#60;resources&#62;&#10;            &#60;resource&#62;&#10;                &#60;directory&#62;src/main/java&#60;/directory&#62;&#10;                &#60;includes&#62;&#10;                    &#60;include&#62;**/*.xml&#60;/include&#62;&#10;                &#60;/includes&#62;&#10;            &#60;/resource&#62;&#10;        &#60;/resources&#62;&#10;&#60;/build&#62;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Maven/">Maven</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/06/05/关于Maven-打包时-缺失properties和xml后缀的文件/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/05/关于Maven-打包时-缺失properties和xml后缀的文件/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -1134,6 +1130,10 @@
 			
 		
 			
+				<li><a href="/tags/Java/" title="Java">Java<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
 			
 		
@@ -1159,10 +1159,6 @@
 		
 			
 				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 			
 		
 		</ul>

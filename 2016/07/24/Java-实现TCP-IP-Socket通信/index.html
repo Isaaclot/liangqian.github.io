@@ -4,52 +4,38 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>AngularJS 核心特性 | Master a Day</title>
+    <title>Java 实现TCP/IP Socket通信 | Master a Day</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Roy Leong">
     
 
     
-    <meta name="description" content="MVC : model - view - controller
-切分代码职责
-更好的复用代码
-便于模块化管理
-终极目标：实现模块化，复用
-
-
-模块化Module：一起都是从模块开始，其他都是在module的基础上调用
-指令系统
-1angular.module(&amp;#34;mymodule&amp;#34;,[]).directive(&amp;#34;hello&amp;#34;,function()&amp;#123;&amp;#10;">
+    <meta name="description" content="Java提供的网络功能有四大类
+InetAddress; 用于标识网络上的硬件资源，比如MAC地址等．．．
+URL：统一资源定位符 通过URL可以直接读取或写入网络上的数据
+Sockets：使用TCP协议实现网络通信的Socket的相关类
+Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行通信#####InetAddress类：表示互联网协议(IP)地址
+通过静态方法获取实例：(">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AngularJS 核心特性">
-<meta property="og:url" content="http://royleo.xyz/2016/07/16/AngularJS-核心特性/index.html">
+<meta property="og:title" content="Java 实现TCP/IP Socket通信">
+<meta property="og:url" content="http://royleo.xyz/2016/07/24/Java-实现TCP-IP-Socket通信/index.html">
 <meta property="og:site_name" content="Master a Day">
-<meta property="og:description" content="MVC : model - view - controller
-切分代码职责
-更好的复用代码
-便于模块化管理
-终极目标：实现模块化，复用
-
-
-模块化Module：一起都是从模块开始，其他都是在module的基础上调用
-指令系统
-1angular.module(&amp;#34;mymodule&amp;#34;,[]).directive(&amp;#34;hello&amp;#34;,function()&amp;#123;&amp;#10;">
-<meta property="og:image" content="http://7xqvf0.com1.z0.glb.clouddn.com/%E5%8D%95%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A.png">
-<meta property="og:image" content="http://7xqvf0.com1.z0.glb.clouddn.com/%E5%8F%8C%E5%90%91.png">
-<meta property="og:updated_time" content="2016-07-16T08:40:24.110Z">
+<meta property="og:description" content="Java提供的网络功能有四大类
+InetAddress; 用于标识网络上的硬件资源，比如MAC地址等．．．
+URL：统一资源定位符 通过URL可以直接读取或写入网络上的数据
+Sockets：使用TCP协议实现网络通信的Socket的相关类
+Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行通信#####InetAddress类：表示互联网协议(IP)地址
+通过静态方法获取实例：(">
+<meta property="og:updated_time" content="2016-07-23T16:31:14.061Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AngularJS 核心特性">
-<meta name="twitter:description" content="MVC : model - view - controller
-切分代码职责
-更好的复用代码
-便于模块化管理
-终极目标：实现模块化，复用
-
-
-模块化Module：一起都是从模块开始，其他都是在module的基础上调用
-指令系统
-1angular.module(&amp;#34;mymodule&amp;#34;,[]).directive(&amp;#34;hello&amp;#34;,function()&amp;#123;&amp;#10;">
+<meta name="twitter:title" content="Java 实现TCP/IP Socket通信">
+<meta name="twitter:description" content="Java提供的网络功能有四大类
+InetAddress; 用于标识网络上的硬件资源，比如MAC地址等．．．
+URL：统一资源定位符 通过URL可以直接读取或写入网络上的数据
+Sockets：使用TCP协议实现网络通信的Socket的相关类
+Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行通信#####InetAddress类：表示互联网协议(IP)地址
+通过静态方法获取实例：(">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -110,14 +96,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/07/16/AngularJS-核心特性/" title="AngularJS 核心特性" itemprop="url">AngularJS 核心特性</a>
+      <a href="/2016/07/24/Java-实现TCP-IP-Socket通信/" title="Java 实现TCP/IP Socket通信" itemprop="url">Java 实现TCP/IP Socket通信</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2016-07-16T08:26:00.000Z" itemprop="datePublished"> 发表于 2016-07-16</time>
+    <time datetime="2016-07-23T16:30:07.000Z" itemprop="datePublished"> 发表于 2016-07-24</time>
     
   </p>
 </header>
@@ -126,28 +112,72 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#Java_u63D0_u4F9B_u7684_u7F51_u7EDC_u529F_u80FD_u6709_u56DB_u5927_u7C7B"><span class="toc-number">1.</span> <span class="toc-text">Java提供的网络功能有四大类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Socket_u5B9E_u73B0TCP_u901A_u4FE1_28_u57FA_u4E8E_u6570_u636E_u6D41_u5957_u63A5_u5B57_29"><span class="toc-number">2.</span> <span class="toc-text">Socket实现TCP通信(基于数据流套接字)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#UDP_Socket_u7F16_u7A0B"><span class="toc-number">3.</span> <span class="toc-text">UDP Socket编程</span></a></li></ol>
 		
 		</div>
 		
-		<ul>
-<li>MVC : model - view - controller<ul>
-<li>切分代码职责</li>
-<li>更好的复用代码</li>
-<li>便于模块化管理</li>
-<li>终极目标：实现模块化，复用</li>
+		<h5 id="Java_u63D0_u4F9B_u7684_u7F51_u7EDC_u529F_u80FD_u6709_u56DB_u5927_u7C7B"><a href="#Java_u63D0_u4F9B_u7684_u7F51_u7EDC_u529F_u80FD_u6709_u56DB_u5927_u7C7B" class="headerlink" title="Java提供的网络功能有四大类"></a>Java提供的网络功能有四大类</h5><ul>
+<li>InetAddress; 用于标识网络上的硬件资源，比如MAC地址等．．．</li>
+<li>URL：统一资源定位符 通过URL可以直接读取或写入网络上的数据</li>
+<li>Sockets：使用TCP协议实现网络通信的Socket的相关类</li>
+<li>Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行通信<br>#####InetAddress类：表示互联网协议(IP)地址</li>
+<li>通过静态方法获取实例：(然后就可以根据jdk文档，使用相关方法)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">InetAddress address = InetAddress.getLocalHost();//&#25110;&#32773;&#10;InetAddress address1 = InetAddress.getByName(&#34;10.2.18.87&#34;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="Socket_u5B9E_u73B0TCP_u901A_u4FE1_28_u57FA_u4E8E_u6570_u636E_u6D41_u5957_u63A5_u5B57_29"><a href="#Socket_u5B9E_u73B0TCP_u901A_u4FE1_28_u57FA_u4E8E_u6570_u636E_u6D41_u5957_u63A5_u5B57_29" class="headerlink" title="Socket实现TCP通信(基于数据流套接字)"></a>Socket实现TCP通信(基于数据流套接字)</h5><ul>
+<li>建立连接流程： 服务器处于监听状态，等待并接受客户端创建的socket向服务器发送请求，服务器接收请求之后，创建连接Socket进行通信</li>
+<li>开始通信：通过相关的输入流(InputStream)、输出流(OutputStream)，发送接收数据</li>
+<li>结束通信：关闭客户端和服务端的socket，释放资源</li>
+<li>实现步骤：<ol>
+<li>创建ServerSocket和Socket</li>
+<li>打开连接到Socket的输入/输出流</li>
+<li>按照协议对Socket进行读写操作</li>
+<li>通信完毕，关闭输出流，关闭Socket</li>
+</ol>
+</li>
+<li>服务端实现步骤：<ol>
+<li>创建ServerSocket对象，绑定监听端口</li>
+<li>通过accept()方法绑定客户端请求</li>
+<li>建立连接后，通过输入流读取客户端发送的请求信息</li>
+<li>通过输出流向客户端发送响应信息</li>
+<li>关闭相关资源</li>
+</ol>
+</li>
+<li>客户端实现步骤：<ol>
+<li>创建Socket对象，指明需要连接的服务器的地址与端口号</li>
+<li>连接创建后，通过输出流向服务器发送请求信息</li>
+<li>关闭相关资源</li>
+</ol>
+</li>
+<li>主要方法：getInputStream(), getOutPutStream();实现发送/接受数据 </li>
+<li>多线程实现服务器与多客户端之间通信<ul>
+<li>基本步骤：<ol>
+<li>在服务器端创建ServerSock，循环调用accept()等待客户端连接</li>
+<li>客户端创建一个Socket并请求和服务端连接</li>
+<li>服务端就收客户端请求，创建socket与该客户简历专线连接</li>
+<li>建立链接的两个Socket在一个单独的线程上对话</li>
+<li>服务器机箱等待新的连接<h5 id="UDP_Socket_u7F16_u7A0B"><a href="#UDP_Socket_u7F16_u7A0B" class="headerlink" title="UDP Socket编程"></a>UDP Socket编程</h5></li>
+</ol>
+</li>
 </ul>
 </li>
-<li>模块化Module：一起都是从模块开始，其他都是在module的基础上调用</li>
-<li><p>指令系统</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">angular.module(&#34;mymodule&#34;,[]).directive(&#34;hello&#34;,function()&#123;&#10;&#9;return &#123;&#10;&#9;&#9;restrict: &#34;E&#34;,&#10;&#9;&#9;template: &#39;&#60;div&#62;Hi everyone&#60;/div&#62;&#39;&#10;&#9;&#9;replace: true&#10;&#9;&#125;&#10;&#125;)</span><br></pre></td></tr></table></figure>
+<li>使用的类：DatagramPacket类，DatagramSocket类；可以在jdk文档里面了解其中方法的用法</li>
+<li>服务端实现步骤：<ol>
+<li>创建DatagramSocket，指定端口号</li>
+<li>创建DatagramPacket，用于接收客户端数据</li>
+<li>接受客户端发送的数据</li>
+<li>读取数据</li>
+</ol>
 </li>
-<li><p>双向数据绑定</p>
-<ul>
-<li>单向数据绑定：先定义好模板跟数据结合，通过数据绑定机制，将模板跟数据生成一段html标签，再把生成的HTML标签加入到文档流中，但是当数据变化的时候，再去改变view页面的数据，复杂度高；并且view中的数据变换(输入)的时候，无法将改变传回来给model数据<br><img src="http://7xqvf0.com1.z0.glb.clouddn.com/%E5%8D%95%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A.png" alt="单向数据绑定"></li>
-<li>双向数据绑定：view中的数据变化的时候，数据模型发生变化，当model中的数据发生变化的时候，其中改变能直接反馈给view页面<br><img src="http://7xqvf0.com1.z0.glb.clouddn.com/%E5%8F%8C%E5%90%91.png" alt="双向数据绑定"></li>
-</ul>
+<li>客户端实现步骤<ol>
+<li>定义发送信息</li>
+<li>创建DatagramPacket，包含要发送的数据信息</li>
+<li>创建DatagramSocket</li>
+<li>发送数据</li>
+</ol>
 </li>
+<li>同样，也可以通过像tcp Socket通信那样完善，添加多线程监控客户端请求并相应;</li>
+<li>备注：程序代码都在Github 仓库：<a href="https://github.com/liangqian/socketDemo.git" target="_blank" rel="external">enter link description here</a> </li>
 </ul>
   
 	</div>
@@ -157,7 +187,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Angular-JS/">Angular JS</a>
+  <span></span> <a href="/tags/Java/">Java</a>
   </div>
 
 </div>
@@ -166,7 +196,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://royleo.xyz/2016/07/16/AngularJS-核心特性/" data-title="AngularJS 核心特性 | Master a Day" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://royleo.xyz/2016/07/24/Java-实现TCP-IP-Socket通信/" data-title="Java 实现TCP/IP Socket通信 | Master a Day" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -179,19 +209,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/07/19/Spring-MVC常用的控制器方法与使用/" title="Spring MVC常用的控制器方法与使用">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Spring MVC常用的控制器方法与使用</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/07/16/Spring-MVC请求处理工作流程/"  title="Spring-MVC请求处理工作流程">
+<a href="/2016/07/22/struts2基础笔记/"  title="struts2基础笔记(1)">
  <strong>下一篇：</strong><br/> 
- <span>Spring-MVC请求处理工作流程
+ <span>struts2基础笔记(1)
 </span>
 </a>
 </div>
@@ -200,7 +222,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/07/16/AngularJS-核心特性/" data-title="AngularJS 核心特性" data-url="http://royleo.xyz/2016/07/16/AngularJS-核心特性/"></div>
+	<div class="ds-thread" data-thread-key="2016/07/24/Java-实现TCP-IP-Socket通信/" data-title="Java 实现TCP/IP Socket通信" data-url="http://royleo.xyz/2016/07/24/Java-实现TCP-IP-Socket通信/"></div>
 </section>
 
 
@@ -210,7 +232,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#Java_u63D0_u4F9B_u7684_u7F51_u7EDC_u529F_u80FD_u6709_u56DB_u5927_u7C7B"><span class="toc-number">1.</span> <span class="toc-text">Java提供的网络功能有四大类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Socket_u5B9E_u73B0TCP_u901A_u4FE1_28_u57FA_u4E8E_u6570_u636E_u6D41_u5957_u63A5_u5B57_29"><span class="toc-number">2.</span> <span class="toc-text">Socket实现TCP通信(基于数据流套接字)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#UDP_Socket_u7F16_u7A0B"><span class="toc-number">3.</span> <span class="toc-text">UDP Socket编程</span></a></li></ol>
  
   </div>
 
