@@ -76,480 +76,147 @@
     <div id="container">
       <div id="main">
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/06/05/关于Maven-打包时-缺失properties和xml后缀的文件/" title="关于Maven 打包时 缺失properties和xml后缀的文件" itemprop="url">关于Maven 打包时 缺失properties和xml后缀的文件</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-05T03:00:33.000Z" itemprop="datePublished"> 发表于 2016-06-05</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <ul>
-<li>背景<ul>
-<li>Intellij IDEA 14.1.5</li>
-<li>Maven 项目</li>
-</ul>
-</li>
-<li>问题<h3 id="u6253_u5305Maven_u9879_u76EE_u7684_u65F6_u5019_uFF0C_u62A5_u9519"><a href="#u6253_u5305Maven_u9879_u76EE_u7684_u65F6_u5019_uFF0C_u62A5_u9519" class="headerlink" title="打包Maven项目的时候，报错"></a>打包Maven项目的时候，报错</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log4j:WARN No appenders could be found for logger (logmain).&#10;log4j:WARN Please initialize the log4j system properly.&#10;log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="u4F46_u662F_u6211_u7684_u76EE_u5F55_u4E0B_u6709log4j-properties_u914D_u7F6E_u6587_u4EF6"><a href="#u4F46_u662F_u6211_u7684_u76EE_u5F55_u4E0B_u6709log4j-properties_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="但是我的目录下有log4j.properties配置文件"></a>但是我的目录下有<code>log4j.properties</code>配置文件</h3><h3 id="u5C55_u5F00_u624D_u53D1_u73B0_uFF1A_u8F93_u51FA_u7684_u7C7B_u6CA1_u6709_u2019log4j-properties_u2019_u914D_u7F6E_u6587_u4EF6"><a href="#u5C55_u5F00_u624D_u53D1_u73B0_uFF1A_u8F93_u51FA_u7684_u7C7B_u6CA1_u6709_u2019log4j-properties_u2019_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="展开才发现：输出的类没有’log4j.properties’配置文件"></a>展开才发现：输出的类没有’log4j.properties’配置文件</h3><h2 id="u89E3_u51B3_u65B9_u6848"><a href="#u89E3_u51B3_u65B9_u6848" class="headerlink" title="解决方案"></a>解决方案</h2><ul>
-<li>在pom中添加resources配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;build&#62;&#10;        &#60;resources&#62;&#10;            &#60;resource&#62;&#10;                &#60;directory&#62;src/main/java&#60;/directory&#62;&#10;                &#60;includes&#62;&#10;                    &#60;include&#62;**/*.properties&#60;/include&#62;&#10;                &#60;/includes&#62;&#10;            &#60;/resource&#62;&#10;        &#60;/resources&#62;&#10;    &#60;/build&#62;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="u8BF4_u660E"><a href="#u8BF4_u660E" class="headerlink" title="说明"></a>说明</h2><ul>
-<li>Maven的生命周期：</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>生命周期阶段</th>
-<th>目标</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>process-resources</td>
-<td>resources:resources</td>
-</tr>
-<tr>
-<td>compile</td>
-<td>compile:compile</td>
-</tr>
-<tr>
-<td>process-test-resources</td>
-<td>resources:testResource</td>
-</tr>
-<tr>
-<td>test-compile</td>
-<td>compile:testCompile</td>
-</tr>
-<tr>
-<td>test</td>
-<td>surefire:test</td>
-</tr>
-<tr>
-<td>package</td>
-<td>war:war</td>
-</tr>
-<tr>
-<td>install</td>
-<td>install:install</td>
-</tr>
-<tr>
-<td>deploy</td>
-<td>deploy:deploy</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><p>经测试</p>
-<ol>
-<li>当pom中不增加resources配置时，<br>执行process-resources，class文件夹下只包含src/main/resources下的文件<br>执行compile，class文件夹下包含src/main/resources下的文件与src/main/java下的<em>.class文件，丢失src/main/java下的</em>.properties文件</li>
-<li>当pom中增加resources配置时<br>执行process-resources，class文件夹下只包含src/main/resources下的文件与src/main/java下的<em>.properties文件<br>执行compile，class文件夹下包含src/main/resources下的文件与src/main/java下的</em>.class文件与*.properties文件</li>
-</ol>
-</li>
-</ul>
-<h3 id="u540C_u6837_uFF0C_u5BF9_u4E8Emaven_u9879_u76EE_u52A0_u8F7D_u4E0D_u51FA_u6765xml_u6587_u4EF6_u7684_u60C5_u51B5_uFF0C_u89E3_u51B3_u65B9_u6CD5_u7C7B_u4F3C"><a href="#u540C_u6837_uFF0C_u5BF9_u4E8Emaven_u9879_u76EE_u52A0_u8F7D_u4E0D_u51FA_u6765xml_u6587_u4EF6_u7684_u60C5_u51B5_uFF0C_u89E3_u51B3_u65B9_u6CD5_u7C7B_u4F3C" class="headerlink" title="同样，对于maven项目加载不出来xml文件的情况，解决方法类似"></a>同样，对于maven项目加载不出来<code>xml</code>文件的情况，解决方法类似</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;build&#62;&#10;        &#60;resources&#62;&#10;            &#60;resource&#62;&#10;                &#60;directory&#62;src/main/java&#60;/directory&#62;&#10;                &#60;includes&#62;&#10;                    &#60;include&#62;**/*.xml&#60;/include&#62;&#10;                &#60;/includes&#62;&#10;            &#60;/resource&#62;&#10;        &#60;/resources&#62;&#10;&#60;/build&#62;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
   
-  <span></span> <a href="/tags/Maven/">Maven</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/06/05/关于Maven-打包时-缺失properties和xml后缀的文件/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/05/关于Maven-打包时-缺失properties和xml后缀的文件/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/05/10/无法连接远程Mysql数据库的解决办法-I/" title="无法连接远程Mysql数据库的解决办法 I" itemprop="url">无法连接远程Mysql数据库的解决办法 I</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-05-10T15:02:32.000Z" itemprop="datePublished"> 发表于 2016-05-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="tips_3A__u201CCan_not_connet_to_mysql_server_on__u2018192-168-2-3_u2019__2810061_29_u201D"><a href="#tips_3A__u201CCan_not_connet_to_mysql_server_on__u2018192-168-2-3_u2019__2810061_29_u201D" class="headerlink" title="tips: “Can not connet to mysql  server on ‘192.168.2.3’ (10061)”"></a>tips: “Can not connet to mysql  server on ‘192.168.2.3’ (10061)”</h2><ul>
-<li><p>很多时候想要远程登陆Mysql服务器，进行操作，发现弹出上面的提示…</p>
-<h2 id="u89E3_u51B3_u65B9_u6848_uFF1A"><a href="#u89E3_u51B3_u65B9_u6848_uFF1A" class="headerlink" title="解决方案："></a>解决方案：</h2><ul>
-<li>可能没有启动Mysql服务：<code>/etc/init.d/mysql start</code> 启动服务</li>
-<li><p>查看配置文件 <code>/etc/mysql/my.cnf</code> 文件中绑定的ip地址是否为默认ip(127.0.0.1)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu: vim /etc/mysql/my.cnf&#10;root@ubuntu:                      #&#20462;&#25913;my.cnf&#30340;&#25991;&#20214;&#37324;&#38754;&#30340;&#37197;&#32622;&#10;&#20462;&#25913; bind-adress = 127.0.0.1&#10;&#20026; bind-adress = &#26381;&#21153;&#22120;IP&#10;#&#36825;&#31181;&#24773;&#20917;&#26368;&#26174;&#33879;&#30340;&#29616;&#35937;&#26159;&#65306;&#36828;&#31243;&#30331;&#38470;&#19981;&#19978;Mysql&#26381;&#21153;&#22120;&#65292;&#20294;&#26159;&#26381;&#21153;&#22120;&#26412;&#22320;&#33021;&#30331;&#38470;&#36827;&#21435;mysql&#31243;&#24207;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>检查或者重置my.ini配置文件是否正确</p>
-</li>
-<li>Mysql服务器连接池已满，重新释放一下连接池，这时候你要重新评估你的连接数或者检测是否有恶意访问攻击什么的</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p>  如果找partner，要物色好可靠的人选；不然，两人的价值观不一样，做事情的效率跟质量都不一样。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/小笔记/">小笔记</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/05/10/无法连接远程Mysql数据库的解决办法-I/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/10/无法连接远程Mysql数据库的解决办法-I/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/05/08/Java垃圾回收之finalize/" title="Java垃圾回收之finalize()" itemprop="url">Java垃圾回收之finalize()</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-05-07T16:07:13.000Z" itemprop="datePublished"> 发表于 2016-05-08</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="Java_u5783_u573E_u56DE_u6536"><a href="#Java_u5783_u573E_u56DE_u6536" class="headerlink" title="Java垃圾回收"></a>Java垃圾回收</h2><ul>
-<li>Java垃圾回收器负责回收无用对象占据的内存资源</li>
-<li>但是，无论是“垃圾回收”或者“终结”，JVM都不保证会发生，因为JVM在没有面临内存耗尽的情况下，它是不会浪费时间去执行垃圾回收以恢复内存</li>
-<li>JVM不会主动去发现一些无用特殊的内存区块，并清除它，所以引入<code>finalize()</code>方法</li>
-</ul>
-<h2 id="finalize_28_29_u7528_u6CD5"><a href="#finalize_28_29_u7528_u6CD5" class="headerlink" title="finalize()用法"></a><code>finalize()</code>用法</h2><ul>
-<li>对象可能不被垃圾回收</li>
-<li>垃圾回收并不等于“析构”</li>
-<li>垃圾回收只与内存有关</li>
-</ul>
-<h5 id="finalize_28_29_u5DE5_u4F5C_u539F_u7406"><a href="#finalize_28_29_u5DE5_u4F5C_u539F_u7406" class="headerlink" title="finalize()工作原理"></a><code>finalize()</code>工作原理</h5><ul>
-<li>一旦垃圾回收器准备好释放对象占用的存储空间，将首先调用<code>finalize()</code>方法，并且在下一次垃圾回收动作发生时，才会真正回收对象占用的内存</li>
-</ul>
-<h4 id="u4E0B_u9762_u4E00_u4E2A_u4F8B_u5B50_u793A_u8303finalize_28_29_u53EF_u80FD_u7684_u4F7F_u7528_u65B9_u5F0F_28_u7EC8_u7ED3_u6761_u4EF6_29"><a href="#u4E0B_u9762_u4E00_u4E2A_u4F8B_u5B50_u793A_u8303finalize_28_29_u53EF_u80FD_u7684_u4F7F_u7528_u65B9_u5F0F_28_u7EC8_u7ED3_u6761_u4EF6_29" class="headerlink" title="下面一个例子示范finalize()可能的使用方式(终结条件)"></a>下面一个例子示范<code>finalize()</code>可能的使用方式(终结条件)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Book&#123;&#10;  boolean checkedOut = false;&#10;  Book(boolean checkOut)&#123;&#10;    checkedOut = checkOut;&#10;  &#125;&#10;  void chechIn()&#123;&#10;    checkedOut = false;&#10;  &#125;&#10;  protected void finalize()&#123;&#10;    if(checkedOut)&#123;&#10;      System.out.print(&#34;error:check out&#34;);&#10;    &#125;&#10;  &#125;&#10;&#125;&#10;public class Terminal&#123;&#10;  public static void main(String[] args)&#123;&#10;    Book novel = new Book(true);&#10;    novel.chechIn();&#10;    new Book(true);&#10;    System.gc();&#10;  &#125;&#10;&#125;&#10;/*&#10;*output:&#10;*error:check out&#10;*/</span><br></pre></td></tr></table></figure>
-<h6 id="u672C_u4F8B_u7684_u7EC8_u7ED3_u6761_u4EF6_uFF1A_u6240_u6709_u7684Book_u5BF9_u8C61_u5728_u88AB_u5F53_u4F5C_u5783_u573E_u56DE_u6536_u524D_u90FD_u5E94_u8BE5_u88AB_u7B7E_u5165_28chechIn_29_3B_u4F46_u662Fmain_28_29_u65B9_u6CD5_u4E2D_uFF0C_u6709_u4E00_u672C_u4E66_u6CA1_u88AB_u7B7E_u5165_uFF0C_u6240_u4EE5_u5982_u679C_u6CA1_u6709finalize_28_29_u6765_u9A8C_u8BC1_u7EC8_u7ED3_u6761_u4EF6_uFF0C_u90A3_u4E48_u8FD9_u4E2A_u7F3A_u9677_u5F88_u96BE_u88AB_u53D1_u73B0"><a href="#u672C_u4F8B_u7684_u7EC8_u7ED3_u6761_u4EF6_uFF1A_u6240_u6709_u7684Book_u5BF9_u8C61_u5728_u88AB_u5F53_u4F5C_u5783_u573E_u56DE_u6536_u524D_u90FD_u5E94_u8BE5_u88AB_u7B7E_u5165_28chechIn_29_3B_u4F46_u662Fmain_28_29_u65B9_u6CD5_u4E2D_uFF0C_u6709_u4E00_u672C_u4E66_u6CA1_u88AB_u7B7E_u5165_uFF0C_u6240_u4EE5_u5982_u679C_u6CA1_u6709finalize_28_29_u6765_u9A8C_u8BC1_u7EC8_u7ED3_u6761_u4EF6_uFF0C_u90A3_u4E48_u8FD9_u4E2A_u7F3A_u9677_u5F88_u96BE_u88AB_u53D1_u73B0" class="headerlink" title="本例的终结条件：所有的Book对象在被当作垃圾回收前都应该被签入(chechIn);但是main()方法中，有一本书没被签入，所以如果没有finalize()来验证终结条件，那么这个缺陷很难被发现."></a>本例的终结条件：所有的Book对象在被当作垃圾回收前都应该被签入(chechIn);但是<code>main()</code>方法中，有一本书没被签入，所以如果没有<code>finalize()</code>来验证终结条件，那么这个缺陷很难被发现.</h6>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/05/08/Java垃圾回收之finalize/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/08/Java垃圾回收之finalize/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/05/07/Java常识之构造器/" title="Java常识之构造器" itemprop="url">Java常识之构造器</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-05-07T15:55:51.000Z" itemprop="datePublished"> 发表于 2016-05-07</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u6784_u9020_u5668_u786E_u4FDD_u521D_u59CB_u5316"><a href="#u6784_u9020_u5668_u786E_u4FDD_u521D_u59CB_u5316" class="headerlink" title="构造器确保初始化"></a>构造器确保初始化</h2><ul>
-<li>创建对象时，会为对象分配存储空间，并调用相应的构造器，这样就确保了你操作对象之前，它已经被初始化；</li>
-<li>如果类中没有定义构造器，编译器会自动帮你创建一个默认构造器，当你定义了构造器，就不能使用默认构造器;</li>
-<li>要求构造器的名字与类名一致，可以有多个构造器，但是每个构造器要有区分(有参数\无参数\参数顺序\参数类型)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Rock&#123;&#10;  Rock()&#123;&#10;    System.out.print(&#34;Constructor Initialize&#34;)&#10;  &#125;&#10;  public static void main(String[] args)&#123;&#10;    for(int i = 0; i &#60; 5 ; i++ )&#123;&#10;      new Rock();&#10;    &#125;&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="u65B9_u6CD5_u91CD_u8F7D"><a href="#u65B9_u6CD5_u91CD_u8F7D" class="headerlink" title="方法重载"></a>方法重载</h2><ul>
-<li>一个类中，可以有相同的命名的方法，但是这些方法需要有区分</li>
-<li>区分重载方法：<ul>
-<li>是否有参数;</li>
-<li>参数的顺序;</li>
-<li>参数的类型;<ul>
-<li>当传入的实际参数小于重载方法声明的形式参数时，实际数据类型就会被提升，而实际参数是char型，如果无法找到插好接受char参数的方法，就会把char型提升到int型;</li>
-<li>当传入的实际参数大于重载方法声明的形式参数时，实际参数需要进行类型转换来窄化转换，否则会报错;</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h5 id="Best_Wish__3A_Happy_Mathors_Day_21_To_My_Mon"><a href="#Best_Wish__3A_Happy_Mathors_Day_21_To_My_Mon" class="headerlink" title="Best Wish : Happy Mathors Day! To My Mon ."></a>Best Wish : Happy Mathors Day! To My Mon .</h5>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
+    <a href="/2016/06/05/关于Maven-打包时-缺失properties和xml后缀的文件/" title="关于Maven 打包时 缺失properties和xml后缀的文件" itemprop="url">
   
-  <span></span> <a href="/tags/Java/">Java</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/05/07/Java常识之构造器/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/07/Java常识之构造器/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
+    <h1 itemprop="name">关于Maven 打包时 缺失properties和xml后缀的文件</h1>
     
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
+     
+           <p itemprop="description" >背景
+Intellij IDEA 14.1.5
+Maven 项目
+
+
+问题打包Maven项目的时候，报错1log4j:WARN No appenders could be found for logger (logmain).&amp;#10;log4j:WARN Please init</p>
+        
     
-      <a href="/2016/03/16/在Github创建静态网站预览的方法/" title="在Github创建静态网站预览的方法" itemprop="url">在Github创建静态网站预览的方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-03-16T03:51:09.000Z" itemprop="datePublished"> 发表于 2016-03-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <ul>
-<li>前段时间参加了百度前端学院的前端学习，想着不用把别人前端页面代码下载下来就能预览的话，就方便多了，既能看代码，又能看到效果，还可以用chrome调试</li>
-</ul>
-<hr>
-<h2 id="u6B63_u6587"><a href="#u6B63_u6587" class="headerlink" title="正文"></a>正文</h2><ul>
-<li>方法一：通过第三方开源项目预览<ul>
-<li>访问<code>http://htmlpreview.github.io/</code><a href="http://htmlpreview.github.io/" target="_blank" rel="external">enter link description here</a> 填写你要预览的页面地址，Enter–&gt;Get</li>
-<li>得到这样格式的访问连接：<code>http://htmlpreview.github.io/?https://github.com/liangqian/ifeFPGetting/blob/master/Part1/task_01_01_01.html</code> 也就是 ：<code>http://htmlpreview.github.io/?</code>+目标预览页面地址</li>
-</ul>
-</li>
-<li>方法二：创建gh-pages分支进行预览<ul>
-<li>创建gh-pages分支进行预览，创建分支之后，访问<code>http://你的Github名.github.io/</code>+页面地址<br>例如：liangqian.github.io/preview/test.html</li>
-<li>这是官方的推荐方法 <a href="https://help.github.com/articles/creating-project-pages-manually/" target="_blank" rel="external">enter link description here</a></li>
-</ul>
-</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
+    <time datetime="2016-06-05T03:00:33.000Z" itemprop="datePublished">2016-06-05</time>
+  </a>
+</section>
 
 
-  <div class="article-tags">
+
+
+
+
   
-  <span></span> <a href="/tags/小技巧/">小技巧</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/03/16/在Github创建静态网站预览的方法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/16/在Github创建静态网站预览的方法/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/05/10/无法连接远程Mysql数据库的解决办法-I/" title="无法连接远程Mysql数据库的解决办法 I" itemprop="url">
+  
+    <h1 itemprop="name">无法连接远程Mysql数据库的解决办法 I</h1>
     
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
+     
+           <p itemprop="description" >tips: “Can not connet to mysql  server on ‘192.168.2.3’ (10061)”
+很多时候想要远程登陆Mysql服务器，进行操作，发现弹出上面的提示…
+解决方案：
+可能没有启动Mysql服务：/etc/init.d/mysql st</p>
+        
     
-      <a href="/2016/02/13/hello-world/" title="Hello World" itemprop="url">Hello World</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-02-13T01:57:09.696Z" itemprop="datePublished"> 发表于 2016-02-13</time>
+    <time datetime="2016-05-10T15:02:32.000Z" itemprop="datePublished">2016-05-10</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/05/08/Java垃圾回收之finalize/" title="Java垃圾回收之finalize()" itemprop="url">
+  
+    <h1 itemprop="name">Java垃圾回收之finalize()</h1>
     
-  </p>
-</header>
-    <div class="article-content">
+     
+           <p itemprop="description" >Java垃圾回收
+Java垃圾回收器负责回收无用对象占据的内存资源
+但是，无论是“垃圾回收”或者“终结”，JVM都不保证会发生，因为JVM在没有面临内存耗尽的情况下，它是不会浪费时间去执行垃圾回收以恢复内存
+JVM不会主动去发现一些无用特殊的内存区块，并清除它，所以引入final</p>
         
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server"><a href="#Run_server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files"><a href="#Generate_static_files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+    
+    <time datetime="2016-05-07T16:07:13.000Z" itemprop="datePublished">2016-05-08</time>
+  </a>
+</section>
 
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/05/07/Java常识之构造器/" title="Java常识之构造器" itemprop="url">
+  
+    <h1 itemprop="name">Java常识之构造器</h1>
+    
+     
+           <p itemprop="description" >构造器确保初始化
+创建对象时，会为对象分配存储空间，并调用相应的构造器，这样就确保了你操作对象之前，它已经被初始化；
+如果类中没有定义构造器，编译器会自动帮你创建一个默认构造器，当你定义了构造器，就不能使用默认构造器;
+要求构造器的名字与类名一致，可以有多个构造器，但是每个构造器</p>
         
+    
+    <time datetime="2016-05-07T15:55:51.000Z" itemprop="datePublished">2016-05-07</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/03/16/在Github创建静态网站预览的方法/" title="在Github创建静态网站预览的方法" itemprop="url">
+  
+    <h1 itemprop="name">在Github创建静态网站预览的方法</h1>
+    
+     
+           <p itemprop="description" >前段时间参加了百度前端学院的前端学习，想着不用把别人前端页面代码下载下来就能预览的话，就方便多了，既能看代码，又能看到效果，还可以用chrome调试
+
+
+正文
+方法一：通过第三方开源项目预览
+访问http://htmlpreview.github.io/enter link de</p>
         
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/02/13/hello-world/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/13/hello-world/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
+    
+    <time datetime="2016-03-16T03:51:09.000Z" itemprop="datePublished">2016-03-16</time>
+  </a>
+</section>
 
 
 
 
 
 
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/02/13/hello-world/" title="Hello World" itemprop="url">
+  
+    <h1 itemprop="name">Hello World</h1>
+    
+     
+           <p itemprop="description" >Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the </p>
+        
+    
+    <time datetime="2016-02-13T01:57:09.696Z" itemprop="datePublished">2016-02-13</time>
+  </a>
+</section>
 
-  <nav id="page-nav" class="clearfix">
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
   </nav>
 
@@ -621,19 +288,10 @@
 </div>
 
 
-  <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
-    <ul>
-        
-    </ul>
-</div>
-
   
 
 
-  <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
-</div>
+  
 
   <div class="weiboshow">
   <p class="asidetitle">新浪微博</p>
@@ -689,6 +347,7 @@
 		
 		
 		</p>
+		
 </div>
 </footer>
     <script src="/js/jquery-2.0.3.min.js"></script>
@@ -776,16 +435,6 @@ $(document).ready(function(){
 <!-- Analytics Begin -->
 
 
-
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
 
 
 

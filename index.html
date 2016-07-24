@@ -76,1024 +76,243 @@
     <div id="container">
       <div id="main">
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/07/24/Java-实现TCP-IP-Socket通信/" title="Java 实现TCP/IP Socket通信" itemprop="url">Java 实现TCP/IP Socket通信</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-07-23T16:30:07.000Z" itemprop="datePublished"> 发表于 2016-07-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h5 id="Java_u63D0_u4F9B_u7684_u7F51_u7EDC_u529F_u80FD_u6709_u56DB_u5927_u7C7B"><a href="#Java_u63D0_u4F9B_u7684_u7F51_u7EDC_u529F_u80FD_u6709_u56DB_u5927_u7C7B" class="headerlink" title="Java提供的网络功能有四大类"></a>Java提供的网络功能有四大类</h5><ul>
-<li>InetAddress; 用于标识网络上的硬件资源，比如MAC地址等．．．</li>
-<li>URL：统一资源定位符 通过URL可以直接读取或写入网络上的数据</li>
-<li>Sockets：使用TCP协议实现网络通信的Socket的相关类</li>
-<li>Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行通信<br>#####InetAddress类：表示互联网协议(IP)地址</li>
-<li>通过静态方法获取实例：(然后就可以根据jdk文档，使用相关方法)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">InetAddress address = InetAddress.getLocalHost();//&#25110;&#32773;&#10;InetAddress address1 = InetAddress.getByName(&#34;10.2.18.87&#34;);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h5 id="Socket_u5B9E_u73B0TCP_u901A_u4FE1_28_u57FA_u4E8E_u6570_u636E_u6D41_u5957_u63A5_u5B57_29"><a href="#Socket_u5B9E_u73B0TCP_u901A_u4FE1_28_u57FA_u4E8E_u6570_u636E_u6D41_u5957_u63A5_u5B57_29" class="headerlink" title="Socket实现TCP通信(基于数据流套接字)"></a>Socket实现TCP通信(基于数据流套接字)</h5><ul>
-<li>建立连接流程： 服务器处于监听状态，等待并接受客户端创建的socket向服务器发送请求，服务器接收请求之后，创建连接Socket进行通信</li>
-<li>开始通信：通过相关的输入流(InputStream)、输出流(OutputStream)，发送接收数据</li>
-<li>结束通信：关闭客户端和服务端的socket，释放资源</li>
-<li>实现步骤：<ol>
-<li>创建ServerSocket和Socket</li>
-<li>打开连接到Socket的输入/输出流</li>
-<li>按照协议对Socket进行读写操作</li>
-<li>通信完毕，关闭输出流，关闭Socket</li>
-</ol>
-</li>
-<li>服务端实现步骤：<ol>
-<li>创建ServerSocket对象，绑定监听端口</li>
-<li>通过accept()方法绑定客户端请求</li>
-<li>建立连接后，通过输入流读取客户端发送的请求信息</li>
-<li>通过输出流向客户端发送响应信息</li>
-<li>关闭相关资源</li>
-</ol>
-</li>
-<li>客户端实现步骤：<ol>
-<li>创建Socket对象，指明需要连接的服务器的地址与端口号</li>
-<li>连接创建后，通过输出流向服务器发送请求信息</li>
-<li>关闭相关资源</li>
-</ol>
-</li>
-<li>主要方法：getInputStream(), getOutPutStream();实现发送/接受数据 </li>
-<li>多线程实现服务器与多客户端之间通信<ul>
-<li>基本步骤：<ol>
-<li>在服务器端创建ServerSock，循环调用accept()等待客户端连接</li>
-<li>客户端创建一个Socket并请求和服务端连接</li>
-<li>服务端就收客户端请求，创建socket与该客户简历专线连接</li>
-<li>建立链接的两个Socket在一个单独的线程上对话</li>
-<li>服务器机箱等待新的连接<h5 id="UDP_Socket_u7F16_u7A0B"><a href="#UDP_Socket_u7F16_u7A0B" class="headerlink" title="UDP Socket编程"></a>UDP Socket编程</h5></li>
-</ol>
-</li>
-</ul>
-</li>
-<li>使用的类：DatagramPacket类，DatagramSocket类；可以在jdk文档里面了解其中方法的用法</li>
-<li>服务端实现步骤：<ol>
-<li>创建DatagramSocket，指定端口号</li>
-<li>创建DatagramPacket，用于接收客户端数据</li>
-<li>接受客户端发送的数据</li>
-<li>读取数据</li>
-</ol>
-</li>
-<li>客户端实现步骤<ol>
-<li>定义发送信息</li>
-<li>创建DatagramPacket，包含要发送的数据信息</li>
-<li>创建DatagramSocket</li>
-<li>发送数据</li>
-</ol>
-</li>
-<li>同样，也可以通过像tcp Socket通信那样完善，添加多线程监控客户端请求并相应;</li>
-<li>备注：程序代码都在Github 仓库：<a href="https://github.com/liangqian/socketDemo.git" target="_blank" rel="external">enter link description here</a> </li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
   
-  <span></span> <a href="/tags/Java/">Java</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/07/24/Java-实现TCP-IP-Socket通信/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/07/24/Java-实现TCP-IP-Socket通信/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/07/22/struts2基础笔记/" title="struts2基础笔记(1)" itemprop="url">struts2基础笔记(1)</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-07-22T15:34:26.000Z" itemprop="datePublished"> 发表于 2016-07-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="Sturts2_u8BBF_u95EEServlet_API"><a href="#Sturts2_u8BBF_u95EEServlet_API" class="headerlink" title="Sturts2访问Servlet API"></a>Sturts2访问Servlet API</h3><ul>
-<li><p>访问Servlet API的三种方式</p>
-<ul>
-<li><p>ActionContext：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> ActionContext actionContext=ActionContext.getContext();  &#10;Map&#60;String,Object&#62; map=actionContext.getSession();  &#10;map.put(&#34;hello&#34;,&#34;helloworld&#34;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>实现<em>*</em>Aware接口：通过实现指定接口ServletContextAware，ServletRequestAware，ServletResponseAware，这种方式不推荐使用，与ServletAPI的耦合性大</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class LoginAction extends ActionSupport implements ServletRequestAware&#123; &#10;&#9;HttpSession session=request.getSession();&#10;&#9;//something same as httpSetvlet&#10;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>ServletActionContext：ServletActionContext是面向action,特定于上下文的信息。继承于ActionContext</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HttpServletRequest request=ServletActionContext.getRequest();  &#10;    HttpSession session=request.getSession();  &#10;    session.setAttribute(&#34;hello&#34;, &#34;helloworld&#34;);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Action_u7684_u641C_u7D22_u987A_u5E8F"><a href="#Action_u7684_u641C_u7D22_u987A_u5E8F" class="headerlink" title="Action的搜索顺序"></a>Action的搜索顺序</h3><ol>
-<li>发生URL请求：<code>http://localhost:80/projectName/path1/path2/path3/test.action</code></li>
-<li>首先会检索namespace为<code>/path1/path2/path3/</code>的package里面的test；如果找到则访问<ul>
-<li>否则，转向默认表空间[namespace=””]里面寻找该action，找到则访问<ul>
-<li>否则，转向默认表空间[namespace=””]寻找默认的action，找到则访问改action<ul>
-<li>如果默认空间中没有设置默认的action，则返回404….[not found]</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>首先会检索namespace为<code>/path1/path2/</code>的package里面的test；如果找到则访问<ul>
-<li>否则，转向默认表空间[namespace=””]里面寻找该action，找到则访问<ul>
-<li>否则，转向默认表空间[namespace=””]寻找默认的action，找到则访问改action<ul>
-<li>如果默认空间中没有设置默认的action，则返回404….[not found]</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>首先会检索namespace为<code>/path1/</code>的package里面的test；如果找到则访问<ul>
-<li>否则，转向默认表空间[namespace=””]里面寻找该action，找到则访问<ul>
-<li>否则，转向默认表空间[namespace=””]寻找默认的action，找到则访问改action<ul>
-<li>如果默认空间中没有设置默认的action，则返回404….[not found]</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>如果仍然不存在这个package,就去默认的namaspace的package下面去找名字为test的action(默认的命名空间为空字符串””),<br>如果还是找不到,页面提示找不到action,报404找不到内容的错误</li>
-</ol>
-<h3 id="u52A8_u6001_u65B9_u6CD5_u8C03_u7528"><a href="#u52A8_u6001_u65B9_u6CD5_u8C03_u7528" class="headerlink" title="动态方法调用"></a>动态方法调用</h3><ul>
-<li>概述：解决一个action对应多个请求的处理的问题，简化开发，避免Action太多</li>
-<li>方法一：指定Method属性<ul>
-<li>在配置文件中指定访问方法(method)：<figure class="highlight"><figcaption><span>name="hello" class="hellow" method="execute"></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;result name=&#34;success&#34;&#62;/result.jsp&#60;/result&#62;&#10;&#60;/action&#62;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>方法二：感叹号方式<ul>
-<li>开启常量值配置：<code>&lt;constant name=&quot;struts.enable.DynamicMethodInvocation&quot; value=&quot;true&quot;&gt;&lt;/constant&gt;</code></li>
-<li>根据返回值在<code>&lt;result&gt;</code>里面用name指定视图：<code>&lt;result name=&quot;result&quot;&gt;/result.jsp&lt;/result&gt;</code></li>
-<li>调用在action后缀之前添加感叹号和方法的方式访问：<code>http://localhost:8080/testStruts2/hello!result.action</code></li>
-</ul>
-</li>
-<li>方法三：通配符方式<ul>
-<li>在<code>&lt;action&gt;</code>配置里面name属性后面用<code>_*</code>的方式统配参数：第一个星号对应参数{1},第二个星号对应第二个参数{2}，可以统配包名，类名，方法名，或者部分名称的切割</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> &#60;action name=&#34;hello_*_*&#34; class=&#34;&#123;1&#125;&#34; method=&#34;execute&#34;&#62;&#10;&#60;result name=&#34;success&#34;&#62;/&#123;2&#125;.jsp&#60;/result&#62;&#10;  &#60;/action&#62;</span><br></pre></td></tr></table></figure>
-<h3 id="u6307_u5B9A_u591A_u4E2A_u914D_u7F6E_u6587_u4EF6"><a href="#u6307_u5B9A_u591A_u4E2A_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="指定多个配置文件"></a>指定多个配置文件</h3><ul>
-<li>项目中action特别多，如果全在一个<code>struts.xml</code>里面，就很复杂</li>
-<li>可以通过<include>导入多个分割了的action配置文件模块：<code>&lt;include file=&quot;hello.xml&quot;&gt;&lt;/include&gt;</code></include></li>
-<li>也可以统一配置文件的编码：用<code>&lt;constrant&gt;</code><h3 id="u9ED8_u8BA4action"><a href="#u9ED8_u8BA4action" class="headerlink" title="默认action"></a>默认action</h3></li>
-<li>防止出现尴尬页面…..</li>
-<li>在<code>struts.xml</code>配置文件配置:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;default-action-ref name=&#34;hello&#34;&#62;&#60;/default-action-ref&#62;&#10;&#60;action name=&#34;hello&#34;&#62;&#60;result name=&#34;error&#34;&#62;/error.jsp&#60;/result&#62;&#60;/action&#62;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="struts2_u540E_u7F00_uFF1A"><a href="#struts2_u540E_u7F00_uFF1A" class="headerlink" title="struts2后缀："></a>struts2后缀：</h3><ul>
-<li>伪造页面，安全，防hacker</li>
-<li>改成html后缀：<code>&lt;constant name=&quot;struts.action.extension&quot; value=&quot;html&quot;/&gt;</code></li>
-<li>取消后缀,只需消息value的值：<code>&lt;constant name=&quot;struts.action.extension&quot; value=&quot;&quot;/&gt;</code></li>
-<li>也可以在struts.properties里面配置，还可以在里面配置多个参数</li>
-<li>可以在web.xml里面配置<init-param>来指定后缀<h3 id="u63A5_u6536_u53C2_u6570_uFF1A"><a href="#u63A5_u6536_u53C2_u6570_uFF1A" class="headerlink" title="接收参数："></a>接收参数：</h3></init-param></li>
-<li>方法一：使用Action属性接收：<ul>
-<li>在接受的类中创建与提交部分命名一致的属性，以及getter，setter；传过来 的时候就能接收</li>
-</ul>
-</li>
-<li><p>方法二：使用Domain Model接收：</p>
-<ul>
-<li>创建对象model来接收，为了将数据存入到指定的对象模型，在提交数据的时候，需要指定存入的已经实例化的对象的属性<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;label&#62;&#29992;&#25143;&#21517;&#65306;&#60;/label&#62;&#60;input type=&#34;text&#34; name=&#34;us.username&#34;&#62;&#10; &#60;label&#62;&#23494;  &#30721;&#65306;&#60;/label&#62;&#60;input type=&#34;password&#34; name=&#34;us.password&#34;&#62;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>方法三：使用ModelDriven接收：</p>
-<ul>
-<li>实现ModelDriven的接口；如果通过对象接受数据，必须实例化，并且，在提交数据的时候，不需要再指定属性传输的对象<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;label&#62;&#29992;&#25143;&#21517;&#65306;&#60;/label&#62;&#60;input type=&#34;text&#34; name=&#34;username&#34;&#62;&#10;&#60;label&#62;&#23494;  &#30721;&#65306;&#60;/label&#62;&#60;input type=&#34;password&#34; name=&#34;password&#34;&#62;&#10;&#60;label&#62;&#20070;&#31821;1&#65306;&#60;/label&#62;&#60;input type=&#34;text&#34; name=&#34;booklist[0]&#34;&#62;&#10;&#60;label&#62;&#20070;&#31821;2&#65306;&#60;/label&#62;&#60;input type=&#34;text&#34; name=&#34;booklist[1]&#34;&#62;&#10;&#60;label&#62;&#20070;&#31821;3&#65306;&#60;/label&#62;&#60;input type=&#34;text&#34; name=&#34;booklist[2]&#34;&#62;  //user&#23545;&#35937;&#37324;&#38754;&#35774;&#32622;List&#38598;&#21512;&#25509;&#25910;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class hwaction extends ActionSupport implements ModelDriven&#60;user&#62; &#123;  //&#27867;&#22411;&#23450;&#20041;&#38656;&#35201;&#36171;&#20540;&#36716;&#25442;&#30340;&#31867;&#10;    private user us = new user();  \\&#19981;&#38656;&#35201;getter setter...&#10;    public String login()&#123;&#10;System.out.println(us.getUsername());&#10; System.out.println(us.getBooklist().get(2));&#10;System.out.println(us.getBooklist().get(1));&#10;System.out.println(us.getBooklist().get(0));&#10;        return SUCCESS;&#125;&#10;     @Override&#10;    public user getModel() &#123; &#10;        return us; //&#36820;&#22238;&#38656;&#35201;&#36716;&#25442;&#30340;&#23545;&#35937; &#125;&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>方法四：使用request方法接受 </li>
-</ul>
-<p>###处理结果类型</p>
-<ul>
-<li>处理结果标签里面：type属性，默认(dispatcher)是定义jsp模板，还有其他的xstl,chain,redirect,stream,plaintext….</li>
-<li>五个系统内置属性：success，none，error，login，input</li>
-<li>success：正确执行完成，返回响应的视图</li>
-<li>none：正确执行，但是不返回视图</li>
-<li>error：执行失败，返回到错误处理视图</li>
-<li>login：由于用户没有登陆的原因没有正确执行，将返回登陆视图，要求用户进行登陆身份验证</li>
-<li>input：Action的执行需要前端界面获取参数，input就是代表这个参数的输入界面<ul>
-<li>表单验证的出现类型转换错误的时候会跳转回去</li>
-<li>在判断验证部分使用<code>this.addFieldError(&quot;username&quot;,&quot;用户名不为空&quot;)</code>，使用<code>return input;</code>跳转，并在前端部分使用struts标签显示username的提示</li>
-<li>继承ActionSupport里面的Validate()方法，也可以实现跳转<h3 id="u6839_u636E_u4F4D_u7F6E_u4E0D_u540C_u6765_u5212_u5206_u5904_u7406_u7ED3_u679C_u7C7B_u578B_uFF1A"><a href="#u6839_u636E_u4F4D_u7F6E_u4E0D_u540C_u6765_u5212_u5206_u5904_u7406_u7ED3_u679C_u7C7B_u578B_uFF1A" class="headerlink" title="根据位置不同来划分处理结果类型："></a>根据位置不同来划分处理结果类型：</h3><ul>
-<li>局部结果</li>
-<li>全局结果：所有的包下面的请求都可以公用其中返回功能</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/struts2/">struts2</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/07/22/struts2基础笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/07/22/struts2基础笔记/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand w" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/07/19/比较http请求方法中的GET与POST方法/" title="比较http请求方法中的GET与POST方法" itemprop="url">比较http请求方法中的GET与POST方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-07-19T10:41:35.000Z" itemprop="datePublished"> 发表于 2016-07-19</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="GET_u65B9_u6CD5_u548CPOST_u65B9_u6CD5_u7684_u5F02_u540C"><a href="#GET_u65B9_u6CD5_u548CPOST_u65B9_u6CD5_u7684_u5F02_u540C" class="headerlink" title="GET方法和POST方法的异同"></a>GET方法和POST方法的异同</h2><ul>
-<li>GET方法：向页面请求发送已编码的用户信息；页面与已编码信息之间用<code>?</code>隔开传递:<code>http://localhost/test?key1=value&amp;key2=value2</code><ul>
-<li>GET方法的特点是将需要传递信息暴露在URL上面，因此不宜传输敏信息</li>
-<li>同时，GET方法有大小限制：请求字符串最多只能有1024个字符</li>
-</ul>
-</li>
-<li>POST方法：通过比较可靠的方式向后台程序传递数据；但是在传递方式上与GET方法不同，POST方法是通过标准输的形式将一个单独的消息传递给后台程序<h2 id="u5728_u540E_u53F0_u7A0B_u5E8F_u4E2D_u8BFB_u53D6_u4F20_u9012_u8FC7_u6765_u7684_u6570_u636E"><a href="#u5728_u540E_u53F0_u7A0B_u5E8F_u4E2D_u8BFB_u53D6_u4F20_u9012_u8FC7_u6765_u7684_u6570_u636E" class="headerlink" title="在后台程序中读取传递过来的数据"></a>在后台程序中读取传递过来的数据</h2></li>
-<li>解析方法：<ul>
-<li>String getParameter(String str); 获取表单参数值</li>
-<li>String[] getParameterValues(String str); 获取在同一个参数里多个值,并以数组形式返</li>
-<li>String[] getParameterNames();获取请求中所有参数的完整列表</li>
-</ul>
-</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
+    <a href="/2016/07/24/Java-实现TCP-IP-Socket通信/" title="Java 实现TCP/IP Socket通信" itemprop="url">
   
-  <span></span> <a href="/tags/Servlet/">Servlet</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/07/19/比较http请求方法中的GET与POST方法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/07/19/比较http请求方法中的GET与POST方法/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
+    <h1 itemprop="name">Java 实现TCP/IP Socket通信</h1>
     
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
+     
+           <p itemprop="description" >Java提供的网络功能有四大类
+InetAddress; 用于标识网络上的硬件资源，比如MAC地址等．．．
+URL：统一资源定位符 通过URL可以直接读取或写入网络上的数据
+Sockets：使用TCP协议实现网络通信的Socket的相关类
+Datagram：使用UDP协议，将数据</p>
+        
     
-      <a href="/2016/07/19/Spring-MVC常用的控制器方法与使用/" title="Spring MVC常用的控制器方法与使用" itemprop="url">Spring MVC常用的控制器方法与使用</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-07-18T16:27:20.000Z" itemprop="datePublished"> 发表于 2016-07-19</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="Spring_mvc__u63A7_u5236_u5668_u4E0E_u65B9_u6CD5"><a href="#Spring_mvc__u63A7_u5236_u5668_u4E0E_u65B9_u6CD5" class="headerlink" title="Spring mvc 控制器与方法"></a>Spring mvc 控制器与方法</h2><h4 id="@Controller_u5B9A_u4E49_u4E00_u4E2AController_u63A7_u5236_u5668"><a href="#@Controller_u5B9A_u4E49_u4E00_u4E2AController_u63A7_u5236_u5668" class="headerlink" title="@Controller定义一个Controller控制器"></a>@Controller定义一个Controller控制器</h4><ul>
-<li>在使用这个标记主注解之前需要配置控制器(两种方法)    <ul>
-<li>在Spring MVC配置文件中添加<code>&lt;bean&gt;</code>对象：<code>&lt;bean class=&quot;xyz.royleo.vice&quot;/&gt;</code></li>
-<li>在spring配置文件中@Controller控制器的位置：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60; context:component-scan base-package = &#34;com.host.app.web.controller&#34; &#62;  &#10;   &#60; context:exclude-filter type = &#34;annotation&#34;  &#10;       expression = &#34;org.springframework.stereotype.Service&#34; /&#62;  &#10;&#60;/ context:component-scan &#62;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="@RequestMapping_u6765_u6620_u5C04Request_u8BF7_u6C42_u4E0E_u63A7_u5236_u5668"><a href="#@RequestMapping_u6765_u6620_u5C04Request_u8BF7_u6C42_u4E0E_u63A7_u5236_u5668" class="headerlink" title="@RequestMapping来映射Request请求与控制器"></a>@RequestMapping来映射Request请求与控制器</h4><ul>
-<li><p>通过URL模板实现 : 在URL模板中含有变量值,再在<code>@requestMapping</code>的方法里面，通过<code>@PathVariable</code>获取通过RUL传过来的值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Controller  &#10;@RequestMapping ( &#34;/test/&#123;variable1&#125;&#34; )  &#10;public class MyController &#123;  &#10;    @RequestMapping ( &#34;/showView/&#123;variable2&#125;&#34; )  &#10;    public ModelAndView showView( @PathVariable String variable1, @PathVariable ( &#34;variable2&#34; ) int variable2) &#123;  &#10;&#9;&#9;//do something &#10;       return modelAndView;  &#10;    &#125;  &#10;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用<code>@RequestParam</code>绑定HttpServletRequest请求参数到控制器方法参数</p>
-<ul>
-<li>其中，有requested=false是可选的参数，默认是必须的<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping ( &#34;requestParam&#34; )  &#10;ublic String testRequestParam( @RequestParam(required=false) String name, @RequestParam ( &#34;age&#34; ) int age) &#123;  &#10;   return &#34;requestParam&#34; ;  &#10;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="HttpServletRequest__26amp_3B_HttpServletResponse__26amp_3B_HttpSession_u2026"><a href="#HttpServletRequest__26amp_3B_HttpServletResponse__26amp_3B_HttpSession_u2026" class="headerlink" title="HttpServletRequest &amp; HttpServletResponse &amp; HttpSession…"></a>HttpServletRequest &amp; HttpServletResponse &amp; HttpSession…</h4><ul>
-<li>跟普通的Servlet一样，spring mvc中也可以用servlet里面的方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&#34;/somePath&#34;)&#10;   public String requestResponseExample(HttpServletRequest request, HttpServletResponse reponses, HttpSession session, Model model) &#123;&#10;&#9; // Todo something here&#10;       return &#34;someView&#34;;&#10;   &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="u63A7_u5236_u5668_u7684_u91CD_u5B9A_u5411"><a href="#u63A7_u5236_u5668_u7684_u91CD_u5B9A_u5411" class="headerlink" title="控制器的重定向"></a>控制器的重定向</h4><ul>
-<li>使用前缀：<code>redirect</code>该方法返回字符串，可以重定向到另一页面<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value = &#34;/redirect&#34;, method = RequestMethod.GET)&#10;    public String authorInfo(Model model) &#123;&#10;&#9; // Do somethong here&#10;&#9;  return &#34;redirect:/hello&#34;;&#10;    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="u4F7F_u7528@CookieValue_u7ED1_u5B9Acookie_u6570_u503C_u5230Controller_u65B9_u6CD5_u53C2_u6570"><a href="#u4F7F_u7528@CookieValue_u7ED1_u5B9Acookie_u6570_u503C_u5230Controller_u65B9_u6CD5_u53C2_u6570" class="headerlink" title="使用@CookieValue绑定cookie数值到Controller方法参数"></a>使用<code>@CookieValue</code>绑定cookie数值到Controller方法参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping ( &#34;cookieValue&#34; )&#10;public String testCookieValue( @CookieValue ( &#34;hello&#34; ) String cookieValue, @CookieValue String hello) &#123;&#10; //do something&#10;   return &#34;cookieValue&#34; ;&#10;&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="u4F7F_u7528@RequestHeader_u6CE8_u89E3_u7ED1_u5B9AHttpServletRequest_u5934_u4FE1_u606F_u5230Controller_u65B9_u6CD5_u53C2_u6570"><a href="#u4F7F_u7528@RequestHeader_u6CE8_u89E3_u7ED1_u5B9AHttpServletRequest_u5934_u4FE1_u606F_u5230Controller_u65B9_u6CD5_u53C2_u6570" class="headerlink" title="使用@RequestHeader注解绑定HttpServletRequest头信息到Controller方法参数"></a>使用<code>@RequestHeader</code>注解绑定HttpServletRequest头信息到Controller方法参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping ( &#34;testRequestHeader&#34; )&#10;public String testRequestHeader( @RequestHeader ( &#34;Host&#34; ) String hostAddr, @RequestHeader String Host, @RequestHeader String host ) &#123;&#10;   //use Host... do something&#10;    return &#34;requestHeader&#34; ;&#10;&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="@RequestMapping_u7684_u4E00_u4E9B_u9AD8_u7EA7_u5E94_u7528"><a href="#@RequestMapping_u7684_u4E00_u4E9B_u9AD8_u7EA7_u5E94_u7528" class="headerlink" title="@RequestMapping的一些高级应用"></a><code>@RequestMapping</code>的一些高级应用</h4><ul>
-<li>RequestMapping除了指定的路径value值之外，还有其他的一些属性，如：params，method，headers等,便于缩小映射范围</li>
-<li><p><code>params</code>属性：</p>
-<ul>
-<li>例子说明：代码中定义了映射的路径，params的三个参数，当映射路径<code>/testParams.do</code>并且满足params的规则(param1等于value1，param2必须存在，值无所谓，param3必须不存在)，才能正确映射到testParams()方法. 即：<code>/testParams.do?param2=value&amp;param2=value2</code>才能访问指定方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping (value= &#34;testParams&#34; , params=&#123; &#34;param1=value1&#34; , &#34;param2&#34; , &#34;!param3&#34; &#125;)  &#10;public String testParams() &#123;  &#10;   System. out .println( &#34;test Params...........&#34; );  &#10;   return &#34;testParams&#34; ;  &#10;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>method属性:主要用于限制能访问的方法类型(GET,POST,DELETE…)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping (value= &#34;testMethod&#34; , method=&#123;RequestMethod. GET , RequestMethod. DELETE &#125;)  &#10;public String testMethod() &#123;  &#10;   return &#34;method&#34; ;  &#10;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>headers</code>属性</p>
-<ul>
-<li>headers 属性的用法和功能与params 属性相似。在上面的代码中当请求/testHeaders.do 的时候只有当请求头包含Accept 信息，且请求的host 为localhost 的时候才能正确的访问到testHeaders 方法。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping (value= &#34;testHeaders&#34; , headers=&#123; &#34;host=localhost&#34; , &#34;Accept&#34; &#125;)  &#10;public String testHeaders() &#123;  &#10;   return &#34;headers&#34; ;  &#10;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="u4EE5_@RequestMapping__u6807_u8BB0_u7684_u5904_u7406_u5668_u65B9_u6CD5_u652F_u6301_u7684_u65B9_u6CD5_u53C2_u6570_u548C_u8FD4_u56DE_u7C7B_u578B"><a href="#u4EE5_@RequestMapping__u6807_u8BB0_u7684_u5904_u7406_u5668_u65B9_u6CD5_u652F_u6301_u7684_u65B9_u6CD5_u53C2_u6570_u548C_u8FD4_u56DE_u7C7B_u578B" class="headerlink" title="以 @RequestMapping 标记的处理器方法支持的方法参数和返回类型"></a>以 @RequestMapping 标记的处理器方法支持的方法参数和返回类型</h4><ul>
-<li>支持的方法参数类型<ul>
-<li>HttpServlet对象：HttpServletRequest、HttpServletResponse、HttpSession</li>
-<li>Spring自己的WebRequest对象</li>
-<li>InputStream、OutputStream、read、write</li>
-<li>使用 @pathVariable @RequestParam @CookieValue @RequestHeader 标记的参数</li>
-<li>使用 @ModelAttribute 标记的参数</li>
-<li>java.util.Map 、Spring 封装的Model 和ModelMap：用来展现视图</li>
-<li>实体类</li>
-<li>Spring封装的MutipartFile,用来上传文件</li>
-<li>Spring 封装的Errors 和BindingResult 对象</li>
-</ul>
-</li>
-<li>支持的返回类型<ul>
-<li>一个包含模型和视图的ModelAndView 对象</li>
-<li>一个模型对象，这主要包括Spring 封装好的Model 和ModelMap ，以及java.util.Map ，当没有视图返回的时候视图名称将由RequestToViewNameTranslator 来决定</li>
-<li>一个View 对象。这个时候如果在渲染视图的过程中模型的话就可以给处理器方法定义一个模型参数，然后在方法体里面往模型中添加值</li>
-<li>一个String字符串、返回JSON对象(主要是Restful风格，前后端通信)</li>
-<li>返回值是void：主要方法体接受传值，执行相关逻辑，返回值可以忽略</li>
-<li>如果处理器方法被注解@ResponseBody 标记的话，那么处理器方法的任何返回类型都会通过HttpMessageConverters 转换之后写到HttpServletResponse 中，而不会像上面的那些情况一样当做视图或者模型来处理</li>
-<li>除以上几种情况之外的其他任何返回类型都会被当做模型中的一个属性来处理，而返回的视图还是由RequestToViewNameTranslator 来决定，添加到模型中的属性名称可以在该方法上用@ModelAttribute(“attributeName”) 来定义，否则将使用返回类型的类名称的首字母小写形式来表示。使用@ModelAttribute 标记的方法会在@RequestMapping 标记的方法执行之前执行<h4 id="u4F7F_u7528_@ModelAttribute__u548C_@SessionAttributes__u4F20_u9012_u548C_u4FDD_u5B58_u6570_u636E"><a href="#u4F7F_u7528_@ModelAttribute__u548C_@SessionAttributes__u4F20_u9012_u548C_u4FDD_u5B58_u6570_u636E" class="headerlink" title="使用 @ModelAttribute 和 @SessionAttributes 传递和保存数据"></a>使用 @ModelAttribute 和 @SessionAttributes 传递和保存数据</h4></li>
-</ul>
-</li>
-<li>@ModelAttribute标记一般放在需要标记的上面，并指定相关值，当@RequestMapping调用属性参数获取的时候执行</li>
-<li>@SessionAttribute 标记一般放在@RequestMapping注解的下面，类名的上面。被@SessionAttribute标记的参数的数值需要被添加到Session中之后，在读取出来之后才有内容；当然，添加的标记的参数类型可以是字符串，数组，实体对象等</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
+    <time datetime="2016-07-23T16:30:07.000Z" itemprop="datePublished">2016-07-24</time>
+  </a>
+</section>
 
 
-  <div class="article-tags">
+
+
+
+
   
-  <span></span> <a href="/tags/Spring/">Spring</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/07/19/Spring-MVC常用的控制器方法与使用/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/07/19/Spring-MVC常用的控制器方法与使用/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/07/16/AngularJS-核心特性/" title="AngularJS 核心特性" itemprop="url">AngularJS 核心特性</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-07-16T08:26:00.000Z" itemprop="datePublished"> 发表于 2016-07-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <ul>
-<li>MVC : model - view - controller<ul>
-<li>切分代码职责</li>
-<li>更好的复用代码</li>
-<li>便于模块化管理</li>
-<li>终极目标：实现模块化，复用</li>
-</ul>
-</li>
-<li>模块化Module：一起都是从模块开始，其他都是在module的基础上调用</li>
-<li><p>指令系统</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">angular.module(&#34;mymodule&#34;,[]).directive(&#34;hello&#34;,function()&#123;&#10;&#9;return &#123;&#10;&#9;&#9;restrict: &#34;E&#34;,&#10;&#9;&#9;template: &#39;&#60;div&#62;Hi everyone&#60;/div&#62;&#39;&#10;&#9;&#9;replace: true&#10;&#9;&#125;&#10;&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>双向数据绑定</p>
-<ul>
-<li>单向数据绑定：先定义好模板跟数据结合，通过数据绑定机制，将模板跟数据生成一段html标签，再把生成的HTML标签加入到文档流中，但是当数据变化的时候，再去改变view页面的数据，复杂度高；并且view中的数据变换(输入)的时候，无法将改变传回来给model数据<br><img src="http://7xqvf0.com1.z0.glb.clouddn.com/%E5%8D%95%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A.png" alt="单向数据绑定"></li>
-<li>双向数据绑定：view中的数据变化的时候，数据模型发生变化，当model中的数据发生变化的时候，其中改变能直接反馈给view页面<br><img src="http://7xqvf0.com1.z0.glb.clouddn.com/%E5%8F%8C%E5%90%91.png" alt="双向数据绑定"></li>
-</ul>
-</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/Angular-JS/">Angular JS</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/07/16/AngularJS-核心特性/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/07/16/AngularJS-核心特性/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/07/16/Spring-MVC请求处理工作流程/" title="Spring-MVC请求处理工作流程" itemprop="url">Spring-MVC请求处理工作流程</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-07-16T07:04:58.000Z" itemprop="datePublished"> 发表于 2016-07-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><ul>
-<li>Spring Web MVC框架提供了model-view-controller 的体系结构，可以用来开发灵活的，借助spring的AOP特性，实现松耦合的Web应用程序组件；</li>
-<li>MVC模式导致了应用程序不同方面的分离(输入业务、逻辑业务和UI逻辑)，同时提供了这些元素之间的松散耦合<ul>
-<li>Model：封装应用程序数据，并且通常由POJO组成</li>
-<li>View: 主要用于呈现模型数据，并且由它生成客户端浏览器能够解析的HTML输出</li>
-<li>Controller：主要用于处理客户请求，并且构建合适的模型，并传递给视图呈现</li>
-</ul>
-</li>
-</ul>
-<h2 id="DispatcherServlet"><a href="#DispatcherServlet" class="headerlink" title="DispatcherServlet"></a>DispatcherServlet</h2><ul>
-<li>Spring MVC框架中，DispatcherServlet用来处理所有的HTTP请求和响应<h4 id="u5DE5_u4F5C_u6D41_u7A0B_u5982_u4E0B_uFF1A"><a href="#u5DE5_u4F5C_u6D41_u7A0B_u5982_u4E0B_uFF1A" class="headerlink" title="工作流程如下："></a>工作流程如下：</h4><img src="http://7xqvf0.com1.z0.glb.clouddn.com/mvc1.png" alt="DispatcherServlet"><h4 id="u5F53_u8BF7_u6C42_u89E6_u53D1_u7684_u65F6_u5019_u2026"><a href="#u5F53_u8BF7_u6C42_u89E6_u53D1_u7684_u65F6_u5019_u2026" class="headerlink" title="当请求触发的时候…"></a>当请求触发的时候…</h4></li>
-<li>收到一个HTTP请求之后，DispatcherServlet根据HandlerMapping来选择并且调用适当的控制器</li>
-<li>控制器接受请求，并基于使用GET或者POST方法来调用适当的Service方法。Service方法将设置基于定义业务逻辑的数据模型，并返回视图名称到DispatcherServlet中</li>
-<li>DispatcherServlet在ViewResolver的协助下，检索获取指定的视图</li>
-<li>当视图确定之后，DispatcherServlet把模型数据传递给视图，最后在浏览器中呈现<h2 id="u90E8_u5206_u914D_u7F6E_u4EE5_u53CA_u4EE3_u7801_u8BF4_u660E"><a href="#u90E8_u5206_u914D_u7F6E_u4EE5_u53CA_u4EE3_u7801_u8BF4_u660E" class="headerlink" title="部分配置以及代码说明"></a>部分配置以及代码说明</h2></li>
-<li><p>初始化DispatcherServlet,导入Servlet-Name的应用配置文件<code>{servlet-name}-servlet.xml</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;servlet&#62;&#10;      &#60;servlet-name&#62;HelloWeb&#60;/servlet-name&#62;&#10;      &#60;servlet-class&#62;&#10;         org.springframework.web.servlet.DispatcherServlet&#10;      &#60;/servlet-class&#62;&#10;      &#60;load-on-startup&#62;1&#60;/load-on-startup&#62;&#10;   &#60;/servlet&#62;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>定义处理的URL类型(对应servlet-name)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;servlet-mapping&#62;&#10;      &#60;servlet-name&#62;HelloWeb&#60;/servlet-name&#62;&#10;      &#60;url-pattern&#62;*.jsp&#60;/url-pattern&#62;&#10;   &#60;/servlet-mapping&#62;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>定义视图解决方案</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;bean class=&#34;org.springframework.web.servlet.view.InternalResourceViewResolver&#34;&#62;&#10;      &#60;property name=&#34;prefix&#34; value=&#34;/WEB-INF/jsp/&#34; /&#62;&#10;      &#60;property name=&#34;suffix&#34; value=&#34;.jsp&#34; /&#62;&#9;//&#25910;&#21040;DispatcherServlet&#36820;&#22238;&#30340;&#35270;&#22270;&#21517;&#31216;&#20043;&#21518;&#65292;&#26174;&#31034;`[viewName].jsp`&#25991;&#20214;&#10;   &#60;/bean&#62;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>定义控制器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Controller&#10;@RequestMapping(&#34;/hello&#34;)  //url&#36335;&#24452;&#10;public class HelloController&#123;&#10;   @RequestMapping(method = RequestMethod.GET) &#9;&#9;//&#20351;&#29992;GET&#26041;&#27861;&#10;   public String printHello(ModelMap model) &#123;&#10;      model.addAttribute(&#34;message&#34;, &#34;Hello Spring MVC Framework!&#34;); &#9;//&#32465;&#23450;Message&#23646;&#24615;&#30340;&#20540;&#65292;&#24182;&#20256;&#36882;&#32473;DispatcherServlet&#10;      return &#34;viewName&#34;;  &#9;&#9;//&#36820;&#22238;&#32473;DispatcherServlet&#30340;&#35270;&#22270;&#21517;&#31216;&#10;   &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>视图,下例是一个jsp文件的部分代码，message是在控制器内部设置的属性</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;html&#62;&#10;   &#60;head&#62;&#10;   &#60;title&#62;Hello Spring MVC&#60;/title&#62;&#10;   &#60;/head&#62;&#10;   &#60;body&#62;&#10;   &#60;h2&#62;$&#123;message&#125;&#60;/h2&#62;&#10;   &#60;/body&#62;&#10;&#60;/html&#62;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="u62D3_u5C55"><a href="#u62D3_u5C55" class="headerlink" title="拓展"></a>拓展</h2><ul>
-<li>目前流行的Restful风格的设计，可以借助Spring-MVC实现，更好的实现前后端分离，控制器之间通过DispatcherServlet，给View页面传递一组 JSON 或者是 XML 等形式的数据，view接受到数据之后，通过Angular JS /reaact等其他一些Javascript的一些单页框架，处理后端传过来的数据，并显示出来.</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
+    <a href="/2016/07/22/struts2基础笔记/" title="struts2基础笔记(1)" itemprop="url">
   
-  <span></span> <a href="/tags/Spring/">Spring</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/07/16/Spring-MVC请求处理工作流程/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/07/16/Spring-MVC请求处理工作流程/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
+    <h1 itemprop="name">struts2基础笔记(1)</h1>
     
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
+     
+           <p itemprop="description" >Sturts2访问Servlet API
+访问Servlet API的三种方式
+
+ActionContext：
+1 ActionContext actionContext=ActionContext.getContext();  &amp;#10;Map&amp;#60;String,Objec</p>
+        
     
-      <a href="/2016/07/15/Angular-JS-基础笔记/" title="Angular JS 基础笔记" itemprop="url">Angular JS 基础笔记</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-07-14T16:48:37.000Z" itemprop="datePublished"> 发表于 2016-07-15</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="AngularJS__u5F00_u53D1"><a href="#AngularJS__u5F00_u53D1" class="headerlink" title="AngularJS 开发"></a>AngularJS 开发</h2><ul>
-<li>使得开发现代的单一页面应用程序（SPAs：Single Page Applications）变得更加容易。</li>
-<li>Angular JS 把应用程序数据绑定到HTML元素</li>
-<li>Angular JS 可以克隆和重复HTML元素</li>
-<li>Angular JS 可以隐藏/显示HTML元素</li>
-<li>Angular JS 可以在元素背后添加代码</li>
-<li>Angular JS 支持输入验证</li>
-</ul>
-<h2 id="24scope__u4F5C_u7528_u57DF"><a href="#24scope__u4F5C_u7528_u57DF" class="headerlink" title="$scope 作用域"></a>$scope 作用域</h2><ul>
-<li>$scope 对象当作一个参数传递</li>
-<li>带有属性和方法，这些属性和方法可以在视图和控制器中使用</li>
-<li>根作用域<code>$rootScope</code>: 可作用于整个应用中。是各个 controller 中 scope 的桥梁。用 rootscope 定义的值，可以在各个 controller 中使用。</li>
-</ul>
-<h2 id="Angular_JS__u670D_u52A1"><a href="#Angular_JS__u670D_u52A1" class="headerlink" title="Angular JS 服务"></a>Angular JS 服务</h2><ul>
-<li>$location : 返回当前页面的 URL 地址 ($location.absUrl();)</li>
-<li><p>$http :(例子)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var app = angular.module(&#39;myApp&#39;, []);&#10;app.controller(&#39;myCtrl&#39;, function($scope, $http) &#123;&#10;    $http.get(&#34;welcome.htm&#34;).then(function (response) &#123;&#10;        $scope.myWelcome = response.data;&#10;    &#125;);&#10;&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>$timeout 访问在规定的毫秒数后执行指定函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$timeout(function () &#123;&#10;      $scope.myHeader = &#34;How are you today?&#34;;&#10;  &#125;, 2000);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>$interval 访问在指定的周期(以毫秒计)来调用函数或计算表达式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$interval(function () &#123;&#10;     $scope.theTime = new Date().toLocaleTimeString();&#10; &#125;, 1000);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建自定义服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.service(&#39;hexafy&#39;, function() &#123;&#10;    this.myFunc = function (x) &#123;&#10;        return x.toString(16);&#10;    &#125;&#10;&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用自定义服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.controller(&#39;myCtrl&#39;, function($scope, hexafy) &#123;&#10;    $scope.hex = hexafy.myFunc(255);&#10;&#125;); //&#19981;&#21152;`$`&#21306;&#20998;&#33258;&#24102;&#21644;&#33258;&#23450;&#20041;&#26381;&#21153;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Angular_JS__u6307_u4EE4"><a href="#Angular_JS__u6307_u4EE4" class="headerlink" title="Angular JS 指令"></a>Angular JS 指令</h2><ul>
-<li>ng-app 指令初始化一个AngularJS应用程序</li>
-<li>ng-init 初始化一个应用程序数据</li>
-<li>ng-model 把元素值(比如输入域的值)绑定到应用程序中</li>
-<li><p>ng-repeat 指令会重复一个HTML元素</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;div ng-app=&#34;&#34; ng-init=&#34;names=[&#39;Jani&#39;,&#39;Hege&#39;,&#39;dasd&#39;];in=100&#34;&#62;&#10;  &#60;p&#62;&#20351;&#29992; ng-repeat &#26469;&#24490;&#29615;&#25968;&#32452;&#60;/p&#62;&#10;&#9;&#60;input type=number ng-model=&#34;in&#34; &#62;&#10;  &#60;ul&#62;&#10;    &#60;li ng-repeat=&#34;x in names&#34;&#62;&#10;      &#123;&#123; x &#125;&#125;&#10;    &#60;/li&#62;&#10;&#9;  &#60;li&#62;&#123;&#123;in&#125;&#125;&#60;/li&#62;&#10;  &#60;/ul&#62;&#10;&#60;/div&#62;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>ng-disabled : 直接绑定应用程序数据到HTML的disabled属性 ; 当 标记记作 <code>true</code> 被标记的元素失效</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;button ng-disabled=&#34;mySwitch&#34;&#62;&#28857;&#25105;!&#60;/button&#62;&#10;&#60;input type=&#34;checkbox&#34; ng-model=&#34;mySwitch&#34;&#62;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>ng-show : 被标记元素标记为true时，改元素可见</p>
-</li>
-<li>ng-hide :  true —&gt; 不可见</li>
-</ul>
-<h2 id="Angular_JS__u4E8B_u4EF6"><a href="#Angular_JS__u4E8B_u4EF6" class="headerlink" title="Angular JS 事件"></a>Angular JS 事件</h2><ul>
-<li>ng-click : 定义ng的点击触发事件</li>
-</ul>
-<hr>
-<h2 id="u672A_u5B8C_u5F85_u7EED_u2026_u2026"><a href="#u672A_u5B8C_u5F85_u7EED_u2026_u2026" class="headerlink" title="未完待续……"></a>未完待续……</h2>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
+    <time datetime="2016-07-22T15:34:26.000Z" itemprop="datePublished">2016-07-22</time>
+  </a>
+</section>
 
 
-  <div class="article-tags">
+
+
+
+
   
-  <span></span> <a href="/tags/Angular-JS/">Angular JS</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/07/15/Angular-JS-基础笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/07/15/Angular-JS-基础笔记/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/07/08/hibernate实现原理与思考/" title="hibernate实现原理与思考" itemprop="url">hibernate实现原理与思考</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-07-08T13:33:41.000Z" itemprop="datePublished"> 发表于 2016-07-08</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h4 id="hibernate_u6982_u8FF0_28_u53C2_u8003Wikipedia_29"><a href="#hibernate_u6982_u8FF0_28_u53C2_u8003Wikipedia_29" class="headerlink" title="hibernate概述(参考Wikipedia)"></a>hibernate概述(参考<a href="https://zh.wikipedia.org/wiki/Hibernate" target="_blank" rel="external">Wikipedia</a>)</h4><ul>
-<li>hibernate是一种Java语言下对象关系映射(ORM)解决方案；</li>
-<li>设计目标是将软件开发人员从大量相同的数据持久层相关编程工作中解放出来</li>
-<li>hibernate可以想象成为一个中间组件；当Java通过SQL连接数据库的时候，hibernate负责将java程序的SQL语句接受过来发送带数据库处理，而数据库返回的数据，hibernate接受之后直接生成对象的形式传递给Java程序</li>
-</ul>
-<hr>
-<h4 id="u4EE5_u4E00_u6B21_u6570_u636E_u5E93_u64CD_u4F5C_u4E3A_u4F8B_uFF0C_u5206_u6790hibernate_u5B9E_u73B0_u539F_u7406"><a href="#u4EE5_u4E00_u6B21_u6570_u636E_u5E93_u64CD_u4F5C_u4E3A_u4F8B_uFF0C_u5206_u6790hibernate_u5B9E_u73B0_u539F_u7406" class="headerlink" title="以一次数据库操作为例，分析hibernate实现原理."></a>以一次数据库操作为例，分析hibernate实现原理.</h4><ul>
-<li>当SQL语句能正常执行：<code>select * from user;</code></li>
-<li>项目启动时候，hibernate配置文件(<code>*.cfg.xml</code> &amp; <code>user.hbm.xml</code>) 中的内容已经配置好在容器中，存储着实体类(<code>User</code>)与表的对应关系</li>
-<li>执行hql语句的时候，hibernate会根据反射机制先找到User的全路径名称，进而找到容器中User对应的配置</li>
-<li>由于对象的实体属性与表中的属性一一对应，hibernate会将HQL语句，根据不同的数据库方言解析为SQL语句，并在数据库中执行语句</li>
-</ul>
-<hr>
-<h4 id="u603B_u7684_u6765_u8BF4_uFF1A"><a href="#u603B_u7684_u6765_u8BF4_uFF1A" class="headerlink" title="总的来说："></a>总的来说：</h4><ul>
-<li>hibernate是将实体类中的字段按照<code>*.hbm.xml</code>配置文件或者是annotation的注释标记来解析一条或者多条sql语句，然后放在数据库中执行</li>
-</ul>
-<ol>
-<li>通过<code>configuration().configure();</code>读取并解析hibernate.cfg.xml配置文件</li>
-<li>执行完<code>hibernate.cfg.xml</code>的基本数据库映射配置之后，再通过配置文件中的 mapping 标记，解析并读取映射信息</li>
-<li><code>config.biuldSessionFactory();</code>创建SessionFactory;</li>
-<li><code>SessionFactory.open();</code> 打开Session</li>
-<li><code>session.beginTransaction();</code>创建事务</li>
-<li>persistent operate 持久化操作</li>
-<li><code>session.getTransaction().commit();</code>提交事务</li>
-<li><code>session.getTransaction.rollback();</code>事务提交出错的时候，回滚事务</li>
-<li><code>session.close();</code>关闭事务</li>
-<li><code>SessionFactory.close();</code></li>
-</ol>
-<ul>
-<li>这就是hibernate的原理(也可以叫流程)：基于一个ORM的主流持久化框架，对JDBC访问数据库代买进行了封装</li>
-</ul>
-<hr>
-<p>####思考：</p>
-<ul>
-<li>昨天去了某厂面试，当面试官问我hibernate知不知道hibernate底层原理的时候,我说了不了解….</li>
-<li>因为在这个问题之前我就是已经简单的描述了hibernate的流程，当我听到底层原理的时候，及懵逼了，用了hibernate这么久，还真好像没看到过hibernate的底层原理的描述…</li>
-<li>回来查了一下,其实就是详细的描述hibernate流程…</li>
-<li>面试的时候，由于是第一次面试，紧张！还没适应面试的过程是怎么样的，应聘者应该如果主动的跟面试官沟通，如果将自己的能力以及个性给面试官展现出来…</li>
-<li>又是一次新鲜的经历，在各种经历中成长 @.@</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/Hibernate/">Hibernate</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/07/08/hibernate实现原理与思考/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/07/08/hibernate实现原理与思考/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/06/08/Mysql管理用户操作-创建用户，删除用户，修改用户密码，权限分配以及相关授权/" title="Mysql管理用户操作(创建用户，删除用户，修改用户密码，权限分配以及相关授权)" itemprop="url">Mysql管理用户操作(创建用户，删除用户，修改用户密码，权限分配以及相关授权)</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-08T07:30:11.000Z" itemprop="datePublished"> 发表于 2016-06-08</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h4 id="u521B_u5EFAmysql_u7528_u6237"><a href="#u521B_u5EFAmysql_u7528_u6237" class="headerlink" title="创建mysql用户"></a>创建mysql用户</h4><ul>
-<li>创建用户设定密码：<br><code>create user &#39;username&#39; identified by &#39;password&#39;;</code></li>
-<li>创建用户，密码，并绑定登陆IP(ip:%表示所有IP，也可以限制为网段[231.23.2.%])<br><code>create user &#39;username&#39;@&#39;ip&#39; identified by &#39;password&#39;</code></li>
-<li>使操作生效：<code>flush privileges</code></li>
-</ul>
-<h4 id="u4E3A_u7528_u6237_u6388_u6743"><a href="#u4E3A_u7528_u6237_u6388_u6743" class="headerlink" title="为用户授权"></a>为用户授权</h4><ul>
-<li>将用户所有的权限绑定到某个数据库：<br><code>grant all privileges on basename(*).tablename(*) to username@localhost</code></li>
-<li>或者只授予用户指定的权限：<code>insert</code> <code>delete</code> <code>update</code> <code>select</code>…<br><code>grant insert,select,update,delete on *.* to user@localhost</code></li>
-</ul>
-<h4 id="u64A4_u9500_u7528_u6237_u6743_u9650"><a href="#u64A4_u9500_u7528_u6237_u6743_u9650" class="headerlink" title="撤销用户权限"></a>撤销用户权限</h4><ul>
-<li>格式：<code>revoke 权限 on 库名.表名 from 用户名@用户地址;</code></li>
-</ul>
-<h4 id="u5220_u9664_u7528_u6237"><a href="#u5220_u9664_u7528_u6237" class="headerlink" title="删除用户"></a>删除用户</h4><ul>
-<li><p>直接删除用户：<code>drop user</code>(将用户信息全部删除)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#62;drop user test1@&#39;%&#39;;&#10;&#62;flush privileges;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除用户：<code>delete from user</code>(只会清除对应user创建的表)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#62;use mysql;&#10;&#62;delete from user where user=test1 and host=&#39;%&#39;;&#10;&#62;flush privileges;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="u4FEE_u6539_u6307_u5B9A_u7528_u6237_u7684_u5BC6_u7801_28_u4E5F_u5C31_u662F_u66F4_u65B0mysql_u5E93_u4E0Buser_u7684_u8868_29"><a href="#u4FEE_u6539_u6307_u5B9A_u7528_u6237_u7684_u5BC6_u7801_28_u4E5F_u5C31_u662F_u66F4_u65B0mysql_u5E93_u4E0Buser_u7684_u8868_29" class="headerlink" title="修改指定用户的密码(也就是更新mysql库下user的表)"></a>修改指定用户的密码(也就是更新mysql库下user的表)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#62;&#62;update mysql.user set password=password(&#39;&#26032;&#23494;&#30721;&#39;) where  user=&#34;test2&#34; and host=&#34;%&#34;;&#10;&#62;&#62;flush privilieges;</span><br></pre></td></tr></table></figure>
-<h4 id="u8FDC_u7A0B_u767B_u9646"><a href="#u8FDC_u7A0B_u767B_u9646" class="headerlink" title="远程登陆"></a>远程登陆</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#62;mysql -h &#39;ip&#39; -u &#39;username&#39; -p &#39;ip&#39;  ##&#20010;&#20154;&#20064;&#24815;enter&#20043;&#21518;&#36755;&#23494;&#25991;password</span><br></pre></td></tr></table></figure>
-<h4 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h4><ul>
-<li>mysql库下面有几个表，研究清楚了，也就更加了解了mysql的基本操作了</li>
-<li>还有就是，新版本的mysql数据库自动为你创建了几个常用的库跟表，比如’country’等….(然而我很少用)</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
+    <a href="/2016/07/19/比较http请求方法中的GET与POST方法/" title="比较http请求方法中的GET与POST方法" itemprop="url">
   
-  <span></span> <a href="/tags/Mysql/">Mysql</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/06/08/Mysql管理用户操作-创建用户，删除用户，修改用户密码，权限分配以及相关授权/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/08/Mysql管理用户操作-创建用户，删除用户，修改用户密码，权限分配以及相关授权/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
+    <h1 itemprop="name">比较http请求方法中的GET与POST方法</h1>
     
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
+     
+           <p itemprop="description" >GET方法和POST方法的异同
+GET方法：向页面请求发送已编码的用户信息；页面与已编码信息之间用?隔开传递:http://localhost/test?key1=value&amp;amp;key2=value2
+GET方法的特点是将需要传递信息暴露在URL上面，因此不宜传输敏信息
+同</p>
+        
     
-      <a href="/2016/06/05/Hibernate出现Caused-by-java-sql-SQLException-Field-id-doesn-t-have-a-default-value的解决方法/" title="Hibernate出现Caused by: java.sql.SQLException: Field &#39;id&#39; doesn&#39;t have a default value的解决方法" itemprop="url">Hibernate出现Caused by: java.sql.SQLException: Field &#39;id&#39; doesn&#39;t have a default value的解决方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-05T15:53:46.000Z" itemprop="datePublished"> 发表于 2016-06-05</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="u539F_u56E0_uFF1A_u8BBE_u8BA1Mysql_u7684id_u7684_u65F6_u5019_uFF0Cid_u4F7F_u7528_u4E3B_u952E_u7B56_u7565_uFF0C_u4F46_u662F_u6CA1_u6709_u8BBE_u7F6E_u81EA_u52A8_u751F_u6210_u9020_u6210"><a href="#u539F_u56E0_uFF1A_u8BBE_u8BA1Mysql_u7684id_u7684_u65F6_u5019_uFF0Cid_u4F7F_u7528_u4E3B_u952E_u7B56_u7565_uFF0C_u4F46_u662F_u6CA1_u6709_u8BBE_u7F6E_u81EA_u52A8_u751F_u6210_u9020_u6210" class="headerlink" title="原因：设计Mysql的id的时候，id使用主键策略，但是没有设置自动生成造成"></a>原因：设计Mysql的id的时候，id使用主键策略，但是没有设置自动生成造成</h3><h3 id="u89E3_u51B3_u65B9_u6848_uFF1A"><a href="#u89E3_u51B3_u65B9_u6848_uFF1A" class="headerlink" title="解决方案："></a>解决方案：</h3><ul>
-<li>取消主键策略(下下策)；</li>
-<li>更改结构语句：为主键id添加<code>auto_increment</code>属性；也就是更改表结构</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
+    <time datetime="2016-07-19T10:41:35.000Z" itemprop="datePublished">2016-07-19</time>
+  </a>
+</section>
 
 
-  <div class="article-tags">
+
+
+
+
   
-  <span></span> <a href="/tags/Hibernate/">Hibernate</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/06/05/Hibernate出现Caused-by-java-sql-SQLException-Field-id-doesn-t-have-a-default-value的解决方法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/05/Hibernate出现Caused-by-java-sql-SQLException-Field-id-doesn-t-have-a-default-value的解决方法/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/07/19/Spring-MVC常用的控制器方法与使用/" title="Spring MVC常用的控制器方法与使用" itemprop="url">
+  
+    <h1 itemprop="name">Spring MVC常用的控制器方法与使用</h1>
+    
+     
+           <p itemprop="description" >Spring mvc 控制器与方法@Controller定义一个Controller控制器
+在使用这个标记主注解之前需要配置控制器(两种方法)    
+在Spring MVC配置文件中添加&amp;lt;bean&amp;gt;对象：&amp;lt;bean class=&amp;quot;xyz.royleo</p>
+        
+    
+    <time datetime="2016-07-18T16:27:20.000Z" itemprop="datePublished">2016-07-19</time>
+  </a>
+</section>
 
 
 
 
 
 
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/07/16/AngularJS-核心特性/" title="AngularJS 核心特性" itemprop="url">
+  
+    <h1 itemprop="name">AngularJS 核心特性</h1>
+    
+     
+           <p itemprop="description" >MVC : model - view - controller
+切分代码职责
+更好的复用代码
+便于模块化管理
+终极目标：实现模块化，复用
 
-  <nav id="page-nav" class="clearfix">
+
+模块化Module：一起都是从模块开始，其他都是在module的基础上调用
+指令系统
+1angular.module(&amp;#34;mymod</p>
+        
+    
+    <time datetime="2016-07-16T08:26:00.000Z" itemprop="datePublished">2016-07-16</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/07/16/Spring-MVC请求处理工作流程/" title="Spring-MVC请求处理工作流程" itemprop="url">
+  
+    <h1 itemprop="name">Spring-MVC请求处理工作流程</h1>
+    
+     
+           <p itemprop="description" >前言
+Spring Web MVC框架提供了model-view-controller 的体系结构，可以用来开发灵活的，借助spring的AOP特性，实现松耦合的Web应用程序组件；
+MVC模式导致了应用程序不同方面的分离(输入业务、逻辑业务和UI逻辑)，同时提供了这些元素之间的</p>
+        
+    
+    <time datetime="2016-07-16T07:04:58.000Z" itemprop="datePublished">2016-07-16</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/07/15/Angular-JS-基础笔记/" title="Angular JS 基础笔记" itemprop="url">
+  
+    <h1 itemprop="name">Angular JS 基础笔记</h1>
+    
+     
+           <p itemprop="description" >AngularJS 开发
+使得开发现代的单一页面应用程序（SPAs：Single Page Applications）变得更加容易。
+Angular JS 把应用程序数据绑定到HTML元素
+Angular JS 可以克隆和重复HTML元素
+Angular JS 可以隐藏/显示HT</p>
+        
+    
+    <time datetime="2016-07-14T16:48:37.000Z" itemprop="datePublished">2016-07-15</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/07/08/hibernate实现原理与思考/" title="hibernate实现原理与思考" itemprop="url">
+  
+    <h1 itemprop="name">hibernate实现原理与思考</h1>
+    
+     
+           <p itemprop="description" >hibernate概述(参考Wikipedia)
+hibernate是一种Java语言下对象关系映射(ORM)解决方案；
+设计目标是将软件开发人员从大量相同的数据持久层相关编程工作中解放出来
+hibernate可以想象成为一个中间组件；当Java通过SQL连接数据库的时候，hib</p>
+        
+    
+    <time datetime="2016-07-08T13:33:41.000Z" itemprop="datePublished">2016-07-08</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/06/08/Mysql管理用户操作-创建用户，删除用户，修改用户密码，权限分配以及相关授权/" title="Mysql管理用户操作(创建用户，删除用户，修改用户密码，权限分配以及相关授权)" itemprop="url">
+  
+    <h1 itemprop="name">Mysql管理用户操作(创建用户，删除用户，修改用户密码，权限分配以及相关授权)</h1>
+    
+     
+           <p itemprop="description" >创建mysql用户
+创建用户设定密码：create user &amp;#39;username&amp;#39; identified by &amp;#39;password&amp;#39;;
+创建用户，密码，并绑定登陆IP(ip:%表示所有IP，也可以限制为网段[231.23.2.%])create u</p>
+        
+    
+    <time datetime="2016-06-08T07:30:11.000Z" itemprop="datePublished">2016-06-08</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/06/05/Hibernate出现Caused-by-java-sql-SQLException-Field-id-doesn-t-have-a-default-value的解决方法/" title="Hibernate出现Caused by: java.sql.SQLException: Field &#39;id&#39; doesn&#39;t have a default value的解决方法" itemprop="url">
+  
+    <h1 itemprop="name">Hibernate出现Caused by: java.sql.SQLException: Field &#39;id&#39; doesn&#39;t have a default value的解决方法</h1>
+    
+     
+           <p itemprop="description" >原因：设计Mysql的id的时候，id使用主键策略，但是没有设置自动生成造成解决方案：
+取消主键策略(下下策)；
+更改结构语句：为主键id添加auto_increment属性；也就是更改表结构</p>
+        
+    
+    <time datetime="2016-06-05T15:53:46.000Z" itemprop="datePublished">2016-06-05</time>
+  </a>
+</section>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix unexpand">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
@@ -1165,19 +384,10 @@
 </div>
 
 
-  <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
-    <ul>
-        
-    </ul>
-</div>
-
   
 
 
-  <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
-</div>
+  
 
   <div class="weiboshow">
   <p class="asidetitle">新浪微博</p>
@@ -1233,6 +443,7 @@
 		
 		
 		</p>
+		
 </div>
 </footer>
     <script src="/js/jquery-2.0.3.min.js"></script>
@@ -1320,16 +531,6 @@ $(document).ready(function(){
 <!-- Analytics Begin -->
 
 
-
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
 
 
 
