@@ -15,8 +15,8 @@
 InetAddress; 用于标识网络上的硬件资源，比如MAC地址等．．．
 URL：统一资源定位符 通过URL可以直接读取或写入网络上的数据
 Sockets：使用TCP协议实现网络通信的Socket的相关类
-Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行通信#####InetAddress类：表示互联网协议(IP)地址
-通过静态方法获取实例：(">
+Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行通信InetAddress类：表示互联网协议(IP)地址
+通过静态方法获取实例：(然后就可以">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java 实现TCP/IP Socket通信">
 <meta property="og:url" content="http://royleo.xyz/2016/07/24/Java-实现TCP-IP-Socket通信/index.html">
@@ -25,17 +25,17 @@ Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行
 InetAddress; 用于标识网络上的硬件资源，比如MAC地址等．．．
 URL：统一资源定位符 通过URL可以直接读取或写入网络上的数据
 Sockets：使用TCP协议实现网络通信的Socket的相关类
-Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行通信#####InetAddress类：表示互联网协议(IP)地址
-通过静态方法获取实例：(">
-<meta property="og:updated_time" content="2016-07-23T16:31:14.061Z">
+Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行通信InetAddress类：表示互联网协议(IP)地址
+通过静态方法获取实例：(然后就可以">
+<meta property="og:updated_time" content="2016-07-25T03:04:42.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 实现TCP/IP Socket通信">
 <meta name="twitter:description" content="Java提供的网络功能有四大类
 InetAddress; 用于标识网络上的硬件资源，比如MAC地址等．．．
 URL：统一资源定位符 通过URL可以直接读取或写入网络上的数据
 Sockets：使用TCP协议实现网络通信的Socket的相关类
-Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行通信#####InetAddress类：表示互联网协议(IP)地址
-通过静态方法获取实例：(">
+Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行通信InetAddress类：表示互联网协议(IP)地址
+通过静态方法获取实例：(然后就可以">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -112,7 +112,7 @@ Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#Java_u63D0_u4F9B_u7684_u7F51_u7EDC_u529F_u80FD_u6709_u56DB_u5927_u7C7B"><span class="toc-number">1.</span> <span class="toc-text">Java提供的网络功能有四大类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Socket_u5B9E_u73B0TCP_u901A_u4FE1_28_u57FA_u4E8E_u6570_u636E_u6D41_u5957_u63A5_u5B57_29"><span class="toc-number">2.</span> <span class="toc-text">Socket实现TCP通信(基于数据流套接字)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#UDP_Socket_u7F16_u7A0B"><span class="toc-number">3.</span> <span class="toc-text">UDP Socket编程</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#Java_u63D0_u4F9B_u7684_u7F51_u7EDC_u529F_u80FD_u6709_u56DB_u5927_u7C7B"><span class="toc-number">1.</span> <span class="toc-text">Java提供的网络功能有四大类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#InetAddress_u7C7B_uFF1A_u8868_u793A_u4E92_u8054_u7F51_u534F_u8BAE_28IP_29_u5730_u5740"><span class="toc-number">2.</span> <span class="toc-text">InetAddress类：表示互联网协议(IP)地址</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Socket_u5B9E_u73B0TCP_u901A_u4FE1_28_u57FA_u4E8E_u6570_u636E_u6D41_u5957_u63A5_u5B57_29"><span class="toc-number">3.</span> <span class="toc-text">Socket实现TCP通信(基于数据流套接字)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#UDP_Socket_u7F16_u7A0B"><span class="toc-number">4.</span> <span class="toc-text">UDP Socket编程</span></a></li></ol>
 		
 		</div>
 		
@@ -120,7 +120,7 @@ Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行
 <li>InetAddress; 用于标识网络上的硬件资源，比如MAC地址等．．．</li>
 <li>URL：统一资源定位符 通过URL可以直接读取或写入网络上的数据</li>
 <li>Sockets：使用TCP协议实现网络通信的Socket的相关类</li>
-<li>Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行通信<br>#####InetAddress类：表示互联网协议(IP)地址</li>
+<li>Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行通信<h5 id="InetAddress_u7C7B_uFF1A_u8868_u793A_u4E92_u8054_u7F51_u534F_u8BAE_28IP_29_u5730_u5740"><a href="#InetAddress_u7C7B_uFF1A_u8868_u793A_u4E92_u8054_u7F51_u534F_u8BAE_28IP_29_u5730_u5740" class="headerlink" title="InetAddress类：表示互联网协议(IP)地址"></a>InetAddress类：表示互联网协议(IP)地址</h5></li>
 <li>通过静态方法获取实例：(然后就可以根据jdk文档，使用相关方法)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">InetAddress address = InetAddress.getLocalHost();//&#25110;&#32773;&#10;InetAddress address1 = InetAddress.getByName(&#34;10.2.18.87&#34;);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -232,7 +232,7 @@ Datagram：使用UDP协议，将数据保存在数据报中，通过网络进行
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#Java_u63D0_u4F9B_u7684_u7F51_u7EDC_u529F_u80FD_u6709_u56DB_u5927_u7C7B"><span class="toc-number">1.</span> <span class="toc-text">Java提供的网络功能有四大类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Socket_u5B9E_u73B0TCP_u901A_u4FE1_28_u57FA_u4E8E_u6570_u636E_u6D41_u5957_u63A5_u5B57_29"><span class="toc-number">2.</span> <span class="toc-text">Socket实现TCP通信(基于数据流套接字)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#UDP_Socket_u7F16_u7A0B"><span class="toc-number">3.</span> <span class="toc-text">UDP Socket编程</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#Java_u63D0_u4F9B_u7684_u7F51_u7EDC_u529F_u80FD_u6709_u56DB_u5927_u7C7B"><span class="toc-number">1.</span> <span class="toc-text">Java提供的网络功能有四大类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#InetAddress_u7C7B_uFF1A_u8868_u793A_u4E92_u8054_u7F51_u534F_u8BAE_28IP_29_u5730_u5740"><span class="toc-number">2.</span> <span class="toc-text">InetAddress类：表示互联网协议(IP)地址</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Socket_u5B9E_u73B0TCP_u901A_u4FE1_28_u57FA_u4E8E_u6570_u636E_u6D41_u5957_u63A5_u5B57_29"><span class="toc-number">3.</span> <span class="toc-text">Socket实现TCP通信(基于数据流套接字)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#UDP_Socket_u7F16_u7A0B"><span class="toc-number">4.</span> <span class="toc-text">UDP Socket编程</span></a></li></ol>
  
   </div>
 
