@@ -4,53 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Java垃圾回收之finalize() | Master a Day</title>
+    <title>Java 迭代器Iterator的用法 | Master a Day</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Roy Leong">
     
 
     
-    <meta name="description" content="Java垃圾回收
-Java垃圾回收器负责回收无用对象占据的内存资源
-但是，无论是“垃圾回收”或者“终结”，JVM都不保证会发生，因为JVM在没有面临内存耗尽的情况下，它是不会浪费时间去执行垃圾回收以恢复内存
-JVM不会主动去发现一些无用特殊的内存区块，并清除它，所以引入finalize()方法
-
-finalize()用法
-对象可能不被垃圾回收
-垃圾回收并不等于“析构”
-垃圾回收只与内存有关
-
-fi">
+    <meta name="description" content="迭代器是一种设计模式，它是一个对象，它可以遍历并选择序列中的对象，而开发人员不需要了解该序列的底层结构;迭代器通常被称为“轻量级”对象，因为创建它的代价小.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java垃圾回收之finalize()">
-<meta property="og:url" content="http://royleo.xyz/2016/05/08/Java垃圾回收之finalize/index.html">
+<meta property="og:title" content="Java 迭代器Iterator的用法">
+<meta property="og:url" content="http://royleo.xyz/2016/07/28/Java-迭代器Iterator的用法/index.html">
 <meta property="og:site_name" content="Master a Day">
-<meta property="og:description" content="Java垃圾回收
-Java垃圾回收器负责回收无用对象占据的内存资源
-但是，无论是“垃圾回收”或者“终结”，JVM都不保证会发生，因为JVM在没有面临内存耗尽的情况下，它是不会浪费时间去执行垃圾回收以恢复内存
-JVM不会主动去发现一些无用特殊的内存区块，并清除它，所以引入finalize()方法
-
-finalize()用法
-对象可能不被垃圾回收
-垃圾回收并不等于“析构”
-垃圾回收只与内存有关
-
-fi">
-<meta property="og:updated_time" content="2016-05-09T16:05:52.439Z">
+<meta property="og:description" content="迭代器是一种设计模式，它是一个对象，它可以遍历并选择序列中的对象，而开发人员不需要了解该序列的底层结构;迭代器通常被称为“轻量级”对象，因为创建它的代价小.">
+<meta property="og:updated_time" content="2016-07-27T16:39:28.795Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java垃圾回收之finalize()">
-<meta name="twitter:description" content="Java垃圾回收
-Java垃圾回收器负责回收无用对象占据的内存资源
-但是，无论是“垃圾回收”或者“终结”，JVM都不保证会发生，因为JVM在没有面临内存耗尽的情况下，它是不会浪费时间去执行垃圾回收以恢复内存
-JVM不会主动去发现一些无用特殊的内存区块，并清除它，所以引入finalize()方法
-
-finalize()用法
-对象可能不被垃圾回收
-垃圾回收并不等于“析构”
-垃圾回收只与内存有关
-
-fi">
+<meta name="twitter:title" content="Java 迭代器Iterator的用法">
+<meta name="twitter:description" content="迭代器是一种设计模式，它是一个对象，它可以遍历并选择序列中的对象，而开发人员不需要了解该序列的底层结构;迭代器通常被称为“轻量级”对象，因为创建它的代价小.">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -111,14 +81,14 @@ fi">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/05/08/Java垃圾回收之finalize/" title="Java垃圾回收之finalize()" itemprop="url">Java垃圾回收之finalize()</a>
+      <a href="/2016/07/28/Java-迭代器Iterator的用法/" title="Java 迭代器Iterator的用法" itemprop="url">Java 迭代器Iterator的用法</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2016-05-07T16:07:13.000Z" itemprop="datePublished"> 发表于 2016-05-08</time>
+    <time datetime="2016-07-27T16:12:22.000Z" itemprop="datePublished"> 发表于 2016-07-28</time>
     
   </p>
 </header>
@@ -127,29 +97,56 @@ fi">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java_u5783_u573E_u56DE_u6536"><span class="toc-number">1.</span> <span class="toc-text">Java垃圾回收</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#finalize_28_29_u7528_u6CD5"><span class="toc-number">2.</span> <span class="toc-text">finalize()用法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#finalize_28_29_u5DE5_u4F5C_u539F_u7406"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">finalize()工作原理</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E0B_u9762_u4E00_u4E2A_u4F8B_u5B50_u793A_u8303finalize_28_29_u53EF_u80FD_u7684_u4F7F_u7528_u65B9_u5F0F_28_u7EC8_u7ED3_u6761_u4EF6_29"><span class="toc-number">2.0.1.</span> <span class="toc-text">下面一个例子示范finalize()可能的使用方式(终结条件)</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#u672C_u4F8B_u7684_u7EC8_u7ED3_u6761_u4EF6_uFF1A_u6240_u6709_u7684Book_u5BF9_u8C61_u5728_u88AB_u5F53_u4F5C_u5783_u573E_u56DE_u6536_u524D_u90FD_u5E94_u8BE5_u88AB_u7B7E_u5165_28chechIn_29_3B_u4F46_u662Fmain_28_29_u65B9_u6CD5_u4E2D_uFF0C_u6709_u4E00_u672C_u4E66_u6CA1_u88AB_u7B7E_u5165_uFF0C_u6240_u4EE5_u5982_u679C_u6CA1_u6709finalize_28_29_u6765_u9A8C_u8BC1_u7EC8_u7ED3_u6761_u4EF6_uFF0C_u90A3_u4E48_u8FD9_u4E2A_u7F3A_u9677_u5F88_u96BE_u88AB_u53D1_u73B0"><span class="toc-number">2.0.1.0.1.</span> <span class="toc-text">本例的终结条件：所有的Book对象在被当作垃圾回收前都应该被签入(chechIn);但是main()方法中，有一本书没被签入，所以如果没有finalize()来验证终结条件，那么这个缺陷很难被发现.</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FED_u4EE3_u5668_28Iterator_29_u6982_u8FF0"><span class="toc-number">1.</span> <span class="toc-text">迭代器(Iterator)概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FED_u4EE3_u5668_u7684_u597D_u5904"><span class="toc-number">2.</span> <span class="toc-text">迭代器的好处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u529F_u80FD_u65B9_u6CD5"><span class="toc-number">3.</span> <span class="toc-text">功能方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u77E5_u8BC6_u6269_u5145_28_u904D_u5386List_u96C6_u5408_u7684_u65B9_u6CD5_29"><span class="toc-number">4.</span> <span class="toc-text">知识扩充(遍历List集合的方法)</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="Java_u5783_u573E_u56DE_u6536"><a href="#Java_u5783_u573E_u56DE_u6536" class="headerlink" title="Java垃圾回收"></a>Java垃圾回收</h2><ul>
-<li>Java垃圾回收器负责回收无用对象占据的内存资源</li>
-<li>但是，无论是“垃圾回收”或者“终结”，JVM都不保证会发生，因为JVM在没有面临内存耗尽的情况下，它是不会浪费时间去执行垃圾回收以恢复内存</li>
-<li>JVM不会主动去发现一些无用特殊的内存区块，并清除它，所以引入<code>finalize()</code>方法</li>
+		<h3 id="u8FED_u4EE3_u5668_28Iterator_29_u6982_u8FF0"><a href="#u8FED_u4EE3_u5668_28Iterator_29_u6982_u8FF0" class="headerlink" title="迭代器(Iterator)概述"></a>迭代器(Iterator)概述</h3><ul>
+<li>Iterator是作为一个接口存在的，它定义了迭代器所具有的功能</li>
+<li>迭代器是一种设计模式，它是一个对象，它可以遍历并选择序列中的对象，而开发人员不需要了解该序列的底层结构;迭代器通常被称为“轻量级”对象，因为创建它的代价小.</li>
 </ul>
-<h2 id="finalize_28_29_u7528_u6CD5"><a href="#finalize_28_29_u7528_u6CD5" class="headerlink" title="finalize()用法"></a><code>finalize()</code>用法</h2><ul>
-<li>对象可能不被垃圾回收</li>
-<li>垃圾回收并不等于“析构”</li>
-<li>垃圾回收只与内存有关</li>
+<h3 id="u8FED_u4EE3_u5668_u7684_u597D_u5904"><a href="#u8FED_u4EE3_u5668_u7684_u597D_u5904" class="headerlink" title="迭代器的好处"></a>迭代器的好处</h3><ol>
+<li>迭代器可以提供统一的迭代方式。</li>
+<li>迭代器也可以在对客户端透明的情况下，提供各种不同的迭代方式。</li>
+<li>迭代器提供一种<a href="http://wiki.jikexueyuan.com/project/java-enhancement/java-thirtyfour.html" target="_blank" rel="external">快速失败机制</a>，防止多线程下迭代的不安全操作。</li>
+</ol>
+<h3 id="u529F_u80FD_u65B9_u6CD5"><a href="#u529F_u80FD_u65B9_u6CD5" class="headerlink" title="功能方法"></a>功能方法</h3><ul>
+<li><p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Iterator&#60;String&#62; iter = list.iterator();&#10;&#9;&#9;while(iter.hasNext())&#10;&#9;&#9;&#123;&#10;&#9;&#9;&#9;iter.next();&#10;&#9;&#9;&#9;//System.out.println(iter.next());&#10;&#9;&#9;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Java中的迭代器功能比较简单，并且只能单向移动;</p>
+</li>
+<li>方法:<code>iterator();</code>要求容器返回一个Iterator;第一次调用Iterator的next()方法时，它返回序列的第一个元素</li>
+<li><code>next();</code>获得序列中的下一个元素</li>
+<li><code>hasNext();</code>检查序列中是否还有元素</li>
+<li><code>remove();</code>将迭代器新返回的元素删除</li>
 </ul>
-<h5 id="finalize_28_29_u5DE5_u4F5C_u539F_u7406"><a href="#finalize_28_29_u5DE5_u4F5C_u539F_u7406" class="headerlink" title="finalize()工作原理"></a><code>finalize()</code>工作原理</h5><ul>
-<li>一旦垃圾回收器准备好释放对象占用的存储空间，将首先调用<code>finalize()</code>方法，并且在下一次垃圾回收动作发生时，才会真正回收对象占用的内存</li>
+<h3 id="u77E5_u8BC6_u6269_u5145_28_u904D_u5386List_u96C6_u5408_u7684_u65B9_u6CD5_29"><a href="#u77E5_u8BC6_u6269_u5145_28_u904D_u5386List_u96C6_u5408_u7684_u65B9_u6CD5_29" class="headerlink" title="知识扩充(遍历List集合的方法)"></a>知识扩充(遍历List集合的方法)</h3><ul>
+<li><p>foreache 遍历：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for(String tmp:list)&#123;&#10;&#9;&#9;&#9;System.out.println(tmp);&#10;&#9;&#9;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>for 循环遍历：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for(int i = 0; i &#60; list.size(); i++)&#123;&#10;&#9;&#9;&#9;list.get(i);&#10;&#9;&#9;&#9;System.out.println(list.get(i));&#10;&#9;&#9;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Iterator遍历(例子上面已经给出)</p>
+</li>
+<li><p>其中，对于同一个List集合，统计每个遍历方式时间消耗如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List first visit method(foreache):&#10;Run Time:170(ms)&#10;List second visit method(for):&#10;Run Time:10(ms)&#10;List Third visit method(Iterator):&#10;Run Time:34(ms)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>显而易见；迭代器遍历在时间上的优势很大，代码简洁</p>
+</li>
+<li>同时，与for/foreach 相比，Iterator使用相同方式去遍历集合中元素，而不用考虑集合类的内部实现(只要它实现了 java.lang.Iterable 接口)</li>
 </ul>
-<h4 id="u4E0B_u9762_u4E00_u4E2A_u4F8B_u5B50_u793A_u8303finalize_28_29_u53EF_u80FD_u7684_u4F7F_u7528_u65B9_u5F0F_28_u7EC8_u7ED3_u6761_u4EF6_29"><a href="#u4E0B_u9762_u4E00_u4E2A_u4F8B_u5B50_u793A_u8303finalize_28_29_u53EF_u80FD_u7684_u4F7F_u7528_u65B9_u5F0F_28_u7EC8_u7ED3_u6761_u4EF6_29" class="headerlink" title="下面一个例子示范finalize()可能的使用方式(终结条件)"></a>下面一个例子示范<code>finalize()</code>可能的使用方式(终结条件)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Book&#123;&#10;  boolean checkedOut = false;&#10;  Book(boolean checkOut)&#123;&#10;    checkedOut = checkOut;&#10;  &#125;&#10;  void chechIn()&#123;&#10;    checkedOut = false;&#10;  &#125;&#10;  protected void finalize()&#123;&#10;    if(checkedOut)&#123;&#10;      System.out.print(&#34;error:check out&#34;);&#10;    &#125;&#10;  &#125;&#10;&#125;&#10;public class Terminal&#123;&#10;  public static void main(String[] args)&#123;&#10;    Book novel = new Book(true);&#10;    novel.chechIn();&#10;    new Book(true);&#10;    System.gc();&#10;  &#125;&#10;&#125;&#10;/*&#10;*output:&#10;*error:check out&#10;*/</span><br></pre></td></tr></table></figure>
-<h6 id="u672C_u4F8B_u7684_u7EC8_u7ED3_u6761_u4EF6_uFF1A_u6240_u6709_u7684Book_u5BF9_u8C61_u5728_u88AB_u5F53_u4F5C_u5783_u573E_u56DE_u6536_u524D_u90FD_u5E94_u8BE5_u88AB_u7B7E_u5165_28chechIn_29_3B_u4F46_u662Fmain_28_29_u65B9_u6CD5_u4E2D_uFF0C_u6709_u4E00_u672C_u4E66_u6CA1_u88AB_u7B7E_u5165_uFF0C_u6240_u4EE5_u5982_u679C_u6CA1_u6709finalize_28_29_u6765_u9A8C_u8BC1_u7EC8_u7ED3_u6761_u4EF6_uFF0C_u90A3_u4E48_u8FD9_u4E2A_u7F3A_u9677_u5F88_u96BE_u88AB_u53D1_u73B0"><a href="#u672C_u4F8B_u7684_u7EC8_u7ED3_u6761_u4EF6_uFF1A_u6240_u6709_u7684Book_u5BF9_u8C61_u5728_u88AB_u5F53_u4F5C_u5783_u573E_u56DE_u6536_u524D_u90FD_u5E94_u8BE5_u88AB_u7B7E_u5165_28chechIn_29_3B_u4F46_u662Fmain_28_29_u65B9_u6CD5_u4E2D_uFF0C_u6709_u4E00_u672C_u4E66_u6CA1_u88AB_u7B7E_u5165_uFF0C_u6240_u4EE5_u5982_u679C_u6CA1_u6709finalize_28_29_u6765_u9A8C_u8BC1_u7EC8_u7ED3_u6761_u4EF6_uFF0C_u90A3_u4E48_u8FD9_u4E2A_u7F3A_u9677_u5F88_u96BE_u88AB_u53D1_u73B0" class="headerlink" title="本例的终结条件：所有的Book对象在被当作垃圾回收前都应该被签入(chechIn);但是main()方法中，有一本书没被签入，所以如果没有finalize()来验证终结条件，那么这个缺陷很难被发现."></a>本例的终结条件：所有的Book对象在被当作垃圾回收前都应该被签入(chechIn);但是<code>main()</code>方法中，有一本书没被签入，所以如果没有<code>finalize()</code>来验证终结条件，那么这个缺陷很难被发现.</h6>  
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a>
+  </div>
 
 </div>
 
@@ -157,7 +154,7 @@ fi">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://royleo.xyz/2016/05/08/Java垃圾回收之finalize/" data-title="Java垃圾回收之finalize() | Master a Day" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://royleo.xyz/2016/07/28/Java-迭代器Iterator的用法/" data-title="Java 迭代器Iterator的用法 | Master a Day" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -170,19 +167,11 @@ fi">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/05/10/无法连接远程Mysql数据库的解决办法-I/" title="无法连接远程Mysql数据库的解决办法 I">
-  <strong>上一篇：</strong><br/>
-  <span>
-  无法连接远程Mysql数据库的解决办法 I</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/05/07/Java常识之构造器/"  title="Java常识之构造器">
+<a href="/2016/07/26/Mysql视图技术原理与应用/"  title="Mysql视图技术原理与应用">
  <strong>下一篇：</strong><br/> 
- <span>Java常识之构造器
+ <span>Mysql视图技术原理与应用
 </span>
 </a>
 </div>
@@ -191,7 +180,7 @@ fi">
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/05/08/Java垃圾回收之finalize/" data-title="Java垃圾回收之finalize()" data-url="http://royleo.xyz/2016/05/08/Java垃圾回收之finalize/"></div>
+	<div class="ds-thread" data-thread-key="2016/07/28/Java-迭代器Iterator的用法/" data-title="Java 迭代器Iterator的用法" data-url="http://royleo.xyz/2016/07/28/Java-迭代器Iterator的用法/"></div>
 </section>
 
 
@@ -201,7 +190,7 @@ fi">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java_u5783_u573E_u56DE_u6536"><span class="toc-number">1.</span> <span class="toc-text">Java垃圾回收</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#finalize_28_29_u7528_u6CD5"><span class="toc-number">2.</span> <span class="toc-text">finalize()用法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#finalize_28_29_u5DE5_u4F5C_u539F_u7406"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">finalize()工作原理</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E0B_u9762_u4E00_u4E2A_u4F8B_u5B50_u793A_u8303finalize_28_29_u53EF_u80FD_u7684_u4F7F_u7528_u65B9_u5F0F_28_u7EC8_u7ED3_u6761_u4EF6_29"><span class="toc-number">2.0.1.</span> <span class="toc-text">下面一个例子示范finalize()可能的使用方式(终结条件)</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#u672C_u4F8B_u7684_u7EC8_u7ED3_u6761_u4EF6_uFF1A_u6240_u6709_u7684Book_u5BF9_u8C61_u5728_u88AB_u5F53_u4F5C_u5783_u573E_u56DE_u6536_u524D_u90FD_u5E94_u8BE5_u88AB_u7B7E_u5165_28chechIn_29_3B_u4F46_u662Fmain_28_29_u65B9_u6CD5_u4E2D_uFF0C_u6709_u4E00_u672C_u4E66_u6CA1_u88AB_u7B7E_u5165_uFF0C_u6240_u4EE5_u5982_u679C_u6CA1_u6709finalize_28_29_u6765_u9A8C_u8BC1_u7EC8_u7ED3_u6761_u4EF6_uFF0C_u90A3_u4E48_u8FD9_u4E2A_u7F3A_u9677_u5F88_u96BE_u88AB_u53D1_u73B0"><span class="toc-number">2.0.1.0.1.</span> <span class="toc-text">本例的终结条件：所有的Book对象在被当作垃圾回收前都应该被签入(chechIn);但是main()方法中，有一本书没被签入，所以如果没有finalize()来验证终结条件，那么这个缺陷很难被发现.</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FED_u4EE3_u5668_28Iterator_29_u6982_u8FF0"><span class="toc-number">1.</span> <span class="toc-text">迭代器(Iterator)概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FED_u4EE3_u5668_u7684_u597D_u5904"><span class="toc-number">2.</span> <span class="toc-text">迭代器的好处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u529F_u80FD_u65B9_u6CD5"><span class="toc-number">3.</span> <span class="toc-text">功能方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u77E5_u8BC6_u6269_u5145_28_u904D_u5386List_u96C6_u5408_u7684_u65B9_u6CD5_29"><span class="toc-number">4.</span> <span class="toc-text">知识扩充(遍历List集合的方法)</span></a></li></ol>
  
   </div>
 
