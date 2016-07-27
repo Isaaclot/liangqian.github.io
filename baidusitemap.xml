@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>http://royleo.xyz/2016/07/26/Mysql%E8%A7%86%E5%9B%BE%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/</loc>
+    <lastmod>2016-07-26T13:25:35.818Z</lastmod>
+    <data>
+        <display>
+        <title>Mysql视图技术原理与应用</title>
+        <pubTime>2016-07-26T13:21:17.000Z</pubTime>
+        
+        <tag>Mysql</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://royleo.xyz/2016/07/24/Java-%E5%AE%9E%E7%8E%B0TCP-IP-Socket%E9%80%9A%E4%BF%A1/</loc>
+    <lastmod>2016-07-25T15:49:16.282Z</lastmod>
+    <data>
+        <display>
+        <title>Java 实现TCP/IP Socket通信</title>
+        <pubTime>2016-07-23T16:30:07.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://royleo.xyz/2016/07/25/mysql%E8%A7%A6%E5%8F%91%E5%99%A8%E5%AD%A6%E4%B8%8E%E7%94%A8/</loc>
+    <lastmod>2016-07-25T14:29:08.267Z</lastmod>
+    <data>
+        <display>
+        <title>mysql触发器学与用</title>
+        <pubTime>2016-07-25T13:38:58.000Z</pubTime>
+        
+        <tag>Mysql</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://royleo.xyz/2016/07/22/struts2%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2016-07-22T15:38:10.755Z</lastmod>
+    <data>
+        <display>
+        <title>struts2基础笔记(1)</title>
+        <pubTime>2016-07-22T15:34:26.000Z</pubTime>
+        
+        <tag>struts2</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://royleo.xyz/2016/07/19/%E6%AF%94%E8%BE%83http%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95%E4%B8%AD%E7%9A%84GET%E4%B8%8EPOST%E6%96%B9%E6%B3%95/</loc>
+    <lastmod>2016-07-19T10:42:00.024Z</lastmod>
+    <data>
+        <display>
+        <title>比较http请求方法中的GET与POST方法</title>
+        <pubTime>2016-07-19T10:41:35.000Z</pubTime>
+        
+        <tag>Servlet</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://royleo.xyz/2016/07/19/Spring-MVC%E5%B8%B8%E7%94%A8%E7%9A%84%E6%8E%A7%E5%88%B6%E5%99%A8%E6%96%B9%E6%B3%95%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2016-07-18T16:28:35.516Z</lastmod>
+    <data>
+        <display>
+        <title>Spring MVC常用的控制器方法与使用</title>
+        <pubTime>2016-07-18T16:27:20.000Z</pubTime>
+        
+        <tag>Spring</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://royleo.xyz/2016/07/16/AngularJS-%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7/</loc>
+    <lastmod>2016-07-16T08:40:24.110Z</lastmod>
+    <data>
+        <display>
+        <title>AngularJS 核心特性</title>
+        <pubTime>2016-07-16T08:26:00.000Z</pubTime>
+        
+        <tag>Angular JS</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://royleo.xyz/2016/07/15/Angular-JS-%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2016-07-16T08:38:06.926Z</lastmod>
+    <data>
+        <display>
+        <title>Angular JS 基础笔记</title>
+        <pubTime>2016-07-14T16:48:37.000Z</pubTime>
+        
+        <tag>Angular JS</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://royleo.xyz/2016/07/16/Spring-MVC%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/</loc>
+    <lastmod>2016-07-16T07:53:22.090Z</lastmod>
+    <data>
+        <display>
+        <title>Spring-MVC请求处理工作流程</title>
+        <pubTime>2016-07-16T07:04:58.000Z</pubTime>
+        
+        <tag>Spring</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+    
+    
+  <url>
+    <loc>http://royleo.xyz/2016/07/08/hibernate%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E4%B8%8E%E6%80%9D%E8%80%83/</loc>
+    <lastmod>2016-07-08T14:31:50.058Z</lastmod>
+    <data>
+        <display>
+        <title>hibernate实现原理与思考</title>
+        <pubTime>2016-07-08T13:33:41.000Z</pubTime>
+        
+        <tag>Hibernate</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://royleo.xyz/2016/06/05/Hibernate%E5%87%BA%E7%8E%B0Caused-by-java-sql-SQLException-Field-id-doesn-t-have-a-default-value%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</loc>
+    <lastmod>2016-06-09T15:46:36.514Z</lastmod>
+    <data>
+        <display>
+        <title>Hibernate出现Caused by: java.sql.SQLException: Field 'id' doesn't have a default value的解决方法</title>
+        <pubTime>2016-06-05T15:53:46.000Z</pubTime>
+        
+        <tag>Hibernate</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://royleo.xyz/2016/06/08/Mysql%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E6%93%8D%E4%BD%9C-%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%EF%BC%8C%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%EF%BC%8C%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%EF%BC%8C%E6%9D%83%E9%99%90%E5%88%86%E9%85%8D%E4%BB%A5%E5%8F%8A%E7%9B%B8%E5%85%B3%E6%8E%88%E6%9D%83/</loc>
+    <lastmod>2016-06-08T08:04:59.635Z</lastmod>
+    <data>
+        <display>
+        <title>Mysql管理用户操作(创建用户，删除用户，修改用户密码，权限分配以及相关授权)</title>
+        <pubTime>2016-06-08T07:30:11.000Z</pubTime>
+        
+        <tag>Mysql</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://royleo.xyz/2016/06/05/%E5%85%B3%E4%BA%8EMaven-%E6%89%93%E5%8C%85%E6%97%B6-%E7%BC%BA%E5%A4%B1properties%E5%92%8Cxml%E5%90%8E%E7%BC%80%E7%9A%84%E6%96%87%E4%BB%B6/</loc>
+    <lastmod>2016-06-05T03:29:38.029Z</lastmod>
+    <data>
+        <display>
+        <title>关于Maven 打包时 缺失properties和xml后缀的文件</title>
+        <pubTime>2016-06-05T03:00:33.000Z</pubTime>
+        
+        <tag>Maven</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://royleo.xyz/2016/05/10/%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8BMysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95-I/</loc>
+    <lastmod>2016-05-10T15:21:15.674Z</lastmod>
+    <data>
+        <display>
+        <title>无法连接远程Mysql数据库的解决办法 I</title>
+        <pubTime>2016-05-10T15:02:32.000Z</pubTime>
+        
+        <tag>小笔记</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://royleo.xyz/2016/05/08/Java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E4%B9%8Bfinalize/</loc>
+    <lastmod>2016-05-09T16:05:52.439Z</lastmod>
+    <data>
+        <display>
+        <title>Java垃圾回收之finalize()</title>
+        <pubTime>2016-05-07T16:07:13.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://royleo.xyz/2016/05/07/Java%E5%B8%B8%E8%AF%86%E4%B9%8B%E6%9E%84%E9%80%A0%E5%99%A8/</loc>
+    <lastmod>2016-05-07T16:21:47.102Z</lastmod>
+    <data>
+        <display>
+        <title>Java常识之构造器</title>
+        <pubTime>2016-05-07T15:55:51.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://royleo.xyz/2016/03/16/%E5%9C%A8Github%E5%88%9B%E5%BB%BA%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E9%A2%84%E8%A7%88%E7%9A%84%E6%96%B9%E6%B3%95/</loc>
+    <lastmod>2016-03-16T04:30:21.951Z</lastmod>
+    <data>
+        <display>
+        <title>在Github创建静态网站预览的方法</title>
+        <pubTime>2016-03-16T03:51:09.000Z</pubTime>
+        
+        <tag>小技巧</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://royleo.xyz/2016/02/13/hello-world/</loc>
+    <lastmod>2016-02-13T01:57:09.696Z</lastmod>
+    <data>
+        <display>
+        <title>Hello World</title>
+        <pubTime>2016-02-13T01:57:09.696Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+</urlset>
