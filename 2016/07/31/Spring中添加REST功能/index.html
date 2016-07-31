@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>JSP九大内置对象以及四个作用域 | Master a Day</title>
+    <title>Spring中添加REST功能 | Master a Day</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Roy Leong">
     
 
     
-    <meta name="description" content="内置对象(又叫隐含对象，有9个内置对象)不需要预先声明就可以在脚本代码和表达式中随意使用">
+    <meta name="description" content="近年来以信息为中心的表属性状态转移(Respresentational State Transfer REST)已经成为替代传统SOAP　Web服务的流行方案；而且Spring封装对REST的良好支撑">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JSP九大内置对象以及四个作用域">
-<meta property="og:url" content="http://royleo.xyz/2016/07/29/JSP九大内置对象以及四个作用域/index.html">
+<meta property="og:title" content="Spring中添加REST功能">
+<meta property="og:url" content="http://royleo.xyz/2016/07/31/Spring中添加REST功能/index.html">
 <meta property="og:site_name" content="Master a Day">
-<meta property="og:description" content="内置对象(又叫隐含对象，有9个内置对象)不需要预先声明就可以在脚本代码和表达式中随意使用">
-<meta property="og:updated_time" content="2016-07-29T14:26:22.325Z">
+<meta property="og:description" content="近年来以信息为中心的表属性状态转移(Respresentational State Transfer REST)已经成为替代传统SOAP　Web服务的流行方案；而且Spring封装对REST的良好支撑">
+<meta property="og:updated_time" content="2016-07-31T12:46:09.524Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JSP九大内置对象以及四个作用域">
-<meta name="twitter:description" content="内置对象(又叫隐含对象，有9个内置对象)不需要预先声明就可以在脚本代码和表达式中随意使用">
+<meta name="twitter:title" content="Spring中添加REST功能">
+<meta name="twitter:description" content="近年来以信息为中心的表属性状态转移(Respresentational State Transfer REST)已经成为替代传统SOAP　Web服务的流行方案；而且Spring封装对REST的良好支撑">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -81,14 +81,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/07/29/JSP九大内置对象以及四个作用域/" title="JSP九大内置对象以及四个作用域" itemprop="url">JSP九大内置对象以及四个作用域</a>
+      <a href="/2016/07/31/Spring中添加REST功能/" title="Spring中添加REST功能" itemprop="url">Spring中添加REST功能</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2016-07-29T13:27:33.000Z" itemprop="datePublished"> 发表于 2016-07-29</time>
+    <time datetime="2016-07-31T12:39:26.000Z" itemprop="datePublished"> 发表于 2016-07-31</time>
     
   </p>
 </header>
@@ -97,132 +97,94 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u5185_u7F6E_u5BF9_u8C61"><span class="toc-number">1.</span> <span class="toc-text">内置对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5185_u7F6E_u5BF9_u8C61_u4E0E_u4F5C_u7528_u57DF_u5BF9_u5E94_u5173_u7CFB"><span class="toc-number">2.</span> <span class="toc-text">内置对象与作用域对应关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4F5C_u7528_u57DF"><span class="toc-number">3.</span> <span class="toc-text">作用域</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#REST_u57FA_u672C_u539F_u7406_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">REST基本原理：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spring_u5982_u4F55_u652F_u6301REST_uFF1F"><span class="toc-number">2.</span> <span class="toc-text">Spring如何支持REST？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RESTful_URL"><span class="toc-number">3.</span> <span class="toc-text">RESTful URL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6267_u884CREST_u52A8_u4F5C"><span class="toc-number">4.</span> <span class="toc-text">执行REST动作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u8868_u8FF0_u8D44_u6E90"><span class="toc-number">5.</span> <span class="toc-text">表述资源</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="u5185_u7F6E_u5BF9_u8C61"><a href="#u5185_u7F6E_u5BF9_u8C61" class="headerlink" title="内置对象"></a>内置对象</h2><ol>
-<li>request：javax.servlet.ServletRequest的子类型，此对象封装了由WEB浏览器或其它客户端生成地HTTP请求的细节（参数，属性，头标和数据）<ul>
-<li>常用方法：getParameter、getParameterNames 和getParameterValues 通过调用这几个方法来获取请求对象中所包含的参数的值</li>
+		<h4 id="REST_u57FA_u672C_u539F_u7406_uFF1A"><a href="#REST_u57FA_u672C_u539F_u7406_uFF1A" class="headerlink" title="REST基本原理："></a>REST基本原理：</h4><ul>
+<li>通过简单的HTTP URL触发事件</li>
+<li>REST是将资源最合适地从服务端转移到客户端(或者反之)</li>
+<li>REST与RPC(远程过程调用)：REST面向资源，强调描述应用程序的事物和名词;RPC面向服务，关注于行为和行动<h4 id="Spring_u5982_u4F55_u652F_u6301REST_uFF1F"><a href="#Spring_u5982_u4F55_u652F_u6301REST_uFF1F" class="headerlink" title="Spring如何支持REST？"></a>Spring如何支持REST？</h4></li>
+<li>控制器可以处理所有的HTTP方法：GET、POST、DELETE、PUT…</li>
+<li>@PathVariable 注解使控制器能够处理参数化的URL(带参数变量的URL)</li>
+<li>Spring表单绑定JSP标签库的<code>&lt;form:form&gt;</code>标签以及新的HidenHttpMethodFilter，使得通过HTML转发提交的PUT，DELETE请求成为可能(即使mou’xie)</li>
+<li>使用String的视图和视图解析器，资源可以以各种形式表述，包括将数据模型表示为：XML、JSON、ATOM、RSS等</li>
+<li>使用新的ContentNegotiatingResolver来选择合适的客户端表述</li>
+<li>类似的，使用@ResponseBody注解以及HttpMethodConverter实现可以将传入的HTTP数据转化为传入控制器的处理方法的Java对象</li>
+<li>RestTemplate简化客户端对REST资源的使用</li>
+</ul>
+<h4 id="RESTful_URL"><a href="#RESTful_URL" class="headerlink" title="RESTful URL"></a>RESTful URL</h4><ul>
+<li>格式：<code>http://localhost:8080/spitter/spittles/123</code><ul>
+<li>协议：//域名：端口号/Servlet上下文路径/资源类型/特定的spittle</li>
+<li>REST　URL是用来标识资源</li>
 </ul>
 </li>
-<li>response： javax.servlet.ServletResponse的子类型，此对象封装了返回到HTTP客户端的输出，向页面作者提供设置响应头标和状态码的方式。经常用来设置HTTP标题，添加cookie，设置响应内容的类型和状态，发送HTTP重定向和编码URL</li>
-<li>out: javax.servlet.jsp.JspWriter类型，代表输出流的对象<ul>
-<li>常用的方法除了pirnt和println之外，还包括clear、clearBuffer、flush、getBufferSize和getRemaining，这是因为“out” 对象内部包含了一个缓冲区，所以需要一些对缓冲区进行操作的方法</li>
+<li>RESTful　URL是有层级结构的，每个层标识一种资源</li>
+<li>其中，URL还可以参数化，在控制器中获取该参数<code>@PathVariable(&quot;id&quot;) long id</code></li>
+</ul>
+<h4 id="u6267_u884CREST_u52A8_u4F5C"><a href="#u6267_u884CREST_u52A8_u4F5C" class="headerlink" title="执行REST动作"></a>执行REST动作</h4><ul>
+<li>HTTP提供来操作资源的方法，主要是四个</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+<th>是否安全</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>从服务器上检索资源信息，资源通过请求的URL来进行标识</td>
+<td>是</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>传送数据到服务器，数据会由监听该请求的URL处理器进行处理</td>
+<td>否</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>按照请求的URＬ，防治资源到服务器指定位置</td>
+<td>否</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>将请求URL标识的资源从服务器上删除</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
+<h4 id="u8868_u8FF0_u8D44_u6E90"><a href="#u8868_u8FF0_u8D44_u6E90" class="headerlink" title="表述资源"></a>表述资源</h4><ul>
+<li>Spring提供两种形式，将资源的Java表述形式转换为发送给客户端的表述形式：<ul>
+<li>基于视图渲染进行协商</li>
+<li>HTTP消息转换器</li>
 </ul>
 </li>
-<li>session: javax.servlet.http.HttpSession类型，主要用于跟踪对话;HttpSession是一个类似哈希表的与单一WEB浏览器会话相关的对象，它存在于HTTP请求之间，可以存储任<br>何类型的命名对象;<ul>
-<li>“session” 对象建立在cookie的基础上，所以使用时应注意判断一下客户端是否打开了cookie。常用的方法包括getId、 getValue、 getValueNames和putValue等</li>
+<li>协商资源表述<br>bean配置:<figure class="highlight"><figcaption><span>根据客户端的不同的请求决定不同的view进行响应, 如/blog/1.json/blog/1.xml--></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">    &#60;bean class=&#34;org.springframework.web.servlet.view.ContentNegotiatingViewResolver&#34;&#62;&#10;&#60;!-- &#35774;&#32622;&#20026;true&#20197;&#24573;&#30053;&#23545;Accept Header&#30340;&#25903;&#25345;--&#62;&#10;         ##&#60;property name=&#34;ignoreAcceptHeader&#34; value=&#34;true&#34;/&#62;&#10; &#60;!-- &#22312;&#27809;&#26377;&#25193;&#23637;&#21517;&#26102;&#21363;: &#34;/user/1&#34; &#26102;&#30340;&#40664;&#35748;&#23637;&#29616;&#24418;&#24335; --&#62;&#10;        &#60;property name=&#34;defaultContentType&#34; value=&#34;text/html&#34;/&#62;&#10;&#60;!-- &#25193;&#23637;&#21517;&#33267;mimeType&#30340;&#26144;&#23556;,&#21363; /user.json =&#62; application/json --&#62;&#10;        &#60;property name=&#34;mediaTypes&#34;&#62;&#10;            &#60;map&#62;&#10;                &#60;entry key=&#34;json&#34; value=&#34;application/json&#34; /&#62;&#10;                &#60;entry key=&#34;xml&#34; value=&#34;application/xml&#34; /&#62;&#10;            &#60;/map&#62;&#10;        &#60;/property&#62;&#10;    &#60;/bean&#62;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li>确定请求的媒体类型<ul>
+<li>ViewResolver首先查找URL中的文件扩展名，将文件扩展名与mediatype的条目匹配，如果找到匹配项，则使用该媒体类型，并覆盖accpt头信息中的任何媒体类型</li>
+<li>如果找不到URL中的扩展名，那么就使用Accept中的头信息的媒体类型</li>
+<li>如果请求头中不包含Accept头信息，那么就使用defaultContentType属性中设置的媒体类型</li>
 </ul>
 </li>
-<li>pageContext: javax.servlet.jsp.PageContext（抽象类）类型;此对象提供所有四个作用域层次的属性查询和修改能力，它也提供了转发请求到其它资源和包含其他资源的方法 ,该对象的方法都是抽象方法，代表的是当前页面运行的一些属性<ul>
-<li>常用方法：findAttribute、getAttribute、getAttributesScope 和getAttributeNamesInScope</li>
-<li>一般情况下pageContext对象用到得也不是很多，只有在项目所面临的情况比较复杂的情况下，才会利用到页面属性来辅助处理。</li>
+<li>影响如何选择类型<ul>
+<li>将favorPathExtension属性设置为false，将会使得ContextNegotiatingViewResolver忽略URL路径扩展名</li>
+<li>将JAF添加到类路径下将会使得ContextNegotiatingViewResolver除了使用mediaTypes属性中的条目外，在路径扩展名确定媒体类型时还会借助JAF</li>
+<li>将favorParameter属性设置为true，并且请求中包含名为format参数，那么format参数的值将会mediatype属性来进行匹配，即使URL文件中没有文件扩展名也能匹配其中的媒体类型</li>
+<li>ignoreAcceptHeader属性设置为true，将会忽略Accept头信息</li>
 </ul>
 </li>
-<li>application：javax.servlet.ServletContext类型，servlet的环境通过调用getServletConfig().getContext()方法获得;它提供了关于服务器版本，应用级初始化参数和应用内资源绝对路径，注册信息的方式得并设置会话属性<ul>
-<li>常用的方法有getMimeType和getRealPath等</li>
+<li>查找视图<ul>
+<li>ContextNegotiatingViewResolver循环所有保存的媒体类型，找到能与之匹配内容类型的视图，完成视图解析匹配</li>
+<li>如果ContextNegotiatingViewResolver没有找到合适的视图，那么它将返回null视图，或者如果useNotAcceptableStatusCode属性被设置为true，那么将返回带有http状态码406(Not Acceptable)的视图</li>
 </ul>
 </li>
-<li>config：javax.servlet.ServletConfig类型，（页面执行期）<ul>
-<li>常用的方法有getInitParameter和getInitParameterNames，以获得Servlet初始化时的参数</li>
-</ul>
-</li>
-<li>exception: java.lang.Throwable,通过JSP错误页面中一个catch块已经益出但没有捕获的java.lang.Throwable的任意实例，传向了errorPage的URI。作用域为page（页面执行期）。注意exception只有在page指令中具有属性isErrorPage=”true”时才有效。</li>
-<li>page:java.lang.Object类型，指向页面自身的方式</li>
 </ol>
-<h2 id="u5185_u7F6E_u5BF9_u8C61_u4E0E_u4F5C_u7528_u57DF_u5BF9_u5E94_u5173_u7CFB"><a href="#u5185_u7F6E_u5BF9_u8C61_u4E0E_u4F5C_u7528_u57DF_u5BF9_u5E94_u5173_u7CFB" class="headerlink" title="内置对象与作用域对应关系"></a>内置对象与作用域对应关系</h2><table>
-<thead>
-<tr>
-<th>对象</th>
-<th>对象名称</th>
-<th>所属类</th>
-<th>作用域</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>request</td>
-<td>请求对象</td>
-<td>javax.servlet.ServletRequest</td>
-<td>Request</td>
-</tr>
-<tr>
-<td>response</td>
-<td>相应对象</td>
-<td>javax.servlet.SrvletResponse</td>
-<td>Page</td>
-</tr>
-<tr>
-<td>pageContext</td>
-<td>页面上下文</td>
-<td>javax.servlet.jsp.PageContext</td>
-<td>Page</td>
-</tr>
-<tr>
-<td>session</td>
-<td>会话对象</td>
-<td>javax.servlet.http.HttpSession</td>
-<td>Session</td>
-</tr>
-<tr>
-<td>application</td>
-<td>应用程序对象</td>
-<td>javax.servlet.ServletContext</td>
-<td>Application</td>
-</tr>
-<tr>
-<td>out</td>
-<td>输出对象</td>
-<td>javax.servlet.jsp.JspWriter</td>
-<td>Page</td>
-</tr>
-<tr>
-<td>config</td>
-<td>配置对象</td>
-<td>javax.servlet.ServletConfig</td>
-<td>Page</td>
-</tr>
-<tr>
-<td>page</td>
-<td>页面对象</td>
-<td>javax.lang.Object</td>
-<td>Page</td>
-</tr>
-<tr>
-<td>exception</td>
-<td>例外对象</td>
-<td>javax.lang.Throwable</td>
-<td>page</td>
-</tr>
-</tbody>
-</table>
-<h2 id="u4F5C_u7528_u57DF"><a href="#u4F5C_u7528_u57DF" class="headerlink" title="作用域"></a>作用域</h2><table>
-<thead>
-<tr>
-<th>作用域</th>
-<th>有效范围</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pageContext</td>
-<td>有效范围只是在当前jsp页面</td>
-</tr>
-<tr>
-<td>request</td>
-<td>有效范围只是在当前请求周期</td>
-</tr>
-<tr>
-<td>session</td>
-<td>当前会话(用户打开浏览器到用户关闭浏览器之间的过程),也就是说，只要用户不关浏览器，服务器就有办法知道这些请求是一个人发起的,整个过程被称为一个会话,而放到会话中的变量，就可以在当前会话的所有请求里使用</td>
-</tr>
-<tr>
-<td>application</td>
-<td>整个应用(只要服务器不重启，都有效);与上述三个不同的是，application里的变量可以被所有用户共用</td>
-</tr>
-</tbody>
-</table>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -231,7 +193,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Servlet/">Servlet</a>
+  <span></span> <a href="/tags/Spring/">Spring</a>
   </div>
 
 </div>
@@ -240,7 +202,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://royleo.xyz/2016/07/29/JSP九大内置对象以及四个作用域/" data-title="JSP九大内置对象以及四个作用域 | Master a Day" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://royleo.xyz/2016/07/31/Spring中添加REST功能/" data-title="Spring中添加REST功能 | Master a Day" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -253,19 +215,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/07/31/Spring中添加REST功能/" title="Spring中添加REST功能">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Spring中添加REST功能</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/07/28/Mybatis-实现原理与结构解析/"  title="Mybatis 实现原理与结构解析">
+<a href="/2016/07/29/JSP九大内置对象以及四个作用域/"  title="JSP九大内置对象以及四个作用域">
  <strong>下一篇：</strong><br/> 
- <span>Mybatis 实现原理与结构解析
+ <span>JSP九大内置对象以及四个作用域
 </span>
 </a>
 </div>
@@ -274,7 +228,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/07/29/JSP九大内置对象以及四个作用域/" data-title="JSP九大内置对象以及四个作用域" data-url="http://royleo.xyz/2016/07/29/JSP九大内置对象以及四个作用域/"></div>
+	<div class="ds-thread" data-thread-key="2016/07/31/Spring中添加REST功能/" data-title="Spring中添加REST功能" data-url="http://royleo.xyz/2016/07/31/Spring中添加REST功能/"></div>
 </section>
 
 
@@ -284,7 +238,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u5185_u7F6E_u5BF9_u8C61"><span class="toc-number">1.</span> <span class="toc-text">内置对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5185_u7F6E_u5BF9_u8C61_u4E0E_u4F5C_u7528_u57DF_u5BF9_u5E94_u5173_u7CFB"><span class="toc-number">2.</span> <span class="toc-text">内置对象与作用域对应关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4F5C_u7528_u57DF"><span class="toc-number">3.</span> <span class="toc-text">作用域</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#REST_u57FA_u672C_u539F_u7406_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">REST基本原理：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spring_u5982_u4F55_u652F_u6301REST_uFF1F"><span class="toc-number">2.</span> <span class="toc-text">Spring如何支持REST？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RESTful_URL"><span class="toc-number">3.</span> <span class="toc-text">RESTful URL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6267_u884CREST_u52A8_u4F5C"><span class="toc-number">4.</span> <span class="toc-text">执行REST动作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u8868_u8FF0_u8D44_u6E90"><span class="toc-number">5.</span> <span class="toc-text">表述资源</span></a></li></ol>
  
   </div>
 
