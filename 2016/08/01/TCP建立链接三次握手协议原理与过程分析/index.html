@@ -18,7 +18,7 @@
 <meta property="og:site_name" content="简单·踏实">
 <meta property="og:description" content="TCP连接是在IP网络中两个进程间(应用层协议)的双向、全双工的逻辑回路.由节点的IP地址和端口将连接双方对应起来">
 <meta property="og:image" content="http://7xqvf0.com1.z0.glb.clouddn.com/tcpbiuld.png">
-<meta property="og:updated_time" content="2016-08-03T14:07:00.490Z">
+<meta property="og:updated_time" content="2016-08-03T14:10:31.327Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP通信三次握手协议原理与过程分析">
 <meta name="twitter:description" content="TCP连接是在IP网络中两个进程间(应用层协议)的双向、全双工的逻辑回路.由节点的IP地址和端口将连接双方对应起来">
@@ -145,7 +145,7 @@
 <li>例子说明：</li>
 </ul>
 <ol>
-<li>client发出的第一个连接请求报文段并没有消失，而是在网络某个节点上长时间滞留了，以致延误到连接释放以后的某个时间才到达sever端. 而这个已经失效已久的连接到达sever之后，就误认为是client新建立起来的连接，于是sever向client发送数据，但是server却以为新的传输连接已经建立，于是就像client发出确认报文段，同意建立连接。</li>
+<li>client发出的第一个连接请求报文段并没有消失，而是在网络某个节点上长时间滞留了，以致延误到连接释放以后的某个时间才到达server端. 而这个已经失效已久的连接到达server之后，就误认为是client新建立起来的连接，于是server向client发送数据，但是server却以为新的传输连接已经建立，于是就像client发出确认报文段，同意建立连接。</li>
 <li>如果没有三次握手的过程，那么只要server发出确认，新的连接就建立，由于现在client并没有发出建立 连接的请求，因此不会理财server的确认，也不会向server发送数据，但server却以为新的传输连接已经建立，并一直等待client发来数据，这样的话，就会造成资源浪费</li>
 <li>而采用三次握手过程，就可以避免上述现象，client不会向server的确认发出确认，server由于收不到确认，就知道client并没有建立连接</li>
 </ol>
