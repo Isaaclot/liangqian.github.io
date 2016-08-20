@@ -4,6 +4,27 @@
 
     
   <url>
+    <loc>http://royleo.xyz/2016/07/29/JSP%E4%B9%9D%E5%A4%A7%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E5%9B%9B%E4%B8%AA%E4%BD%9C%E7%94%A8%E5%9F%9F/</loc>
+    <lastmod>2016-08-20T01:03:22.758Z</lastmod>
+    <data>
+        <display>
+        <title>JSP九大内置对象、四个作用域以及六大基本动作</title>
+        <pubTime>2016-07-29T13:27:33.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Servlet</tag>
+         
+        <tag>Web</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://royleo.xyz/2016/08/10/java-%E9%87%8D%E5%AE%9A%E5%90%91%E4%B8%8E%E8%BD%AC%E5%8F%91%E7%9A%84%E5%8C%BA%E5%88%AB/</loc>
     <lastmod>2016-08-19T14:19:01.256Z</lastmod>
     <data>
@@ -30,27 +51,6 @@
         <title>比较http请求方法中的GET与POST方法</title>
         <pubTime>2016-07-19T10:41:35.000Z</pubTime>
         
-        <tag>Servlet</tag>
-         
-        <tag>Web</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://royleo.xyz/2016/07/29/JSP%E4%B9%9D%E5%A4%A7%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E5%9B%9B%E4%B8%AA%E4%BD%9C%E7%94%A8%E5%9F%9F/</loc>
-    <lastmod>2016-08-19T05:38:47.658Z</lastmod>
-    <data>
-        <display>
-        <title>JSP九大内置对象以及四个作用域</title>
-        <pubTime>2016-07-29T13:27:33.000Z</pubTime>
-        
-        <tag>Java</tag>
-         
         <tag>Servlet</tag>
          
         <tag>Web</tag>
