@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://royleo.xyz/2016/07/16/AngularJS-%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7/</loc>
+    
+    <lastmod>2016-09-05T02:49:23.249Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://royleo.xyz/2016/07/29/JSP%E4%B9%9D%E5%A4%A7%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E5%9B%9B%E4%B8%AA%E4%BD%9C%E7%94%A8%E5%9F%9F/</loc>
     
     <lastmod>2016-08-20T01:03:22.758Z</lastmod>
@@ -107,13 +114,6 @@
   </url>
   
   <url>
-    <loc>http://royleo.xyz/2016/07/16/AngularJS-%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7/</loc>
-    
-    <lastmod>2016-07-16T08:40:24.110Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://royleo.xyz/2016/07/15/Angular-JS-%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2016-07-16T08:38:06.926Z</lastmod>
@@ -191,7 +191,7 @@
   </url>
   
   <url>
-    <loc>http://royleo.xyz/2016/02/13/hello-world/</loc>
+    <loc>http://royleo.xyz/2016/09/05/hello-world/</loc>
     
     <lastmod>2016-02-13T01:57:09.696Z</lastmod>
     
