@@ -5,25 +5,44 @@
   <meta charset="UTF-8">
   
   
-    <title>Mybatis 实现原理与结构解析 | 简单·踏实</title>
+    <title>epuals与&#39;==&#39;区别 | 简单·踏实</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Roy Leong">
     
 
     
-    <meta name="description" content="MyBatis是目前非常流行的ORM框架,它的功能很强大,然而其实现却比较简单优雅;MyBatis 是支持普通 SQL查询，存储过程和高级映射的优秀持久层框架;MyBatis 消除了几乎所有的JDBC代码和参数的手工设置以及结果集的检索;MyBatis 使用简单的 XML或注解用于配置和原始映射,将接口和 Java 的POJOs(Plain Old Java Objects:普通的 Java对象)">
+    <meta name="description" content="Java数据类型分类
+基本数据类型(原始类型)：byte short char int long float double boolean
+他们的比较，使用==,比较的是他们的值
+
+
+复合数据类型(类定义)
+他们通过==比较的时候，比较的是他们存放的内存地址，所以，除非是同一个new出来的对象，他们的比较结果是true，否则，比较结果是false
+Java所有的对象都是继承自IObject这个基类">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mybatis 实现原理与结构解析">
-<meta property="og:url" content="http://royleo.xyz/2016/07/28/Mybatis-实现原理与结构解析/index.html">
+<meta property="og:title" content="epuals与'=='区别">
+<meta property="og:url" content="http://royleo.xyz/2016/09/12/epuals与与-区别/index.html">
 <meta property="og:site_name" content="简单·踏实">
-<meta property="og:description" content="MyBatis是目前非常流行的ORM框架,它的功能很强大,然而其实现却比较简单优雅;MyBatis 是支持普通 SQL查询，存储过程和高级映射的优秀持久层框架;MyBatis 消除了几乎所有的JDBC代码和参数的手工设置以及结果集的检索;MyBatis 使用简单的 XML或注解用于配置和原始映射,将接口和 Java 的POJOs(Plain Old Java Objects:普通的 Java对象)">
-<meta property="og:image" content="http://7xqvf0.com1.z0.glb.clouddn.com/%E5%8A%9F%E8%83%BD%E6%9E%B6%E6%9E%84.png">
-<meta property="og:image" content="http://7xqvf0.com1.z0.glb.clouddn.com/%E5%8A%9F%E8%83%BD%E6%9E%B6%E6%9E%84.png">
-<meta property="og:updated_time" content="2016-07-28T06:56:02.182Z">
+<meta property="og:description" content="Java数据类型分类
+基本数据类型(原始类型)：byte short char int long float double boolean
+他们的比较，使用==,比较的是他们的值
+
+
+复合数据类型(类定义)
+他们通过==比较的时候，比较的是他们存放的内存地址，所以，除非是同一个new出来的对象，他们的比较结果是true，否则，比较结果是false
+Java所有的对象都是继承自IObject这个基类">
+<meta property="og:updated_time" content="2016-09-11T17:17:12.637Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mybatis 实现原理与结构解析">
-<meta name="twitter:description" content="MyBatis是目前非常流行的ORM框架,它的功能很强大,然而其实现却比较简单优雅;MyBatis 是支持普通 SQL查询，存储过程和高级映射的优秀持久层框架;MyBatis 消除了几乎所有的JDBC代码和参数的手工设置以及结果集的检索;MyBatis 使用简单的 XML或注解用于配置和原始映射,将接口和 Java 的POJOs(Plain Old Java Objects:普通的 Java对象)">
+<meta name="twitter:title" content="epuals与'=='区别">
+<meta name="twitter:description" content="Java数据类型分类
+基本数据类型(原始类型)：byte short char int long float double boolean
+他们的比较，使用==,比较的是他们的值
+
+
+复合数据类型(类定义)
+他们通过==比较的时候，比较的是他们存放的内存地址，所以，除非是同一个new出来的对象，他们的比较结果是true，否则，比较结果是false
+Java所有的对象都是继承自IObject这个基类">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -84,14 +103,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/07/28/Mybatis-实现原理与结构解析/" title="Mybatis 实现原理与结构解析" itemprop="url">Mybatis 实现原理与结构解析</a>
+      <a href="/2016/09/12/epuals与与-区别/" title="epuals与&#39;==&#39;区别" itemprop="url">epuals与&#39;==&#39;区别</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2016-07-28T06:46:31.000Z" itemprop="datePublished"> 发表于 2016-07-28</time>
+    <time datetime="2016-09-11T16:50:40.000Z" itemprop="datePublished"> 发表于 2016-09-12</time>
     
   </p>
 </header>
@@ -100,65 +119,36 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mybatis_u6982_u8FF0"><span class="toc-number">1.</span> <span class="toc-text">Mybatis概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mybatis_u5DE5_u4F5C_u6D41_u7A0B"><span class="toc-number">2.</span> <span class="toc-text">Mybatis工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5DE5_u4F5C_u539F_u7406_u7ED3_u6784"><span class="toc-number">3.</span> <span class="toc-text">工作原理结构</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java_u6570_u636E_u7C7B_u578B_u5206_u7C7B"><span class="toc-number">1.</span> <span class="toc-text">Java数据类型分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3D_3D_u64CD_u4F5C"><span class="toc-number">2.</span> <span class="toc-text">==操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#equals_28_29_3B_u65B9_u6CD5"><span class="toc-number">3.</span> <span class="toc-text">equals();方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3D_3D_u4E0Eequals_28_29_3B_u533A_u522B"><span class="toc-number">4.</span> <span class="toc-text">==与equals();区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u732E_u4E0A_u4EE3_u7801_uFF1A"><span class="toc-number">5.</span> <span class="toc-text">献上代码：</span></a></li></ol>
 		
 		</div>
 		
-		<h3 id="Mybatis_u6982_u8FF0"><a href="#Mybatis_u6982_u8FF0" class="headerlink" title="Mybatis概述"></a>Mybatis概述</h3><ul>
-<li>Mybatis是支持普通SQL查询，存储过程和高级映射的优秀持久层框架</li>
-<li>消除了几乎所有的JDBC代码和参数的手工设置以及结果集的检索</li>
-<li>Mybatis使用简单的XML或注解用于配置和原始映射，将接口和Java的POJOs映射成数据库中的记录</li>
-<li>每个Mybatis应用程序都是基于SqlSessionFactory实例，而一个SqlSessionFactory实例可以通过SqlSessionFactoryBuilder读取xml配置文件或者一个预定义的配置类的实例获得</li>
-</ul>
-<h3 id="Mybatis_u5DE5_u4F5C_u6D41_u7A0B"><a href="#Mybatis_u5DE5_u4F5C_u6D41_u7A0B" class="headerlink" title="Mybatis工作流程"></a>Mybatis工作流程</h3><ol>
-<li>加载配置并初始化</li>
-</ol>
-<ul>
-<li>将SQL的配置信息加载成一个个<code>MappedStatement</code>对象(包括传入参数映射配置、执行SQL语句、结果映射配置)，存储在内存中</li>
-</ul>
-<ol>
-<li>接受调用请求</li>
-</ol>
-<ul>
-<li>触发条件：调用Mybatis提供的API</li>
-<li>传入参数：为SQL的ID和传入参数对象</li>
-<li>处理过程：将请求传递给下层的请求处理层进行处理</li>
-</ul>
-<ol>
-<li>处理触发请求<ul>
-<li>触发条件：API接口层传递请求过来</li>
-<li>传入参数：SQL的ID和传入参数的对象</li>
-<li>处理过程：<pre><code>1. 根据SQL的ID查找对应的MappedStatement对象
-2. 根据传入的参数对象解析MappedStatement对象，最终得到要执行的SQL和执行传入参数
-3. 获取数据库连接，根据得到的最终SQL语句和执行传入参数到数据库执行，并得到执行结果
-4. 根据MappedStatement对象中的结果映射配置对得到的执行结果进行转换处理，并得到最终的处理结果
-5. 释放连接资源
-</code></pre></li>
+		<h3 id="Java_u6570_u636E_u7C7B_u578B_u5206_u7C7B"><a href="#Java_u6570_u636E_u7C7B_u578B_u5206_u7C7B" class="headerlink" title="Java数据类型分类"></a>Java数据类型分类</h3><ul>
+<li>基本数据类型(原始类型)：byte short char int long float double boolean<ul>
+<li>他们的比较，使用<code>==</code>,比较的是他们的值</li>
 </ul>
 </li>
-<li>返回接受最终处理结果</li>
-</ol>
-<h3 id="u5DE5_u4F5C_u539F_u7406_u7ED3_u6784"><a href="#u5DE5_u4F5C_u539F_u7406_u7ED3_u6784" class="headerlink" title="工作原理结构"></a>工作原理结构</h3><ul>
-<li>功能架构：Mybatis的功能架构分为四层<ol>
-<li>API接口层：提供给外部使用的API接口，开发人员通过这些本地的API来操纵数据库.接口层已收到调用请求就会调用数据处理层来完成具体的数据处理</li>
-<li>数据处理层：负责具体的SQL查找，SQL解析，和结果执行映射处理等，其主要目的是根据调用的请求完成一次数据库的操作</li>
-<li>基础支撑层：负责最基础的功能支撑，包括连接管理，事务管理，配置加载和缓存处理，这些都是共用的，将他们抽取出来作为最基础的封装组件，为上层的数据处理提供最基础的支撑</li>
-<li>引导层：配置和启动Mybatis配置信息的方式，Mybatis提供两种方式来引导Mybatis：</li>
-</ol>
-<ul>
-<li>基于XML配置文件获取配置信息</li>
-<li>基于Java API的方式<center><br><img src="http://7xqvf0.com1.z0.glb.clouddn.com/%E5%8A%9F%E8%83%BD%E6%9E%B6%E6%9E%84.png" alt="Mybatis功能架构"><br></center></li>
+<li>复合数据类型(类定义)<ul>
+<li>他们通过<code>==</code>比较的时候，比较的是他们存放的内存地址，所以，除非是同一个new出来的对象，他们的比较结果是true，否则，比较结果是false</li>
+<li>Java所有的对象都是继承自IObject这个基类，在Object基类中定义了一个<code>equals()</code>的方法,这个对象的初始行为是比较对象的内存地址，但是有一些类库中，将这个方法覆盖掉了，如String，Integer，Date在这些类中equals()有着自身的实现，不再是比较类在堆内存中的存放地址。</li>
+<li>而对于，那些木有覆盖<code>equals();</code>方法的的复合数据类型，他们之间的比较还是比较存放在内存中的地址值，与使用<code>==</code>比较结果相同</li>
 </ul>
 </li>
-<li>框架架构：<ol>
-<li>加载配置：配置来源于两个地方，一处是配置文件，一处是Java代码的注解，将SQL的配置信息加载为宜个MappedStatement对象(包括传入参数映射配置，执行的SQL语句，结果映射配置)　，存储在内存中</li>
-<li>SQL解析：当API接口层接收到调用请求时，会接受到传入SQL的ID和传入对象(可以是Map、JavaBean对象或者是基本数据类型)，Mybatis会根据SQL的ID找到对应的MappedStatement，然后根据传入参数对象对MappedStatement进行解析，解析后可以得到最终要执行的SQL语句和参数</li>
-<li>SQL执行：将最终得到的SQL语句和参数传入数据库中执行，得到数据库返回的执行结果</li>
-<li>结果映射：将操作数据库的结果按照映射的配置进行转换，可以转换成HashMap，JavaBean或者基本数据类型，并将最终结果返回<center><br><img src="http://7xqvf0.com1.z0.glb.clouddn.com/%E5%8A%9F%E8%83%BD%E6%9E%B6%E6%9E%84.png" alt="Mybatis框架架构"><br>Panda<br></center>
-</li>
-</ol>
-</li>
 </ul>
+<h3 id="3D_3D_u64CD_u4F5C"><a href="#3D_3D_u64CD_u4F5C" class="headerlink" title="==操作"></a><code>==</code>操作</h3><ul>
+<li>“==”或等号操作在Java编程语言中是一个二元操作符，用于比较原生类型和对象。</li>
+<li>就原生类型如boolean、int、float来说，使用“==”来比较两者，这个很好掌握。但是在比较对象的时候，就会与equals()造成困惑。“==”对比两个对象基于内存引用，如果两个对象的引用完全相同（指向同一个对象）时，“==”操作将返回true，否则返回false。</li>
+</ul>
+<h3 id="equals_28_29_3B_u65B9_u6CD5"><a href="#equals_28_29_3B_u65B9_u6CD5" class="headerlink" title="equals();方法"></a><code>equals();</code>方法</h3><ul>
+<li>equals()方法定义在Object类里面，根据具体的业务逻辑来定义该方法，用于检查两个对象的相等性。</li>
+<li>例如：两个Employees被认为是相等的如果他们有相同的empId的话，你可以在你自己的domain对象中重写equals方法用于比较哪两个对象相等。</li>
+<li>equals与hashcode是有契约的（无论什么时候你重写了equals方法，你同样要重写hashcode()方法），默认的equals方法实现是与“==”操作一样的，基于业务需求重写equals方法是最好的实践之一，同样equals与compareTo保持一致也不足为奇，以至于存储对象在Treemap或treeset集合中时，将使用compareTo方法检查相等性，行为是一致的。</li>
+</ul>
+<h3 id="3D_3D_u4E0Eequals_28_29_3B_u533A_u522B"><a href="#3D_3D_u4E0Eequals_28_29_3B_u533A_u522B" class="headerlink" title="==与equals();区别"></a><code>==</code>与<code>equals();</code>区别</h3><ul>
+<li>==常用于比较原生类型，而equals()方法用于检查对象的相等性。</li>
+<li>另一个不同的点是：如果==和equals()用于比较对象，当两个引用地址相同，==返回true。而equals()可以返回true或者false主要取决于重写实现。最常见的一个例子，字符串的比较，不同情况==和equals()返回不同的结果。</li>
+</ul>
+<h3 id="u732E_u4E0A_u4EE3_u7801_uFF1A"><a href="#u732E_u4E0A_u4EE3_u7801_uFF1A" class="headerlink" title="献上代码："></a>献上代码：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/**&#10; * Created by RoyLeo on 2016/9/12.&#10; */&#10;public class main &#123;&#10;    public static void main(String[] args)&#123;&#10;        String t1 = &#34;&#20320;&#22909;&#21834;&#34;;&#10;        String t2 = &#34;&#20320;&#22909;&#21834;&#34;;&#10;        String tt = t2;&#10;        String t3 = new String(&#34;&#20320;&#22909;&#21834;&#34;);&#10;        String t4 = new String(&#34;&#20320;&#22909;&#21834;&#34;);&#10;        String ttt = t3;&#10;        System.out.println(ttt==t4);             //false&#10;        System.out.println(ttt==t3);            //true&#10;        System.out.println(t1==t2);             //true&#10;        System.out.println(t1==t3);             //false&#10;        System.out.println(t3==t4);             //false&#10;        System.out.println(t1.equals(t2));      //true&#10;        System.out.println(t1.equals(t3));      //true&#10;        System.out.println(t3.equals(t4));      //true&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -167,7 +157,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Mybatis/">Mybatis</a>
+  <span></span> <a href="/tags/Java/">Java</a>
   </div>
 
 </div>
@@ -176,7 +166,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://royleo.xyz/2016/07/28/Mybatis-实现原理与结构解析/" data-title="Mybatis 实现原理与结构解析 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://royleo.xyz/2016/09/12/epuals与与-区别/" data-title="epuals与&#39;==&#39;区别 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -189,19 +179,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/07/29/JSP九大内置对象以及四个作用域/" title="JSP九大内置对象、四个作用域以及六大基本动作">
-  <strong>上一篇：</strong><br/>
-  <span>
-  JSP九大内置对象、四个作用域以及六大基本动作</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/07/28/Java-迭代器Iterator的用法/"  title="Java 迭代器Iterator的用法">
+<a href="/2016/08/16/原生JDBC操作数据库的思考总结/"  title="原生JDBC操作数据库的思考总结">
  <strong>下一篇：</strong><br/> 
- <span>Java 迭代器Iterator的用法
+ <span>原生JDBC操作数据库的思考总结
 </span>
 </a>
 </div>
@@ -210,7 +192,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/07/28/Mybatis-实现原理与结构解析/" data-title="Mybatis 实现原理与结构解析" data-url="http://royleo.xyz/2016/07/28/Mybatis-实现原理与结构解析/"></div>
+	<div class="ds-thread" data-thread-key="2016/09/12/epuals与与-区别/" data-title="epuals与'=='区别" data-url="http://royleo.xyz/2016/09/12/epuals与与-区别/"></div>
 </section>
 
 
@@ -220,7 +202,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mybatis_u6982_u8FF0"><span class="toc-number">1.</span> <span class="toc-text">Mybatis概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mybatis_u5DE5_u4F5C_u6D41_u7A0B"><span class="toc-number">2.</span> <span class="toc-text">Mybatis工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5DE5_u4F5C_u539F_u7406_u7ED3_u6784"><span class="toc-number">3.</span> <span class="toc-text">工作原理结构</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java_u6570_u636E_u7C7B_u578B_u5206_u7C7B"><span class="toc-number">1.</span> <span class="toc-text">Java数据类型分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3D_3D_u64CD_u4F5C"><span class="toc-number">2.</span> <span class="toc-text">==操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#equals_28_29_3B_u65B9_u6CD5"><span class="toc-number">3.</span> <span class="toc-text">equals();方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3D_3D_u4E0Eequals_28_29_3B_u533A_u522B"><span class="toc-number">4.</span> <span class="toc-text">==与equals();区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u732E_u4E0A_u4EE3_u7801_uFF1A"><span class="toc-number">5.</span> <span class="toc-text">献上代码：</span></a></li></ol>
  
   </div>
 
