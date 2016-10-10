@@ -5,38 +5,23 @@
   <meta charset="UTF-8">
   
   
-    <title>关于Maven 打包时 缺失properties和xml后缀的文件 | 简单·踏实</title>
+    <title>Java线程管理 | 简单·踏实</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Roy Leong">
     
 
     
-    <meta name="description" content="背景
-Intellij IDEA 14.1.5
-Maven 项目
-
-
-问题打包Maven项目的时候，报错1log4j:WARN No appenders could be found for logger (logmain).&amp;#10;log4j:WARN Please initialize the log4j system properly.&amp;#10;log4j:WARN See http://">
+    <meta name="description" content="关于线程的创建、运行、中断等的一些操作的读书笔记，也好自己回头重温一下基础知识">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于Maven 打包时 缺失properties和xml后缀的文件">
-<meta property="og:url" content="http://royleo.xyz/2016/06/05/关于Maven-打包时-缺失properties和xml后缀的文件/index.html">
+<meta property="og:title" content="Java线程管理">
+<meta property="og:url" content="http://royleo.xyz/2016/09/30/Java线程管理/index.html">
 <meta property="og:site_name" content="简单·踏实">
-<meta property="og:description" content="背景
-Intellij IDEA 14.1.5
-Maven 项目
-
-
-问题打包Maven项目的时候，报错1log4j:WARN No appenders could be found for logger (logmain).&amp;#10;log4j:WARN Please initialize the log4j system properly.&amp;#10;log4j:WARN See http://">
-<meta property="og:updated_time" content="2016-06-05T03:29:38.029Z">
+<meta property="og:description" content="关于线程的创建、运行、中断等的一些操作的读书笔记，也好自己回头重温一下基础知识">
+<meta property="og:updated_time" content="2016-10-10T14:03:19.939Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于Maven 打包时 缺失properties和xml后缀的文件">
-<meta name="twitter:description" content="背景
-Intellij IDEA 14.1.5
-Maven 项目
-
-
-问题打包Maven项目的时候，报错1log4j:WARN No appenders could be found for logger (logmain).&amp;#10;log4j:WARN Please initialize the log4j system properly.&amp;#10;log4j:WARN See http://">
+<meta name="twitter:title" content="Java线程管理">
+<meta name="twitter:description" content="关于线程的创建、运行、中断等的一些操作的读书笔记，也好自己回头重温一下基础知识">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -97,14 +82,14 @@ Maven 项目
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/06/05/关于Maven-打包时-缺失properties和xml后缀的文件/" title="关于Maven 打包时 缺失properties和xml后缀的文件" itemprop="url">关于Maven 打包时 缺失properties和xml后缀的文件</a>
+      <a href="/2016/09/30/Java线程管理/" title="Java线程管理" itemprop="url">Java线程管理</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2016-06-05T03:00:33.000Z" itemprop="datePublished"> 发表于 2016-06-05</time>
+    <time datetime="2016-09-30T13:59:18.000Z" itemprop="datePublished"> 发表于 2016-09-30</time>
     
   </p>
 </header>
@@ -113,77 +98,62 @@ Maven 项目
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u6253_u5305Maven_u9879_u76EE_u7684_u65F6_u5019_uFF0C_u62A5_u9519"><span class="toc-number">1.</span> <span class="toc-text">打包Maven项目的时候，报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4F46_u662F_u6211_u7684_u76EE_u5F55_u4E0B_u6709log4j-properties_u914D_u7F6E_u6587_u4EF6"><span class="toc-number">2.</span> <span class="toc-text">但是我的目录下有log4j.properties配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5C55_u5F00_u624D_u53D1_u73B0_uFF1A_u8F93_u51FA_u7684_u7C7B_u6CA1_u6709_u2019log4j-properties_u2019_u914D_u7F6E_u6587_u4EF6"><span class="toc-number">3.</span> <span class="toc-text">展开才发现：输出的类没有’log4j.properties’配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u89E3_u51B3_u65B9_u6848"><span class="toc-number"></span> <span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u8BF4_u660E"><span class="toc-number"></span> <span class="toc-text">说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u540C_u6837_uFF0C_u5BF9_u4E8Emaven_u9879_u76EE_u52A0_u8F7D_u4E0D_u51FA_u6765xml_u6587_u4EF6_u7684_u60C5_u51B5_uFF0C_u89E3_u51B3_u65B9_u6CD5_u7C7B_u4F3C"><span class="toc-number">1.</span> <span class="toc-text">同样，对于maven项目加载不出来xml文件的情况，解决方法类似</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u7EBF_u7A0B_u7BA1_u7406"><span class="toc-number">1.</span> <span class="toc-text">线程管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u7EBF_u7A0B_u7684_u521B_u5EFA_u4E0E_u8FD0_u884C"><span class="toc-number">1.0.1.</span> <span class="toc-text">线程的创建与运行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7EBF_u7A0B_u4FE1_u606F_u7684_u83B7_u53D6_u548C_u8BBE_u7F6E"><span class="toc-number">1.0.2.</span> <span class="toc-text">线程信息的获取和设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7EBF_u7A0B_u7684_u4E2D_u65AD"><span class="toc-number">1.0.3.</span> <span class="toc-text">线程的中断</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7EBF_u7A0B_u7684_u4F11_u7720_u4E0E_u6062_u590D"><span class="toc-number">1.0.4.</span> <span class="toc-text">线程的休眠与恢复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7B49_u5F85_u7EBF_u7A0B_u7684_u7EC8_u6B62"><span class="toc-number">1.0.5.</span> <span class="toc-text">等待线程的终止</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5B88_u62A4_u7EBF_u7A0B_u7684_u521B_u5EFA_u4E0E_u8FD0_u884C"><span class="toc-number">1.0.6.</span> <span class="toc-text">守护线程的创建与运行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7EBF_u7A0B_u4E2D_u4E0D_u53EF_u63A7_u5F02_u5E38_u5904_u7406"><span class="toc-number">1.0.7.</span> <span class="toc-text">线程中不可控异常处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7EBF_u7A0B_u5C40_u90E8_u53D8_u91CF"><span class="toc-number">1.0.8.</span> <span class="toc-text">线程局部变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7EBF_u7A0B_u7684_u5206_u7EC4"><span class="toc-number">1.0.9.</span> <span class="toc-text">线程的分组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u901A_u8FC7_u5DE5_u5382_u7C7B_u521B_u5EFA_u7EBF_u7A0B"><span class="toc-number">1.0.10.</span> <span class="toc-text">通过工厂类创建线程</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-		<ul>
-<li>背景<ul>
-<li>Intellij IDEA 14.1.5</li>
-<li>Maven 项目</li>
-</ul>
-</li>
-<li>问题<h3 id="u6253_u5305Maven_u9879_u76EE_u7684_u65F6_u5019_uFF0C_u62A5_u9519"><a href="#u6253_u5305Maven_u9879_u76EE_u7684_u65F6_u5019_uFF0C_u62A5_u9519" class="headerlink" title="打包Maven项目的时候，报错"></a>打包Maven项目的时候，报错</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log4j:WARN No appenders could be found for logger (logmain).&#10;log4j:WARN Please initialize the log4j system properly.&#10;log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="u4F46_u662F_u6211_u7684_u76EE_u5F55_u4E0B_u6709log4j-properties_u914D_u7F6E_u6587_u4EF6"><a href="#u4F46_u662F_u6211_u7684_u76EE_u5F55_u4E0B_u6709log4j-properties_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="但是我的目录下有log4j.properties配置文件"></a>但是我的目录下有<code>log4j.properties</code>配置文件</h3><h3 id="u5C55_u5F00_u624D_u53D1_u73B0_uFF1A_u8F93_u51FA_u7684_u7C7B_u6CA1_u6709_u2019log4j-properties_u2019_u914D_u7F6E_u6587_u4EF6"><a href="#u5C55_u5F00_u624D_u53D1_u73B0_uFF1A_u8F93_u51FA_u7684_u7C7B_u6CA1_u6709_u2019log4j-properties_u2019_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="展开才发现：输出的类没有’log4j.properties’配置文件"></a>展开才发现：输出的类没有’log4j.properties’配置文件</h3><h2 id="u89E3_u51B3_u65B9_u6848"><a href="#u89E3_u51B3_u65B9_u6848" class="headerlink" title="解决方案"></a>解决方案</h2><ul>
-<li>在pom中添加resources配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;build&#62;&#10;        &#60;resources&#62;&#10;            &#60;resource&#62;&#10;                &#60;directory&#62;src/main/java&#60;/directory&#62;&#10;                &#60;includes&#62;&#10;                    &#60;include&#62;**/*.properties&#60;/include&#62;&#10;                &#60;/includes&#62;&#10;            &#60;/resource&#62;&#10;        &#60;/resources&#62;&#10;    &#60;/build&#62;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="u8BF4_u660E"><a href="#u8BF4_u660E" class="headerlink" title="说明"></a>说明</h2><ul>
-<li>Maven的生命周期：</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>生命周期阶段</th>
-<th>目标</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>process-resources</td>
-<td>resources:resources</td>
-</tr>
-<tr>
-<td>compile</td>
-<td>compile:compile</td>
-</tr>
-<tr>
-<td>process-test-resources</td>
-<td>resources:testResource</td>
-</tr>
-<tr>
-<td>test-compile</td>
-<td>compile:testCompile</td>
-</tr>
-<tr>
-<td>test</td>
-<td>surefire:test</td>
-</tr>
-<tr>
-<td>package</td>
-<td>war:war</td>
-</tr>
-<tr>
-<td>install</td>
-<td>install:install</td>
-</tr>
-<tr>
-<td>deploy</td>
-<td>deploy:deploy</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><p>经测试</p>
-<ol>
-<li>当pom中不增加resources配置时，<br>执行process-resources，class文件夹下只包含src/main/resources下的文件<br>执行compile，class文件夹下包含src/main/resources下的文件与src/main/java下的<em>.class文件，丢失src/main/java下的</em>.properties文件</li>
-<li>当pom中增加resources配置时<br>执行process-resources，class文件夹下只包含src/main/resources下的文件与src/main/java下的<em>.properties文件<br>执行compile，class文件夹下包含src/main/resources下的文件与src/main/java下的</em>.class文件与*.properties文件</li>
+		<h2 id="u7EBF_u7A0B_u7BA1_u7406"><a href="#u7EBF_u7A0B_u7BA1_u7406" class="headerlink" title="线程管理"></a>线程管理</h2><h4 id="u7EBF_u7A0B_u7684_u521B_u5EFA_u4E0E_u8FD0_u884C"><a href="#u7EBF_u7A0B_u7684_u521B_u5EFA_u4E0E_u8FD0_u884C" class="headerlink" title="线程的创建与运行"></a>线程的创建与运行</h4><ol>
+<li>线程创建：<ol>
+<li>继承Thread类，并且覆盖run()方法</li>
+<li>创建一个实现<code>Runnable</code>接口的类，并且覆盖<code>run()</code>方法，使用带参数的<code>Thread</code>构造器来创建<code>Thread</code>对象，这个参数就是实现<code>Runnable</code>接口的类的一个对象</li>
 </ol>
 </li>
+<li>线程的运行：<ol>
+<li>线程对象调用<code>start()</code>方法，才会创建运行这个线程(线程创建，运行的时间点).</li>
+</ol>
+</li>
+</ol>
+<h4 id="u7EBF_u7A0B_u4FE1_u606F_u7684_u83B7_u53D6_u548C_u8BBE_u7F6E"><a href="#u7EBF_u7A0B_u4FE1_u606F_u7684_u83B7_u53D6_u548C_u8BBE_u7F6E" class="headerlink" title="线程信息的获取和设置"></a>线程信息的获取和设置</h4><ol>
+<li>线程的状态(status):<code>Thread.getStatus()</code></li>
+<li>线程的唯一标识符(Id):<code>Thread.getId()</code></li>
+<li>线程的名称(Name):<code>Thread.getName()</code></li>
+<li>线程的优先级(Property):<code>Thread.getPrioity()</code></li>
+</ol>
+<h4 id="u7EBF_u7A0B_u7684_u4E2D_u65AD"><a href="#u7EBF_u7A0B_u7684_u4E2D_u65AD" class="headerlink" title="线程的中断"></a>线程的中断</h4><ol>
+<li>线程中断方法：<code>Thread.interrupt()</code>调用时，Thread类里面标记线程是否中断的属性(interrupted)被标记为true</li>
+<li>检查线程是否中断：返回interrupted的属性值<ol>
+<li><code>Thread.interrupted()</code></li>
+<li><code>Thread.isInterrupted()</code>(能设置interrupt的属性为false)</li>
+</ol>
+</li>
+</ol>
+<h4 id="u7EBF_u7A0B_u7684_u4F11_u7720_u4E0E_u6062_u590D"><a href="#u7EBF_u7A0B_u7684_u4F11_u7720_u4E0E_u6062_u590D" class="headerlink" title="线程的休眠与恢复"></a>线程的休眠与恢复</h4><ul>
+<li><code>sleep(long timeouts)</code>:线程休眠指定时间，休眠期间，线程会释放CPU并且不在继续执行任务</li>
 </ul>
-<h3 id="u540C_u6837_uFF0C_u5BF9_u4E8Emaven_u9879_u76EE_u52A0_u8F7D_u4E0D_u51FA_u6765xml_u6587_u4EF6_u7684_u60C5_u51B5_uFF0C_u89E3_u51B3_u65B9_u6CD5_u7C7B_u4F3C"><a href="#u540C_u6837_uFF0C_u5BF9_u4E8Emaven_u9879_u76EE_u52A0_u8F7D_u4E0D_u51FA_u6765xml_u6587_u4EF6_u7684_u60C5_u51B5_uFF0C_u89E3_u51B3_u65B9_u6CD5_u7C7B_u4F3C" class="headerlink" title="同样，对于maven项目加载不出来xml文件的情况，解决方法类似"></a>同样，对于maven项目加载不出来<code>xml</code>文件的情况，解决方法类似</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;build&#62;&#10;        &#60;resources&#62;&#10;            &#60;resource&#62;&#10;                &#60;directory&#62;src/main/java&#60;/directory&#62;&#10;                &#60;includes&#62;&#10;                    &#60;include&#62;**/*.xml&#60;/include&#62;&#10;                &#60;/includes&#62;&#10;            &#60;/resource&#62;&#10;        &#60;/resources&#62;&#10;&#60;/build&#62;</span><br></pre></td></tr></table></figure>
+<h4 id="u7B49_u5F85_u7EBF_u7A0B_u7684_u7EC8_u6B62"><a href="#u7B49_u5F85_u7EBF_u7A0B_u7684_u7EC8_u6B62" class="headerlink" title="等待线程的终止"></a>等待线程的终止</h4><ul>
+<li><code>Thread1.join()</code>:等待Thread1线程执行完之后才运行其他线程或者任务(适用于一些初始化任务等…)</li>
+</ul>
+<h4 id="u5B88_u62A4_u7EBF_u7A0B_u7684_u521B_u5EFA_u4E0E_u8FD0_u884C"><a href="#u5B88_u62A4_u7EBF_u7A0B_u7684_u521B_u5EFA_u4E0E_u8FD0_u884C" class="headerlink" title="守护线程的创建与运行"></a>守护线程的创建与运行</h4><ol>
+<li>守护线程：优先级很低，当程序中没有其他的线程运行的时候，才运行守护线程，然后JVM就结束程序</li>
+<li>创建：<code>setDaemon(true)</code>创建守护线程(守护线程必须先在<code>start()</code>方法被调用之前设置)</li>
+</ol>
+<h4 id="u7EBF_u7A0B_u4E2D_u4E0D_u53EF_u63A7_u5F02_u5E38_u5904_u7406"><a href="#u7EBF_u7A0B_u4E2D_u4E0D_u53EF_u63A7_u5F02_u5E38_u5904_u7406" class="headerlink" title="线程中不可控异常处理"></a>线程中不可控异常处理</h4><ol>
+<li>非运行时异常(Checked Exception)：这种异常必须在方法声明用throws语句来指定，或者在方法内捕获(例如：IOException,ClassNotFoundException..)</li>
+<li>运行时异常(Unchecked Exception)：不必在方法声明指定，也不必捕获(例如：NumberFormatException)</li>
+<li><code>run()</code>方法不支持throws语句</li>
+</ol>
+<h4 id="u7EBF_u7A0B_u5C40_u90E8_u53D8_u91CF"><a href="#u7EBF_u7A0B_u5C40_u90E8_u53D8_u91CF" class="headerlink" title="线程局部变量"></a>线程局部变量</h4><ul>
+<li>避免一个线程中改变了一个属性，所有线程都会被这个改变而影响</li>
+<li>用法：通过声明一个<code>ThreadLocal&lt;T&gt;</code>对象，这个对象是在<code>initialValue()</code>方法中隐式实现的.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static ThreadLocal&#60;Date&#62; startDate = new ThreadLocal&#60;Date&#62;()&#123;&#10;       @Override&#10;       protected Date initialValue() &#123;&#10;           return new Date();&#10;       &#125;&#10;   &#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="u7EBF_u7A0B_u7684_u5206_u7EC4"><a href="#u7EBF_u7A0B_u7684_u5206_u7EC4" class="headerlink" title="线程的分组"></a>线程的分组</h4><ul>
+<li>把一个组的线程当作一个单一的单元，对组内线程对象进行访问并操作它们</li>
+<li>创建：通过创建线程数组，创建线程组，<code>ThreadGroup.enumerate(Thread[] threads)</code>获取线程组包含的线程列表</li>
+</ul>
+<h4 id="u901A_u8FC7_u5DE5_u5382_u7C7B_u521B_u5EFA_u7EBF_u7A0B"><a href="#u901A_u8FC7_u5DE5_u5382_u7C7B_u521B_u5EFA_u7EBF_u7A0B" class="headerlink" title="通过工厂类创建线程"></a>通过工厂类创建线程</h4><ul>
+<li>创建：实现<code>ThreadFactory</code>接口，<code>@override newThread(Runnable r)</code>创建线程对象</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -192,7 +162,7 @@ Maven 项目
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Maven/">Maven</a>
+  <span></span> <a href="/tags/Java/">Java</a><a href="/tags/《Java-7并发编程实战手册》读书笔记/">《Java 7并发编程实战手册》读书笔记</a>
   </div>
 
 </div>
@@ -201,7 +171,7 @@ Maven 项目
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://royleo.xyz/2016/06/05/关于Maven-打包时-缺失properties和xml后缀的文件/" data-title="关于Maven 打包时 缺失properties和xml后缀的文件 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://royleo.xyz/2016/09/30/Java线程管理/" data-title="Java线程管理 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -214,19 +184,11 @@ Maven 项目
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/06/05/Hibernate出现Caused-by-java-sql-SQLException-Field-id-doesn-t-have-a-default-value的解决方法/" title="Hibernate出现Caused by: java.sql.SQLException: Field &#39;id&#39; doesn&#39;t have a default value的解决方法">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Hibernate出现Caused by: java.sql.SQLException: Field &#39;id&#39; doesn&#39;t have a default value的解决方法</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/05/10/无法连接远程Mysql数据库的解决办法-I/"  title="无法连接远程Mysql数据库的解决办法 I">
+<a href="/2016/09/12/String、StringBulder与StringBuffer的区别分析/"  title="String、StringBulder与StringBuffer的区别分析">
  <strong>下一篇：</strong><br/> 
- <span>无法连接远程Mysql数据库的解决办法 I
+ <span>String、StringBulder与StringBuffer的区别分析
 </span>
 </a>
 </div>
@@ -235,7 +197,7 @@ Maven 项目
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/06/05/关于Maven-打包时-缺失properties和xml后缀的文件/" data-title="关于Maven 打包时 缺失properties和xml后缀的文件" data-url="http://royleo.xyz/2016/06/05/关于Maven-打包时-缺失properties和xml后缀的文件/"></div>
+	<div class="ds-thread" data-thread-key="2016/09/30/Java线程管理/" data-title="Java线程管理" data-url="http://royleo.xyz/2016/09/30/Java线程管理/"></div>
 </section>
 
 
@@ -245,7 +207,7 @@ Maven 项目
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u6253_u5305Maven_u9879_u76EE_u7684_u65F6_u5019_uFF0C_u62A5_u9519"><span class="toc-number">1.</span> <span class="toc-text">打包Maven项目的时候，报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4F46_u662F_u6211_u7684_u76EE_u5F55_u4E0B_u6709log4j-properties_u914D_u7F6E_u6587_u4EF6"><span class="toc-number">2.</span> <span class="toc-text">但是我的目录下有log4j.properties配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5C55_u5F00_u624D_u53D1_u73B0_uFF1A_u8F93_u51FA_u7684_u7C7B_u6CA1_u6709_u2019log4j-properties_u2019_u914D_u7F6E_u6587_u4EF6"><span class="toc-number">3.</span> <span class="toc-text">展开才发现：输出的类没有’log4j.properties’配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u89E3_u51B3_u65B9_u6848"><span class="toc-number"></span> <span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u8BF4_u660E"><span class="toc-number"></span> <span class="toc-text">说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u540C_u6837_uFF0C_u5BF9_u4E8Emaven_u9879_u76EE_u52A0_u8F7D_u4E0D_u51FA_u6765xml_u6587_u4EF6_u7684_u60C5_u51B5_uFF0C_u89E3_u51B3_u65B9_u6CD5_u7C7B_u4F3C"><span class="toc-number">1.</span> <span class="toc-text">同样，对于maven项目加载不出来xml文件的情况，解决方法类似</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u7EBF_u7A0B_u7BA1_u7406"><span class="toc-number">1.</span> <span class="toc-text">线程管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u7EBF_u7A0B_u7684_u521B_u5EFA_u4E0E_u8FD0_u884C"><span class="toc-number">1.0.1.</span> <span class="toc-text">线程的创建与运行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7EBF_u7A0B_u4FE1_u606F_u7684_u83B7_u53D6_u548C_u8BBE_u7F6E"><span class="toc-number">1.0.2.</span> <span class="toc-text">线程信息的获取和设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7EBF_u7A0B_u7684_u4E2D_u65AD"><span class="toc-number">1.0.3.</span> <span class="toc-text">线程的中断</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7EBF_u7A0B_u7684_u4F11_u7720_u4E0E_u6062_u590D"><span class="toc-number">1.0.4.</span> <span class="toc-text">线程的休眠与恢复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7B49_u5F85_u7EBF_u7A0B_u7684_u7EC8_u6B62"><span class="toc-number">1.0.5.</span> <span class="toc-text">等待线程的终止</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5B88_u62A4_u7EBF_u7A0B_u7684_u521B_u5EFA_u4E0E_u8FD0_u884C"><span class="toc-number">1.0.6.</span> <span class="toc-text">守护线程的创建与运行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7EBF_u7A0B_u4E2D_u4E0D_u53EF_u63A7_u5F02_u5E38_u5904_u7406"><span class="toc-number">1.0.7.</span> <span class="toc-text">线程中不可控异常处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7EBF_u7A0B_u5C40_u90E8_u53D8_u91CF"><span class="toc-number">1.0.8.</span> <span class="toc-text">线程局部变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7EBF_u7A0B_u7684_u5206_u7EC4"><span class="toc-number">1.0.9.</span> <span class="toc-text">线程的分组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u901A_u8FC7_u5DE5_u5382_u7C7B_u521B_u5EFA_u7EBF_u7A0B"><span class="toc-number">1.0.10.</span> <span class="toc-text">通过工厂类创建线程</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
