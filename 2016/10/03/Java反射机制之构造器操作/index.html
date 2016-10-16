@@ -5,23 +5,23 @@
   <meta charset="UTF-8">
   
   
-    <title>java 重定向与转发的异同 | 简单·踏实</title>
+    <title>Java反射机制之构造器操作 | 简单·踏实</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Roy Leong">
     
 
     
-    <meta name="description" content="重定向和请求转发，在web中的应用都不少，但是之间有什么区别？在什么时候应该选择哪种跳转方式？">
+    <meta name="description" content="利用 Java 的反射机制你可以检查一个类的构造方法，并且可以在运行期创建一个对象。这些功能都是通过 java.lang.reflect.Constructor 这个类实现的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java 重定向与转发的异同">
-<meta property="og:url" content="http://royleo.xyz/2016/08/10/java-重定向与转发的区别/index.html">
+<meta property="og:title" content="Java反射机制之构造器操作">
+<meta property="og:url" content="http://royleo.xyz/2016/10/03/Java反射机制之构造器操作/index.html">
 <meta property="og:site_name" content="简单·踏实">
-<meta property="og:description" content="重定向和请求转发，在web中的应用都不少，但是之间有什么区别？在什么时候应该选择哪种跳转方式？">
-<meta property="og:updated_time" content="2016-08-19T14:19:01.256Z">
+<meta property="og:description" content="利用 Java 的反射机制你可以检查一个类的构造方法，并且可以在运行期创建一个对象。这些功能都是通过 java.lang.reflect.Constructor 这个类实现的">
+<meta property="og:updated_time" content="2016-10-16T09:03:01.796Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java 重定向与转发的异同">
-<meta name="twitter:description" content="重定向和请求转发，在web中的应用都不少，但是之间有什么区别？在什么时候应该选择哪种跳转方式？">
+<meta name="twitter:title" content="Java反射机制之构造器操作">
+<meta name="twitter:description" content="利用 Java 的反射机制你可以检查一个类的构造方法，并且可以在运行期创建一个对象。这些功能都是通过 java.lang.reflect.Constructor 这个类实现的">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -82,14 +82,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/08/10/java-重定向与转发的区别/" title="java 重定向与转发的异同" itemprop="url">java 重定向与转发的异同</a>
+      <a href="/2016/10/03/Java反射机制之构造器操作/" title="Java反射机制之构造器操作" itemprop="url">Java反射机制之构造器操作</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2016-08-10T05:34:12.000Z" itemprop="datePublished"> 发表于 2016-08-10</time>
+    <time datetime="2016-10-03T08:59:45.000Z" itemprop="datePublished"> 发表于 2016-10-03</time>
     
   </p>
 </header>
@@ -98,53 +98,20 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u91CD_u5B9A_u5411_u4E0E_u8BF7_u6C42_u8F6C_u53D1_u7684_u5F02_u540C"><span class="toc-number">1.</span> <span class="toc-text">重定向与请求转发的异同</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#u540C_uFF1A"><span class="toc-number">1.0.1.</span> <span class="toc-text">同：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u5F02_uFF1A"><span class="toc-number">1.0.2.</span> <span class="toc-text">异：</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6784_u9020_u5668_u53CD_u5C04"><span class="toc-number">1.</span> <span class="toc-text">构造器反射</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u83B7_u53D6Constructor_u5BF9_u8C61"><span class="toc-number">1.0.1.</span> <span class="toc-text">获取Constructor对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6784_u9020_u5668_u53C2_u6570"><span class="toc-number">1.0.2.</span> <span class="toc-text">构造器参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5229_u7528_u6784_u9020_u5668_u5BF9_u8C61_u5B9E_u4F8B_u5316_u4E00_u4E2A_u7C7B"><span class="toc-number">1.0.3.</span> <span class="toc-text">利用构造器对象实例化一个类</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-		<h3 id="u91CD_u5B9A_u5411_u4E0E_u8BF7_u6C42_u8F6C_u53D1_u7684_u5F02_u540C"><a href="#u91CD_u5B9A_u5411_u4E0E_u8BF7_u6C42_u8F6C_u53D1_u7684_u5F02_u540C" class="headerlink" title="重定向与请求转发的异同"></a>重定向与请求转发的异同</h3><h5 id="u540C_uFF1A"><a href="#u540C_uFF1A" class="headerlink" title="同："></a>同：</h5><ul>
-<li>两种方式都能跳转到目标页面</li>
-</ul>
-<h5 id="u5F02_uFF1A"><a href="#u5F02_uFF1A" class="headerlink" title="异："></a>异：</h5><ul>
-<li><p>本质区别：</p>
-<ol>
-<li>请求转发是服务器行为，而重定向是客户端行为：<ul>
-<li>转发过程：browser http请求—-&gt; web server接受请求—-&gt; 调用内部的一个方法在容器内部完成请求处理和转发 动作—–&gt;将目标资源发生给客户端；转发路径必须经过web容器的url，不能转向到其他的web路径，中间传递的是自的容器内的request. 而在客户端浏览器地址栏显示出来的是第一次访问的路径。也就是说，转发行为是浏览器只做了一次访问请求</li>
-<li>重定向过程：browser http请求—-&gt; web server接受后发送302状态码以及对应新的location地址给客户端—-&gt; 客户端发现302状态码，则自动再转发一个新的http请求，请求url是新的location地址 —-&gt;服务器根据此请求寻找资源并发送给客户. 重定向行为是浏览器做了至少两次访问请求.</li>
-</ul>
-</li>
-<li>对于请求次数的解析：<ul>
-<li>重定向在客户端 request A ,server响应状态码，指示browser应该访问 B. 这时候可以看到地址栏发生变化。重定向可以访问自己web应用以外的资源，在充定向过程中，传输的信息会丢失</li>
-<li>请求转发是在服务器内部一个request/response的处理权移交，对于客户端来说，它只知道自己最早的请求的那个A但是不知道中间其他的访问路径，传输信息不会丢失</li>
-</ul>
-</li>
+		<h2 id="u6784_u9020_u5668_u53CD_u5C04"><a href="#u6784_u9020_u5668_u53CD_u5C04" class="headerlink" title="构造器反射"></a>构造器反射</h2><h4 id="u83B7_u53D6Constructor_u5BF9_u8C61"><a href="#u83B7_u53D6Constructor_u5BF9_u8C61" class="headerlink" title="获取Constructor对象"></a>获取Constructor对象</h4><ol>
+<li><code>Constructor[] constructors = aClass.getConstructors();</code>获取构造器数组</li>
+<li><code>Constructor constructor =
+aClass.getConstructor(new Class[]{String.class});</code> 根据具体的构造器参数获取指定的构造器，如果没有匹配的方法，则抛异常<code>NoSuchMethodException</code></li>
 </ol>
-</li>
-<li><p>从数据分享角度：</p>
-<ul>
-<li>请求转发的转发页面与转发目标页面可以共享request里面的数据</li>
-<li>重定向的跳转页面之间不可以共享数据</li>
-</ul>
-</li>
-<li><p>从运用角度：</p>
-<ul>
-<li>请求转发一般用于用户登录的时候，或者角色转发到响应的模块</li>
-<li>重定向一般用于用户注销登陆时返回和跳转到其他网站等</li>
-</ul>
-</li>
-<li><p>从效率角度：</p>
-<ul>
-<li>请求转发效率比重定向效率高</li>
-</ul>
-</li>
-<li><p>内部实现：</p>
-<ul>
-<li><p>请求转发部分：servlet主要负责处理具体的请求转发。通过获得RequestDispatcher对象，然后用forward方法进行请求转发</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RequestDisapatcher rd=reqest.getRequestDisapatcher();&#10;rd.forward(req,resp); //&#29992;&#36825;&#37324;&#30340;&#26041;&#27861;&#26469;&#36827;&#34892;&#36716;&#21457;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>sendRedirect方法属于HttpServletResponse对象的getRequestDispatcher方法得到</p>
-</li>
-</ul>
+<h4 id="u6784_u9020_u5668_u53C2_u6570"><a href="#u6784_u9020_u5668_u53C2_u6570" class="headerlink" title="构造器参数"></a>构造器参数</h4><ol>
+<li><code>Class[] parameterTypes = constructor.getParameterTypes();</code>获取构造器的方法参数信息</li>
+</ol>
+<h4 id="u5229_u7528_u6784_u9020_u5668_u5BF9_u8C61_u5B9E_u4F8B_u5316_u4E00_u4E2A_u7C7B"><a href="#u5229_u7528_u6784_u9020_u5668_u5BF9_u8C61_u5B9E_u4F8B_u5316_u4E00_u4E2A_u7C7B" class="headerlink" title="利用构造器对象实例化一个类"></a>利用构造器对象实例化一个类</h4><ul>
+<li>constructor.newInstance()方法的方法参数是一个可变参数列表，但是当你调用构造方法的时候你必须提供精确的参数，即形参与实参必须一一对应<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Constructor constructor = Result.class.getConstructor(new Class[]&#123;String.class&#125;);&#10;        Result result = (Result) constructor.newInstance(&#34;tettt&#34;);&#10;        System.out.println(result.getName());</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
   
@@ -155,7 +122,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Java/">Java</a><a href="/tags/Web/">Web</a>
+  <span></span> <a href="/tags/Java/">Java</a><a href="/tags/动态代理/">动态代理</a>
   </div>
 
 </div>
@@ -164,7 +131,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://royleo.xyz/2016/08/10/java-重定向与转发的区别/" data-title="java 重定向与转发的异同 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://royleo.xyz/2016/10/03/Java反射机制之构造器操作/" data-title="Java反射机制之构造器操作 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -178,18 +145,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/08/16/原生JDBC操作数据库的思考总结/" title="原生JDBC操作数据库的思考总结">
+ <a href="/2016/10/08/Java反射机制之方法操作/" title="Java反射机制之方法操作">
   <strong>上一篇：</strong><br/>
   <span>
-  原生JDBC操作数据库的思考总结</span>
+  Java反射机制之方法操作</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2016/08/01/TCP建立链接三次握手协议原理与过程分析/"  title="TCP通信三次握手协议原理与过程分析">
+<a href="/2016/09/30/Java线程管理/"  title="Java线程管理">
  <strong>下一篇：</strong><br/> 
- <span>TCP通信三次握手协议原理与过程分析
+ <span>Java线程管理
 </span>
 </a>
 </div>
@@ -198,7 +165,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/08/10/java-重定向与转发的区别/" data-title="java 重定向与转发的异同" data-url="http://royleo.xyz/2016/08/10/java-重定向与转发的区别/"></div>
+	<div class="ds-thread" data-thread-key="2016/10/03/Java反射机制之构造器操作/" data-title="Java反射机制之构造器操作" data-url="http://royleo.xyz/2016/10/03/Java反射机制之构造器操作/"></div>
 </section>
 
 
@@ -208,7 +175,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u91CD_u5B9A_u5411_u4E0E_u8BF7_u6C42_u8F6C_u53D1_u7684_u5F02_u540C"><span class="toc-number">1.</span> <span class="toc-text">重定向与请求转发的异同</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#u540C_uFF1A"><span class="toc-number">1.0.1.</span> <span class="toc-text">同：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u5F02_uFF1A"><span class="toc-number">1.0.2.</span> <span class="toc-text">异：</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6784_u9020_u5668_u53CD_u5C04"><span class="toc-number">1.</span> <span class="toc-text">构造器反射</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u83B7_u53D6Constructor_u5BF9_u8C61"><span class="toc-number">1.0.1.</span> <span class="toc-text">获取Constructor对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6784_u9020_u5668_u53C2_u6570"><span class="toc-number">1.0.2.</span> <span class="toc-text">构造器参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5229_u7528_u6784_u9020_u5668_u5BF9_u8C61_u5B9E_u4F8B_u5316_u4E00_u4E2A_u7C7B"><span class="toc-number">1.0.3.</span> <span class="toc-text">利用构造器对象实例化一个类</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
