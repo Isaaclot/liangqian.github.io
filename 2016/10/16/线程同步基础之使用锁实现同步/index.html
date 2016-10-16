@@ -5,23 +5,44 @@
   <meta charset="UTF-8">
   
   
-    <title>Spring中添加REST功能 | 简单·踏实</title>
+    <title>线程同步基础之使用锁实现同步 | 简单·踏实</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Roy Leong">
     
 
     
-    <meta name="description" content="近年来以信息为中心的表属性状态转移(Respresentational State Transfer REST)已经成为替代传统SOAP　Web服务的流行方案；而且Spring封装对REST的良好支撑">
+    <meta name="description" content="线程同步基础之使用锁实现同步概述
+使用锁实现同步是通过重写Lock接口来实现，与synchronized相比，Lock接口允许实现更复杂的临界区结构(控制的获取和释放不在同一个块结构中)
+
+死锁
+定义：当两个或者多个线程被阻塞并且他们等待释放的锁永远都不会是释放，就会发生死锁
+
+使用实例
+Lock接口引入tryLock()方法获取锁，如果锁已经被其他线程获取，那就返回false，并继续往下执行代码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring中添加REST功能">
-<meta property="og:url" content="http://royleo.xyz/2016/07/31/Spring中添加REST功能/index.html">
+<meta property="og:title" content="线程同步基础之使用锁实现同步">
+<meta property="og:url" content="http://royleo.xyz/2016/10/16/线程同步基础之使用锁实现同步/index.html">
 <meta property="og:site_name" content="简单·踏实">
-<meta property="og:description" content="近年来以信息为中心的表属性状态转移(Respresentational State Transfer REST)已经成为替代传统SOAP　Web服务的流行方案；而且Spring封装对REST的良好支撑">
-<meta property="og:updated_time" content="2016-07-31T12:46:09.524Z">
+<meta property="og:description" content="线程同步基础之使用锁实现同步概述
+使用锁实现同步是通过重写Lock接口来实现，与synchronized相比，Lock接口允许实现更复杂的临界区结构(控制的获取和释放不在同一个块结构中)
+
+死锁
+定义：当两个或者多个线程被阻塞并且他们等待释放的锁永远都不会是释放，就会发生死锁
+
+使用实例
+Lock接口引入tryLock()方法获取锁，如果锁已经被其他线程获取，那就返回false，并继续往下执行代码">
+<meta property="og:updated_time" content="2016-10-16T14:39:51.614Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring中添加REST功能">
-<meta name="twitter:description" content="近年来以信息为中心的表属性状态转移(Respresentational State Transfer REST)已经成为替代传统SOAP　Web服务的流行方案；而且Spring封装对REST的良好支撑">
+<meta name="twitter:title" content="线程同步基础之使用锁实现同步">
+<meta name="twitter:description" content="线程同步基础之使用锁实现同步概述
+使用锁实现同步是通过重写Lock接口来实现，与synchronized相比，Lock接口允许实现更复杂的临界区结构(控制的获取和释放不在同一个块结构中)
+
+死锁
+定义：当两个或者多个线程被阻塞并且他们等待释放的锁永远都不会是释放，就会发生死锁
+
+使用实例
+Lock接口引入tryLock()方法获取锁，如果锁已经被其他线程获取，那就返回false，并继续往下执行代码">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -82,14 +103,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/07/31/Spring中添加REST功能/" title="Spring中添加REST功能" itemprop="url">Spring中添加REST功能</a>
+      <a href="/2016/10/16/线程同步基础之使用锁实现同步/" title="线程同步基础之使用锁实现同步" itemprop="url">线程同步基础之使用锁实现同步</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2016-07-31T12:39:26.000Z" itemprop="datePublished"> 发表于 2016-07-31</time>
+    <time datetime="2016-10-16T14:38:51.000Z" itemprop="datePublished"> 发表于 2016-10-16</time>
     
   </p>
 </header>
@@ -98,94 +119,25 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#REST_u57FA_u672C_u539F_u7406_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">REST基本原理：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spring_u5982_u4F55_u652F_u6301REST_uFF1F"><span class="toc-number">2.</span> <span class="toc-text">Spring如何支持REST？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RESTful_URL"><span class="toc-number">3.</span> <span class="toc-text">RESTful URL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6267_u884CREST_u52A8_u4F5C"><span class="toc-number">4.</span> <span class="toc-text">执行REST动作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u8868_u8FF0_u8D44_u6E90"><span class="toc-number">5.</span> <span class="toc-text">表述资源</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u7EBF_u7A0B_u540C_u6B65_u57FA_u7840_u4E4B_u4F7F_u7528_u9501_u5B9E_u73B0_u540C_u6B65"><span class="toc-number">1.</span> <span class="toc-text">线程同步基础之使用锁实现同步</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u6982_u8FF0"><span class="toc-number">1.0.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6B7B_u9501"><span class="toc-number">1.0.2.</span> <span class="toc-text">死锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528_u5B9E_u4F8B"><span class="toc-number">1.0.3.</span> <span class="toc-text">使用实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528_u8BFB_u5199_u9501_u5B9E_u73B0_u540C_u6B65_u6570_u636E_u7684_u8BBF_u95EE"><span class="toc-number">1.0.4.</span> <span class="toc-text">使用读写锁实现同步数据的访问</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-		<h4 id="REST_u57FA_u672C_u539F_u7406_uFF1A"><a href="#REST_u57FA_u672C_u539F_u7406_uFF1A" class="headerlink" title="REST基本原理："></a>REST基本原理：</h4><ul>
-<li>通过简单的HTTP URL触发事件</li>
-<li>REST是将资源最合适地从服务端转移到客户端(或者反之)</li>
-<li>REST与RPC(远程过程调用)：REST面向资源，强调描述应用程序的事物和名词;RPC面向服务，关注于行为和行动<h4 id="Spring_u5982_u4F55_u652F_u6301REST_uFF1F"><a href="#Spring_u5982_u4F55_u652F_u6301REST_uFF1F" class="headerlink" title="Spring如何支持REST？"></a>Spring如何支持REST？</h4></li>
-<li>控制器可以处理所有的HTTP方法：GET、POST、DELETE、PUT…</li>
-<li>@PathVariable 注解使控制器能够处理参数化的URL(带参数变量的URL)</li>
-<li>Spring表单绑定JSP标签库的<code>&lt;form:form&gt;</code>标签以及新的HidenHttpMethodFilter，使得通过HTML转发提交的PUT，DELETE请求成为可能(即使mou’xie)</li>
-<li>使用String的视图和视图解析器，资源可以以各种形式表述，包括将数据模型表示为：XML、JSON、ATOM、RSS等</li>
-<li>使用新的ContentNegotiatingResolver来选择合适的客户端表述</li>
-<li>类似的，使用@ResponseBody注解以及HttpMethodConverter实现可以将传入的HTTP数据转化为传入控制器的处理方法的Java对象</li>
-<li>RestTemplate简化客户端对REST资源的使用</li>
+		<h2 id="u7EBF_u7A0B_u540C_u6B65_u57FA_u7840_u4E4B_u4F7F_u7528_u9501_u5B9E_u73B0_u540C_u6B65"><a href="#u7EBF_u7A0B_u540C_u6B65_u57FA_u7840_u4E4B_u4F7F_u7528_u9501_u5B9E_u73B0_u540C_u6B65" class="headerlink" title="线程同步基础之使用锁实现同步"></a>线程同步基础之使用锁实现同步</h2><h4 id="u6982_u8FF0"><a href="#u6982_u8FF0" class="headerlink" title="概述"></a>概述</h4><ul>
+<li>使用锁实现同步是通过重写Lock接口来实现，与synchronized相比，Lock接口允许实现更复杂的临界区结构(控制的获取和释放不在同一个块结构中)</li>
 </ul>
-<h4 id="RESTful_URL"><a href="#RESTful_URL" class="headerlink" title="RESTful URL"></a>RESTful URL</h4><ul>
-<li>格式：<code>http://localhost:8080/spitter/spittles/123</code><ul>
-<li>协议：//域名：端口号/Servlet上下文路径/资源类型/特定的spittle</li>
-<li>REST　URL是用来标识资源</li>
+<h4 id="u6B7B_u9501"><a href="#u6B7B_u9501" class="headerlink" title="死锁"></a>死锁</h4><ul>
+<li>定义：当两个或者多个线程被阻塞并且他们等待释放的锁永远都不会是释放，就会发生死锁</li>
 </ul>
-</li>
-<li>RESTful　URL是有层级结构的，每个层标识一种资源</li>
-<li>其中，URL还可以参数化，在控制器中获取该参数<code>@PathVariable(&quot;id&quot;) long id</code></li>
-</ul>
-<h4 id="u6267_u884CREST_u52A8_u4F5C"><a href="#u6267_u884CREST_u52A8_u4F5C" class="headerlink" title="执行REST动作"></a>执行REST动作</h4><ul>
-<li>HTTP提供来操作资源的方法，主要是四个</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>描述</th>
-<th>是否安全</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GET</td>
-<td>从服务器上检索资源信息，资源通过请求的URL来进行标识</td>
-<td>是</td>
-</tr>
-<tr>
-<td>POST</td>
-<td>传送数据到服务器，数据会由监听该请求的URL处理器进行处理</td>
-<td>否</td>
-</tr>
-<tr>
-<td>PUT</td>
-<td>按照请求的URＬ，防治资源到服务器指定位置</td>
-<td>否</td>
-</tr>
-<tr>
-<td>DELETE</td>
-<td>将请求URL标识的资源从服务器上删除</td>
-<td>否</td>
-</tr>
-</tbody>
-</table>
-<h4 id="u8868_u8FF0_u8D44_u6E90"><a href="#u8868_u8FF0_u8D44_u6E90" class="headerlink" title="表述资源"></a>表述资源</h4><ul>
-<li>Spring提供两种形式，将资源的Java表述形式转换为发送给客户端的表述形式：<ul>
-<li>基于视图渲染进行协商</li>
-<li>HTTP消息转换器</li>
-</ul>
-</li>
-<li>协商资源表述<br>bean配置:<figure class="highlight"><figcaption><span>根据客户端的不同的请求决定不同的view进行响应, 如/blog/1.json/blog/1.xml--></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">    &#60;bean class=&#34;org.springframework.web.servlet.view.ContentNegotiatingViewResolver&#34;&#62;&#10;&#60;!-- &#35774;&#32622;&#20026;true&#20197;&#24573;&#30053;&#23545;Accept Header&#30340;&#25903;&#25345;--&#62;&#10;         ##&#60;property name=&#34;ignoreAcceptHeader&#34; value=&#34;true&#34;/&#62;&#10; &#60;!-- &#22312;&#27809;&#26377;&#25193;&#23637;&#21517;&#26102;&#21363;: &#34;/user/1&#34; &#26102;&#30340;&#40664;&#35748;&#23637;&#29616;&#24418;&#24335; --&#62;&#10;        &#60;property name=&#34;defaultContentType&#34; value=&#34;text/html&#34;/&#62;&#10;&#60;!-- &#25193;&#23637;&#21517;&#33267;mimeType&#30340;&#26144;&#23556;,&#21363; /user.json =&#62; application/json --&#62;&#10;        &#60;property name=&#34;mediaTypes&#34;&#62;&#10;            &#60;map&#62;&#10;                &#60;entry key=&#34;json&#34; value=&#34;application/json&#34; /&#62;&#10;                &#60;entry key=&#34;xml&#34; value=&#34;application/xml&#34; /&#62;&#10;            &#60;/map&#62;&#10;        &#60;/property&#62;&#10;    &#60;/bean&#62;</span><br></pre></td></tr></table></figure>
+<h4 id="u4F7F_u7528_u5B9E_u4F8B"><a href="#u4F7F_u7528_u5B9E_u4F8B" class="headerlink" title="使用实例"></a>使用实例</h4><ul>
+<li>Lock接口引入<code>tryLock()</code>方法获取锁，如果锁已经被其他线程获取，那就返回false，并继续往下执行代码(不是执行临界区代码，而且相当于事物回滚的机制)</li>
+<li>使用<code>lock()</code>方法获取对锁的控制，必须也用<code>unlock()</code>释放对锁的控制<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public void printJob(Object doc)&#123;&#10;        queueLock.lock();&#10;        try &#123;&#10;            long duration = (long) (Math.random()*10000);&#10;            System.out.println(Thread.currentThread().getName()+&#34; OrintQueue Printing a job during &#34;+(duration/1000)+&#34;second&#34;);&#10;            Thread.sleep(duration);&#10;        &#125; catch (InterruptedException e) &#123;&#10;            e.printStackTrace();&#10;        &#125;finally &#123;&#10;            queueLock.unlock();&#10;        &#125;&#10;    &#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<ol>
-<li>确定请求的媒体类型<ul>
-<li>ViewResolver首先查找URL中的文件扩展名，将文件扩展名与mediatype的条目匹配，如果找到匹配项，则使用该媒体类型，并覆盖accpt头信息中的任何媒体类型</li>
-<li>如果找不到URL中的扩展名，那么就使用Accept中的头信息的媒体类型</li>
-<li>如果请求头中不包含Accept头信息，那么就使用defaultContentType属性中设置的媒体类型</li>
-</ul>
+<h4 id="u4F7F_u7528_u8BFB_u5199_u9501_u5B9E_u73B0_u540C_u6B65_u6570_u636E_u7684_u8BBF_u95EE"><a href="#u4F7F_u7528_u8BFB_u5199_u9501_u5B9E_u73B0_u540C_u6B65_u6570_u636E_u7684_u8BBF_u95EE" class="headerlink" title="使用读写锁实现同步数据的访问"></a>使用读写锁实现同步数据的访问</h4><ul>
+<li><code>ReadWriteLock</code>接口和他的实现类<code>ReenteantReadWriteLock</code>。这两个类有两个锁，一个是读操作锁(可同时允许多个人访问)，一个是写操作锁(同一时段只能一个线程操作)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public double getPrice2()&#123;&#10;        lock.readLock().lock();&#10;        double value = price2;&#10;        lock.readLock().unlock();&#10;        return value;&#10;    &#125;&#10;&#10;    public void setPrice1(double price1,double price2)&#123;&#10;        lock.writeLock().lock();&#10;        this.price2=price2;&#10;        this.price1=price1;&#10;        lock.writeLock().unlock();&#10;    &#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>影响如何选择类型<ul>
-<li>将favorPathExtension属性设置为false，将会使得ContextNegotiatingViewResolver忽略URL路径扩展名</li>
-<li>将JAF添加到类路径下将会使得ContextNegotiatingViewResolver除了使用mediaTypes属性中的条目外，在路径扩展名确定媒体类型时还会借助JAF</li>
-<li>将favorParameter属性设置为true，并且请求中包含名为format参数，那么format参数的值将会mediatype属性来进行匹配，即使URL文件中没有文件扩展名也能匹配其中的媒体类型</li>
-<li>ignoreAcceptHeader属性设置为true，将会忽略Accept头信息</li>
 </ul>
-</li>
-<li>查找视图<ul>
-<li>ContextNegotiatingViewResolver循环所有保存的媒体类型，找到能与之匹配内容类型的视图，完成视图解析匹配</li>
-<li>如果ContextNegotiatingViewResolver没有找到合适的视图，那么它将返回null视图，或者如果useNotAcceptableStatusCode属性被设置为true，那么将返回带有http状态码406(Not Acceptable)的视图</li>
-</ul>
-</li>
-</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -194,7 +146,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Spring/">Spring</a>
+  <span></span> <a href="/tags/Java/">Java</a><a href="/tags/《Java-7并发编程实战手册》读书笔记/">《Java 7并发编程实战手册》读书笔记</a>
   </div>
 
 </div>
@@ -203,7 +155,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://royleo.xyz/2016/07/31/Spring中添加REST功能/" data-title="Spring中添加REST功能 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://royleo.xyz/2016/10/16/线程同步基础之使用锁实现同步/" data-title="线程同步基础之使用锁实现同步 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -216,19 +168,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/08/01/TCP建立链接三次握手协议原理与过程分析/" title="TCP通信三次握手协议原理与过程分析">
-  <strong>上一篇：</strong><br/>
-  <span>
-  TCP通信三次握手协议原理与过程分析</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/07/29/JSP九大内置对象以及四个作用域/"  title="JSP九大内置对象、四个作用域以及六大基本动作">
+<a href="/2016/10/14/线程同步基础之synchronized同步/"  title="线程同步基础之synchronized同步">
  <strong>下一篇：</strong><br/> 
- <span>JSP九大内置对象、四个作用域以及六大基本动作
+ <span>线程同步基础之synchronized同步
 </span>
 </a>
 </div>
@@ -237,7 +181,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/07/31/Spring中添加REST功能/" data-title="Spring中添加REST功能" data-url="http://royleo.xyz/2016/07/31/Spring中添加REST功能/"></div>
+	<div class="ds-thread" data-thread-key="2016/10/16/线程同步基础之使用锁实现同步/" data-title="线程同步基础之使用锁实现同步" data-url="http://royleo.xyz/2016/10/16/线程同步基础之使用锁实现同步/"></div>
 </section>
 
 
@@ -247,7 +191,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#REST_u57FA_u672C_u539F_u7406_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">REST基本原理：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spring_u5982_u4F55_u652F_u6301REST_uFF1F"><span class="toc-number">2.</span> <span class="toc-text">Spring如何支持REST？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RESTful_URL"><span class="toc-number">3.</span> <span class="toc-text">RESTful URL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6267_u884CREST_u52A8_u4F5C"><span class="toc-number">4.</span> <span class="toc-text">执行REST动作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u8868_u8FF0_u8D44_u6E90"><span class="toc-number">5.</span> <span class="toc-text">表述资源</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u7EBF_u7A0B_u540C_u6B65_u57FA_u7840_u4E4B_u4F7F_u7528_u9501_u5B9E_u73B0_u540C_u6B65"><span class="toc-number">1.</span> <span class="toc-text">线程同步基础之使用锁实现同步</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u6982_u8FF0"><span class="toc-number">1.0.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6B7B_u9501"><span class="toc-number">1.0.2.</span> <span class="toc-text">死锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528_u5B9E_u4F8B"><span class="toc-number">1.0.3.</span> <span class="toc-text">使用实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528_u8BFB_u5199_u9501_u5B9E_u73B0_u540C_u6B65_u6570_u636E_u7684_u8BBF_u95EE"><span class="toc-number">1.0.4.</span> <span class="toc-text">使用读写锁实现同步数据的访问</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
