@@ -12,16 +12,37 @@
     
 
     
-    <meta name="description" content="学习总结 思考感悟 知识管理">
+    <meta name="description" content="##关键字final与static总结
+####final
+
+概述：final有‘终态’，‘不可改变’之意，可以修饰非抽象类，非抽象成员方法和变量。但是有时候出于设计、效率和资源等方面的因素需要考虑阻止某些变量或者方法做出改变.
+final关键字主要用于修饰类，方法，变量或者参数上
+final类：
+被final修饰的类，不能被继承，其中的成员方法不能被覆盖，默认都是final.
+所以，在设计一个类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java关键字与总结">
 <meta property="og:url" content="http://royleo.xyz/2017/03/27/Java关键字'final'与'static'总结/index.html">
 <meta property="og:site_name" content="简单·踏实">
-<meta property="og:description" content="学习总结 思考感悟 知识管理">
-<meta property="og:updated_time" content="2017-03-27T13:30:13.089Z">
+<meta property="og:description" content="##关键字final与static总结
+####final
+
+概述：final有‘终态’，‘不可改变’之意，可以修饰非抽象类，非抽象成员方法和变量。但是有时候出于设计、效率和资源等方面的因素需要考虑阻止某些变量或者方法做出改变.
+final关键字主要用于修饰类，方法，变量或者参数上
+final类：
+被final修饰的类，不能被继承，其中的成员方法不能被覆盖，默认都是final.
+所以，在设计一个类">
+<meta property="og:updated_time" content="2017-03-27T13:34:12.720Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java关键字与总结">
-<meta name="twitter:description" content="学习总结 思考感悟 知识管理">
+<meta name="twitter:description" content="##关键字final与static总结
+####final
+
+概述：final有‘终态’，‘不可改变’之意，可以修饰非抽象类，非抽象成员方法和变量。但是有时候出于设计、效率和资源等方面的因素需要考虑阻止某些变量或者方法做出改变.
+final关键字主要用于修饰类，方法，变量或者参数上
+final类：
+被final修饰的类，不能被继承，其中的成员方法不能被覆盖，默认都是final.
+所以，在设计一个类">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -98,15 +119,77 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#static"><span class="toc-number">1.</span> <span class="toc-text">static</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#final_u4E0Estatic_u914D_u5408_u4F7F_u7528"><span class="toc-number">2.</span> <span class="toc-text">final与static配合使用</span></a></li></ol>
 		
 		</div>
 		
-		  
+		<p>##关键字<code>final</code>与<code>static</code>总结</p>
+<p>####<code>final</code></p>
+<ul>
+<li>概述：<code>final</code>有‘终态’，‘不可改变’之意，可以修饰非抽象类，非抽象成员方法和变量。但是有时候出于设计、效率和资源等方面的因素需要考虑阻止某些变量或者方法做出改变.</li>
+<li><code>final</code>关键字主要用于修饰类，方法，变量或者参数上<ol>
+<li><code>final</code>类：<ol>
+<li>被<code>final</code>修饰的类，不能被继承，其中的成员方法不能被覆盖，默认都是<code>final</code>.</li>
+<li>所以，在设计一个类的时候，如果该类在后来不会再进行扩展，那可以使用<code>final</code>关键字来定义</li>
+</ol>
+</li>
+<li><code>final</code>方法<ol>
+<li>能把方法锁定，防止任何继承类修改它的意义和实现</li>
+<li>高效，编译器遇到调用<code>final</code>方法的时候会将其直接转入内嵌机制，提高执行效率</li>
+</ol>
+</li>
+<li><code>final</code>参数：当<code>final</code>修饰函数的参数的时候，被修饰的参数可以被读取使用，但是不能改变参数的值</li>
+<li><code>final</code>变量(常量)<ol>
+<li>用<code>final</code>修饰的变量标识常量，一旦复制，就无法改变</li>
+<li>在定义<code>final</code>变量的时候，什么的时候可以不赋值，但是在<code>final</code>变量被使用之前，必须要为其赋值才能被使用<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class Test3 &#123; &#10;        private final String S = &#34;final&#23454;&#20363;&#21464;&#37327;S&#34;; &#10;        private final int A = 100; &#10;        public final int B = 90; &#10;        public static final int C = 80; &#10;        private static final int D = 70; &#10;        public final int E; //final&#31354;&#30333;,&#24517;&#39035;&#22312;&#21021;&#22987;&#21270;&#23545;&#35937;&#30340;&#26102;&#20505;&#36171;&#21021;&#20540; &#10;        public Test3(int x) &#123; &#10;                E = x; &#10;        &#125; &#10;        public static void main(String[] args) &#123; &#10;                Test3 t = new Test3(2); &#10;                //t.A=101;    //&#20986;&#38169;,final&#21464;&#37327;&#30340;&#20540;&#19968;&#26086;&#32473;&#23450;&#23601;&#26080;&#27861;&#25913;&#21464; &#10;                //t.B=91; //&#20986;&#38169;,final&#21464;&#37327;&#30340;&#20540;&#19968;&#26086;&#32473;&#23450;&#23601;&#26080;&#27861;&#25913;&#21464; &#10;                //t.C=81; //&#20986;&#38169;,final&#21464;&#37327;&#30340;&#20540;&#19968;&#26086;&#32473;&#23450;&#23601;&#26080;&#27861;&#25913;&#21464; &#10;                //t.D=71; //&#20986;&#38169;,final&#21464;&#37327;&#30340;&#20540;&#19968;&#26086;&#32473;&#23450;&#23601;&#26080;&#27861;&#25913;&#21464; &#10;                System.out.println(t.A); &#10;                System.out.println(t.B); &#10;                System.out.println(t.C); //&#19981;&#25512;&#33616;&#29992;&#23545;&#35937;&#26041;&#24335;&#35775;&#38382;&#38745;&#24577;&#23383;&#27573; &#10;                System.out.println(t.D); //&#19981;&#25512;&#33616;&#29992;&#23545;&#35937;&#26041;&#24335;&#35775;&#38382;&#38745;&#24577;&#23383;&#27573; &#10;                System.out.println(Test3.C); &#10;                System.out.println(Test3.D); &#10;                //System.out.println(Test3.E); //&#20986;&#38169;,&#22240;&#20026;E&#20026;final&#31354;&#30333;,&#20381;&#25454;&#19981;&#21516;&#23545;&#35937;&#20540;&#26377;&#25152;&#19981;&#21516;. &#10;                System.out.println(t.E); &#10;                Test3 t1 = new Test3(3); &#10;                System.out.println(t1.E); //final&#31354;&#30333;&#21464;&#37327;E&#20381;&#25454;&#23545;&#35937;&#30340;&#19981;&#21516;&#32780;&#19981;&#21516; &#10;        &#125; &#10;        private void test() &#123; &#10;                System.out.println(new Test3(1).A); &#10;                System.out.println(Test3.C); &#10;                System.out.println(Test3.D); &#10;        &#125; &#10;        public void test2() &#123; &#10;                final int a;     //final&#31354;&#30333;,&#22312;&#38656;&#35201;&#30340;&#26102;&#20505;&#25165;&#36171;&#20540; &#10;                final int b = 4;    //&#23616;&#37096;&#24120;&#37327;--final&#29992;&#20110;&#23616;&#37096;&#21464;&#37327;&#30340;&#24773;&#24418; &#10;                final int c;    //final&#31354;&#30333;,&#19968;&#30452;&#27809;&#26377;&#32473;&#36171;&#20540;.    &#10;                a = 3; &#10;                //a=4;    &#20986;&#38169;,&#24050;&#32463;&#32473;&#36171;&#36807;&#20540;&#20102;. &#10;                //b=2; &#20986;&#38169;,&#24050;&#32463;&#32473;&#36171;&#36807;&#20540;&#20102;. &#10;        &#125; &#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="static"><a href="#static" class="headerlink" title="static"></a><code>static</code></h4><ul>
+<li>概述：<code>static</code>表示“全局”或者“静态”的意思，用来修饰成员变量和成员方法，也可以形成静态<code>static</code>代码块，但是Java语言中没有全局变量的概念<ul>
+<li>被static修饰的成员变量和成员方法独立于该类的任何对象。也就是说，它不依赖类特定的实例，被类的所有实例共享。只要这个类被加载，Java虚拟机就能根据类名在运行时数据区的方法区内定找到他们。因此，static对象可以在它的任何对象创建之前访问，无需引用任何对象</li>
+<li>用public修饰的static成员变量和成员方法本质是全局变量和全局方法，当声明它类的对象市，不生成static变量的副本，而是类的所有实例共享同一个static变量</li>
+</ul>
+</li>
+<li><code>static</code>主要用于修饰静态内部类，静态变量，静态方法，静态代码块<ol>
+<li>静态内部类：它不能访问外部类的非静态成员</li>
+<li><code>static</code>变量：<ol>
+<li>变量分类：根据是否被<code>static</code>修饰，可将变量分类：静态变量和实例变量<ol>
+<li>静态变量：在内存中只有一个拷贝，JVM只为其分配一次内存，在加载类的过程中完成静态变量的内存分配，可用类名直接访问，也可以通过实例对象访问(不推荐了)</li>
+<li>实例变量：每创建一个实例，就会为实例变量分配一次内存，而且可以在内存中存在多个实例变量，互不影响</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><code>static</code>方法<ol>
+<li>静态方法可以直接通过类名调用，任何的实例也都可以调用，因此静态方法中不能用this和super关键字，不能直接访问所属类的实例变量和实例方法(就是不带static的成员变量和成员成员方法)，只能访问所属类的静态成员变量和成员方法。因为实例成员与特定的对象关联！</li>
+</ol>
+</li>
+<li><code>static</code>代码块<ol>
+<li>用static修饰的代码块表示静态代码块，当Java虚拟机（JVM）加载类时，就会执行该代码块</li>
+<li>如果static代码块有多个，JVM将按照它们在类中出现的先后顺序依次执行它们，每个代码块只会被执行一次</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="final_u4E0Estatic_u914D_u5408_u4F7F_u7528"><a href="#final_u4E0Estatic_u914D_u5408_u4F7F_u7528" class="headerlink" title="final与static配合使用"></a><code>final</code>与<code>static</code>配合使用</h4><ul>
+<li>用<code>final</code>与<code>static</code>修饰的方法和变量具有<code>final</code>和<code>static</code>并集的效果，也可以理解为’全局变量’</li>
+<li>被<code>final</code>与<code>static</code>修饰的变量，实例化之后不能再改变，但是对于容器类(ArrayList、HashMap)的实例变量，不可以改变容器变量的本身，但是容器中的对象可以修改。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class TestStaticFinal &#123; &#10;        private static final String strStaticFinalVar = &#34;aaa&#34;; &#10;        private static String strStaticVar = null; &#10;        private final String strFinalVar = null; &#10;        private static final int intStaticFinalVar = 0; &#10;        private static final Integer integerStaticFinalVar = new Integer(8); &#10;        private static final ArrayList&#60;String&#62; alStaticFinalVar = new ArrayList&#60;String&#62;(); &#10;        private void test() &#123; &#10;                System.out.println(&#34;-------------&#20540;&#22788;&#29702;&#21069;----------\r\n&#34;); &#10;                System.out.println(&#34;strStaticFinalVar=&#34; + strStaticFinalVar + &#34;\r\n&#34;); &#10;                System.out.println(&#34;strStaticVar=&#34; + strStaticVar + &#34;\r\n&#34;); &#10;                System.out.println(&#34;strFinalVar=&#34; + strFinalVar + &#34;\r\n&#34;); &#10;                System.out.println(&#34;intStaticFinalVar=&#34; + intStaticFinalVar + &#34;\r\n&#34;); &#10;                System.out.println(&#34;integerStaticFinalVar=&#34; + integerStaticFinalVar + &#34;\r\n&#34;); &#10;                System.out.println(&#34;alStaticFinalVar=&#34; + alStaticFinalVar + &#34;\r\n&#34;); &#10;                //strStaticFinalVar=&#34;&#19981;&#21487;&#25913;&#21464;&#34;;        //&#38169;&#35823;&#65292;final&#34920;&#31034;&#32456;&#24577;,&#19981;&#21487;&#20197;&#25913;&#21464;&#21464;&#37327;&#26412;&#36523;. &#10;                strStaticVar = &#34;&#21487;&#25913;&#21464;&#34;;                //&#27491;&#30830;&#65292;static&#34920;&#31034;&#31867;&#21464;&#37327;,&#20540;&#21487;&#20197;&#25913;&#21464;. &#10;                //strFinalVar=&#34;&#19981;&#21487;&#25913;&#21464;&#34;;                    //&#38169;&#35823;, final&#34920;&#31034;&#32456;&#24577;&#65292;&#22312;&#23450;&#20041;&#30340;&#26102;&#20505;&#23601;&#35201;&#21021;&#20540;&#65288;&#21738;&#24597;&#32473;&#20010;null&#65289;&#65292;&#19968;&#26086;&#32473;&#23450;&#21518;&#23601;&#19981;&#21487;&#20877;&#26356;&#25913;&#12290; &#10;                //intStaticFinalVar=2;                        //&#38169;&#35823;, final&#34920;&#31034;&#32456;&#24577;&#65292;&#22312;&#23450;&#20041;&#30340;&#26102;&#20505;&#23601;&#35201;&#21021;&#20540;&#65288;&#21738;&#24597;&#32473;&#20010;null&#65289;&#65292;&#19968;&#26086;&#32473;&#23450;&#21518;&#23601;&#19981;&#21487;&#20877;&#26356;&#25913;&#12290; &#10;                //integerStaticFinalVar=new Integer(8);            //&#38169;&#35823;, final&#34920;&#31034;&#32456;&#24577;&#65292;&#22312;&#23450;&#20041;&#30340;&#26102;&#20505;&#23601;&#35201;&#21021;&#20540;&#65288;&#21738;&#24597;&#32473;&#20010;null&#65289;&#65292;&#19968;&#26086;&#32473;&#23450;&#21518;&#23601;&#19981;&#21487;&#20877;&#26356;&#25913;&#12290; &#10;                alStaticFinalVar.add(&#34;aaa&#34;);        //&#27491;&#30830;&#65292;&#23481;&#22120;&#21464;&#37327;&#26412;&#36523;&#27809;&#26377;&#21464;&#21270;&#65292;&#20294;&#23384;&#25918;&#20869;&#23481;&#21457;&#29983;&#20102;&#21464;&#21270;&#12290;&#36825;&#20010;&#35268;&#21017;&#26159;&#38750;&#24120;&#24120;&#29992;&#30340;&#65292;&#26377;&#24456;&#22810;&#29992;&#36884;&#12290; &#10;                alStaticFinalVar.add(&#34;bbb&#34;);        //&#27491;&#30830;&#65292;&#23481;&#22120;&#21464;&#37327;&#26412;&#36523;&#27809;&#26377;&#21464;&#21270;&#65292;&#20294;&#23384;&#25918;&#20869;&#23481;&#21457;&#29983;&#20102;&#21464;&#21270;&#12290;&#36825;&#20010;&#35268;&#21017;&#26159;&#38750;&#24120;&#24120;&#29992;&#30340;&#65292;&#26377;&#24456;&#22810;&#29992;&#36884;&#12290; &#10;                System.out.println(&#34;-------------&#20540;&#22788;&#29702;&#21518;----------\r\n&#34;); &#10;                System.out.println(&#34;strStaticFinalVar=&#34; + strStaticFinalVar + &#34;\r\n&#34;); &#10;                System.out.println(&#34;strStaticVar=&#34; + strStaticVar + &#34;\r\n&#34;); &#10;                System.out.println(&#34;strFinalVar=&#34; + strFinalVar + &#34;\r\n&#34;); &#10;                System.out.println(&#34;intStaticFinalVar=&#34; + intStaticFinalVar + &#34;\r\n&#34;); &#10;                System.out.println(&#34;integerStaticFinalVar=&#34; + integerStaticFinalVar + &#34;\r\n&#34;); &#10;                System.out.println(&#34;alStaticFinalVar=&#34; + alStaticFinalVar + &#34;\r\n&#34;); &#10;        &#125; &#10;        public static void main(String args[]) &#123; &#10;                new TestStaticFinal().test(); &#10;        &#125; &#10;&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a>
+  </div>
 
 </div>
 
@@ -127,14 +210,6 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/03/27/Java关键字与总结/" title="Java关键字与总结">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Java关键字与总结</span>
-</a>
-</div>
-
 
 <div class="next">
 <a href="/2016/10/16/线程同步基础之使用锁实现同步/"  title="线程同步基础之使用锁实现同步">
@@ -158,7 +233,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#static"><span class="toc-number">1.</span> <span class="toc-text">static</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#final_u4E0Estatic_u914D_u5408_u4F7F_u7528"><span class="toc-number">2.</span> <span class="toc-text">final与static配合使用</span></a></li></ol>
  
   </div>
 
