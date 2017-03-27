@@ -5,44 +5,23 @@
   <meta charset="UTF-8">
   
   
-    <title>线程同步基础之使用锁实现同步 | 简单·踏实</title>
+    <title>Java关键字与总结 | 简单·踏实</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Roy Leong">
     
 
     
-    <meta name="description" content="线程同步基础之使用锁实现同步概述
-使用锁实现同步是通过重写Lock接口来实现，与synchronized相比，Lock接口允许实现更复杂的临界区结构(控制的获取和释放不在同一个块结构中)
-
-死锁
-定义：当两个或者多个线程被阻塞并且他们等待释放的锁永远都不会是释放，就会发生死锁
-
-使用实例
-Lock接口引入tryLock()方法获取锁，如果锁已经被其他线程获取，那就返回false，并继续往下执行代码">
+    <meta name="description" content="学习总结 思考感悟 知识管理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线程同步基础之使用锁实现同步">
-<meta property="og:url" content="http://royleo.xyz/2016/10/16/线程同步基础之使用锁实现同步/index.html">
+<meta property="og:title" content="Java关键字与总结">
+<meta property="og:url" content="http://royleo.xyz/2017/03/27/Java关键字'final'与'static'总结/index.html">
 <meta property="og:site_name" content="简单·踏实">
-<meta property="og:description" content="线程同步基础之使用锁实现同步概述
-使用锁实现同步是通过重写Lock接口来实现，与synchronized相比，Lock接口允许实现更复杂的临界区结构(控制的获取和释放不在同一个块结构中)
-
-死锁
-定义：当两个或者多个线程被阻塞并且他们等待释放的锁永远都不会是释放，就会发生死锁
-
-使用实例
-Lock接口引入tryLock()方法获取锁，如果锁已经被其他线程获取，那就返回false，并继续往下执行代码">
-<meta property="og:updated_time" content="2016-10-16T14:39:51.614Z">
+<meta property="og:description" content="学习总结 思考感悟 知识管理">
+<meta property="og:updated_time" content="2017-03-27T13:30:13.089Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="线程同步基础之使用锁实现同步">
-<meta name="twitter:description" content="线程同步基础之使用锁实现同步概述
-使用锁实现同步是通过重写Lock接口来实现，与synchronized相比，Lock接口允许实现更复杂的临界区结构(控制的获取和释放不在同一个块结构中)
-
-死锁
-定义：当两个或者多个线程被阻塞并且他们等待释放的锁永远都不会是释放，就会发生死锁
-
-使用实例
-Lock接口引入tryLock()方法获取锁，如果锁已经被其他线程获取，那就返回false，并继续往下执行代码">
+<meta name="twitter:title" content="Java关键字与总结">
+<meta name="twitter:description" content="学习总结 思考感悟 知识管理">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -103,14 +82,14 @@ Lock接口引入tryLock()方法获取锁，如果锁已经被其他线程获取�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/10/16/线程同步基础之使用锁实现同步/" title="线程同步基础之使用锁实现同步" itemprop="url">线程同步基础之使用锁实现同步</a>
+      <a href="/2017/03/27/Java关键字'final'与'static'总结/" title="Java关键字与总结" itemprop="url">Java关键字与总结</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2016-10-16T14:38:51.000Z" itemprop="datePublished"> 发表于 2016-10-16</time>
+    <time datetime="2017-03-27T13:30:12.000Z" itemprop="datePublished"> 发表于 2017-03-27</time>
     
   </p>
 </header>
@@ -119,35 +98,15 @@ Lock接口引入tryLock()方法获取锁，如果锁已经被其他线程获取�
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u7EBF_u7A0B_u540C_u6B65_u57FA_u7840_u4E4B_u4F7F_u7528_u9501_u5B9E_u73B0_u540C_u6B65"><span class="toc-number">1.</span> <span class="toc-text">线程同步基础之使用锁实现同步</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u6982_u8FF0"><span class="toc-number">1.0.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6B7B_u9501"><span class="toc-number">1.0.2.</span> <span class="toc-text">死锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528_u5B9E_u4F8B"><span class="toc-number">1.0.3.</span> <span class="toc-text">使用实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528_u8BFB_u5199_u9501_u5B9E_u73B0_u540C_u6B65_u6570_u636E_u7684_u8BBF_u95EE"><span class="toc-number">1.0.4.</span> <span class="toc-text">使用读写锁实现同步数据的访问</span></a></li></ol></li></ol></li></ol>
+			
 		
 		</div>
 		
-		<h2 id="u7EBF_u7A0B_u540C_u6B65_u57FA_u7840_u4E4B_u4F7F_u7528_u9501_u5B9E_u73B0_u540C_u6B65"><a href="#u7EBF_u7A0B_u540C_u6B65_u57FA_u7840_u4E4B_u4F7F_u7528_u9501_u5B9E_u73B0_u540C_u6B65" class="headerlink" title="线程同步基础之使用锁实现同步"></a>线程同步基础之使用锁实现同步</h2><h4 id="u6982_u8FF0"><a href="#u6982_u8FF0" class="headerlink" title="概述"></a>概述</h4><ul>
-<li>使用锁实现同步是通过重写Lock接口来实现，与synchronized相比，Lock接口允许实现更复杂的临界区结构(控制的获取和释放不在同一个块结构中)</li>
-</ul>
-<h4 id="u6B7B_u9501"><a href="#u6B7B_u9501" class="headerlink" title="死锁"></a>死锁</h4><ul>
-<li>定义：当两个或者多个线程被阻塞并且他们等待释放的锁永远都不会是释放，就会发生死锁</li>
-</ul>
-<h4 id="u4F7F_u7528_u5B9E_u4F8B"><a href="#u4F7F_u7528_u5B9E_u4F8B" class="headerlink" title="使用实例"></a>使用实例</h4><ul>
-<li>Lock接口引入<code>tryLock()</code>方法获取锁，如果锁已经被其他线程获取，那就返回false，并继续往下执行代码(不是执行临界区代码，而且相当于事物回滚的机制)</li>
-<li>使用<code>lock()</code>方法获取对锁的控制，必须也用<code>unlock()</code>释放对锁的控制<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public void printJob(Object doc)&#123;&#10;        queueLock.lock();&#10;        try &#123;&#10;            long duration = (long) (Math.random()*10000);&#10;            System.out.println(Thread.currentThread().getName()+&#34; OrintQueue Printing a job during &#34;+(duration/1000)+&#34;second&#34;);&#10;            Thread.sleep(duration);&#10;        &#125; catch (InterruptedException e) &#123;&#10;            e.printStackTrace();&#10;        &#125;finally &#123;&#10;            queueLock.unlock();&#10;        &#125;&#10;    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="u4F7F_u7528_u8BFB_u5199_u9501_u5B9E_u73B0_u540C_u6B65_u6570_u636E_u7684_u8BBF_u95EE"><a href="#u4F7F_u7528_u8BFB_u5199_u9501_u5B9E_u73B0_u540C_u6B65_u6570_u636E_u7684_u8BBF_u95EE" class="headerlink" title="使用读写锁实现同步数据的访问"></a>使用读写锁实现同步数据的访问</h4><ul>
-<li><code>ReadWriteLock</code>接口和他的实现类<code>ReenteantReadWriteLock</code>。这两个类有两个锁，一个是读操作锁(可同时允许多个人访问)，一个是写操作锁(同一时段只能一个线程操作)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public double getPrice2()&#123;&#10;        lock.readLock().lock();&#10;        double value = price2;&#10;        lock.readLock().unlock();&#10;        return value;&#10;    &#125;&#10;&#10;    public void setPrice1(double price1,double price2)&#123;&#10;        lock.writeLock().lock();&#10;        this.price2=price2;&#10;        this.price1=price1;&#10;        lock.writeLock().unlock();&#10;    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-  
+		  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Java/">Java</a><a href="/tags/《Java-7并发编程实战手册》读书笔记/">《Java 7并发编程实战手册》读书笔记</a>
-  </div>
 
 </div>
 
@@ -155,7 +114,7 @@ Lock接口引入tryLock()方法获取锁，如果锁已经被其他线程获取�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://royleo.xyz/2016/10/16/线程同步基础之使用锁实现同步/" data-title="线程同步基础之使用锁实现同步 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://royleo.xyz/2017/03/27/Java关键字'final'与'static'总结/" data-title="Java关键字与总结 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -169,18 +128,18 @@ Lock接口引入tryLock()方法获取锁，如果锁已经被其他线程获取�
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/03/27/Java关键字'final'与'static'总结/" title="Java关键字与总结">
+ <a href="/2017/03/27/Java关键字与总结/" title="">
   <strong>上一篇：</strong><br/>
   <span>
-  Java关键字与总结</span>
+  (no title)</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2016/10/14/线程同步基础之synchronized同步/"  title="线程同步基础之synchronized同步">
+<a href="/2016/10/16/线程同步基础之使用锁实现同步/"  title="线程同步基础之使用锁实现同步">
  <strong>下一篇：</strong><br/> 
- <span>线程同步基础之synchronized同步
+ <span>线程同步基础之使用锁实现同步
 </span>
 </a>
 </div>
@@ -189,7 +148,7 @@ Lock接口引入tryLock()方法获取锁，如果锁已经被其他线程获取�
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/10/16/线程同步基础之使用锁实现同步/" data-title="线程同步基础之使用锁实现同步" data-url="http://royleo.xyz/2016/10/16/线程同步基础之使用锁实现同步/"></div>
+	<div class="ds-thread" data-thread-key="2017/03/27/Java关键字'final'与'static'总结/" data-title="Java关键字与总结" data-url="http://royleo.xyz/2017/03/27/Java关键字'final'与'static'总结/"></div>
 </section>
 
 
@@ -199,7 +158,7 @@ Lock接口引入tryLock()方法获取锁，如果锁已经被其他线程获取�
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u7EBF_u7A0B_u540C_u6B65_u57FA_u7840_u4E4B_u4F7F_u7528_u9501_u5B9E_u73B0_u540C_u6B65"><span class="toc-number">1.</span> <span class="toc-text">线程同步基础之使用锁实现同步</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u6982_u8FF0"><span class="toc-number">1.0.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6B7B_u9501"><span class="toc-number">1.0.2.</span> <span class="toc-text">死锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528_u5B9E_u4F8B"><span class="toc-number">1.0.3.</span> <span class="toc-text">使用实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528_u8BFB_u5199_u9501_u5B9E_u73B0_u540C_u6B65_u6570_u636E_u7684_u8BBF_u95EE"><span class="toc-number">1.0.4.</span> <span class="toc-text">使用读写锁实现同步数据的访问</span></a></li></ol></li></ol></li></ol>
+ 
  
   </div>
 
