@@ -1,0 +1,619 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  
+    <title>Mybatis延迟加载 | 简单·踏实</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Roy Leong">
+    
+
+    
+    <meta name="description" content="Mybatis延迟加载概述：
+resultMap可以实现高级映射（使用association、collection实现一对一及一对多映射），association、collection具备延迟加载功能
+先从单表查询、需要时再从关联表去关联查询，大大提高数据库性能，因为查询单表要比关联查询多张表速度要快
+
+延迟加载配置
+mybatis默认没有开启延迟加载，需要在SqlMapConfig.xml中se">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mybatis延迟加载">
+<meta property="og:url" content="http://royleo.xyz/2017/02/02/Mybatis延迟加载/index.html">
+<meta property="og:site_name" content="简单·踏实">
+<meta property="og:description" content="Mybatis延迟加载概述：
+resultMap可以实现高级映射（使用association、collection实现一对一及一对多映射），association、collection具备延迟加载功能
+先从单表查询、需要时再从关联表去关联查询，大大提高数据库性能，因为查询单表要比关联查询多张表速度要快
+
+延迟加载配置
+mybatis默认没有开启延迟加载，需要在SqlMapConfig.xml中se">
+<meta property="og:updated_time" content="2017-05-01T23:19:39.273Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mybatis延迟加载">
+<meta name="twitter:description" content="Mybatis延迟加载概述：
+resultMap可以实现高级映射（使用association、collection实现一对一及一对多映射），association、collection具备延迟加载功能
+先从单表查询、需要时再从关联表去关联查询，大大提高数据库性能，因为查询单表要比关联查询多张表速度要快
+
+延迟加载配置
+mybatis默认没有开启延迟加载，需要在SqlMapConfig.xml中se">
+<link rel="publisher" href="+RoyLeong">
+
+    
+    <link rel="alternative" href="/atom.xml" title="简单·踏实" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="简单·踏实" title="简单·踏实"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="简单·踏实">简单·踏实</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:royleo.xyz">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/02/02/Mybatis延迟加载/" title="Mybatis延迟加载" itemprop="url">Mybatis延迟加载</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2017-02-02T14:16:27.000Z" itemprop="datePublished"> 发表于 2017-02-02</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Mybatis_u5EF6_u8FDF_u52A0_u8F7D"><span class="toc-number">1.</span> <span class="toc-text">Mybatis延迟加载</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u6982_u8FF0_uFF1A"><span class="toc-number">1.0.1.</span> <span class="toc-text">概述：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5EF6_u8FDF_u52A0_u8F7D_u914D_u7F6E"><span class="toc-number">1.0.2.</span> <span class="toc-text">延迟加载配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u60C5_u666F_u8BBE_u5B9A"><span class="toc-number">1.0.3.</span> <span class="toc-text">情景设定</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="Mybatis_u5EF6_u8FDF_u52A0_u8F7D"><a href="#Mybatis_u5EF6_u8FDF_u52A0_u8F7D" class="headerlink" title="Mybatis延迟加载"></a>Mybatis延迟加载</h2><h4 id="u6982_u8FF0_uFF1A"><a href="#u6982_u8FF0_uFF1A" class="headerlink" title="概述："></a>概述：</h4><ul>
+<li>resultMap可以实现高级映射（使用association、collection实现一对一及一对多映射），association、collection具备延迟加载功能</li>
+<li>先从单表查询、需要时再从关联表去关联查询，大大提高数据库性能，因为查询单表要比关联查询多张表速度要快</li>
+</ul>
+<h4 id="u5EF6_u8FDF_u52A0_u8F7D_u914D_u7F6E"><a href="#u5EF6_u8FDF_u52A0_u8F7D_u914D_u7F6E" class="headerlink" title="延迟加载配置"></a>延迟加载配置</h4><ul>
+<li>mybatis默认没有开启延迟加载，需要在SqlMapConfig.xml中setting配置</li>
+<li>在mybatis核心配置文件中配置：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>设置项</th>
+<th>描述</th>
+<th>允许值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lazyLoadingEnabled</code></td>
+<td>全局性设置懒加载</td>
+<td><code>true</code>or<code>false</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>aggressiveLazyLoading</code></td>
+<td>当设置为<code>true</code>时，懒加载的对象可能会被人任何懒加载属性全部加载,否则每个属性都按需加载</td>
+<td><code>true</code>or<code>false</code></td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>在配置文件中配置:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;!--&#20840;&#23616;&#37197;&#32622;&#21442;&#25968;&#65292;&#38656;&#35201;&#26102;&#20877;&#37197;&#32622;--&#62;&#10;&#60;settings&#62;&#10;    &#60;!--&#25171;&#24320;&#24310;&#36831;&#21152;&#36733;&#30340;&#24320;&#20851;--&#62;&#10;    &#60;setting name=&#34;lazyLoadingEnabled&#34; value=&#34;true&#34;/&#62;&#10;    &#60;!--&#23558;&#31215;&#26497;&#21152;&#36733;&#25913;&#20026;&#28040;&#26497;&#21152;&#36733;&#21363;&#25353;&#38656;&#35201;&#21152;&#36733;--&#62;&#10;    &#60;setting name=&#34;aggressiveLazyLoading&#34; value=&#34;false&#34;/&#62;&#10;&#60;/settings&#62;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="u60C5_u666F_u8BBE_u5B9A"><a href="#u60C5_u666F_u8BBE_u5B9A" class="headerlink" title="情景设定"></a>情景设定</h4><ul>
+<li>如果查询订单并且关联查询用户信息。如果先查询订单信息即可满足要求，当我们需要查询用户信息时再查询用户信息。把对用户信息的按需去查询就是延迟加载</li>
+<li><p>定义两个Mapper的方法对应的statement</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;select id=&#39;findOrderUserLazyLoading&#39; resultMap=&#39;OrdersUserLazyLoadingResultMap&#39;&#62;&#10;    select * from orders;&#10;&#60;/select&#62;&#10;&#10;&#60;select id=&#39;findUserById&#39; parameterType=&#39;int&#39; resultMap=&#39;User&#39;&#62;&#10;    select * from user where id = #&#123;value&#125;;&#10;&#60;/select&#62;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过resultMap的定义将延迟加载执行配置起来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;!-- &#24310;&#36831;&#21152;&#36733;&#30340;resultMap --&#62;&#10;&#60;resultMap type=&#34;cn.itcast.mybatis.po.Orders&#34; id=&#34;OrdersUserLazyLoadingResultMap&#34;&#62;&#10;&#60;!--&#23545;&#35746;&#21333;&#20449;&#24687;&#36827;&#34892;&#26144;&#23556;&#37197;&#32622; --&#62;&#10;&#60;id column=&#34;id&#34; property=&#34;id&#34;/&#62;&#10;&#60;result column=&#34;user_id&#34; property=&#34;userId&#34;/&#62;&#10;&#60;result column=&#34;number&#34; property=&#34;number&#34;/&#62;&#10;&#60;result column=&#34;createtime&#34; property=&#34;createtime&#34;/&#62;&#10;&#60;result column=&#34;note&#34; property=&#34;note&#34;/&#62;&#10;&#60;!-- &#23454;&#29616;&#23545;&#29992;&#25143;&#20449;&#24687;&#36827;&#34892;&#24310;&#36831;&#21152;&#36733;&#10;SELECT orders.*,&#10;(SELECT username FROM USER WHERE orders.user_id = user.id)username,&#10;(SELECT sex FROM USER WHERE orders.user_id = user.id)sex&#10;FROM orders&#10;--&#62;&#10;&#60;association property=&#34;user&#34; javaType=&#34;xyz.royleo.User&#34;&#10;select=&#34;xyz.royleo.mapper.UserMapper.findUserById&#34; column=&#34;user_id&#34;&#62;&#10;&#60;!-- &#23454;&#29616;&#23545;&#29992;&#25143;&#20449;&#24687;&#36827;&#34892;&#24310;&#36831;&#21152;&#36733; --&#62;&#10;&#60;/association&#62;&#10;&#60;/resultMap&#62;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试思路</p>
+</li>
+</ul>
+<ol>
+<li>执行上边mapper方法()findOrdersUserLazyLoading),内部去调用cn.itcast.mybatis.mapper.OrdersMapperCustom中的findOrdersUserLazyLoading只查询orders信息(单表)</li>
+<li>在程序中去遍历上一步骤查询出的List<orders>，当我们调用Orders中的getUser方法时，开始进行延迟加载</orders></li>
+<li>延迟加载，去调用UserMapper.xml中findUserbyId这个方法获取用户信息</li>
+</ol>
+<ul>
+<li>如果不使用延迟加载呢？<ul>
+<li>不使用mybatis提供的association及collection中的延迟加载功能，如何实现延迟加载？</li>
+<li>方法如下：<ul>
+<li>定义两个mapper方法</li>
+</ul>
+<ol>
+<li>查询订单列表</li>
+<li>根据id查询用户信息</li>
+</ol>
+<ul>
+<li>实现思路：<ul>
+<li>先去查询第一个mapper方法，获取订单列表</li>
+<li>在程序中（service），按需去调用第二个mapper方法去查询用户信息</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Mybatis/">Mybatis</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://royleo.xyz/2017/02/02/Mybatis延迟加载/" data-title="Mybatis延迟加载 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/03/12/spring-Bean学习Review/" title="spring Bean学习Review">
+  <strong>上一篇：</strong><br/>
+  <span>
+  spring Bean学习Review</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/01/04/Java关键字'final'与'static'总结/"  title="Java关键字与总结">
+ <strong>下一篇：</strong><br/> 
+ <span>Java关键字与总结
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/02/02/Mybatis延迟加载/" data-title="Mybatis延迟加载" data-url="http://royleo.xyz/2017/02/02/Mybatis延迟加载/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Mybatis_u5EF6_u8FDF_u52A0_u8F7D"><span class="toc-number">1.</span> <span class="toc-text">Mybatis延迟加载</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u6982_u8FF0_uFF1A"><span class="toc-number">1.0.1.</span> <span class="toc-text">概述：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5EF6_u8FDF_u52A0_u8F7D_u914D_u7F6E"><span class="toc-number">1.0.2.</span> <span class="toc-text">延迟加载配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u60C5_u666F_u8BBE_u5B9A"><span class="toc-number">1.0.3.</span> <span class="toc-text">情景设定</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="liangqian" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态代理/" title="动态代理">动态代理<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Spring/" title="Spring">Spring<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web/" title="Web">Web<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/《Java-7并发编程实战手册》读书笔记/" title="《Java 7并发编程实战手册》读书笔记">《Java 7并发编程实战手册》读书笔记<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hibernate/" title="Hibernate">Hibernate<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mybatis/" title="Mybatis">Mybatis<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NetWorker/" title="NetWorker">NetWorker<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/小技巧/" title="小技巧">小技巧<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/小笔记/" title="小笔记">小笔记<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Git/" title="Git">Git<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=5357792662&verifier=747e40f9&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 大音希声，重剑无锋 <br/>
+			In solitude, be a multitude to yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/5357792662" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/liangqian" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		<a href="https://www.facebook.com/roy.leong.589" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		<a href="https://plus.google.com/+RoyLeong?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:liangqian0723@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="Roy Leong">Roy Leong</a>
+		
+		
+		</p>
+
+		
+</div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"liangqian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-83701409-1', 'http://www.royleo.xyz');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
