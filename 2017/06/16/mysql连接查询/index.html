@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://7xqvf0.com1.z0.glb.clouddn.com/l.png">
 <meta property="og:image" content="http://7xqvf0.com1.z0.glb.clouddn.com/r.png">
 <meta property="og:image" content="http://7xqvf0.com1.z0.glb.clouddn.com/i.png">
-<meta property="og:updated_time" content="2017-08-15T16:15:48.014Z">
+<meta property="og:updated_time" content="2017-08-15T16:18:15.018Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql连接查询">
 <meta name="twitter:description" content="关联连接查询在多表操作中，用处很多，也很好用，特别是很多关联表一起处理的时候，结构很清晰。">
@@ -101,7 +101,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FDE_u63A5_u7684_u5206_u7C7B_28_u529F_u80FD_u6027_u5206_u7C7B_29"><span class="toc-number">1.</span> <span class="toc-text">连接的分类(功能性分类)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8BED_u6CD5"><span class="toc-number">2.</span> <span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B9E_u4F8B"><span class="toc-number">3.</span> <span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#u6570_u636E_u51C6_u5907"><span class="toc-number">3.0.1.</span> <span class="toc-text">数据准备</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u67E5_u8BE2_u5B9E_u9A8C"><span class="toc-number">3.0.2.</span> <span class="toc-text">查询实验</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FDE_u63A5_u7684_u5206_u7C7B_28_u529F_u80FD_u6027_u5206_u7C7B_29"><span class="toc-number">1.</span> <span class="toc-text">连接的分类(功能性分类)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8BED_u6CD5"><span class="toc-number">2.</span> <span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B9E_u4F8B"><span class="toc-number">3.</span> <span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#u6570_u636E_u51C6_u5907"><span class="toc-number">3.0.1.</span> <span class="toc-text">数据准备</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u67E5_u8BE2_u5B9E_u9A8C"><span class="toc-number">3.0.2.</span> <span class="toc-text">查询实验</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7528_u6CD5_u62D3_u5C55"><span class="toc-number">4.</span> <span class="toc-text">用法拓展</span></a></li></ol>
 		
 		</div>
 		
@@ -128,9 +128,11 @@
 <li>右连接：<code>select * from a right join b on a.aID=b.bID;</code>,查询结果如下；和left join的结果刚好相反,这次是以右表(B)为基础的,A表不足的地方用NULL填充.<center><img src="http://7xqvf0.com1.z0.glb.clouddn.com/r.png" alt="右连接查询结果"><br></center></li>
 <li>内连接(相等连接)：<code>select * from a inner join b on a.aID=b.bID;</code>；从查询结果可以看出，检索见过中只有满足匹配条件的数据，不满足的数据不会出现在结果中<center><img src="http://7xqvf0.com1.z0.glb.clouddn.com/i.png" alt="内连接查询结果"></center>
 
-
 </li>
 </ol>
+<h3 id="u7528_u6CD5_u62D3_u5C55"><a href="#u7528_u6CD5_u62D3_u5C55" class="headerlink" title="用法拓展"></a>用法拓展</h3><ul>
+<li>联合连接查询的时候，还可以增加where条件筛选语句，帮助更加精确查询定位数据</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -184,7 +186,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FDE_u63A5_u7684_u5206_u7C7B_28_u529F_u80FD_u6027_u5206_u7C7B_29"><span class="toc-number">1.</span> <span class="toc-text">连接的分类(功能性分类)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8BED_u6CD5"><span class="toc-number">2.</span> <span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B9E_u4F8B"><span class="toc-number">3.</span> <span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#u6570_u636E_u51C6_u5907"><span class="toc-number">3.0.1.</span> <span class="toc-text">数据准备</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u67E5_u8BE2_u5B9E_u9A8C"><span class="toc-number">3.0.2.</span> <span class="toc-text">查询实验</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FDE_u63A5_u7684_u5206_u7C7B_28_u529F_u80FD_u6027_u5206_u7C7B_29"><span class="toc-number">1.</span> <span class="toc-text">连接的分类(功能性分类)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8BED_u6CD5"><span class="toc-number">2.</span> <span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B9E_u4F8B"><span class="toc-number">3.</span> <span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#u6570_u636E_u51C6_u5907"><span class="toc-number">3.0.1.</span> <span class="toc-text">数据准备</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u67E5_u8BE2_u5B9E_u9A8C"><span class="toc-number">3.0.2.</span> <span class="toc-text">查询实验</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7528_u6CD5_u62D3_u5C55"><span class="toc-number">4.</span> <span class="toc-text">用法拓展</span></a></li></ol>
  
   </div>
 
