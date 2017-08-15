@@ -5,23 +5,26 @@
   <meta charset="UTF-8">
   
   
-    <title>Java反射机制之变量操作 | 简单·踏实</title>
+    <title>mysql连接查询 | 简单·踏实</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Roy Leong">
     
 
     
-    <meta name="description" content="使用 Java 反射机制你可以运行期检查一个类的变量信息(成员变量)或者获取或者设置变量的值。通过使用 java.lang.reflect.Field 类就可以实现上述功能">
+    <meta name="description" content="关联连接查询在多表操作中，用处很多，也很好用，特别是很多关联表一起处理的时候，结构很清晰。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java反射机制之变量操作">
-<meta property="og:url" content="http://royleo.xyz/2016/10/04/Java反射机制之变量操作/index.html">
+<meta property="og:title" content="mysql连接查询">
+<meta property="og:url" content="http://royleo.xyz/2017/06/16/mysql连接查询/index.html">
 <meta property="og:site_name" content="简单·踏实">
-<meta property="og:description" content="使用 Java 反射机制你可以运行期检查一个类的变量信息(成员变量)或者获取或者设置变量的值。通过使用 java.lang.reflect.Field 类就可以实现上述功能">
-<meta property="og:updated_time" content="2016-10-16T09:05:18.967Z">
+<meta property="og:description" content="关联连接查询在多表操作中，用处很多，也很好用，特别是很多关联表一起处理的时候，结构很清晰。">
+<meta property="og:image" content="http://7xqvf0.com1.z0.glb.clouddn.com/l.png">
+<meta property="og:image" content="http://7xqvf0.com1.z0.glb.clouddn.com/r.png">
+<meta property="og:image" content="http://7xqvf0.com1.z0.glb.clouddn.com/i.png">
+<meta property="og:updated_time" content="2017-08-15T16:15:48.014Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java反射机制之变量操作">
-<meta name="twitter:description" content="使用 Java 反射机制你可以运行期检查一个类的变量信息(成员变量)或者获取或者设置变量的值。通过使用 java.lang.reflect.Field 类就可以实现上述功能">
+<meta name="twitter:title" content="mysql连接查询">
+<meta name="twitter:description" content="关联连接查询在多表操作中，用处很多，也很好用，特别是很多关联表一起处理的时候，结构很清晰。">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -82,14 +85,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/10/04/Java反射机制之变量操作/" title="Java反射机制之变量操作" itemprop="url">Java反射机制之变量操作</a>
+      <a href="/2017/06/16/mysql连接查询/" title="mysql连接查询" itemprop="url">mysql连接查询</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2016-10-04T08:58:38.000Z" itemprop="datePublished"> 发表于 2016-10-04</time>
+    <time datetime="2017-06-15T16:02:16.000Z" itemprop="datePublished"> 发表于 2017-06-16</time>
     
   </p>
 </header>
@@ -98,30 +101,36 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java_u53CD_u5C04_u673A_u5236_u4E4B_u53D8_u91CF_u64CD_u4F5C"><span class="toc-number">1.</span> <span class="toc-text">Java反射机制之变量操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u83B7_u53D6Field_u5BF9_u8C61"><span class="toc-number">1.0.1.</span> <span class="toc-text">获取Field对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u83B7_u53D6_u53D8_u91CF_u540D_u79F0"><span class="toc-number">1.0.2.</span> <span class="toc-text">获取变量名称</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u83B7_u53D6_u53D8_u91CF_u7C7B_u578B"><span class="toc-number">1.0.3.</span> <span class="toc-text">获取变量类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u83B7_u53D6_u6216_u8BBE_u7F6E_7Bget/set_7D_u53D8_u91CF_u503C"><span class="toc-number">1.0.4.</span> <span class="toc-text">获取或设置{get/set}变量值</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FDE_u63A5_u7684_u5206_u7C7B_28_u529F_u80FD_u6027_u5206_u7C7B_29"><span class="toc-number">1.</span> <span class="toc-text">连接的分类(功能性分类)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8BED_u6CD5"><span class="toc-number">2.</span> <span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B9E_u4F8B"><span class="toc-number">3.</span> <span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#u6570_u636E_u51C6_u5907"><span class="toc-number">3.0.1.</span> <span class="toc-text">数据准备</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u67E5_u8BE2_u5B9E_u9A8C"><span class="toc-number">3.0.2.</span> <span class="toc-text">查询实验</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="Java_u53CD_u5C04_u673A_u5236_u4E4B_u53D8_u91CF_u64CD_u4F5C"><a href="#Java_u53CD_u5C04_u673A_u5236_u4E4B_u53D8_u91CF_u64CD_u4F5C" class="headerlink" title="Java反射机制之变量操作"></a>Java反射机制之变量操作</h2><h4 id="u83B7_u53D6Field_u5BF9_u8C61"><a href="#u83B7_u53D6Field_u5BF9_u8C61" class="headerlink" title="获取Field对象"></a>获取Field对象</h4><ul>
-<li><code>Field[] methods = aClass.getFields();</code>返回Field 对象数组包含了指定类中声明为公有的(public)的所有变量集合</li>
-<li><code>Field field = aClass.getField(&quot;someField&quot;);</code>获得指定变量,如果没匹配到对应的变量，抛异常<code>NoSuchFieldException</code></li>
-<li><code>Field[] fields = myClass.getDeclaredFields();</code>获取私有成员变量</li>
+		<h3 id="u8FDE_u63A5_u7684_u5206_u7C7B_28_u529F_u80FD_u6027_u5206_u7C7B_29"><a href="#u8FDE_u63A5_u7684_u5206_u7C7B_28_u529F_u80FD_u6027_u5206_u7C7B_29" class="headerlink" title="连接的分类(功能性分类)"></a>连接的分类(功能性分类)</h3><ul>
+<li>左连接：获取左表所有记录，如果右表没有匹配的数据，用null填充至与左表记录数持平；</li>
+<li>右连接：获取右表所有记录，数据量以右表为主，填充方法与左连接相同；</li>
+<li>内连接：获取两表中满足匹配关系的关联记录，不包括不存在的数据</li>
 </ul>
-<h4 id="u83B7_u53D6_u53D8_u91CF_u540D_u79F0"><a href="#u83B7_u53D6_u53D8_u91CF_u540D_u79F0" class="headerlink" title="获取变量名称"></a>获取变量名称</h4><ul>
-<li><code>String fieldName = field.getName();</code></li>
+<h3 id="u8BED_u6CD5"><a href="#u8BED_u6CD5" class="headerlink" title="语法"></a>语法</h3><ul>
+<li><code>select * from tableA left(right/inner) join tableB on tableA.ID compopr tableB.ID;</code></li>
+<li>说明：tableA/B 是两联合查询的表；compopr 是比较运算符(=,&gt;,&lt;,&gt;=,&lt;=,&lt;&gt;)</li>
 </ul>
-<h4 id="u83B7_u53D6_u53D8_u91CF_u7C7B_u578B"><a href="#u83B7_u53D6_u53D8_u91CF_u7C7B_u578B" class="headerlink" title="获取变量类型"></a>获取变量类型</h4><ul>
-<li><code>Object fieldType = field.getType();</code></li>
-</ul>
-<h4 id="u83B7_u53D6_u6216_u8BBE_u7F6E_7Bget/set_7D_u53D8_u91CF_u503C"><a href="#u83B7_u53D6_u6216_u8BBE_u7F6E_7Bget/set_7D_u53D8_u91CF_u503C" class="headerlink" title="获取或设置{get/set}变量值"></a>获取或设置{get/set}变量值</h4><ul>
-<li>一旦获得了一个 Field 的引用，你就可以通过调用 Field.get()或 Field.set()方法，获取或者设置变量的值</li>
-<li><p>获取\设置普通成员变量的值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class myClass = Result.class;&#10;       Result result = new Result();&#10;       Field f = myClass.getField(&#34;omg&#34;);&#10;       f.set(result,&#34;appAPP&#34;);&#10;       System.out.println(f.get(result));</span><br></pre></td></tr></table></figure>
+<h3 id="u5B9E_u4F8B"><a href="#u5B9E_u4F8B" class="headerlink" title="实例"></a>实例</h3><h5 id="u6570_u636E_u51C6_u5907"><a href="#u6570_u636E_u51C6_u5907" class="headerlink" title="数据准备"></a>数据准备</h5><ul>
+<li>两个数据表，表中有能管理数据的字段值，并且两表数据量不一致。</li>
+<li><p>创建表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE a (aID int( 1 ) AUTO_INCREMENT PRIMARY KEY , aNum char( 20 ))&#10;CREATE TABLE b(bID int( 1 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,bName char( 20 ))</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>获取\设置私有变量的值：需要设置私有变量的访问权限<code>field.setAccessible(true)</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class myClass = Result.class;&#10;       Result result = new Result();&#10;       Field f = myClass.getDeclaredField(&#34;name&#34;);&#10;       f.setAccessible(true);&#10;       f.set(result,&#34;appAPP&#34;);&#10;       System.out.println(f.get(result));</span><br></pre></td></tr></table></figure>
+<li><p>数据准备：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO a VALUES ( 1, &#39;a20050111&#39; ) , ( 2, &#39;a20050112&#39; ) , ( 3, &#39;a20050113&#39; ) , ( 4, &#39;a20050114&#39; ) , ( 5, &#39;a20050115&#39; ) ;&#10;INSERT INTO b VALUES ( 1, &#39; 2006032401&#39; ) , ( 2, &#39;2006032402&#39; ) , ( 3, &#39;2006032403&#39; ) , ( 4, &#39;2006032404&#39; ) , ( 8, &#39;2006032408&#39; )</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<h5 id="u67E5_u8BE2_u5B9E_u9A8C"><a href="#u67E5_u8BE2_u5B9E_u9A8C" class="headerlink" title="查询实验"></a>查询实验</h5><ol>
+<li>左连接：<code>select * from a  left join b on a.aID=b.bID;</code>,查询结果如下；left join是以A表的记录为基础的,A可以看成左表,B可以看成右表,left join是以左表为准的.<center><img src="http://7xqvf0.com1.z0.glb.clouddn.com/l.png" alt="左连接查询结果"></center></li>
+<li>右连接：<code>select * from a right join b on a.aID=b.bID;</code>,查询结果如下；和left join的结果刚好相反,这次是以右表(B)为基础的,A表不足的地方用NULL填充.<center><img src="http://7xqvf0.com1.z0.glb.clouddn.com/r.png" alt="右连接查询结果"><br></center></li>
+<li>内连接(相等连接)：<code>select * from a inner join b on a.aID=b.bID;</code>；从查询结果可以看出，检索见过中只有满足匹配条件的数据，不满足的数据不会出现在结果中<center><img src="http://7xqvf0.com1.z0.glb.clouddn.com/i.png" alt="内连接查询结果"></center>
+
+
+</li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -130,7 +139,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Java/">Java</a><a href="/tags/动态代理/">动态代理</a>
+  <span></span> <a href="/tags/Mysql/">Mysql</a>
   </div>
 
 </div>
@@ -139,7 +148,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://royleo.xyz/2016/10/04/Java反射机制之变量操作/" data-title="Java反射机制之变量操作 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://royleo.xyz/2017/06/16/mysql连接查询/" data-title="mysql连接查询 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -152,19 +161,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/10/08/Java反射机制之方法操作/" title="Java反射机制之方法操作">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Java反射机制之方法操作</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/10/03/Java反射机制之构造器操作/"  title="Java反射机制之构造器操作">
+<a href="/2017/03/12/spring-Bean学习Review/"  title="spring Bean学习Review">
  <strong>下一篇：</strong><br/> 
- <span>Java反射机制之构造器操作
+ <span>spring Bean学习Review
 </span>
 </a>
 </div>
@@ -173,7 +174,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/10/04/Java反射机制之变量操作/" data-title="Java反射机制之变量操作" data-url="http://royleo.xyz/2016/10/04/Java反射机制之变量操作/"></div>
+	<div class="ds-thread" data-thread-key="2017/06/16/mysql连接查询/" data-title="mysql连接查询" data-url="http://royleo.xyz/2017/06/16/mysql连接查询/"></div>
 </section>
 
 
@@ -183,7 +184,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java_u53CD_u5C04_u673A_u5236_u4E4B_u53D8_u91CF_u64CD_u4F5C"><span class="toc-number">1.</span> <span class="toc-text">Java反射机制之变量操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u83B7_u53D6Field_u5BF9_u8C61"><span class="toc-number">1.0.1.</span> <span class="toc-text">获取Field对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u83B7_u53D6_u53D8_u91CF_u540D_u79F0"><span class="toc-number">1.0.2.</span> <span class="toc-text">获取变量名称</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u83B7_u53D6_u53D8_u91CF_u7C7B_u578B"><span class="toc-number">1.0.3.</span> <span class="toc-text">获取变量类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u83B7_u53D6_u6216_u8BBE_u7F6E_7Bget/set_7D_u53D8_u91CF_u503C"><span class="toc-number">1.0.4.</span> <span class="toc-text">获取或设置{get/set}变量值</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FDE_u63A5_u7684_u5206_u7C7B_28_u529F_u80FD_u6027_u5206_u7C7B_29"><span class="toc-number">1.</span> <span class="toc-text">连接的分类(功能性分类)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8BED_u6CD5"><span class="toc-number">2.</span> <span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B9E_u4F8B"><span class="toc-number">3.</span> <span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#u6570_u636E_u51C6_u5907"><span class="toc-number">3.0.1.</span> <span class="toc-text">数据准备</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u67E5_u8BE2_u5B9E_u9A8C"><span class="toc-number">3.0.2.</span> <span class="toc-text">查询实验</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
