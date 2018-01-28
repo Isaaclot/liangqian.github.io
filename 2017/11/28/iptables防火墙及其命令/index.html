@@ -5,32 +5,49 @@
   <meta charset="UTF-8">
   
   
-    <title>Java常识之构造器 | 简单·踏实</title>
+    <title>iptables防火墙及其命令 | 简单·踏实</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Roy Leong">
     
 
     
-    <meta name="description" content="构造器确保初始化
-创建对象时，会为对象分配存储空间，并调用相应的构造器，这样就确保了你操作对象之前，它已经被初始化；
-如果类中没有定义构造器，编译器会自动帮你创建一个默认构造器，当你定义了构造器，就不能使用默认构造器;
-要求构造器的名字与类名一致，可以有多个构造器，但是每个构造器要有区分(有参数\无参数\参数顺序\参数类型)1class Rock&amp;#123;&amp;#10;  Rock()&amp;#123;&amp;">
+    <meta name="description" content="概述：
+iptables命令是Linux上常用的防火墙软件，是netfilter项目的一部分。可以直接配置，也可以通过许多前端和图形界面配置。 
+iptables防火墙可以用于创建过滤(filter)与NAT规则。所有Linux发行版都能使用iptables，因此理解如何配置iptables将会帮助你更有效地管理Linux防火墙。
+
+使用规则
+语法
+
+iptables (选项) (参数)
+ipta">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java常识之构造器">
-<meta property="og:url" content="http://royleo.xyz/2016/05/07/Java常识之构造器/index.html">
+<meta property="og:title" content="iptables防火墙及其命令">
+<meta property="og:url" content="http://royleo.xyz/2017/11/28/iptables防火墙及其命令/index.html">
 <meta property="og:site_name" content="简单·踏实">
-<meta property="og:description" content="构造器确保初始化
-创建对象时，会为对象分配存储空间，并调用相应的构造器，这样就确保了你操作对象之前，它已经被初始化；
-如果类中没有定义构造器，编译器会自动帮你创建一个默认构造器，当你定义了构造器，就不能使用默认构造器;
-要求构造器的名字与类名一致，可以有多个构造器，但是每个构造器要有区分(有参数\无参数\参数顺序\参数类型)1class Rock&amp;#123;&amp;#10;  Rock()&amp;#123;&amp;">
-<meta property="og:updated_time" content="2016-05-07T16:21:47.102Z">
+<meta property="og:description" content="概述：
+iptables命令是Linux上常用的防火墙软件，是netfilter项目的一部分。可以直接配置，也可以通过许多前端和图形界面配置。 
+iptables防火墙可以用于创建过滤(filter)与NAT规则。所有Linux发行版都能使用iptables，因此理解如何配置iptables将会帮助你更有效地管理Linux防火墙。
+
+使用规则
+语法
+
+iptables (选项) (参数)
+ipta">
+<meta property="og:image" content="http://7xqvf0.com1.z0.glb.clouddn.com/iptables%E8%A1%A8%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%8C%85%E6%B5%81%E7%A8%8B%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8.gif">
+<meta property="og:image" content="http://7xqvf0.com1.z0.glb.clouddn.com/iptables%E8%A1%A8%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%8C%85%E6%B5%81%E7%A8%8B%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8.gif">
+<meta property="og:updated_time" content="2018-01-28T14:40:30.982Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java常识之构造器">
-<meta name="twitter:description" content="构造器确保初始化
-创建对象时，会为对象分配存储空间，并调用相应的构造器，这样就确保了你操作对象之前，它已经被初始化；
-如果类中没有定义构造器，编译器会自动帮你创建一个默认构造器，当你定义了构造器，就不能使用默认构造器;
-要求构造器的名字与类名一致，可以有多个构造器，但是每个构造器要有区分(有参数\无参数\参数顺序\参数类型)1class Rock&amp;#123;&amp;#10;  Rock()&amp;#123;&amp;">
+<meta name="twitter:title" content="iptables防火墙及其命令">
+<meta name="twitter:description" content="概述：
+iptables命令是Linux上常用的防火墙软件，是netfilter项目的一部分。可以直接配置，也可以通过许多前端和图形界面配置。 
+iptables防火墙可以用于创建过滤(filter)与NAT规则。所有Linux发行版都能使用iptables，因此理解如何配置iptables将会帮助你更有效地管理Linux防火墙。
+
+使用规则
+语法
+
+iptables (选项) (参数)
+ipta">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -91,14 +108,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/05/07/Java常识之构造器/" title="Java常识之构造器" itemprop="url">Java常识之构造器</a>
+      <a href="/2017/11/28/iptables防火墙及其命令/" title="iptables防火墙及其命令" itemprop="url">iptables防火墙及其命令</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2016-05-07T15:55:51.000Z" itemprop="datePublished"> 发表于 2016-05-07</time>
+    <time datetime="2017-11-28T04:36:15.000Z" itemprop="datePublished"> 发表于 2017-11-28</time>
     
   </p>
 </header>
@@ -107,30 +124,56 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6784_u9020_u5668_u786E_u4FDD_u521D_u59CB_u5316"><span class="toc-number">1.</span> <span class="toc-text">构造器确保初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u65B9_u6CD5_u91CD_u8F7D"><span class="toc-number">2.</span> <span class="toc-text">方法重载</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Best_Wish__3A_Happy_Mathors_Day_21_To_My_Mon"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">Best Wish : Happy Mathors Day! To My Mon .</span></a></li></ol></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u6982_u8FF0_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">概述：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528_u89C4_u5219"><span class="toc-number">2.</span> <span class="toc-text">使用规则</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="u6784_u9020_u5668_u786E_u4FDD_u521D_u59CB_u5316"><a href="#u6784_u9020_u5668_u786E_u4FDD_u521D_u59CB_u5316" class="headerlink" title="构造器确保初始化"></a>构造器确保初始化</h2><ul>
-<li>创建对象时，会为对象分配存储空间，并调用相应的构造器，这样就确保了你操作对象之前，它已经被初始化；</li>
-<li>如果类中没有定义构造器，编译器会自动帮你创建一个默认构造器，当你定义了构造器，就不能使用默认构造器;</li>
-<li>要求构造器的名字与类名一致，可以有多个构造器，但是每个构造器要有区分(有参数\无参数\参数顺序\参数类型)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Rock&#123;&#10;  Rock()&#123;&#10;    System.out.print(&#34;Constructor Initialize&#34;)&#10;  &#125;&#10;  public static void main(String[] args)&#123;&#10;    for(int i = 0; i &#60; 5 ; i++ )&#123;&#10;      new Rock();&#10;    &#125;&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
-</li>
+		<h4 id="u6982_u8FF0_uFF1A"><a href="#u6982_u8FF0_uFF1A" class="headerlink" title="概述："></a>概述：</h4><ul>
+<li>iptables命令是Linux上常用的防火墙软件，是netfilter项目的一部分。可以直接配置，也可以通过许多前端和图形界面配置。 </li>
+<li>iptables防火墙可以用于创建过滤(filter)与NAT规则。所有Linux发行版都能使用iptables，因此理解如何配置iptables将会帮助你更有效地管理Linux防火墙。</li>
 </ul>
-<h2 id="u65B9_u6CD5_u91CD_u8F7D"><a href="#u65B9_u6CD5_u91CD_u8F7D" class="headerlink" title="方法重载"></a>方法重载</h2><ul>
-<li>一个类中，可以有相同的命名的方法，但是这些方法需要有区分</li>
-<li>区分重载方法：<ul>
-<li>是否有参数;</li>
-<li>参数的顺序;</li>
-<li>参数的类型;<ul>
-<li>当传入的实际参数小于重载方法声明的形式参数时，实际数据类型就会被提升，而实际参数是char型，如果无法找到插好接受char参数的方法，就会把char型提升到int型;</li>
-<li>当传入的实际参数大于重载方法声明的形式参数时，实际参数需要进行类型转换来窄化转换，否则会报错;</li>
+<h4 id="u4F7F_u7528_u89C4_u5219"><a href="#u4F7F_u7528_u89C4_u5219" class="headerlink" title="使用规则"></a>使用规则</h4><ul>
+<li><p>语法</p>
+<ul>
+<li><code>iptables (选项) (参数)</code></li>
+<li><code>iptables -t 表名 &lt;-A/I/D/R&gt; 规则链名 [规则号] &lt;-i/o 网卡名&gt; -p 协议名 &lt;-s 源IP/源子网&gt; --sport 源端口 &lt;-d目标IP/目标子网&gt; --dport 目标端口 -j 动作</code></li>
 </ul>
 </li>
+<li><p>选项</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-t&#60;&#34920;&#62;&#65306;&#25351;&#23450;&#35201;&#25805;&#32437;&#30340;&#34920;&#65307; &#10;-A&#65306;&#21521;&#35268;&#21017;&#38142;&#20013;&#28155;&#21152;&#26465;&#30446;&#65307; &#10;-D&#65306;&#20174;&#35268;&#21017;&#38142;&#20013;&#21024;&#38500;&#26465;&#30446;&#65307; &#10;-i&#65306;&#21521;&#35268;&#21017;&#38142;&#20013;&#25554;&#20837;&#26465;&#30446;&#65307; &#10;-R&#65306;&#26367;&#25442;&#35268;&#21017;&#38142;&#20013;&#30340;&#26465;&#30446;&#65307; &#10;-L&#65306;&#26174;&#31034;&#35268;&#21017;&#38142;&#20013;&#24050;&#26377;&#30340;&#26465;&#30446;&#65307; &#10;-F&#65306;&#28165;&#26970;&#35268;&#21017;&#38142;&#20013;&#24050;&#26377;&#30340;&#26465;&#30446;&#65307; &#10;-Z&#65306;&#28165;&#31354;&#35268;&#21017;&#38142;&#20013;&#30340;&#25968;&#25454;&#21253;&#35745;&#31639;&#22120;&#21644;&#23383;&#33410;&#35745;&#25968;&#22120;&#65307; &#10;-N&#65306;&#21019;&#24314;&#26032;&#30340;&#29992;&#25143;&#33258;&#23450;&#20041;&#35268;&#21017;&#38142;&#65307; &#10;-P&#65306;&#23450;&#20041;&#35268;&#21017;&#38142;&#20013;&#30340;&#40664;&#35748;&#30446;&#26631;&#65307; &#10;-h&#65306;&#26174;&#31034;&#24110;&#21161;&#20449;&#24687;&#65307; &#10;-p&#65306;&#25351;&#23450;&#35201;&#21305;&#37197;&#30340;&#25968;&#25454;&#21253;&#21327;&#35758;&#31867;&#22411;&#65307; &#10;-s&#65306;&#25351;&#23450;&#35201;&#21305;&#37197;&#30340;&#25968;&#25454;&#21253;&#28304;ip&#22320;&#22336;&#65307;&#10;-j&#60;&#30446;&#26631;&#62;&#65306;&#25351;&#23450;&#35201;&#36339;&#36716;&#30340;&#30446;&#26631;&#65307; &#10;-i&#60;&#32593;&#32476;&#25509;&#21475;&#62;&#65306;&#25351;&#23450;&#25968;&#25454;&#21253;&#36827;&#20837;&#26412;&#26426;&#30340;&#32593;&#32476;&#25509;&#21475;&#65307; &#10;-o&#60;&#32593;&#32476;&#25509;&#21475;&#62;&#65306;&#25351;&#23450;&#25968;&#25454;&#21253;&#35201;&#31163;&#24320;&#26412;&#26426;&#25152;&#20351;&#29992;&#30340;&#32593;&#32476;&#25509;&#21475;&#12290;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>表名(4个)：</p>
+<ul>
+<li>filter：包过滤，用于防火墙规则</li>
+<li>mangle：数据表修改(Qos),用于实现服务质量</li>
+<li>nat：用于NAT功能(端口映射，地址映射等)</li>
+<li>raw：优先级最高，设置raw时一般是为了不再让iptables做数据包的链接跟踪处理，提高性能</li>
+</ul>
+</li>
+<li>表在数据进入服务器到输出的流程<center><img src="http://7xqvf0.com1.z0.glb.clouddn.com/iptables%E8%A1%A8%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%8C%85%E6%B5%81%E7%A8%8B%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8.gif" alt="数据传输"><br></center></li>
+<li>规则链(5个)：<ul>
+<li><code>PREROUTING</code>链：数据包进入路由表之前</li>
+<li><code>INPUT</code>链：处理输入数据包，通过路由表目的地为本机</li>
+<li><code>FORWARD</code>链：通过路由表之后，目的地不是本机</li>
+<li><code>OUTPUT</code>链：处理输出数据包，由本机产生，向外转发</li>
+<li><code>POSTROUTING</code>链：发送到网卡接口之前</li>
+</ul>
+</li>
+<li>表与规则链的对应关系<br><center><br><img src="http://7xqvf0.com1.z0.glb.clouddn.com/iptables%E8%A1%A8%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%8C%85%E6%B5%81%E7%A8%8B%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8.gif" alt="表与规则链的对应关系"></center></li>
+</ul>
+<p></p>
+<ul>
+<li>动作：<ul>
+<li>ACCEPT：接收数据包</li>
+<li>DROP：丢弃数据包</li>
+<li>REDIRECT：重定向，映射，透明代理</li>
+<li>SNAT：源地址转换</li>
+<li>DNAT：目的地址转换</li>
+<li>MASQUERADE：IP伪装</li>
 </ul>
 </li>
 </ul>
-<h5 id="Best_Wish__3A_Happy_Mathors_Day_21_To_My_Mon"><a href="#Best_Wish__3A_Happy_Mathors_Day_21_To_My_Mon" class="headerlink" title="Best Wish : Happy Mathors Day! To My Mon ."></a>Best Wish : Happy Mathors Day! To My Mon .</h5>  
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -138,7 +181,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Java/">Java</a>
+  <span></span> <a href="/tags/Linux/">Linux</a>
   </div>
 
 </div>
@@ -147,7 +190,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://royleo.xyz/2016/05/07/Java常识之构造器/" data-title="Java常识之构造器 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://royleo.xyz/2017/11/28/iptables防火墙及其命令/" data-title="iptables防火墙及其命令 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -160,19 +203,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/05/08/Java垃圾回收之finalize/" title="Java垃圾回收之finalize()">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Java垃圾回收之finalize()</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/03/16/在Github创建静态网站预览的方法/"  title="在Github创建静态网站预览的方法">
+<a href="/2017/08/10/多线程基本概念/"  title="多线程基本概念">
  <strong>下一篇：</strong><br/> 
- <span>在Github创建静态网站预览的方法
+ <span>多线程基本概念
 </span>
 </a>
 </div>
@@ -181,7 +216,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/05/07/Java常识之构造器/" data-title="Java常识之构造器" data-url="http://royleo.xyz/2016/05/07/Java常识之构造器/"></div>
+	<div class="ds-thread" data-thread-key="2017/11/28/iptables防火墙及其命令/" data-title="iptables防火墙及其命令" data-url="http://royleo.xyz/2017/11/28/iptables防火墙及其命令/"></div>
 </section>
 
 
@@ -197,7 +232,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6784_u9020_u5668_u786E_u4FDD_u521D_u59CB_u5316"><span class="toc-number">1.</span> <span class="toc-text">构造器确保初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u65B9_u6CD5_u91CD_u8F7D"><span class="toc-number">2.</span> <span class="toc-text">方法重载</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Best_Wish__3A_Happy_Mathors_Day_21_To_My_Mon"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">Best Wish : Happy Mathors Day! To My Mon .</span></a></li></ol></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u6982_u8FF0_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">概述：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528_u89C4_u5219"><span class="toc-number">2.</span> <span class="toc-text">使用规则</span></a></li></ol>
  
   </div>
 
