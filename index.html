@@ -80,6 +80,71 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2017/08/10/多线程基本概念/" title="多线程基本概念" itemprop="url">
+  
+    <h1 itemprop="name">多线程基本概念</h1>
+    
+     
+           <p itemprop="description" >线程和进程的区别
+多个进程的内部数据和状态都是完全独立的，而多线程是共享一块内存空间和一组系统资源，有可能会互相产生影响。
+线程本身的数据通常只有寄存器数据，而程序执行时使用堆栈，所以线程的切换比进程的切换负担成本要小。
+线程的目的是“最大限度地利用CPU资源”，当某个线程的处理</p>
+        
+    
+    <time datetime="2017-08-10T12:14:07.000Z" itemprop="datePublished">2017-08-10</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2017/07/20/多线程关键字volatile和synchronized区别/" title="多线程关键字volatile和synchronized区别" itemprop="url">
+  
+    <h1 itemprop="name">多线程关键字volatile和synchronized区别</h1>
+    
+     
+           <p itemprop="description" >volatile关键字
+在JVM内存模型中，有主内存一说(main memory)，每个线程都有自己的memory(如寄存器)。为了性能，一个性能需要在自己的memory中保持要访问的变量副本。这样就会出现某个瞬间，线程memory数据尚未同步的时候，可能会出现每个线程内的变量副</p>
+        
+    
+    <time datetime="2017-07-20T11:20:42.000Z" itemprop="datePublished">2017-07-20</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2017/06/28/Java遍历Map对象的4种方法/" title="Java遍历Map对象的4种方法" itemprop="url">
+  
+    <h1 itemprop="name">Java遍历Map对象的4种方法</h1>
+    
+     
+           <p itemprop="description" >Foreach遍历Map.Entry对象
+最普遍的遍历方式。但是遍历的Map不可为Null，需要做空指针判断1//foreach&amp;#36941;&amp;#21382;Entry&amp;#23454;&amp;#20363;&amp;#10;public static void forEachMap(Map&amp;</p>
+        
+    
+    <time datetime="2017-06-28T14:15:41.000Z" itemprop="datePublished">2017-06-28</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2017/06/16/mysql连接查询/" title="mysql连接查询" itemprop="url">
   
     <h1 itemprop="name">mysql连接查询</h1>
@@ -229,81 +294,9 @@ Map的key默认排列方式是增序排列，区分大小写
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/10/16/线程同步基础之使用锁实现同步/" title="线程同步基础之使用锁实现同步" itemprop="url">
-  
-    <h1 itemprop="name">线程同步基础之使用锁实现同步</h1>
-    
-     
-           <p itemprop="description" >线程同步基础之使用锁实现同步概述
-使用锁实现同步是通过重写Lock接口来实现，与synchronized相比，Lock接口允许实现更复杂的临界区结构(控制的获取和释放不在同一个块结构中)
-
-死锁
-定义：当两个或者多个线程被阻塞并且他们等待释放的锁永远都不会是释放，就会发生死锁
-
-</p>
-        
-    
-    <time datetime="2016-10-16T14:38:51.000Z" itemprop="datePublished">2016-10-16</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/10/14/线程同步基础之synchronized同步/" title="线程同步基础之synchronized同步" itemprop="url">
-  
-    <h1 itemprop="name">线程同步基础之synchronized同步</h1>
-    
-     
-           <p itemprop="description" >线程同步基础之synchronized同步Java API提供的两种基本的同步机制
-synchronized关键字机制
-Lock接口及其实现机制
-
-synchronized关键字概述
-对方法的声明定义
-对于非静态方法，每个用synchronized关键字声明的方法都是一个临界区，</p>
-        
-    
-    <time datetime="2016-10-14T10:48:51.000Z" itemprop="datePublished">2016-10-14</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/10/10/Java反射机制之动态代理/" title="Java反射机制之动态代理" itemprop="url">
-  
-    <h1 itemprop="name">Java反射机制之动态代理</h1>
-    
-     
-      <p itemprop="description" >给某个对象提供一个代理对象，并由代理对象控制对于原对象的访问，即客户不直接操控原对象，而是通过代理对象间接地操控原对象</p>
-      
-    
-    <time datetime="2016-10-10T08:54:22.000Z" itemprop="datePublished">2016-10-10</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
@@ -331,7 +324,7 @@ synchronized关键字概述
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Java/" title="Java">Java<sup>18</sup></a></li>
+				<li><a href="/tags/Java/" title="Java">Java<sup>21</sup></a></li>
 			
 		
 			
@@ -343,15 +336,15 @@ synchronized关键字概述
 			
 		
 			
+				<li><a href="/tags/多线程/" title="多线程">多线程<sup>4</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Spring/" title="Spring">Spring<sup>4</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/Web/" title="Web">Web<sup>3</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/《Java-7并发编程实战手册》读书笔记/" title="《Java 7并发编程实战手册》读书笔记">《Java 7并发编程实战手册》读书笔记<sup>3</sup></a></li>
 			
 		
 			
@@ -363,11 +356,11 @@ synchronized关键字概述
 			
 		
 			
-				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>2</sup></a></li>
+				<li><a href="/tags/Mybatis/" title="Mybatis">Mybatis<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Mybatis/" title="Mybatis">Mybatis<sup>2</sup></a></li>
+				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>2</sup></a></li>
 			
 		
 			
@@ -375,11 +368,11 @@ synchronized关键字概述
 			
 		
 			
-				<li><a href="/tags/NetWorker/" title="NetWorker">NetWorker<sup>1</sup></a></li>
+				<li><a href="/tags/小技巧/" title="小技巧">小技巧<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/小技巧/" title="小技巧">小技巧<sup>1</sup></a></li>
+				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
 			
 		
 			
@@ -395,7 +388,9 @@ synchronized关键字概述
 			
 		
 			
-				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
+				<li><a href="/tags/NetWorker/" title="NetWorker">NetWorker<sup>1</sup></a></li>
+			
+		
 			
 		
 		</ul>
@@ -450,7 +445,7 @@ synchronized关键字概述
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
 		
 		<a href="/about" target="_blank" title="Roy Leong">Roy Leong</a>
 		
