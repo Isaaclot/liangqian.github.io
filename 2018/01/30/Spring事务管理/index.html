@@ -1,0 +1,649 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  
+    <title>Spring事务管理 | 简单·踏实</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Roy Leong">
+    
+
+    
+    <meta name="description" content="什么是事务：
+事务是指逻辑上的一组操作，这组操作要么成功，要么失败
+
+事务的四大特性：
+
+原子性：指的是事务中不可分割的工作单位，事务中的操作，要么都发生，要么都不发生
+隔离性：多个用户并发访问数据库的时候，一个用户的事务不能被其他用户的事务干扰，多个并发事务之间的数据要互相隔离。
+一致性：事务执行的前后数据的完整性必须一致
+持久性：一个事务一旦被提交，它对数据库中的修改是永久的，即使数据库故障也">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring事务管理">
+<meta property="og:url" content="http://royleo.xyz/2018/01/30/Spring事务管理/index.html">
+<meta property="og:site_name" content="简单·踏实">
+<meta property="og:description" content="什么是事务：
+事务是指逻辑上的一组操作，这组操作要么成功，要么失败
+
+事务的四大特性：
+
+原子性：指的是事务中不可分割的工作单位，事务中的操作，要么都发生，要么都不发生
+隔离性：多个用户并发访问数据库的时候，一个用户的事务不能被其他用户的事务干扰，多个并发事务之间的数据要互相隔离。
+一致性：事务执行的前后数据的完整性必须一致
+持久性：一个事务一旦被提交，它对数据库中的修改是永久的，即使数据库故障也">
+<meta property="og:updated_time" content="2018-01-30T13:41:20.703Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring事务管理">
+<meta name="twitter:description" content="什么是事务：
+事务是指逻辑上的一组操作，这组操作要么成功，要么失败
+
+事务的四大特性：
+
+原子性：指的是事务中不可分割的工作单位，事务中的操作，要么都发生，要么都不发生
+隔离性：多个用户并发访问数据库的时候，一个用户的事务不能被其他用户的事务干扰，多个并发事务之间的数据要互相隔离。
+一致性：事务执行的前后数据的完整性必须一致
+持久性：一个事务一旦被提交，它对数据库中的修改是永久的，即使数据库故障也">
+<link rel="publisher" href="+RoyLeong">
+
+    
+    <link rel="alternative" href="/atom.xml" title="简单·踏实" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="简单·踏实" title="简单·踏实"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="简单·踏实">简单·踏实</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:royleo.xyz">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/01/30/Spring事务管理/" title="Spring事务管理" itemprop="url">Spring事务管理</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2018-01-30T13:32:35.000Z" itemprop="datePublished"> 发表于 2018-01-30</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u4EC0_u4E48_u662F_u4E8B_u52A1_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">什么是事务：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spring_u4E8B_u52A1_u7BA1_u7406_u9AD8_u5C42_u62BD_u8C61_u7684_u4E09_u4E2A_u63A5_u53E3"><span class="toc-number">2.</span> <span class="toc-text">Spring事务管理高层抽象的三个接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spring__u652F_u6301_u4E24_u79CD_u7C7B_u578B_u7684_u4E8B_u52A1_u7BA1_u7406"><span class="toc-number">3.</span> <span class="toc-text">Spring 支持两种类型的事务管理</span></a></li></ol>
+		
+		</div>
+		
+		<h4 id="u4EC0_u4E48_u662F_u4E8B_u52A1_uFF1A"><a href="#u4EC0_u4E48_u662F_u4E8B_u52A1_uFF1A" class="headerlink" title="什么是事务："></a>什么是事务：</h4><ul>
+<li><p>事务是指逻辑上的一组操作，这组操作要么成功，要么失败</p>
+</li>
+<li><p>事务的四大特性：</p>
+<ul>
+<li>原子性：指的是事务中不可分割的工作单位，事务中的操作，要么都发生，要么都不发生</li>
+<li>隔离性：多个用户并发访问数据库的时候，一个用户的事务不能被其他用户的事务干扰，多个并发事务之间的数据要互相隔离。</li>
+<li>一致性：事务执行的前后数据的完整性必须一致</li>
+<li>持久性：一个事务一旦被提交，它对数据库中的修改是永久的，即使数据库故障也不会产生影响</li>
+</ul>
+</li>
+</ul>
+<h4 id="Spring_u4E8B_u52A1_u7BA1_u7406_u9AD8_u5C42_u62BD_u8C61_u7684_u4E09_u4E2A_u63A5_u53E3"><a href="#Spring_u4E8B_u52A1_u7BA1_u7406_u9AD8_u5C42_u62BD_u8C61_u7684_u4E09_u4E2A_u63A5_u53E3" class="headerlink" title="Spring事务管理高层抽象的三个接口"></a>Spring事务管理高层抽象的三个接口</h4><ol>
+<li>事务管理器(PlatformTransactionManager):主要进行事务管理，而后面的定义信息，运行状态是协助管理的字段或者方法. PlatformTransactionManager单纯是一个接口类，具体的实现类会细分到不同的事务管理实现类</li>
+<li>事务定义信息(TransactionDefinition):隔离、传播、超时、只读</li>
+<li>事务具体运行状态(TransactionStatus)</li>
+</ol>
+<ul>
+<li><p>安全性问题</p>
+<ul>
+<li>脏读：一个事务读取了另一个事务改写但未提交的数据，如果这些数据被回滚，则读取到的数据无效</li>
+<li>不可重复读：在同一个事务中，多次读取同一数据返回的结果有所不同</li>
+<li>幻读：一个事务读取了几行数据之后，另一个事务插入几行，幻读就发生了。再后来的查询中，第一个事务就会发现一些原来没有的数据记录</li>
+</ul>
+</li>
+<li><p><code>TransactionDefinition</code>事务隔离级别：</p>
+<ol>
+<li>READ_UNCOMITED:允许你读取还没提交的改变了的数据，可能会出现脏，幻，不可重复读</li>
+<li>READ_COMITED:允许在并发事务已经提交后读取。可防止脏读，但是幻读和不可重复读还会发生</li>
+<li>REPEATABLE_READ:对相同字段的多次读取是一致的，除非数据被事务本身改变。可防止脏读、不可重复读，但幻读仍然可能发生</li>
+<li>SERIALIABLE:完全服从ACID的隔离级别，确保不发生脏读，幻读和不可重复读。它是在所有的隔离级别中最慢的，他是典型的通过完全锁定在事务中涉及的数据表来完成</li>
+</ol>
+</li>
+<li><code>TransactionDefinition</code>事务的传播行为:主要是为了解决业务层之间的方法(本来就有独自的事务)调用的问题<ol>
+<li>PROPAGATION_REQUIRED:支持当前的事务，如果不存在，则新建事务</li>
+<li>PROPAGATION_SUPPORTS:支持当前事务，如果不存在，则不使用事务</li>
+<li>PROPAGATION_MANATORY:支持当前事务，如果不存在，则抛出异常</li>
+<li>PROPAGATION_REQUIRE_NEW:如果当前有事务，则挂起，创建一个新的事务</li>
+<li>ROPAGATION_NOT_SUPPORTED:以非事务方式运行，如果有事务，则挂起当前事务</li>
+<li>ROPAGATION_NEVER：以非事务的方式运行，如果有事务，则抛出异常</li>
+<li>ROPAGATION_NESTED：如果当前事务存在，则使用嵌套事务执行</li>
+<li>分类归纳：1<em>、2、3可以归为一类，保持互相调用的方法的事务一致；4</em>、5、6归为一类，保持两个方法操作不在一个事务中；7为嵌套事务，一个方法执行完成，设置保存点，如果后续方法出现异常，则返回到保存点或者起点等</li>
+</ol>
+</li>
+</ul>
+<h4 id="Spring__u652F_u6301_u4E24_u79CD_u7C7B_u578B_u7684_u4E8B_u52A1_u7BA1_u7406"><a href="#Spring__u652F_u6301_u4E24_u79CD_u7C7B_u578B_u7684_u4E8B_u52A1_u7BA1_u7406" class="headerlink" title="Spring 支持两种类型的事务管理"></a>Spring 支持两种类型的事务管理</h4><ul>
+<li><p>编程试事务管理(代码中使用TransactionTemplate，具有灵活性却难以维护)</p>
+<ol>
+<li>在需要使用的service类中使用TransactionTemplate</li>
+<li>TransactionTemplate依赖DataSourceTransactionManager</li>
+<li>DataSourceTransactionManager依赖DataSource构造</li>
+<li>在类中用代码进行事务管理：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public void transfer(final String out,final String in,final Double money) &#123;&#10;&#10;       transactionTemplate.execute(new TransactionCallbackWithoutResult() &#123;&#10;           @Override&#10;           protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) &#123;&#10;               accountDao.outMoney(out,money);&#10;               int i = 1 / 0;    //throw execption then broken&#10;               accountDao.inMoney(in,money);&#10;           &#125;&#10;       &#125;);&#10;    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>声明式事务管理(基于AOP配置XML的方式实现，从业务代码中分离出事务管理)</p>
+<ol>
+<li><p>基于TransactionProxyFactory的方式：通过增强需要进行事务管理的目标类，将被代理过的service注入代替原来的目标接口，进行调用即可产生事务管理效果。但这种实现方式如果需要进行事务管理的类太多，则操作会繁琐。XML的bean类配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;!--&#37197;&#32622;&#19994;&#21153;&#23618;&#30340;&#20195;&#29702;--&#62;&#10;    &#60;bean id=&#34;accountProxyService&#34; class=&#34;org.springframework.transaction.interceptor.TransactionProxyFactoryBean&#34;&#62;&#10;        &#60;!--&#37197;&#32622;&#20195;&#29702;&#22686;&#24378;&#30340;&#30446;&#26631;&#23545;&#35937;--&#62;&#10;        &#60;property name=&#34;target&#34; ref=&#34;accountService&#34;/&#62;&#10;        &#60;!--&#27880;&#20837;&#20107;&#21153;&#31649;&#29702;&#22120;--&#62;&#10;        &#60;property name=&#34;transactionManager&#34; ref=&#34;transactionManager&#34;/&#62;&#10;        &#60;!--&#27880;&#20837;&#20107;&#21153;&#23646;&#24615;--&#62;&#10;        &#60;property name=&#34;transactionAttributes&#34;&#62;&#10;            &#60;props&#62;&#10;                &#60;!--&#10;                prop&#30340;&#26684;&#24335;:&#10;                    PROPAGATION :&#20107;&#21153;&#30340;&#20256;&#25773;&#23646;&#24615;&#10;                    ISOLATION    :&#20107;&#21153;&#30340;&#38548;&#31163;&#32423;&#21035;&#10;                    readOnly     : &#21482;&#35835;&#65288;&#19981;&#21487;&#20197;&#21457;&#29983;&#20462;&#25913;&#65292;&#25554;&#20837;&#65292;&#21024;&#38500;&#31561;&#25805;&#20316;&#65289;&#10;                    -Exception   :&#21457;&#29983;&#21738;&#20123;&#24322;&#24120;&#22238;&#28378;&#20107;&#21153;&#10;                    +Exception   :&#21457;&#29983;&#21738;&#20123;&#24322;&#24120;&#19981;&#22238;&#28378;&#10;                --&#62;&#10;                &#60;prop key=&#34;transfer&#34;&#62;PROPAGATION_REQUIRED,+java.lang.ArithmeticException&#60;/prop&#62;&#10;            &#60;/props&#62;&#10;        &#60;/property&#62;&#10;    &#60;/bean&#62;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基于AspectJ的XML方式： 通过AOP进行切点上异常监控来进行事务管理。可以借助AOP的横向切入点的方式来进行所有的业务层代码的事务管理,而且业务层代码也不会出现设计事务管理的相关代码。配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;!--&#22768;&#26126;&#24335;&#20107;&#21153;&#31649;&#29702;&#30340;&#37197;&#32622;&#65306;&#37197;&#32622;&#20107;&#21153;&#36890;&#30693;(&#37197;&#32622;&#22686;&#24378;)--&#62;&#10;    &#60;tx:advice id=&#34;txAdvice&#34; transaction-manager=&#34;transactionManager&#34;&#62;&#10;        &#60;tx:attributes&#62;&#10;            &#60;!--&#30417;&#25511;&#26041;&#27861;&#25903;&#25345;&#36890;&#37197;&#31526;&#37197;&#32622;--&#62;&#10;            &#60;!--&#10;                propagation      :&#20107;&#21153;&#20256;&#25773;&#34892;&#20026;&#10;                isolation        :&#20107;&#21153;&#38548;&#31163;&#32423;&#21035;&#10;                read-only        :&#21482;&#35835;&#10;                rollback-for     :&#21457;&#29983;&#21738;&#20123;&#24322;&#24120;&#22238;&#28378;&#10;                no-rollback-for  :&#21457;&#29983;&#21738;&#20123;&#24322;&#24120;&#19981;&#22238;&#28378;&#10;                timeout          :&#36229;&#26102;&#20449;&#24687;&#10;            --&#62;&#10;            &#60;tx:method name=&#34;transfer*&#34; propagation=&#34;REQUIRED&#34;  /&#62;&#10;        &#60;/tx:attributes&#62;&#10;    &#60;/tx:advice&#62;&#10;&#10;    &#60;!--&#37197;&#32622;AOP&#20999;&#38754;--&#62;&#10;    &#60;aop:config&#62;&#10;        &#60;!--&#37197;&#32622;&#20999;&#20837;&#28857;--&#62;&#10;        &#60;aop:pointcut id=&#34;pointCut1&#34; expression=&#34;execution(* info.cloversoulmate.service.AccountService+.*(..))&#34;/&#62;&#10;        &#60;!--&#37197;&#32622;&#20999;&#38754;--&#62;&#10;        &#60;aop:advisor advice-ref=&#34;txAdvice&#34; pointcut-ref=&#34;pointCut1&#34;/&#62;&#10;    &#60;/aop:config&#62;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基于注解形式的事务管理：在目标业务类中注解生效，实现事务管理。</p>
+</li>
+</ol>
+<ul>
+<li>配置文件中开启事务管理器的注解事务：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;!--&#32473;&#20107;&#21153;&#31649;&#29702;&#22120;&#24320;&#21551;&#27880;&#35299;&#20107;&#21153;--&#62;&#10;&#60;tx:annotation-driven transaction-manager=&#34;transactionManager&#34;/&#62;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在类的头部加上注解，并配置相关属性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/**&#10; * &#27880;&#35299;&#20013;&#30340;&#23646;&#24615;&#26681;&#25454;&#38656;&#27714;&#24773;&#20917;&#37197;&#32622;&#22312;&#27880;&#35299;&#25324;&#21495;&#37324;&#38754;&#65292;&#22914;&#26524;&#19981;&#37197;&#32622;&#27880;&#35299;&#23646;&#24615;&#65292;&#20250;&#25353;&#29031;&#40664;&#35748;&#26041;&#24335;&#36827;&#34892;&#10; * propagation  :&#20107;&#21153;&#20256;&#25773;&#34892;&#20026;&#10; * isolation    &#65306;&#20107;&#21153;&#38548;&#31163;&#32423;&#21035;&#10; * readOnly     &#65306;&#21482;&#35835;&#10; * rollbackFor  &#65306;&#21457;&#29983;&#21738;&#20123;&#24322;&#24120;&#22238;&#28378;&#10; * noRollbackFor&#65306;&#21457;&#29983;&#21738;&#20123;&#24322;&#24120;&#19981;&#22238;&#28378;&#10; * */&#10;@Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,readOnly=false)&#10;public class AccountServiceImpl implements AccountService &#123;</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a><a href="/tags/Spring/">Spring</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://royleo.xyz/2018/01/30/Spring事务管理/" data-title="Spring事务管理 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/11/28/iptables防火墙及其命令/"  title="iptables防火墙及其命令">
+ <strong>下一篇：</strong><br/> 
+ <span>iptables防火墙及其命令
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2018/01/30/Spring事务管理/" data-title="Spring事务管理" data-url="http://royleo.xyz/2018/01/30/Spring事务管理/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u4EC0_u4E48_u662F_u4E8B_u52A1_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">什么是事务：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spring_u4E8B_u52A1_u7BA1_u7406_u9AD8_u5C42_u62BD_u8C61_u7684_u4E09_u4E2A_u63A5_u53E3"><span class="toc-number">2.</span> <span class="toc-text">Spring事务管理高层抽象的三个接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spring__u652F_u6301_u4E24_u79CD_u7C7B_u578B_u7684_u4E8B_u52A1_u7BA1_u7406"><span class="toc-number">3.</span> <span class="toc-text">Spring 支持两种类型的事务管理</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="liangqian" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>22</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Spring/" title="Spring">Spring<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态代理/" title="动态代理">动态代理<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/多线程/" title="多线程">多线程<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web/" title="Web">Web<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hibernate/" title="Hibernate">Hibernate<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mybatis/" title="Mybatis">Mybatis<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NetWorker/" title="NetWorker">NetWorker<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/小技巧/" title="小技巧">小技巧<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/小笔记/" title="小笔记">小笔记<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Git/" title="Git">Git<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=5357792662&verifier=747e40f9&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 大音希声，重剑无锋 <br/>
+			In solitude, be a multitude to yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/5357792662" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/liangqian" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		<a href="https://www.facebook.com/roy.leong.589" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		<a href="https://plus.google.com/+RoyLeong?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:liangqian0723@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="Roy Leong">Roy Leong</a>
+		
+		
+		</p>
+
+		
+</div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"liangqian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'cloversoulmate';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-83701409-1', 'http://www.royleo.xyz');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
