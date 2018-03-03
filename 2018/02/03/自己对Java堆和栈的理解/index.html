@@ -12,25 +12,16 @@
     
 
     
-    <meta name="description" content="预备知识：线程和进程
-进程：进程是具有一定独立功能的程序关于某个数据集合上的一次运行活动，进程是进行资源分配和调度的一个独立单位
-线程：线程是进程的一个实体，是CPU进行调度和分派的基本单位，是比进程更小的能独立运行的基本单位，但是线程不能独立运行，需要在应用程序中控制执行
-线程基本自己不拥有系统资源，只拥有一点在运行中必不可少的资源(程序计数器，一组寄存器和栈)，但是它可以和进程下的其他的线程共">
+    <meta name="description" content="对堆和栈在Java或者JVM中的角色和职能，自己去网上找资料整理的笔记。其中还有对于线程和进程的一点小记录">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自己对Java堆和栈的理解">
-<meta property="og:url" content="http://royleo.xyz/2018/03/03/自己对Java堆和栈的理解/index.html">
+<meta property="og:url" content="http://royleo.xyz/2018/02/03/自己对Java堆和栈的理解/index.html">
 <meta property="og:site_name" content="简单·踏实">
-<meta property="og:description" content="预备知识：线程和进程
-进程：进程是具有一定独立功能的程序关于某个数据集合上的一次运行活动，进程是进行资源分配和调度的一个独立单位
-线程：线程是进程的一个实体，是CPU进行调度和分派的基本单位，是比进程更小的能独立运行的基本单位，但是线程不能独立运行，需要在应用程序中控制执行
-线程基本自己不拥有系统资源，只拥有一点在运行中必不可少的资源(程序计数器，一组寄存器和栈)，但是它可以和进程下的其他的线程共">
-<meta property="og:updated_time" content="2018-03-03T08:44:58.461Z">
+<meta property="og:description" content="对堆和栈在Java或者JVM中的角色和职能，自己去网上找资料整理的笔记。其中还有对于线程和进程的一点小记录">
+<meta property="og:updated_time" content="2018-03-03T08:55:24.936Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自己对Java堆和栈的理解">
-<meta name="twitter:description" content="预备知识：线程和进程
-进程：进程是具有一定独立功能的程序关于某个数据集合上的一次运行活动，进程是进行资源分配和调度的一个独立单位
-线程：线程是进程的一个实体，是CPU进行调度和分派的基本单位，是比进程更小的能独立运行的基本单位，但是线程不能独立运行，需要在应用程序中控制执行
-线程基本自己不拥有系统资源，只拥有一点在运行中必不可少的资源(程序计数器，一组寄存器和栈)，但是它可以和进程下的其他的线程共">
+<meta name="twitter:description" content="对堆和栈在Java或者JVM中的角色和职能，自己去网上找资料整理的笔记。其中还有对于线程和进程的一点小记录">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -93,14 +84,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/03/03/自己对Java堆和栈的理解/" title="自己对Java堆和栈的理解" itemprop="url">自己对Java堆和栈的理解</a>
+      <a href="/2018/02/03/自己对Java堆和栈的理解/" title="自己对Java堆和栈的理解" itemprop="url">自己对Java堆和栈的理解</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2018-03-03T08:42:30.000Z" itemprop="datePublished"> 发表于 2018-03-03</time>
+    <time datetime="2018-02-03T08:42:30.000Z" itemprop="datePublished"> 发表于 2018-02-03</time>
     
   </p>
 </header>
@@ -152,7 +143,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/JVM/">JVM</a><a href="/tags/Java/">Java</a>
+  <span></span> <a href="/tags/JVM/">JVM</a><a href="/tags/Java/">Java</a><a href="/tags/TakeDown/">TakeDown</a>
   </div>
 
 </div>
@@ -161,7 +152,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://royleo.xyz/2018/03/03/自己对Java堆和栈的理解/" data-title="自己对Java堆和栈的理解 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://royleo.xyz/2018/02/03/自己对Java堆和栈的理解/" data-title="自己对Java堆和栈的理解 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -187,7 +178,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2018/03/03/自己对Java堆和栈的理解/" data-title="自己对Java堆和栈的理解" data-url="http://royleo.xyz/2018/03/03/自己对Java堆和栈的理解/"></div>
+	<div class="ds-thread" data-thread-key="2018/02/03/自己对Java堆和栈的理解/" data-title="自己对Java堆和栈的理解" data-url="http://royleo.xyz/2018/02/03/自己对Java堆和栈的理解/"></div>
 </section>
 
 
@@ -233,7 +224,7 @@
 			
 		
 			
-				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>7</sup></a></li>
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>8</sup></a></li>
 			
 		
 			
@@ -253,7 +244,15 @@
 			
 		
 			
+				<li><a href="/tags/TakeDown/" title="TakeDown">TakeDown<sup>3</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Web/" title="Web">Web<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
 			
 		
 			
@@ -261,7 +260,7 @@
 			
 		
 			
-				<li><a href="/tags/Hibernate/" title="Hibernate">Hibernate<sup>2</sup></a></li>
+				<li><a href="/tags/Git/" title="Git">Git<sup>2</sup></a></li>
 			
 		
 			
@@ -269,7 +268,11 @@
 			
 		
 			
-				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
+				<li><a href="/tags/Hibernate/" title="Hibernate">Hibernate<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NetWorker/" title="NetWorker">NetWorker<sup>1</sup></a></li>
 			
 		
 			
@@ -281,23 +284,9 @@
 			
 		
 			
-				<li><a href="/tags/NetWorker/" title="NetWorker">NetWorker<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/小技巧/" title="小技巧">小技巧<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/小笔记/" title="小笔记">小笔记<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Git/" title="Git">Git<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
+			
+		
 			
 		
 		</ul>
