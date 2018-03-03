@@ -18,7 +18,7 @@
 <meta property="og:url" content="http://royleo.xyz/2018/02/03/自己对Java堆和栈的理解/index.html">
 <meta property="og:site_name" content="简单·踏实">
 <meta property="og:description" content="对堆和栈在Java或者JVM中的角色和职能，自己去网上找资料整理的笔记。其中还有对于线程和进程的一点小记录">
-<meta property="og:updated_time" content="2018-03-03T08:55:24.936Z">
+<meta property="og:updated_time" content="2018-03-03T08:58:04.978Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自己对Java堆和栈的理解">
 <meta name="twitter:description" content="对堆和栈在Java或者JVM中的角色和职能，自己去网上找资料整理的笔记。其中还有对于线程和进程的一点小记录">
@@ -123,13 +123,13 @@
 <li>堆式存储分配：堆式存储分配策略是以上两个分配策略的补充，静态存储分配要求在编译期就能知道所有变量的存储需求，栈式存储要求在运行进入程序入口时就必须知道变量的存储要求，而堆式则专门针对静态存储分配策略和栈式存储分配策略无法确定存储要求的数据结构进行内存分配，比如可变长度串，或者对象实例。堆由大片的可利用块或者空闲块组成，堆中的内存可以按照任意的顺序分配和释放</li>
 </ol>
 </li>
-<li>Java中的堆栈<ul>
+<li>Java中的堆和栈<ul>
 <li>Java把内存划分为两类：栈内存、堆内存</li>
 <li>栈内存：在函数中定义的一些基本类型的变量和对象的引用都由栈内存进行分配内存空间，当分配的空间超过了变量的作用域之后，java会释放该变量分配的内存空间。</li>
 <li>堆内存：主要用于存储new创建的对象和数组。在堆中创建的数组或者对象还可以在栈中创建一个特性变量，让这个变量的取值指向堆中某个对象或者数组在堆中的内存首地址，栈中的这个变量就成了堆中对象或者数组 的引用变量。在堆中分配的内存，由Java虚拟机的自动垃圾回收器来管理。</li>
 </ul>
 </li>
-<li>Java中堆栈的对比<ol>
+<li>Java中堆和栈的对比<ol>
 <li>Java的堆是一个运行时数据区，优势是可以动态分配内存大小，生存期也不必事先告诉编译器，因为是在运行时动态分配内存的，事后Java的垃圾回收机制也会回收那些不使用的内存数据，但缺点是，由于要在运行时动态分配内存，存取速度较慢。 </li>
 <li>栈的优势是，存取速度比堆要快，仅次于寄存器，栈数据可以共享。但缺点是，存在栈中的数据大小与生存期必须是确定的，缺乏灵活性。栈中主要存放一些基本类型的变量(,int, short, long, byte, float, double, boolean, char)和对象句柄。<br>栈有一个很重要的特殊性，就是存在栈中的数据可以共享。假设我们同时定义：<br><center><code>int a = 2</code></center><br><center><code>int b = 2</code></center><br>编译器先处理<code>int a = 2</code>，首先在栈中创建一个变量为a的引用，然后在栈中查找是否有值为2的数据块，如果已经有值为2 的数据块，则直接将变量a的引用指向值为2 的数据块，否则将数据2存入新建的数据块，并将a指向2。同理，对处理<code>int b = 2</code>语句的时候，也会经过必要的检测，检测栈中是否已经存在值为2的数据块。这样就出现了变量a、b同时指向2的情况。而再令<code>a=4</code>，修改a的值的时候，会重新在栈中检查\创建值为4的数据块，再将a重新指向4.因此，在这种数据共享的前提下，一个变量数值改变，不会影响都另一个变量的数值。<br>注意：这种数据的共享和两个对象的引用同时指向一个对象的这种共享不同，因为一个对象的变量修改，则直接修改变对象的内部状态，会影响到另一个对象的引用变量。</li>
 </ol>
@@ -276,17 +276,15 @@
 			
 		
 			
+				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/JVM/" title="JVM">JVM<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
-			
-		
 			
 		
 		</ul>
