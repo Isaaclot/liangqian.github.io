@@ -1,0 +1,600 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  
+    <title>多线程基本概念 | 简单·踏实</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Roy Leong">
+    
+
+    
+    <meta name="description" content="线程和进程的区别 多个进程的内部数据和状态都是完全独立的，而多线程是共享一块内存空间和一组系统资源，有可能会互相产生影响。 线程本身的数据通常只有寄存器数据，而程序执行时使用堆栈，所以线程的切换比进程的切换负担成本要小。 线程的目的是“最大限度地利用CPU资源”，当某个线程的处理不需要占用CPU而只需要和IO打交道的时候，让需要占用CPU资源的其他线程有机会获得CPU资源。  多线程实现 实现方式">
+<meta name="keywords" content="Java,多线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程基本概念">
+<meta property="og:url" content="http://royleo.xyz/2017/08/10/∂‡œﬂ≥Ãª˘±æ∏≈ƒÓ/index.html">
+<meta property="og:site_name" content="简单·踏实">
+<meta property="og:description" content="线程和进程的区别 多个进程的内部数据和状态都是完全独立的，而多线程是共享一块内存空间和一组系统资源，有可能会互相产生影响。 线程本身的数据通常只有寄存器数据，而程序执行时使用堆栈，所以线程的切换比进程的切换负担成本要小。 线程的目的是“最大限度地利用CPU资源”，当某个线程的处理不需要占用CPU而只需要和IO打交道的时候，让需要占用CPU资源的其他线程有机会获得CPU资源。  多线程实现 实现方式">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://7xqvf0.com1.z0.glb.clouddn.com/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
+<meta property="og:image" content="http://7xqvf0.com1.z0.glb.clouddn.com/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.png">
+<meta property="og:updated_time" content="2018-01-28T14:26:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多线程基本概念">
+<meta name="twitter:description" content="线程和进程的区别 多个进程的内部数据和状态都是完全独立的，而多线程是共享一块内存空间和一组系统资源，有可能会互相产生影响。 线程本身的数据通常只有寄存器数据，而程序执行时使用堆栈，所以线程的切换比进程的切换负担成本要小。 线程的目的是“最大限度地利用CPU资源”，当某个线程的处理不需要占用CPU而只需要和IO打交道的时候，让需要占用CPU资源的其他线程有机会获得CPU资源。  多线程实现 实现方式">
+<meta name="twitter:image" content="http://7xqvf0.com1.z0.glb.clouddn.com/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
+<link rel="publisher" href="+RoyLeong">
+
+    
+    <link rel="alternative" href="/atom.xml" title="简单·踏实" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="简单·踏实" title="简单·踏实"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="简单·踏实">简单·踏实</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+						<li><a href="/resume">简历</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:royleo.xyz">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/10/∂‡œﬂ≥Ãª˘±æ∏≈ƒÓ/" title="多线程基本概念" itemprop="url">多线程基本概念</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-10T12:14:07.000Z" itemprop="datePublished"> 发表于 2017-08-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#线程和进程的区别"><span class="toc-number">1.</span> <span class="toc-text">线程和进程的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多线程实现"><span class="toc-number">2.</span> <span class="toc-text">多线程实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程的生命周期"><span class="toc-number">3.</span> <span class="toc-text">线程的生命周期</span></a></li></ol>
+		
+		</div>
+		
+		<h4 id="线程和进程的区别"><a href="#线程和进程的区别" class="headerlink" title="线程和进程的区别"></a>线程和进程的区别</h4><ul>
+<li>多个进程的内部数据和状态都是完全独立的，而多线程是共享一块内存空间和一组系统资源，有可能会互相产生影响。</li>
+<li>线程本身的数据通常只有寄存器数据，而程序执行时使用堆栈，所以线程的切换比进程的切换负担成本要小。</li>
+<li>线程的目的是“最大限度地利用CPU资源”，当某个线程的处理不需要占用CPU而只需要和IO打交道的时候，让需要占用CPU资源的其他线程有机会获得CPU资源。</li>
+</ul>
+<h4 id="多线程实现"><a href="#多线程实现" class="headerlink" title="多线程实现"></a>多线程实现</h4><ul>
+<li>实现方式有两种，一种是继承Thread类来实现run()方法，在run()方法中实现需要进行的多线程任务，第二种是实现Runable接口，重写run()方法处理多线程任务。这两种方法都是需要通过start()方法启动线程，然后让start()方法准备好系统资源，再去调用并执行run()方法完成线程任务。</li>
+<li>源码上，Thread也是在实现了Runable接口的基础上实现了Runable的run()方法</li>
+<li>两种实现方法根据实际情况选择，如果该类已经继承了其他方法(单继承性)，只能通过实现Runable接口来进程多线程任务处理。</li>
+</ul>
+<h4 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h4><ul>
+<li>如图：<center><br><img src="http://7xqvf0.com1.z0.glb.clouddn.com/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png" alt="线程的生命周期"><br></center></li>
+<li>线程的生命周期分为五个阶段：创建状态、就绪状态、运行状态、阻塞状态、消亡状态。系统需要将多个线程在这五个状态之间切换来实现最大限度的运用系统资源<br><center><br><img src="http://7xqvf0.com1.z0.glb.clouddn.com/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.png" alt="线程状态转换图"><br></center><ol>
+<li>新建状态：当程序使用<code>new</code>关键字创建一个线程之后，该线程就处于新建状态，此时仅由JVM分配内存，并初始化其成员变量的值</li>
+<li>就绪状态：当线程对象调用<code>start()</code>方法之后，该线程就处于就绪状态。Java虚拟机会为其创建方法，调用栈和程序计数器，等待线程调度器调度运行</li>
+<li>运行状态：如果处于就绪状态的线程获得了CPU资源，开始执行<code>run()</code>方法的线程执行体，则该线程处于运行状态</li>
+<li>阻塞状态：当运行中的线程失去了CPU资源之后，便进入了阻塞状态。如果需要从阻塞状态进入就绪状态，需要等待线程调度器调度分配才能返回到就绪状态<ul>
+<li>线程进入阻塞状态的条件<ul>
+<li>线程调用<code>sleep()</code>方法主动放弃CPU资源</li>
+<li>线程调用了阻塞式的IO方法，在该方法返回之前，该线程处于被阻塞状态</li>
+<li>线程在等待通知(<code>notify()</code>)</li>
+<li>线程被调用<code>suspend()</code>方法进行挂起</li>
+<li>线程试图获得同步监视器，但是监视器正在被其他线程使用中</li>
+</ul>
+</li>
+<li>解除阻塞状态线程：与导致阻塞的条件相反即可解除阻塞状态</li>
+</ul>
+</li>
+<li>消亡状态：当线程对象的<code>run()</code>和<code>call()</code>方法执行完成，线程正常结束；如果线程抛出一个未捕获的<code>Execption</code>或者<code>Error</code>、直接调用该线程的<code>stop()</code>方法强行终止线程的时候，线程也会进入消亡状态，只不过这属于非正常方式结束。注意，强行执行<code>stop()</code>的方式来结束线程容易导致死锁，不推荐使用</li>
+</ol>
+</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a><a href="/tags/多线程/">多线程</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://royleo.xyz/2017/08/10/∂‡œﬂ≥Ãª˘±æ∏≈ƒÓ/" data-title="多线程基本概念 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/09/08/Mybatis-»Á∫ŒªÒ»°±£¥Ê∂‘œÛ÷Æ∫Û…˙≥…µƒ◊‘‘ˆ÷˜º¸/" title="Mybatis 如何获取保存对象之后生成的自增主键?">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Mybatis 如何获取保存对象之后生成的自增主键?</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/07/20/∂‡œﬂ≥Ãπÿº¸◊÷volatile∫Õsynchronized«¯±/"  title="多线程关键字volatile和synchronized区别">
+ <strong>下一篇：</strong><br/> 
+ <span>多线程关键字volatile和synchronized区别
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/08/10/∂‡œﬂ≥Ãª˘±æ∏≈ƒÓ/" data-title="多线程基本概念" data-url="http://royleo.xyz/2017/08/10/∂‡œﬂ≥Ãª˘±æ∏≈ƒÓ/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#线程和进程的区别"><span class="toc-number">1.</span> <span class="toc-text">线程和进程的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多线程实现"><span class="toc-number">2.</span> <span class="toc-text">多线程实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程的生命周期"><span class="toc-number">3.</span> <span class="toc-text">线程的生命周期</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="liangqian" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Spring/" title="Spring">Spring<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mybatis/" title="Mybatis">Mybatis<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态代理/" title="动态代理">动态代理<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/多线程/" title="多线程">多线程<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web/" title="Web">Web<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TakeDown/" title="TakeDown">TakeDown<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Git/" title="Git">Git<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hibernate/" title="Hibernate">Hibernate<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NetWorker/" title="NetWorker">NetWorker<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JVM/" title="JVM">JVM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Exception/" title="Exception">Exception<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=5357792662&verifier=747e40f9&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 大音希声，重剑无锋 <br/>
+			In solitude, be a multitude to yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/5357792662" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/liangqian" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		<a href="https://www.facebook.com/roy.leong.589" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		<a href="https://plus.google.com/+RoyLeong?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:liangqian0723@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="Roy Leong">Roy Leong</a>
+		
+		
+		</p>
+
+		
+</div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"liangqian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'cloversoulmate';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-83701409-1', 'http://www.royleo.xyz');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

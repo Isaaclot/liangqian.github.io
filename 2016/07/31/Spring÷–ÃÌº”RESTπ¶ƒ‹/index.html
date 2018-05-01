@@ -1,0 +1,649 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  
+    <title>Spring中添加REST功能 | 简单·踏实</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Roy Leong">
+    
+
+    
+    <meta name="description" content="近年来以信息为中心的表属性状态转移(Respresentational State Transfer REST)已经成为替代传统SOAP　Web服务的流行方案；而且Spring封装对REST的良好支撑">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring中添加REST功能">
+<meta property="og:url" content="http://royleo.xyz/2016/07/31/Spring÷–ÃÌº”RESTπ¶ƒ‹/index.html">
+<meta property="og:site_name" content="简单·踏实">
+<meta property="og:description" content="近年来以信息为中心的表属性状态转移(Respresentational State Transfer REST)已经成为替代传统SOAP　Web服务的流行方案；而且Spring封装对REST的良好支撑">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2016-07-31T12:46:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring中添加REST功能">
+<meta name="twitter:description" content="近年来以信息为中心的表属性状态转移(Respresentational State Transfer REST)已经成为替代传统SOAP　Web服务的流行方案；而且Spring封装对REST的良好支撑">
+<link rel="publisher" href="+RoyLeong">
+
+    
+    <link rel="alternative" href="/atom.xml" title="简单·踏实" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="简单·踏实" title="简单·踏实"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="简单·踏实">简单·踏实</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+						<li><a href="/resume">简历</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:royleo.xyz">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/07/31/Spring÷–ÃÌº”RESTπ¶ƒ‹/" title="Spring中添加REST功能" itemprop="url">Spring中添加REST功能</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2016-07-31T12:39:26.000Z" itemprop="datePublished"> 发表于 2016-07-31</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#REST基本原理："><span class="toc-number">1.</span> <span class="toc-text">REST基本原理：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spring如何支持REST？"><span class="toc-number">2.</span> <span class="toc-text">Spring如何支持REST？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RESTful-URL"><span class="toc-number">3.</span> <span class="toc-text">RESTful URL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#执行REST动作"><span class="toc-number">4.</span> <span class="toc-text">执行REST动作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#表述资源"><span class="toc-number">5.</span> <span class="toc-text">表述资源</span></a></li></ol>
+		
+		</div>
+		
+		<h4 id="REST基本原理："><a href="#REST基本原理：" class="headerlink" title="REST基本原理："></a>REST基本原理：</h4><ul>
+<li>通过简单的HTTP URL触发事件</li>
+<li>REST是将资源最合适地从服务端转移到客户端(或者反之)</li>
+<li>REST与RPC(远程过程调用)：REST面向资源，强调描述应用程序的事物和名词;RPC面向服务，关注于行为和行动<h4 id="Spring如何支持REST？"><a href="#Spring如何支持REST？" class="headerlink" title="Spring如何支持REST？"></a>Spring如何支持REST？</h4></li>
+<li>控制器可以处理所有的HTTP方法：GET、POST、DELETE、PUT…</li>
+<li>@PathVariable 注解使控制器能够处理参数化的URL(带参数变量的URL)</li>
+<li>Spring表单绑定JSP标签库的<code>&lt;form:form&gt;</code>标签以及新的HidenHttpMethodFilter，使得通过HTML转发提交的PUT，DELETE请求成为可能(即使mou’xie)</li>
+<li>使用String的视图和视图解析器，资源可以以各种形式表述，包括将数据模型表示为：XML、JSON、ATOM、RSS等</li>
+<li>使用新的ContentNegotiatingResolver来选择合适的客户端表述</li>
+<li>类似的，使用@ResponseBody注解以及HttpMethodConverter实现可以将传入的HTTP数据转化为传入控制器的处理方法的Java对象</li>
+<li>RestTemplate简化客户端对REST资源的使用</li>
+</ul>
+<h4 id="RESTful-URL"><a href="#RESTful-URL" class="headerlink" title="RESTful URL"></a>RESTful URL</h4><ul>
+<li>格式：<code>http://localhost:8080/spitter/spittles/123</code><ul>
+<li>协议：//域名：端口号/Servlet上下文路径/资源类型/特定的spittle</li>
+<li>REST　URL是用来标识资源</li>
+</ul>
+</li>
+<li>RESTful　URL是有层级结构的，每个层标识一种资源</li>
+<li>其中，URL还可以参数化，在控制器中获取该参数<code>@PathVariable(&quot;id&quot;) long id</code></li>
+</ul>
+<h4 id="执行REST动作"><a href="#执行REST动作" class="headerlink" title="执行REST动作"></a>执行REST动作</h4><ul>
+<li>HTTP提供来操作资源的方法，主要是四个</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+<th>是否安全</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>从服务器上检索资源信息，资源通过请求的URL来进行标识</td>
+<td>是</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>传送数据到服务器，数据会由监听该请求的URL处理器进行处理</td>
+<td>否</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>按照请求的URＬ，防治资源到服务器指定位置</td>
+<td>否</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>将请求URL标识的资源从服务器上删除</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
+<h4 id="表述资源"><a href="#表述资源" class="headerlink" title="表述资源"></a>表述资源</h4><ul>
+<li>Spring提供两种形式，将资源的Java表述形式转换为发送给客户端的表述形式：<ul>
+<li>基于视图渲染进行协商</li>
+<li>HTTP消息转换器</li>
+</ul>
+</li>
+<li>协商资源表述<br>bean配置:<figure class="highlight plain"><figcaption><span>根据客户端的不同的请求决定不同的view进行响应, 如/blog/1.json/blog/1.xml--></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">    &lt;bean class=&quot;org.springframework.web.servlet.view.ContentNegotiatingViewResolver&quot;&gt;</span><br><span class="line">&lt;!-- 设置为true以忽略对Accept Header的支持--&gt;</span><br><span class="line">         ##&lt;property name=&quot;ignoreAcceptHeader&quot; value=&quot;true&quot;/&gt;</span><br><span class="line"> &lt;!-- 在没有扩展名时即: &quot;/user/1&quot; 时的默认展现形式 --&gt;</span><br><span class="line">        &lt;property name=&quot;defaultContentType&quot; value=&quot;text/html&quot;/&gt;</span><br><span class="line">&lt;!-- 扩展名至mimeType的映射,即 /user.json =&gt; application/json --&gt;</span><br><span class="line">        &lt;property name=&quot;mediaTypes&quot;&gt;</span><br><span class="line">            &lt;map&gt;</span><br><span class="line">                &lt;entry key=&quot;json&quot; value=&quot;application/json&quot; /&gt;</span><br><span class="line">                &lt;entry key=&quot;xml&quot; value=&quot;application/xml&quot; /&gt;</span><br><span class="line">            &lt;/map&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li>确定请求的媒体类型<ul>
+<li>ViewResolver首先查找URL中的文件扩展名，将文件扩展名与mediatype的条目匹配，如果找到匹配项，则使用该媒体类型，并覆盖accpt头信息中的任何媒体类型</li>
+<li>如果找不到URL中的扩展名，那么就使用Accept中的头信息的媒体类型</li>
+<li>如果请求头中不包含Accept头信息，那么就使用defaultContentType属性中设置的媒体类型</li>
+</ul>
+</li>
+<li>影响如何选择类型<ul>
+<li>将favorPathExtension属性设置为false，将会使得ContextNegotiatingViewResolver忽略URL路径扩展名</li>
+<li>将JAF添加到类路径下将会使得ContextNegotiatingViewResolver除了使用mediaTypes属性中的条目外，在路径扩展名确定媒体类型时还会借助JAF</li>
+<li>将favorParameter属性设置为true，并且请求中包含名为format参数，那么format参数的值将会mediatype属性来进行匹配，即使URL文件中没有文件扩展名也能匹配其中的媒体类型</li>
+<li>ignoreAcceptHeader属性设置为true，将会忽略Accept头信息</li>
+</ul>
+</li>
+<li>查找视图<ul>
+<li>ContextNegotiatingViewResolver循环所有保存的媒体类型，找到能与之匹配内容类型的视图，完成视图解析匹配</li>
+<li>如果ContextNegotiatingViewResolver没有找到合适的视图，那么它将返回null视图，或者如果useNotAcceptableStatusCode属性被设置为true，那么将返回带有http状态码406(Not Acceptable)的视图</li>
+</ul>
+</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Spring/">Spring</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://royleo.xyz/2016/07/31/Spring÷–ÃÌº”RESTπ¶ƒ‹/" data-title="Spring中添加REST功能 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/08/01/TCPΩ®¡¢¡¥Ω”»˝¥ŒŒ’ ÷–≠“È‘≠¿Ì”Îπ˝≥Ã∑÷Œˆ/" title="TCP通信三次握手协议原理与过程分析">
+  <strong>上一篇：</strong><br/>
+  <span>
+  TCP通信三次握手协议原理与过程分析</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/07/29/JSPæ≈¥Ûƒ⁄÷√∂‘œÛ“‘º∞Àƒ∏ˆ◊˜”√”Ú/"  title="JSP九大内置对象、四个作用域以及六大基本动作">
+ <strong>下一篇：</strong><br/> 
+ <span>JSP九大内置对象、四个作用域以及六大基本动作
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/07/31/Spring÷–ÃÌº”RESTπ¶ƒ‹/" data-title="Spring中添加REST功能" data-url="http://royleo.xyz/2016/07/31/Spring÷–ÃÌº”RESTπ¶ƒ‹/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#REST基本原理："><span class="toc-number">1.</span> <span class="toc-text">REST基本原理：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spring如何支持REST？"><span class="toc-number">2.</span> <span class="toc-text">Spring如何支持REST？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RESTful-URL"><span class="toc-number">3.</span> <span class="toc-text">RESTful URL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#执行REST动作"><span class="toc-number">4.</span> <span class="toc-text">执行REST动作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#表述资源"><span class="toc-number">5.</span> <span class="toc-text">表述资源</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="liangqian" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Spring/" title="Spring">Spring<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mybatis/" title="Mybatis">Mybatis<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态代理/" title="动态代理">动态代理<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/多线程/" title="多线程">多线程<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web/" title="Web">Web<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TakeDown/" title="TakeDown">TakeDown<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Git/" title="Git">Git<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hibernate/" title="Hibernate">Hibernate<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NetWorker/" title="NetWorker">NetWorker<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JVM/" title="JVM">JVM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Exception/" title="Exception">Exception<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=5357792662&verifier=747e40f9&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 大音希声，重剑无锋 <br/>
+			In solitude, be a multitude to yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/5357792662" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/liangqian" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		<a href="https://www.facebook.com/roy.leong.589" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		<a href="https://plus.google.com/+RoyLeong?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:liangqian0723@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="Roy Leong">Roy Leong</a>
+		
+		
+		</p>
+
+		
+</div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"liangqian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'cloversoulmate';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-83701409-1', 'http://www.royleo.xyz');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

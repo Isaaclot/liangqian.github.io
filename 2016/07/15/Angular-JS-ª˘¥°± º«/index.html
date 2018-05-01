@@ -1,0 +1,614 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  
+    <title>Angular JS 基础笔记 | 简单·踏实</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Roy Leong">
+    
+
+    
+    <meta name="description" content="AngularJS 开发 使得开发现代的单一页面应用程序（SPAs：Single Page Applications）变得更加容易。 Angular JS 把应用程序数据绑定到HTML元素 Angular JS 可以克隆和重复HTML元素 Angular JS 可以隐藏/显示HTML元素 Angular JS 可以在元素背后添加代码 Angular JS 支持输入验证  $scope 作用域 $s">
+<meta name="keywords" content="Angular JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular JS 基础笔记">
+<meta property="og:url" content="http://royleo.xyz/2016/07/15/Angular-JS-ª˘¥°± º«/index.html">
+<meta property="og:site_name" content="简单·踏实">
+<meta property="og:description" content="AngularJS 开发 使得开发现代的单一页面应用程序（SPAs：Single Page Applications）变得更加容易。 Angular JS 把应用程序数据绑定到HTML元素 Angular JS 可以克隆和重复HTML元素 Angular JS 可以隐藏/显示HTML元素 Angular JS 可以在元素背后添加代码 Angular JS 支持输入验证  $scope 作用域 $s">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2016-07-16T08:38:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular JS 基础笔记">
+<meta name="twitter:description" content="AngularJS 开发 使得开发现代的单一页面应用程序（SPAs：Single Page Applications）变得更加容易。 Angular JS 把应用程序数据绑定到HTML元素 Angular JS 可以克隆和重复HTML元素 Angular JS 可以隐藏/显示HTML元素 Angular JS 可以在元素背后添加代码 Angular JS 支持输入验证  $scope 作用域 $s">
+<link rel="publisher" href="+RoyLeong">
+
+    
+    <link rel="alternative" href="/atom.xml" title="简单·踏实" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="简单·踏实" title="简单·踏实"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="简单·踏实">简单·踏实</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+						<li><a href="/resume">简历</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:royleo.xyz">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/07/15/Angular-JS-ª˘¥°± º«/" title="Angular JS 基础笔记" itemprop="url">Angular JS 基础笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2016-07-14T16:48:37.000Z" itemprop="datePublished"> 发表于 2016-07-15</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AngularJS-开发"><span class="toc-number">1.</span> <span class="toc-text">AngularJS 开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#scope-作用域"><span class="toc-number">2.</span> <span class="toc-text">$scope 作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Angular-JS-服务"><span class="toc-number">3.</span> <span class="toc-text">Angular JS 服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Angular-JS-指令"><span class="toc-number">4.</span> <span class="toc-text">Angular JS 指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Angular-JS-事件"><span class="toc-number">5.</span> <span class="toc-text">Angular JS 事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#未完待续……"><span class="toc-number">6.</span> <span class="toc-text">未完待续……</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="AngularJS-开发"><a href="#AngularJS-开发" class="headerlink" title="AngularJS 开发"></a>AngularJS 开发</h2><ul>
+<li>使得开发现代的单一页面应用程序（SPAs：Single Page Applications）变得更加容易。</li>
+<li>Angular JS 把应用程序数据绑定到HTML元素</li>
+<li>Angular JS 可以克隆和重复HTML元素</li>
+<li>Angular JS 可以隐藏/显示HTML元素</li>
+<li>Angular JS 可以在元素背后添加代码</li>
+<li>Angular JS 支持输入验证</li>
+</ul>
+<h2 id="scope-作用域"><a href="#scope-作用域" class="headerlink" title="$scope 作用域"></a>$scope 作用域</h2><ul>
+<li>$scope 对象当作一个参数传递</li>
+<li>带有属性和方法，这些属性和方法可以在视图和控制器中使用</li>
+<li>根作用域<code>$rootScope</code>: 可作用于整个应用中。是各个 controller 中 scope 的桥梁。用 rootscope 定义的值，可以在各个 controller 中使用。</li>
+</ul>
+<h2 id="Angular-JS-服务"><a href="#Angular-JS-服务" class="headerlink" title="Angular JS 服务"></a>Angular JS 服务</h2><ul>
+<li>$location : 返回当前页面的 URL 地址 ($location.absUrl();)</li>
+<li><p>$http :(例子)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var app = angular.module(&apos;myApp&apos;, []);</span><br><span class="line">app.controller(&apos;myCtrl&apos;, function($scope, $http) &#123;</span><br><span class="line">    $http.get(&quot;welcome.htm&quot;).then(function (response) &#123;</span><br><span class="line">        $scope.myWelcome = response.data;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>$timeout 访问在规定的毫秒数后执行指定函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$timeout(function () &#123;</span><br><span class="line">      $scope.myHeader = &quot;How are you today?&quot;;</span><br><span class="line">  &#125;, 2000);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>$interval 访问在指定的周期(以毫秒计)来调用函数或计算表达式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$interval(function () &#123;</span><br><span class="line">     $scope.theTime = new Date().toLocaleTimeString();</span><br><span class="line"> &#125;, 1000);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建自定义服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">app.service(&apos;hexafy&apos;, function() &#123;</span><br><span class="line">    this.myFunc = function (x) &#123;</span><br><span class="line">        return x.toString(16);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用自定义服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.controller(&apos;myCtrl&apos;, function($scope, hexafy) &#123;</span><br><span class="line">    $scope.hex = hexafy.myFunc(255);</span><br><span class="line">&#125;); //不加`$`区分自带和自定义服务</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Angular-JS-指令"><a href="#Angular-JS-指令" class="headerlink" title="Angular JS 指令"></a>Angular JS 指令</h2><ul>
+<li>ng-app 指令初始化一个AngularJS应用程序</li>
+<li>ng-init 初始化一个应用程序数据</li>
+<li>ng-model 把元素值(比如输入域的值)绑定到应用程序中</li>
+<li><p>ng-repeat 指令会重复一个HTML元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div ng-app=&quot;&quot; ng-init=&quot;names=[&apos;Jani&apos;,&apos;Hege&apos;,&apos;dasd&apos;];in=100&quot;&gt;</span><br><span class="line">  &lt;p&gt;使用 ng-repeat 来循环数组&lt;/p&gt;</span><br><span class="line">	&lt;input type=number ng-model=&quot;in&quot; &gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li ng-repeat=&quot;x in names&quot;&gt;</span><br><span class="line">      &#123;&#123; x &#125;&#125;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">	  &lt;li&gt;&#123;&#123;in&#125;&#125;&lt;/li&gt;</span><br><span class="line">  &lt;/ul&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ng-disabled : 直接绑定应用程序数据到HTML的disabled属性 ; 当 标记记作 <code>true</code> 被标记的元素失效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;button ng-disabled=&quot;mySwitch&quot;&gt;点我!&lt;/button&gt;</span><br><span class="line">&lt;input type=&quot;checkbox&quot; ng-model=&quot;mySwitch&quot;&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ng-show : 被标记元素标记为true时，改元素可见</p>
+</li>
+<li>ng-hide :  true —&gt; 不可见</li>
+</ul>
+<h2 id="Angular-JS-事件"><a href="#Angular-JS-事件" class="headerlink" title="Angular JS 事件"></a>Angular JS 事件</h2><ul>
+<li>ng-click : 定义ng的点击触发事件</li>
+</ul>
+<hr>
+<h2 id="未完待续……"><a href="#未完待续……" class="headerlink" title="未完待续……"></a>未完待续……</h2>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Angular-JS/">Angular JS</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://royleo.xyz/2016/07/15/Angular-JS-ª˘¥°± º«/" data-title="Angular JS 基础笔记 | 简单·踏实" data-tsina="5357792662" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/07/16/Spring-MVC«Î«Û¥¶¿Ìπ§◊˜¡˜≥Ã/" title="Spring-MVC请求处理工作流程">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Spring-MVC请求处理工作流程</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/07/08/hibernate µœ÷‘≠¿Ì”ÎÀºøº/"  title="hibernate实现原理与思考">
+ <strong>下一篇：</strong><br/> 
+ <span>hibernate实现原理与思考
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/07/15/Angular-JS-ª˘¥°± º«/" data-title="Angular JS 基础笔记" data-url="http://royleo.xyz/2016/07/15/Angular-JS-ª˘¥°± º«/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AngularJS-开发"><span class="toc-number">1.</span> <span class="toc-text">AngularJS 开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#scope-作用域"><span class="toc-number">2.</span> <span class="toc-text">$scope 作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Angular-JS-服务"><span class="toc-number">3.</span> <span class="toc-text">Angular JS 服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Angular-JS-指令"><span class="toc-number">4.</span> <span class="toc-text">Angular JS 指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Angular-JS-事件"><span class="toc-number">5.</span> <span class="toc-text">Angular JS 事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#未完待续……"><span class="toc-number">6.</span> <span class="toc-text">未完待续……</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="liangqian" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Spring/" title="Spring">Spring<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mybatis/" title="Mybatis">Mybatis<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态代理/" title="动态代理">动态代理<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/多线程/" title="多线程">多线程<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web/" title="Web">Web<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TakeDown/" title="TakeDown">TakeDown<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Git/" title="Git">Git<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hibernate/" title="Hibernate">Hibernate<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NetWorker/" title="NetWorker">NetWorker<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JVM/" title="JVM">JVM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Exception/" title="Exception">Exception<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=5357792662&verifier=747e40f9&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 大音希声，重剑无锋 <br/>
+			In solitude, be a multitude to yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/5357792662" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/liangqian" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		<a href="https://www.facebook.com/roy.leong.589" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		<a href="https://plus.google.com/+RoyLeong?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:liangqian0723@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="Roy Leong">Roy Leong</a>
+		
+		
+		</p>
+
+		
+</div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"liangqian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'cloversoulmate';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-83701409-1', 'http://www.royleo.xyz');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
