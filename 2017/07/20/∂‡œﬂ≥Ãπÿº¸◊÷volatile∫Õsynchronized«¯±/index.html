@@ -16,7 +16,7 @@
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多线程关键字volatile和synchronized区别">
-<meta property="og:url" content="http://lays3721.top/2017/07/20/∂‡œﬂ≥Ãπÿº¸◊÷volatile∫Õsynchronized«¯±/index.html">
+<meta property="og:url" content="http://blog.lays3721.top/2017/07/20/∂‡œﬂ≥Ãπÿº¸◊÷volatile∫Õsynchronized«¯±/index.html">
 <meta property="og:site_name" content="轮子匠人">
 <meta property="og:description" content="volatile关键字 在JVM内存模型中，有主内存一说(main memory)，每个线程都有自己的memory(如寄存器)。为了性能，一个性能需要在自己的memory中保持要访问的变量副本。这样就会出现某个瞬间，线程memory数据尚未同步的时候，可能会出现每个线程内的变量副本数据不一致，或者与main memory不一致的问题。 用于多线程，同步变量。线程为了提高效率，将成员变量(A)拷贝了">
 <meta property="og:locale" content="zh-CN">
@@ -69,7 +69,7 @@
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
 						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
-						<input type="hidden" name="q" value="site:lays3721.top">
+						<input type="hidden" name="q" value="site:blog.lays3721.top">
 					</form>
 					
 					</li>
@@ -110,7 +110,7 @@
 </ul>
 <h4 id="synchronized关键字-加锁"><a href="#synchronized关键字-加锁" class="headerlink" title="synchronized关键字(加锁)"></a><code>synchronized</code>关键字(加锁)</h4><ul>
 <li>多线程在共享同一片存储空间的同时，带来了方便，也带来了范围内的冲突的可能性，出现同一个数据同时被多个线程访问的情况。<code>synchronized</code>关键字可以解决这个问题，被<code>synchronized</code>修饰的方法或者代码块或者类，在同一个时间片内只能有一个访问者获得访问权限</li>
-<li>之前也有一个笔记是写关于<code>synchronized</code>锁的描述：<a href="http://royleo.xyz/2016/10/14/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%9F%BA%E7%A1%80%E4%B9%8Bsynchronized%E5%90%8C%E6%AD%A5/">synchronized</a></li>
+<li>之前也有一个笔记是写关于<code>synchronized</code>锁的描述：<a href="http://royleo.xyz/2016/10/14/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%9F%BA%E7%A1%80%E4%B9%8Bsynchronized%E5%90%8C%E6%AD%A5/" target="_blank" rel="noopener">synchronized</a></li>
 <li><code>synchronized</code>修饰的方法、代码块、类具有原子性</li>
 <li>Java的每个对象都有一个锁(Lock)或者叫做监视器，当访问某个对象的<code>synchronized</code>方法或者是代码块，都意味着将该对象上说，此时其他线程无法访问，直至到锁被释放。如果一个对象有多个带<code>synchronized</code>锁的方法，在其中一个锁未被释放之前，其他线程也无法访问改对象的任何带<code>synchronized</code>的方法。</li>
 </ul>
@@ -149,7 +149,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://lays3721.top/2017/07/20/∂‡œﬂ≥Ãπÿº¸◊÷volatile∫Õsynchronized«¯±/" data-title="多线程关键字volatile和synchronized区别 | 轮子匠人" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://blog.lays3721.top/2017/07/20/∂‡œﬂ≥Ãπÿº¸◊÷volatile∫Õsynchronized«¯±/" data-title="多线程关键字volatile和synchronized区别 | 轮子匠人" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -183,7 +183,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/07/20/∂‡œﬂ≥Ãπÿº¸◊÷volatile∫Õsynchronized«¯±/" data-title="多线程关键字volatile和synchronized区别" data-url="http://lays3721.top/2017/07/20/∂‡œﬂ≥Ãπÿº¸◊÷volatile∫Õsynchronized«¯±/"></div>
+	<div class="ds-thread" data-thread-key="2017/07/20/∂‡œﬂ≥Ãπÿº¸◊÷volatile∫Õsynchronized«¯±/" data-title="多线程关键字volatile和synchronized区别" data-url="http://blog.lays3721.top/2017/07/20/∂‡œﬂ≥Ãπÿº¸◊÷volatile∫Õsynchronized«¯±/"></div>
 </section>
 
 
@@ -237,7 +237,7 @@
 			
 		
 			
-				<li><a href="/tags/Mybatis/" title="Mybatis">Mybatis<sup>4</sup></a></li>
+				<li><a href="/tags/多线程/" title="多线程">多线程<sup>4</sup></a></li>
 			
 		
 			
@@ -245,7 +245,7 @@
 			
 		
 			
-				<li><a href="/tags/多线程/" title="多线程">多线程<sup>4</sup></a></li>
+				<li><a href="/tags/Mybatis/" title="Mybatis">Mybatis<sup>4</sup></a></li>
 			
 		
 			
@@ -265,11 +265,11 @@
 			
 		
 			
-				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>2</sup></a></li>
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>2</sup></a></li>
 			
 		
 			
@@ -285,7 +285,7 @@
 			
 		
 			
-				<li><a href="/tags/JVM/" title="JVM">JVM<sup>1</sup></a></li>
+				<li><a href="/tags/Exception/" title="Exception">Exception<sup>1</sup></a></li>
 			
 		
 			
@@ -293,7 +293,7 @@
 			
 		
 			
-				<li><a href="/tags/Exception/" title="Exception">Exception<sup>1</sup></a></li>
+				<li><a href="/tags/JVM/" title="JVM">JVM<sup>1</sup></a></li>
 			
 		
 		</ul>
