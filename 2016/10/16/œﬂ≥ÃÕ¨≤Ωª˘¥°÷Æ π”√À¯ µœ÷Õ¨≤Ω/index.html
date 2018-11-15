@@ -16,7 +16,7 @@
 <meta name="keywords" content="Java,多线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="线程同步基础之使用锁实现同步">
-<meta property="og:url" content="http://blog.lays3721.top/2016/10/16/œﬂ≥ÃÕ¨≤Ωª˘¥°÷Æ π”√À¯ µœ÷Õ¨≤Ω/index.html">
+<meta property="og:url" content="http://prelike.xyz/2016/10/16/œﬂ≥ÃÕ¨≤Ωª˘¥°÷Æ π”√À¯ µœ÷Õ¨≤Ω/index.html">
 <meta property="og:site_name" content="轮子匠人">
 <meta property="og:description" content="线程同步基础之使用锁实现同步概述 使用锁实现同步是通过重写Lock接口来实现，与synchronized相比，Lock接口允许实现更复杂的临界区结构(控制的获取和释放不在同一个块结构中)  死锁 定义：当两个或者多个线程被阻塞并且他们等待释放的锁永远都不会是释放，就会发生死锁  使用实例 Lock接口引入tryLock()方法获取锁，如果锁已经被其他线程获取，那就返回false，并继续往下执行代码">
 <meta property="og:locale" content="zh-CN">
@@ -69,7 +69,7 @@
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
 						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
-						<input type="hidden" name="q" value="site:blog.lays3721.top">
+						<input type="hidden" name="q" value="site:prelike.xyz">
 					</form>
 					
 					</li>
@@ -136,7 +136,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://blog.lays3721.top/2016/10/16/œﬂ≥ÃÕ¨≤Ωª˘¥°÷Æ π”√À¯ µœ÷Õ¨≤Ω/" data-title="线程同步基础之使用锁实现同步 | 轮子匠人" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://prelike.xyz/2016/10/16/œﬂ≥ÃÕ¨≤Ωª˘¥°÷Æ π”√À¯ µœ÷Õ¨≤Ω/" data-title="线程同步基础之使用锁实现同步 | 轮子匠人" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -170,7 +170,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/10/16/œﬂ≥ÃÕ¨≤Ωª˘¥°÷Æ π”√À¯ µœ÷Õ¨≤Ω/" data-title="线程同步基础之使用锁实现同步" data-url="http://blog.lays3721.top/2016/10/16/œﬂ≥ÃÕ¨≤Ωª˘¥°÷Æ π”√À¯ µœ÷Õ¨≤Ω/"></div>
+	<div class="ds-thread" data-thread-key="2016/10/16/œﬂ≥ÃÕ¨≤Ωª˘¥°÷Æ π”√À¯ µœ÷Õ¨≤Ω/" data-title="线程同步基础之使用锁实现同步" data-url="http://prelike.xyz/2016/10/16/œﬂ≥ÃÕ¨≤Ωª˘¥°÷Æ π”√À¯ µœ÷Õ¨≤Ω/"></div>
 </section>
 
 
@@ -224,15 +224,15 @@
 			
 		
 			
-				<li><a href="/tags/Mybatis/" title="Mybatis">Mybatis<sup>4</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/动态代理/" title="动态代理">动态代理<sup>4</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/多线程/" title="多线程">多线程<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mybatis/" title="Mybatis">Mybatis<sup>4</sup></a></li>
 			
 		
 			
@@ -244,19 +244,11 @@
 			
 		
 			
-				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Git/" title="Git">Git<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>2</sup></a></li>
+				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
 			
 		
 			
@@ -264,11 +256,19 @@
 			
 		
 			
-				<li><a href="/tags/NetWorker/" title="NetWorker">NetWorker<sup>1</sup></a></li>
+				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
+				<li><a href="/tags/Git/" title="Git">Git<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Redis/" title="Redis">Redis<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NetWorker/" title="NetWorker">NetWorker<sup>1</sup></a></li>
 			
 		
 			
@@ -280,15 +280,15 @@
 			
 		
 			
+				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/JVM/" title="JVM">JVM<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Redis/" title="Redis">Redis<sup>1</sup></a></li>
 			
 		
 		</ul>
