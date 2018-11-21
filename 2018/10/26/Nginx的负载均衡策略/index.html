@@ -5,25 +5,25 @@
   <meta charset="UTF-8">
   
   
-    <title>线程同步基础之使用锁实现同步 | 轮子匠人</title>
+    <title>Nginx的负载均衡策略 | 轮子匠人</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Roy Leong">
     
 
     
-    <meta name="description" content="线程同步基础之使用锁实现同步概述 使用锁实现同步是通过重写Lock接口来实现，与synchronized相比，Lock接口允许实现更复杂的临界区结构(控制的获取和释放不在同一个块结构中)  死锁 定义：当两个或者多个线程被阻塞并且他们等待释放的锁永远都不会是释放，就会发生死锁  使用实例 Lock接口引入tryLock()方法获取锁，如果锁已经被其他线程获取，那就返回false，并继续往下执行代码">
-<meta name="keywords" content="Java,多线程">
+    <meta name="description" content="Nginx负载均衡（工作在七层“应用层”）功能主要是通过upstream模块实现，Nginx负载均衡默认对后端服务器有健康检测的能力，仅限于端口检测，在后端服务器比较少的情况下负载均衡能力表现突出。">
+<meta name="keywords" content="Nginx,NetWorker">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线程同步基础之使用锁实现同步">
-<meta property="og:url" content="http://prelike.xyz/2016/10/16/线程同步基础之使用锁实现同步/index.html">
+<meta property="og:title" content="Nginx的负载均衡策略">
+<meta property="og:url" content="http://prelike.xyz/2018/10/26/Nginx的负载均衡策略/index.html">
 <meta property="og:site_name" content="轮子匠人">
-<meta property="og:description" content="线程同步基础之使用锁实现同步概述 使用锁实现同步是通过重写Lock接口来实现，与synchronized相比，Lock接口允许实现更复杂的临界区结构(控制的获取和释放不在同一个块结构中)  死锁 定义：当两个或者多个线程被阻塞并且他们等待释放的锁永远都不会是释放，就会发生死锁  使用实例 Lock接口引入tryLock()方法获取锁，如果锁已经被其他线程获取，那就返回false，并继续往下执行代码">
+<meta property="og:description" content="Nginx负载均衡（工作在七层“应用层”）功能主要是通过upstream模块实现，Nginx负载均衡默认对后端服务器有健康检测的能力，仅限于端口检测，在后端服务器比较少的情况下负载均衡能力表现突出。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-01-28T14:28:30.000Z">
+<meta property="og:updated_time" content="2018-11-21T07:57:44.978Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="线程同步基础之使用锁实现同步">
-<meta name="twitter:description" content="线程同步基础之使用锁实现同步概述 使用锁实现同步是通过重写Lock接口来实现，与synchronized相比，Lock接口允许实现更复杂的临界区结构(控制的获取和释放不在同一个块结构中)  死锁 定义：当两个或者多个线程被阻塞并且他们等待释放的锁永远都不会是释放，就会发生死锁  使用实例 Lock接口引入tryLock()方法获取锁，如果锁已经被其他线程获取，那就返回false，并继续往下执行代码">
+<meta name="twitter:title" content="Nginx的负载均衡策略">
+<meta name="twitter:description" content="Nginx负载均衡（工作在七层“应用层”）功能主要是通过upstream模块实现，Nginx负载均衡默认对后端服务器有健康检测的能力，仅限于端口检测，在后端服务器比较少的情况下负载均衡能力表现突出。">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -84,14 +84,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/10/16/线程同步基础之使用锁实现同步/" title="线程同步基础之使用锁实现同步" itemprop="url">线程同步基础之使用锁实现同步</a>
+      <a href="/2018/10/26/Nginx的负载均衡策略/" title="Nginx的负载均衡策略" itemprop="url">Nginx的负载均衡策略</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2016-10-16T14:38:51.000Z" itemprop="datePublished"> 发表于 2016-10-16</time>
+    <time datetime="2018-10-26T11:38:13.000Z" itemprop="datePublished"> 发表于 2018-10-26</time>
     
   </p>
 </header>
@@ -100,25 +100,55 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#线程同步基础之使用锁实现同步"><span class="toc-number">1.</span> <span class="toc-text">线程同步基础之使用锁实现同步</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#概述"><span class="toc-number">1.0.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#死锁"><span class="toc-number">1.0.2.</span> <span class="toc-text">死锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用实例"><span class="toc-number">1.0.3.</span> <span class="toc-text">使用实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用读写锁实现同步数据的访问"><span class="toc-number">1.0.4.</span> <span class="toc-text">使用读写锁实现同步数据的访问</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Nginx负载均衡模块的作用"><span class="toc-number">1.</span> <span class="toc-text">Nginx负载均衡模块的作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Nginx负载均衡策略"><span class="toc-number">2.</span> <span class="toc-text">Nginx负载均衡策略</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="线程同步基础之使用锁实现同步"><a href="#线程同步基础之使用锁实现同步" class="headerlink" title="线程同步基础之使用锁实现同步"></a>线程同步基础之使用锁实现同步</h2><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ul>
-<li>使用锁实现同步是通过重写Lock接口来实现，与synchronized相比，Lock接口允许实现更复杂的临界区结构(控制的获取和释放不在同一个块结构中)</li>
-</ul>
-<h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><ul>
-<li>定义：当两个或者多个线程被阻塞并且他们等待释放的锁永远都不会是释放，就会发生死锁</li>
-</ul>
-<h4 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h4><ul>
-<li>Lock接口引入<code>tryLock()</code>方法获取锁，如果锁已经被其他线程获取，那就返回false，并继续往下执行代码(不是执行临界区代码，而且相当于事物回滚的机制)</li>
-<li>使用<code>lock()</code>方法获取对锁的控制，必须也用<code>unlock()</code>释放对锁的控制<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public void printJob(Object doc)&#123;</span><br><span class="line">        queueLock.lock();</span><br><span class="line">        try &#123;</span><br><span class="line">            long duration = (long) (Math.random()*10000);</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+&quot; OrintQueue Printing a job during &quot;+(duration/1000)+&quot;second&quot;);</span><br><span class="line">            Thread.sleep(duration);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;finally &#123;</span><br><span class="line">            queueLock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+		<h4 id="Nginx负载均衡模块的作用"><a href="#Nginx负载均衡模块的作用" class="headerlink" title="Nginx负载均衡模块的作用"></a>Nginx负载均衡模块的作用</h4><ol>
+<li>负载均衡模块用于从”upstream”指令定义的后端主机列表中选取一台主机。nginx先使用负载均衡模块找到一台主机，再使用upstream模块实现与这台主机的交互。</li>
+<li>Nginx负载均衡默认对后端服务器有健康检测的能力，仅限于端口检测，在后端服务器比较少的情况下负载均衡能力表现突出。</li>
+<li>提醒：各种负载均衡策略尽量不要混合使用，这样会导致负载不均衡。<h4 id="Nginx负载均衡策略"><a href="#Nginx负载均衡策略" class="headerlink" title="Nginx负载均衡策略"></a>Nginx负载均衡策略</h4></li>
+<li><p>轮询策略(<code>round-robin</code>)</p>
+<ul>
+<li>轮询策略是Nginx自带的负载均衡策略，并且是默认的策略。</li>
+<li>每个请求按照访问时间顺序，分配到不同的后端服务器</li>
+<li>配置如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream backend &#123;</span><br><span class="line">       server 192.168.1.101:8888;</span><br><span class="line">       server 192.168.1.102:8888;</span><br><span class="line">       server 192.168.1.103:8888;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h4 id="使用读写锁实现同步数据的访问"><a href="#使用读写锁实现同步数据的访问" class="headerlink" title="使用读写锁实现同步数据的访问"></a>使用读写锁实现同步数据的访问</h4><ul>
-<li><code>ReadWriteLock</code>接口和他的实现类<code>ReenteantReadWriteLock</code>。这两个类有两个锁，一个是读操作锁(可同时允许多个人访问)，一个是写操作锁(同一时段只能一个线程操作)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public double getPrice2()&#123;</span><br><span class="line">        lock.readLock().lock();</span><br><span class="line">        double value = price2;</span><br><span class="line">        lock.readLock().unlock();</span><br><span class="line">        return value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPrice1(double price1,double price2)&#123;</span><br><span class="line">        lock.writeLock().lock();</span><br><span class="line">        this.price2=price2;</span><br><span class="line">        this.price1=price1;</span><br><span class="line">        lock.writeLock().unlock();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>权重策略(<code>weight</code>)</p>
+<ul>
+<li>被指为轮询负载均衡策略的加强版，可以指定每个可选项的轮询频率</li>
+<li>可以根据后端服务器的异质，能承受的负载程度来使用此策略</li>
+<li>配置如下：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream backend &#123; </span><br><span class="line">    server 192.168.1.101 weight=1; </span><br><span class="line">    server 192.168.1.102 weight=2;</span><br><span class="line">    server 192.168.1.103 weight=3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+</li>
+<li><p>基于IP的哈希策略(<code>ip_hash</code>)</p>
+<ul>
+<li>按照每个访问IP的hash计算结果来分配访问指定的后端服务器；这样可以对固定的访问源转发到固定的目的地址</li>
+<li>这样可以解决集群中session一致性的问题</li>
+<li>配置如下：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">upstream backend &#123; </span><br><span class="line">    ip_hash; </span><br><span class="line">    server 192.168.1.101:7777; </span><br><span class="line">    server 192.168.1.102:8888;</span><br><span class="line">    server 192.168.1.103:9999;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>公平分配策略(<code>fair</code>)(来自第三方)</p>
+<ul>
+<li>公平的按照后端服务器的响应时间(<code>rt</code>)来分配请求，响应时间短的优先分配访问</li>
+<li>由于这种是第三方的负载均衡策略，如果Nginx要使用的话，需要往Nginx里面下载upstr_fair模块</li>
+<li>配置如下：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">upstream backend &#123; </span><br><span class="line">   fair;</span><br><span class="line">   server 192.168.1.101; </span><br><span class="line">   server 192.168.1.102; </span><br><span class="line">   server 192.168.1.103; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>基于URL的哈希策略(<code>url_hash</code>)(来自第三方)</p>
+<ul>
+<li>与IP_Hash类似，URL_Hash是根据请求的URL地址做哈希计算来分配请求值，力求每个相同的URL都能访问到相同的后端服务器</li>
+<li>该策略主要用于缓存场景。根据缓存服务的请求参数，能提高命中同一台后端缓存服务器</li>
+<li>使用的时候，同样，由于URL哈希属于第三方的负载均衡策略，要使用的话，需要按照这种负载均衡模块包以及指定哈希算法的hash软件包</li>
+<li>配置如下：其中<code>hash_method</code>是哈希算法<br><pre><br>upstream backend {<br>server 192.168.1.101;<br>server 192.168.1.102;<br>server 192.168.1.103;<br>hash $request_uri;<br>hash_method crc32;<br>}<pre></pre></pre></li>
+</ul>
+</li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -127,7 +157,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Java/">Java</a><a href="/tags/多线程/">多线程</a>
+  <span></span> <a href="/tags/Nginx/">Nginx</a><a href="/tags/NetWorker/">NetWorker</a>
   </div>
 
 </div>
@@ -136,7 +166,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://prelike.xyz/2016/10/16/线程同步基础之使用锁实现同步/" data-title="线程同步基础之使用锁实现同步 | 轮子匠人" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://prelike.xyz/2018/10/26/Nginx的负载均衡策略/" data-title="Nginx的负载均衡策略 | 轮子匠人" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -150,18 +180,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/11/02/面向切面编程(AOP)实例解释/" title="面向切面编程(AOP)实例解释">
+ <a href="/2018/11/02/快速失败机制/" title="快速失败与安全失败机制">
   <strong>上一篇：</strong><br/>
   <span>
-  面向切面编程(AOP)实例解释</span>
+  快速失败与安全失败机制</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2016/10/14/线程同步基础之synchronized同步/"  title="线程同步基础之synchronized同步">
+<a href="/2018/10/17/Java遍历Map对象的4种方法/"  title="Java遍历Map对象的4种方法">
  <strong>下一篇：</strong><br/> 
- <span>线程同步基础之synchronized同步
+ <span>Java遍历Map对象的4种方法
 </span>
 </a>
 </div>
@@ -170,7 +200,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/10/16/线程同步基础之使用锁实现同步/" data-title="线程同步基础之使用锁实现同步" data-url="http://prelike.xyz/2016/10/16/线程同步基础之使用锁实现同步/"></div>
+	<div class="ds-thread" data-thread-key="2018/10/26/Nginx的负载均衡策略/" data-title="Nginx的负载均衡策略" data-url="http://prelike.xyz/2018/10/26/Nginx的负载均衡策略/"></div>
 </section>
 
 
@@ -186,7 +216,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#线程同步基础之使用锁实现同步"><span class="toc-number">1.</span> <span class="toc-text">线程同步基础之使用锁实现同步</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#概述"><span class="toc-number">1.0.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#死锁"><span class="toc-number">1.0.2.</span> <span class="toc-text">死锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用实例"><span class="toc-number">1.0.3.</span> <span class="toc-text">使用实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用读写锁实现同步数据的访问"><span class="toc-number">1.0.4.</span> <span class="toc-text">使用读写锁实现同步数据的访问</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Nginx负载均衡模块的作用"><span class="toc-number">1.</span> <span class="toc-text">Nginx负载均衡模块的作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Nginx负载均衡策略"><span class="toc-number">2.</span> <span class="toc-text">Nginx负载均衡策略</span></a></li></ol>
  
   </div>
 
