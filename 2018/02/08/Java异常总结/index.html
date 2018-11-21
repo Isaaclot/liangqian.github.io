@@ -1,0 +1,629 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  
+    <title>Java异常总结 | 轮子匠人</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Roy Leong">
+    
+
+    
+    <meta name="description" content="Java异常发生的时候，是你程序出故障和修改的参考，但是也阻碍了程序达到预期目标，所以需要对异常进行有效的处理和维护。下面是Java异常的知识点总结和异常处理的误区和经验的总结。">
+<meta name="keywords" content="Java,Exception">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java异常总结">
+<meta property="og:url" content="http://prelike.xyz/2018/02/08/Java异常总结/index.html">
+<meta property="og:site_name" content="轮子匠人">
+<meta property="og:description" content="Java异常发生的时候，是你程序出故障和修改的参考，但是也阻碍了程序达到预期目标，所以需要对异常进行有效的处理和维护。下面是Java异常的知识点总结和异常处理的误区和经验的总结。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-05T04:43:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java异常总结">
+<meta name="twitter:description" content="Java异常发生的时候，是你程序出故障和修改的参考，但是也阻碍了程序达到预期目标，所以需要对异常进行有效的处理和维护。下面是Java异常的知识点总结和异常处理的误区和经验的总结。">
+<link rel="publisher" href="+RoyLeong">
+
+    
+    <link rel="alternative" href="/atom.xml" title="轮子匠人" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="轮子匠人" title="轮子匠人"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="轮子匠人">轮子匠人</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:prelike.xyz">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/02/08/Java异常总结/" title="Java异常总结" itemprop="url">Java异常总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2018-02-08T04:38:54.000Z" itemprop="datePublished"> 发表于 2018-02-08</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Java异常类结构图"><span class="toc-number">1.</span> <span class="toc-text">Java异常类结构图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Throwable"><span class="toc-number">2.</span> <span class="toc-text">Throwable</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Error"><span class="toc-number">3.</span> <span class="toc-text">Error</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Exception"><span class="toc-number">4.</span> <span class="toc-text">Exception</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Checked异常"><span class="toc-number">4.1.</span> <span class="toc-text">Checked异常</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Runtime异常"><span class="toc-number">4.2.</span> <span class="toc-text">Runtime异常</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-异常处理的误区和经验总结"><span class="toc-number">5.</span> <span class="toc-text">Java 异常处理的误区和经验总结</span></a></li></ol>
+		
+		</div>
+		
+		<h4 id="Java异常类结构图"><a href="#Java异常类结构图" class="headerlink" title="Java异常类结构图"></a>Java异常类结构图</h4><ul>
+<li>Java.lang.Throwable<ul>
+<li>Java.lang.Error<ul>
+<li>Java.lang.OutOfMemoryError</li>
+<li>…</li>
+</ul>
+</li>
+<li>Java.lang.Exception<ul>
+<li>(<code>RuntimeException</code>):<ul>
+<li>Java.lang.ArithmeticException</li>
+<li>Java.lang.IndexOutOfBoundsException</li>
+<li>Java.lang.NullPointerException</li>
+<li>Java.lang.ArrayStoreExcetpion</li>
+<li>Java.lang.ClassCastException</li>
+<li>…</li>
+</ul>
+</li>
+<li>(<code>checkedException</code>):<ul>
+<li>Java.lang.IOException</li>
+<li>Java.lang.ClassNotFoundException</li>
+<li>Java.lang.SQLException</li>
+<li>Java.lang.CloneNotSupportException</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Throwable"><a href="#Throwable" class="headerlink" title="Throwable"></a>Throwable</h4><ul>
+<li>Throwable是所有异常和错误的根(超类)</li>
+</ul>
+<h4 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h4><ul>
+<li>代表编译时间和系统错误，程序发生的不可控或者不可处理的错误</li>
+<li>发送错误的时候，最好的做法是立刻终止程序的执行，而且Error以及子类的错误都不用捕获抛出</li>
+<li>Error由Java虚拟机生成并抛出，包括动态链接失败，虚拟机错误等。程序对其不做处理。</li>
+</ul>
+<h4 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h4><ul>
+<li>一般将Exception异常分配两类：Checked异常和Runtime异常<h5 id="Checked异常"><a href="#Checked异常" class="headerlink" title="Checked异常"></a>Checked异常</h5></li>
+<li>Checked异常是指可以被处理的异常，程序中需要手动显式处理Checked异常，否则会导致在编译期就发生异常而无法编译。</li>
+<li>处理Checked类异常一般有两种方法：<ol>
+<li>确定已知的异常之后，采用<code>try...catch</code>的方式捕获可能出现的异常</li>
+<li>也可以在方法定义的时候，在后面加上<code>throws exceptionName</code>的方式来抛出异常<h5 id="Runtime异常"><a href="#Runtime异常" class="headerlink" title="Runtime异常"></a>Runtime异常</h5></li>
+</ol>
+</li>
+<li>也指非检查异常，例如除数是0或者数组越界的异常，产生频繁，如果处理会降低效率，所以这类异常交由系统自动检测并将他们交给缺省的异常处理程序</li>
+<li>注意：这类异常并非不可以捕获，如果必须，也可以捕获处理</li>
+</ul>
+<h4 id="Java-异常处理的误区和经验总结"><a href="#Java-异常处理的误区和经验总结" class="headerlink" title="Java 异常处理的误区和经验总结"></a>Java 异常处理的误区和经验总结</h4><ul>
+<li>对于异常捕获的finally区域，应该尽量避免在 finally 块中抛异常或者包含 return 语句。否则会影响try或者catch部分程序的运行，因为在 finally 块中抛出的任何异常都会覆盖掉在其前面由 try 或者 catch 块抛出异常。包含 return 语句的情形相似,实例代码在gist中。<ol>
+<li>try-catch 块与 finally 块同时抛异常–&gt; <a href="https://gist.github.com/liangqian/0bcaa6d3b775d24cf53e20ac651935df" target="_blank" rel="noopener">try-catch 块与 finally 块同时抛异常</a></li>
+<li>try-catch 块与 finally 块同时包含 return 语句–&gt;<a href="https://gist.github.com/liangqian/b63f6a658a0ed04f81caf2ddd0cb7263" target="_blank" rel="noopener">try-catch 块与 finally 块同时包含 return 语句</a></li>
+</ol>
+</li>
+<li>参考：<a href="https://www.ibm.com/developerworks/cn/java/j-lo-exception-misdirection/" target="_blank" rel="noopener">Java 异常处理的误区和经验总结
+</a></li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a><a href="/tags/Exception/">Exception</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://prelike.xyz/2018/02/08/Java异常总结/" data-title="Java异常总结 | 轮子匠人" data-tsina="5357792662" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2018/03/18/Object-类中toString-、equal-、hashCode-之间区别与关系/" title="Object 类中toString()、equal()、hashCode()之间关系">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Object 类中toString()、equal()、hashCode()之间关系</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2018/02/03/自己对Java堆和栈的理解/"  title="自己对Java堆和栈的理解">
+ <strong>下一篇：</strong><br/> 
+ <span>自己对Java堆和栈的理解
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2018/02/08/Java异常总结/" data-title="Java异常总结" data-url="http://prelike.xyz/2018/02/08/Java异常总结/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Java异常类结构图"><span class="toc-number">1.</span> <span class="toc-text">Java异常类结构图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Throwable"><span class="toc-number">2.</span> <span class="toc-text">Throwable</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Error"><span class="toc-number">3.</span> <span class="toc-text">Error</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Exception"><span class="toc-number">4.</span> <span class="toc-text">Exception</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Checked异常"><span class="toc-number">4.1.</span> <span class="toc-text">Checked异常</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Runtime异常"><span class="toc-number">4.2.</span> <span class="toc-text">Runtime异常</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-异常处理的误区和经验总结"><span class="toc-number">5.</span> <span class="toc-text">Java 异常处理的误区和经验总结</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="liangqian" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>31</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Spring/" title="Spring">Spring<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mybatis/" title="Mybatis">Mybatis<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/多线程/" title="多线程">多线程<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TakeDown/" title="TakeDown">TakeDown<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态代理/" title="动态代理">动态代理<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Redis/" title="Redis">Redis<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web/" title="Web">Web<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Git/" title="Git">Git<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NetWorker/" title="NetWorker">NetWorker<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hibernate/" title="Hibernate">Hibernate<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Nginx/" title="Nginx">Nginx<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/场景/" title="场景">场景<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=5357792662&verifier=747e40f9&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 大音希声，重剑无锋 <br/>
+			In solitude, be a multitude to yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/5357792662" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/liangqian" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		<a href="https://www.facebook.com/roy.leong.589" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		<a href="https://plus.google.com/+RoyLeong?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:liangqian0723@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="Roy Leong">Roy Leong</a>
+		
+		
+		</p>
+
+		
+</div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"liangqian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'cloversoulmate';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-83701409-1', 'http://www.royleo.xyz');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

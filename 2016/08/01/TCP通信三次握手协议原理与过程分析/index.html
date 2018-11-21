@@ -1,0 +1,620 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  
+    <title>TCP通信三次握手协议原理与过程分析 | 轮子匠人</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Roy Leong">
+    
+
+    
+    <meta name="description" content="TCP连接是在IP网络中两个进程间(应用层协议)的双向、全双工的逻辑回路.由节点的IP地址和端口将连接双方对应起来">
+<meta name="keywords" content="NetWorker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP通信三次握手协议原理与过程分析">
+<meta property="og:url" content="http://prelike.xyz/2016/08/01/TCP通信三次握手协议原理与过程分析/index.html">
+<meta property="og:site_name" content="轮子匠人">
+<meta property="og:description" content="TCP连接是在IP网络中两个进程间(应用层协议)的双向、全双工的逻辑回路.由节点的IP地址和端口将连接双方对应起来">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://qvm.lays3721.top/tcpbiuld.png">
+<meta property="og:updated_time" content="2018-11-21T03:32:35.873Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TCP通信三次握手协议原理与过程分析">
+<meta name="twitter:description" content="TCP连接是在IP网络中两个进程间(应用层协议)的双向、全双工的逻辑回路.由节点的IP地址和端口将连接双方对应起来">
+<meta name="twitter:image" content="http://qvm.lays3721.top/tcpbiuld.png">
+<link rel="publisher" href="+RoyLeong">
+
+    
+    <link rel="alternative" href="/atom.xml" title="轮子匠人" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="轮子匠人" title="轮子匠人"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="轮子匠人">轮子匠人</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:prelike.xyz">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/08/01/TCP通信三次握手协议原理与过程分析/" title="TCP通信三次握手协议原理与过程分析" itemprop="url">TCP通信三次握手协议原理与过程分析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2016-08-01T05:51:23.000Z" itemprop="datePublished"> 发表于 2016-08-01</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP传输标志位解析："><span class="toc-number">1.</span> <span class="toc-text">TCP传输标志位解析：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP通信建立连接-三次握手-原理"><span class="toc-number">2.</span> <span class="toc-text">TCP通信建立连接(三次握手)原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#建立连接过程分析"><span class="toc-number">3.</span> <span class="toc-text">建立连接过程分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP连接建立过程为神马需要三次握手？"><span class="toc-number">4.</span> <span class="toc-text">TCP连接建立过程为神马需要三次握手？</span></a></li></ol>
+		
+		</div>
+		
+		<h3 id="TCP传输标志位解析："><a href="#TCP传输标志位解析：" class="headerlink" title="TCP传输标志位解析："></a>TCP传输标志位解析：</h3><ol>
+<li>SYN(synchronous建立联机) ：请求建立连接的数据包</li>
+<li>ACK(acknowledgement 确认) ：回应数据包，表示接收到了对方的某个数据包</li>
+<li>PSH(push传送) ：正常数据包</li>
+<li>FIN(finish结束) ：通讯结束包</li>
+<li>RST(reset重置) ：重置连接</li>
+<li>URG(urgent紧急) ：紧急指针</li>
+<li>Sequence number(顺序号码) </li>
+<li>Acknowledge number(确认号码)</li>
+</ol>
+<h3 id="TCP通信建立连接-三次握手-原理"><a href="#TCP通信建立连接-三次握手-原理" class="headerlink" title="TCP通信建立连接(三次握手)原理"></a>TCP通信建立连接(三次握手)原理</h3><ol>
+<li>客户端通过向服务器端发送一个SYN来建立一个主动打开，作为三路握手的一部分</li>
+<li>服务器端应当为一个合法的SYN回送一个SYN/ACK</li>
+<li>最后，客户端再发送一个ACK，这样三次握手就完成，并进入到建立连接部分</li>
+</ol>
+<center><br><img src="http://qvm.lays3721.top/tcpbiuld.png" alt="TCPBuild"><br></center>
+
+<h3 id="建立连接过程分析"><a href="#建立连接过程分析" class="headerlink" title="建立连接过程分析"></a>建立连接过程分析</h3><ul>
+<li>过程</li>
+</ul>
+<ol>
+<li>第一次握手：主机A发送位码为syn＝1,随机产生seq number=1234567的数据包到服务器，主机B由SYN=1知道，A要求建立联机；</li>
+<li>第二次握手：主机B收到请求后要确认联机信息，向A发送ack number=(主机A的seq+1),syn=1,ack=1,随机产生seq=7654321的包</li>
+<li>第三次握手：主机A收到后检查ack number是否正确，即第一次发送的seq number+1,以及位码ack是否为1，若正确，主机A会再发送ack number=(主机B的seq+1),ack=1，主机B收到后确认seq值与ack=1则连接建立成功。</li>
+</ol>
+<ul>
+<li><p>实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">IP 192.168.1.116.3337 &gt; 192.168.1.123.7788: S 3626544836:3626544836</span><br><span class="line"> IP 192.168.1.123.7788 &gt; 192.168.1.116.3337: S 1739326486:1739326486 ack 3626544837</span><br><span class="line"> IP 192.168.1.116.3337 &gt; 192.168.1.123.7788: ack 1739326487,ack 1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>分析：</p>
+</li>
+</ul>
+<ol>
+<li>第一次握手：从192.168.1.116的端口3337发送位码syn=1,随机产生seq number=3626544836的数据包到192.168.1.123端口7788由syn=1知道192.168.1.116要求建立联机</li>
+<li>第二次握手：192.168.1.123:7788收到请求之后要确认信息，向192.168.1.116:3337发送ack number=3626544837，syn=1，ack=1随机产生seq=1739326486的数据包</li>
+<li>192.168.1.116收到后检查ack number是否正确，即第一次发送的seq number+1,以及位码ack是否为1，若正确，192.168.1.116会再发送ack number=1739326487,ack=1，192.168.1.123收到后确认seq=seq+1,ack=1则连接建立成功</li>
+</ol>
+<h3 id="TCP连接建立过程为神马需要三次握手？"><a href="#TCP连接建立过程为神马需要三次握手？" class="headerlink" title="TCP连接建立过程为神马需要三次握手？"></a>TCP连接建立过程为神马需要三次握手？</h3><ul>
+<li>概述：传输控制协议（Transmission Control Protocol, TCP）是一种面向连接的、可靠的、基于字节流的运输层（Transport layer）通信协议，是专门为了在不可靠的互联网络上提供一个可靠的端到端字节流而设计的</li>
+<li>目的：防止已经失效的连接请求突然又传送到服务端，因而产生错误(为了解决网络中存在延迟的重复分组)</li>
+<li>例子说明：</li>
+</ul>
+<ol>
+<li>client发出的第一个连接请求报文段并没有消失，而是在网络某个节点上长时间滞留了，以致延误到连接释放以后的某个时间才到达server端. 而这个已经失效已久的连接到达server之后，就误认为是client新建立起来的连接，于是server向client发送数据，但是server却以为新的传输连接已经建立，于是就像client发出确认报文段，同意建立连接。</li>
+<li>如果没有三次握手的过程，那么只要server发出确认，新的连接就建立，由于现在client并没有发出建立 连接的请求，因此不会理财server的确认，也不会向server发送数据，但server却以为新的传输连接已经建立，并一直等待client发来数据，这样的话，就会造成资源浪费</li>
+<li>而采用三次握手过程，就可以避免上述现象，client不会向server的确认发出确认，server由于收不到确认，就知道client并没有建立连接</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/NetWorker/">NetWorker</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://prelike.xyz/2016/08/01/TCP通信三次握手协议原理与过程分析/" data-title="TCP通信三次握手协议原理与过程分析 | 轮子匠人" data-tsina="5357792662" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/08/10/java 重定向与转发的异同/" title="java 重定向与转发的异同">
+  <strong>上一篇：</strong><br/>
+  <span>
+  java 重定向与转发的异同</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/07/31/Spring中添加REST功能/"  title="Spring中添加REST功能">
+ <strong>下一篇：</strong><br/> 
+ <span>Spring中添加REST功能
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/08/01/TCP通信三次握手协议原理与过程分析/" data-title="TCP通信三次握手协议原理与过程分析" data-url="http://prelike.xyz/2016/08/01/TCP通信三次握手协议原理与过程分析/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP传输标志位解析："><span class="toc-number">1.</span> <span class="toc-text">TCP传输标志位解析：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP通信建立连接-三次握手-原理"><span class="toc-number">2.</span> <span class="toc-text">TCP通信建立连接(三次握手)原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#建立连接过程分析"><span class="toc-number">3.</span> <span class="toc-text">建立连接过程分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP连接建立过程为神马需要三次握手？"><span class="toc-number">4.</span> <span class="toc-text">TCP连接建立过程为神马需要三次握手？</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="liangqian" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>31</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Spring/" title="Spring">Spring<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mybatis/" title="Mybatis">Mybatis<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/多线程/" title="多线程">多线程<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TakeDown/" title="TakeDown">TakeDown<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态代理/" title="动态代理">动态代理<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Redis/" title="Redis">Redis<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web/" title="Web">Web<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Git/" title="Git">Git<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NetWorker/" title="NetWorker">NetWorker<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hibernate/" title="Hibernate">Hibernate<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Nginx/" title="Nginx">Nginx<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/场景/" title="场景">场景<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=5357792662&verifier=747e40f9&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 大音希声，重剑无锋 <br/>
+			In solitude, be a multitude to yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/5357792662" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/liangqian" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		<a href="https://www.facebook.com/roy.leong.589" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		<a href="https://plus.google.com/+RoyLeong?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:liangqian0723@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="Roy Leong">Roy Leong</a>
+		
+		
+		</p>
+
+		
+</div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"liangqian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'cloversoulmate';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-83701409-1', 'http://www.royleo.xyz');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

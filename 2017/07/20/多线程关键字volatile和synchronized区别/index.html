@@ -1,0 +1,599 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  
+    <title>多线程关键字volatile和synchronized区别 | 轮子匠人</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Roy Leong">
+    
+
+    
+    <meta name="description" content="volatile关键字 在JVM内存模型中，有主内存一说(main memory)，每个线程都有自己的memory(如寄存器)。为了性能，一个性能需要在自己的memory中保持要访问的变量副本。这样就会出现某个瞬间，线程memory数据尚未同步的时候，可能会出现每个线程内的变量副本数据不一致，或者与main memory不一致的问题。 用于多线程，同步变量。线程为了提高效率，将成员变量(A)拷贝了">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程关键字volatile和synchronized区别">
+<meta property="og:url" content="http://prelike.xyz/2017/07/20/多线程关键字volatile和synchronized区别/index.html">
+<meta property="og:site_name" content="轮子匠人">
+<meta property="og:description" content="volatile关键字 在JVM内存模型中，有主内存一说(main memory)，每个线程都有自己的memory(如寄存器)。为了性能，一个性能需要在自己的memory中保持要访问的变量副本。这样就会出现某个瞬间，线程memory数据尚未同步的时候，可能会出现每个线程内的变量副本数据不一致，或者与main memory不一致的问题。 用于多线程，同步变量。线程为了提高效率，将成员变量(A)拷贝了">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-28T14:22:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多线程关键字volatile和synchronized区别">
+<meta name="twitter:description" content="volatile关键字 在JVM内存模型中，有主内存一说(main memory)，每个线程都有自己的memory(如寄存器)。为了性能，一个性能需要在自己的memory中保持要访问的变量副本。这样就会出现某个瞬间，线程memory数据尚未同步的时候，可能会出现每个线程内的变量副本数据不一致，或者与main memory不一致的问题。 用于多线程，同步变量。线程为了提高效率，将成员变量(A)拷贝了">
+<link rel="publisher" href="+RoyLeong">
+
+    
+    <link rel="alternative" href="/atom.xml" title="轮子匠人" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="轮子匠人" title="轮子匠人"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="轮子匠人">轮子匠人</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:prelike.xyz">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/20/多线程关键字volatile和synchronized区别/" title="多线程关键字volatile和synchronized区别" itemprop="url">多线程关键字volatile和synchronized区别</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-20T11:20:42.000Z" itemprop="datePublished"> 发表于 2017-07-20</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#volatile关键字"><span class="toc-number">1.</span> <span class="toc-text">volatile关键字</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized关键字-加锁"><span class="toc-number">2.</span> <span class="toc-text">synchronized关键字(加锁)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized和volatile都具有同步线程间数据的能力"><span class="toc-number">3.</span> <span class="toc-text">synchronized和volatile都具有同步线程间数据的能力</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized和volatile比较"><span class="toc-number">4.</span> <span class="toc-text">synchronized和volatile比较</span></a></li></ol>
+		
+		</div>
+		
+		<h4 id="volatile关键字"><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a><code>volatile</code>关键字</h4><ul>
+<li>在JVM内存模型中，有主内存一说(main memory)，每个线程都有自己的memory(如寄存器)。为了性能，一个性能需要在自己的memory中保持要访问的变量副本。这样就会出现某个瞬间，线程memory数据尚未同步的时候，可能会出现每个线程内的变量副本数据不一致，或者与main memory不一致的问题。</li>
+<li>用于多线程，同步变量。线程为了提高效率，将成员变量(A)拷贝了一份(B)，某些线程中对A的访问其实就是对B这个copy体的访问。在JVM管理下某个动作才会同步A与B，这就存在A与B的不一致的情况。<code>volatile</code>就是用来避免这情况。在JVM管理中，<code>volatile</code>所修饰的变量不保留拷贝，直接访问主内存(A)</li>
+</ul>
+<h4 id="synchronized关键字-加锁"><a href="#synchronized关键字-加锁" class="headerlink" title="synchronized关键字(加锁)"></a><code>synchronized</code>关键字(加锁)</h4><ul>
+<li>多线程在共享同一片存储空间的同时，带来了方便，也带来了范围内的冲突的可能性，出现同一个数据同时被多个线程访问的情况。<code>synchronized</code>关键字可以解决这个问题，被<code>synchronized</code>修饰的方法或者代码块或者类，在同一个时间片内只能有一个访问者获得访问权限</li>
+<li>之前也有一个笔记是写关于<code>synchronized</code>锁的描述：<a href="http://royleo.xyz/2016/10/14/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%9F%BA%E7%A1%80%E4%B9%8Bsynchronized%E5%90%8C%E6%AD%A5/" target="_blank" rel="noopener">synchronized</a></li>
+<li><code>synchronized</code>修饰的方法、代码块、类具有原子性</li>
+<li>Java的每个对象都有一个锁(Lock)或者叫做监视器，当访问某个对象的<code>synchronized</code>方法或者是代码块，都意味着将该对象上说，此时其他线程无法访问，直至到锁被释放。如果一个对象有多个带<code>synchronized</code>锁的方法，在其中一个锁未被释放之前，其他线程也无法访问改对象的任何带<code>synchronized</code>的方法。</li>
+</ul>
+<h4 id="synchronized和volatile都具有同步线程间数据的能力"><a href="#synchronized和volatile都具有同步线程间数据的能力" class="headerlink" title="synchronized和volatile都具有同步线程间数据的能力"></a><code>synchronized</code>和<code>volatile</code>都具有同步线程间数据的能力</h4><ul>
+<li><code>volatile</code>同步主内存和各个副本内存里面被<code>volatile</code>所修饰的变量的数据，保证被修饰的变量在所有线程中必须是同步的，不会出现数据冲突的情况，任何线程改变了数值，其他线程马上能获得最新的数据</li>
+<li><code>synchronized</code>同样具备同步线程间数据的能力，先看<code>synchronized</code>同步数据的步骤：<ol>
+<li>线程获得请求监控对象的对象锁(如果被锁，则等待锁被释放)</li>
+<li>线程内的旧数据被消除，从主内存中读取当前最新的数据</li>
+<li>执行<code>synchronized</code>内的代码</li>
+<li>将数据改变情况写入到主内存区域中</li>
+<li>释放监控对象的对象锁</li>
+</ol>
+</li>
+<li>被<code>synchronized</code>修饰的代码块或者方法都会等待执行完成才会释放锁权限，保证了其原子性</li>
+</ul>
+<h4 id="synchronized和volatile比较"><a href="#synchronized和volatile比较" class="headerlink" title="synchronized和volatile比较"></a><code>synchronized</code>和<code>volatile</code>比较</h4><ul>
+<li><code>volatile</code>主要用于多个线程感知实例变量被更改的场合，从而使得各个线程获得最新数据。它强制线程每次从主内存中读取变量，保证了数据的可见性</li>
+<li><code>volatile</code>只是轻量级，只能修饰变量；<code>synchronized</code>还可以修饰方法、代码块或者类对象</li>
+<li><code>volatile</code>只能保证数据的可见性，不能用来同步，因为多个线程并发访问<code>volatile</code>修饰的变量不会阻塞</li>
+<li><code>synchronized</code>不仅保证了可见性，还保证了数据的原子性</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://prelike.xyz/2017/07/20/多线程关键字volatile和synchronized区别/" data-title="多线程关键字volatile和synchronized区别 | 轮子匠人" data-tsina="5357792662" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/08/10/多线程基本概念/" title="多线程基本概念">
+  <strong>上一篇：</strong><br/>
+  <span>
+  多线程基本概念</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/06/28/Java遍历Map对象的4种方法/"  title="Java遍历Map对象的4种方法">
+ <strong>下一篇：</strong><br/> 
+ <span>Java遍历Map对象的4种方法
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/07/20/多线程关键字volatile和synchronized区别/" data-title="多线程关键字volatile和synchronized区别" data-url="http://prelike.xyz/2017/07/20/多线程关键字volatile和synchronized区别/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#volatile关键字"><span class="toc-number">1.</span> <span class="toc-text">volatile关键字</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized关键字-加锁"><span class="toc-number">2.</span> <span class="toc-text">synchronized关键字(加锁)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized和volatile都具有同步线程间数据的能力"><span class="toc-number">3.</span> <span class="toc-text">synchronized和volatile都具有同步线程间数据的能力</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized和volatile比较"><span class="toc-number">4.</span> <span class="toc-text">synchronized和volatile比较</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="liangqian" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>31</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Spring/" title="Spring">Spring<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mybatis/" title="Mybatis">Mybatis<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/多线程/" title="多线程">多线程<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TakeDown/" title="TakeDown">TakeDown<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态代理/" title="动态代理">动态代理<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Redis/" title="Redis">Redis<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web/" title="Web">Web<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Git/" title="Git">Git<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Angular-JS/" title="Angular JS">Angular JS<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NetWorker/" title="NetWorker">NetWorker<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hibernate/" title="Hibernate">Hibernate<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/struts2/" title="struts2">struts2<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Nginx/" title="Nginx">Nginx<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/场景/" title="场景">场景<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=5357792662&verifier=747e40f9&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 大音希声，重剑无锋 <br/>
+			In solitude, be a multitude to yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/5357792662" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/liangqian" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		<a href="https://www.facebook.com/roy.leong.589" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		<a href="https://plus.google.com/+RoyLeong?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:liangqian0723@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="Roy Leong">Roy Leong</a>
+		
+		
+		</p>
+
+		
+</div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"liangqian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'cloversoulmate';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-83701409-1', 'http://www.royleo.xyz');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
