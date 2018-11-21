@@ -81,7 +81,7 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2018/11/02/快速失败机制/" title="快速失败与安全失败机制" itemprop="url">
+    <a href="/2018/11/13/快速失败机制/" title="快速失败与安全失败机制" itemprop="url">
   
     <h1 itemprop="name">快速失败与安全失败机制</h1>
     
@@ -89,7 +89,27 @@
       <p itemprop="description" >快速失败：当在迭代一个集合的时候，如果有另外一个线程在修改这个集合，就会抛出ConcurrentModification异常，java.util下都是快速失败。 安全失败：在迭代时候会在集合二层做一个拷贝，所以在修改集合上层元素不会影响下层。在java.util.concurrent下都是安全失败</p>
       
     
-    <time datetime="2018-11-02T14:56:29.000Z" itemprop="datePublished">2018-11-02</time>
+    <time datetime="2018-11-13T14:56:29.000Z" itemprop="datePublished">2018-11-13</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2018/11/06/Integer封装类比较大小/" title="Integer封装类比较大小" itemprop="url">
+  
+    <h1 itemprop="name">Integer封装类比较大小</h1>
+    
+     
+      <p itemprop="description" >从Integer缓存池的角度看Integer比较大小</p>
+      
+    
+    <time datetime="2018-11-06T11:21:54.000Z" itemprop="datePublished">2018-11-06</time>
   </a>
 </section>
 
@@ -258,29 +278,9 @@
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2018/03/18/Object-类中toString-、equal-、hashCode-之间区别与关系/" title="Object 类中toString()、equal()、hashCode()之间关系" itemprop="url">
-  
-    <h1 itemprop="name">Object 类中toString()、equal()、hashCode()之间关系</h1>
-    
-     
-      <p itemprop="description" >在项目中遇到了在哈希散列集合中添加对象添加失败的情景，引发了对散列集合对象唯一性判断的思考。去查看了一下源码，发现判断标准是类中的hashCode散列值的唯一性来判断集合容器中对象的唯一性。</p>
-      
-    
-    <time datetime="2018-03-18T02:48:42.000Z" itemprop="datePublished">2018-03-18</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
@@ -308,7 +308,7 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Java/" title="Java">Java<sup>31</sup></a></li>
+				<li><a href="/tags/Java/" title="Java">Java<sup>32</sup></a></li>
 			
 		
 			
@@ -320,7 +320,7 @@
 			
 		
 			
-				<li><a href="/tags/TakeDown/" title="TakeDown">TakeDown<sup>4</sup></a></li>
+				<li><a href="/tags/Mybatis/" title="Mybatis">Mybatis<sup>4</sup></a></li>
 			
 		
 			
@@ -328,11 +328,11 @@
 			
 		
 			
-				<li><a href="/tags/动态代理/" title="动态代理">动态代理<sup>4</sup></a></li>
+				<li><a href="/tags/TakeDown/" title="TakeDown">TakeDown<sup>4</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Mybatis/" title="Mybatis">Mybatis<sup>4</sup></a></li>
+				<li><a href="/tags/动态代理/" title="动态代理">动态代理<sup>4</sup></a></li>
 			
 		
 			
@@ -344,11 +344,7 @@
 			
 		
 			
-				<li><a href="/tags/Hibernate/" title="Hibernate">Hibernate<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>2</sup></a></li>
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 			
 		
 			
@@ -356,11 +352,15 @@
 			
 		
 			
-				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+				<li><a href="/tags/NetWorker/" title="NetWorker">NetWorker<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/NetWorker/" title="NetWorker">NetWorker<sup>2</sup></a></li>
+				<li><a href="/tags/Servlet/" title="Servlet">Servlet<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hibernate/" title="Hibernate">Hibernate<sup>2</sup></a></li>
 			
 		
 			
@@ -372,7 +372,7 @@
 			
 		
 			
-				<li><a href="/tags/JVM/" title="JVM">JVM<sup>1</sup></a></li>
+				<li><a href="/tags/Nginx/" title="Nginx">Nginx<sup>1</sup></a></li>
 			
 		
 			
@@ -380,11 +380,11 @@
 			
 		
 			
-				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>1</sup></a></li>
+				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>1</sup></a></li>
 			
 		
 		</ul>
