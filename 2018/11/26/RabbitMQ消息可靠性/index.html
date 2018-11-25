@@ -5,25 +5,25 @@
   <meta charset="UTF-8">
   
   
-    <title>面向切面编程(AOP)实例解释 | 轮子匠人</title>
+    <title>RabbitMQ消息可靠性 | 轮子匠人</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Roy Leong">
     
 
     
-    <meta name="description" content="面向切面编程(AOP)实例解释概述： 闲暇之余，回头回顾了一下AOP的知识，下面是两个例子，一个是基于XML配置形式来定义AOP方面的，另一个例子是基于@Aspect注解来定义方面的，第二个实例是在第一个实例的基础上改动而实现的，所以为了避免代码，我将每个实例的重点代码push了出来，这两部分组合起来就是一个完整的Project 代码，而且，能够明白地将这两种什么方式区分并将两部分代码联系起来，那">
-<meta name="keywords" content="Java">
+    <meta name="description" content="RabbitMQ消息作为分布式消息协同工具，承担者协同各个系统之间的正常通信。如何确保消息通过RabbitMQ传输而不丢失数据？">
+<meta name="keywords" content="RabbitMQ">
 <meta property="og:type" content="article">
-<meta property="og:title" content="面向切面编程(AOP)实例解释">
-<meta property="og:url" content="http://prelike.xyz/2016/11/02/面向切面编程(AOP)实例解释/index.html">
+<meta property="og:title" content="RabbitMQ消息可靠性">
+<meta property="og:url" content="http://prelike.xyz/2018/11/26/RabbitMQ消息可靠性/index.html">
 <meta property="og:site_name" content="轮子匠人">
-<meta property="og:description" content="面向切面编程(AOP)实例解释概述： 闲暇之余，回头回顾了一下AOP的知识，下面是两个例子，一个是基于XML配置形式来定义AOP方面的，另一个例子是基于@Aspect注解来定义方面的，第二个实例是在第一个实例的基础上改动而实现的，所以为了避免代码，我将每个实例的重点代码push了出来，这两部分组合起来就是一个完整的Project 代码，而且，能够明白地将这两种什么方式区分并将两部分代码联系起来，那">
+<meta property="og:description" content="RabbitMQ消息作为分布式消息协同工具，承担者协同各个系统之间的正常通信。如何确保消息通过RabbitMQ传输而不丢失数据？">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-05-01T23:20:16.000Z">
+<meta property="og:updated_time" content="2018-11-25T16:59:37.111Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="面向切面编程(AOP)实例解释">
-<meta name="twitter:description" content="面向切面编程(AOP)实例解释概述： 闲暇之余，回头回顾了一下AOP的知识，下面是两个例子，一个是基于XML配置形式来定义AOP方面的，另一个例子是基于@Aspect注解来定义方面的，第二个实例是在第一个实例的基础上改动而实现的，所以为了避免代码，我将每个实例的重点代码push了出来，这两部分组合起来就是一个完整的Project 代码，而且，能够明白地将这两种什么方式区分并将两部分代码联系起来，那">
+<meta name="twitter:title" content="RabbitMQ消息可靠性">
+<meta name="twitter:description" content="RabbitMQ消息作为分布式消息协同工具，承担者协同各个系统之间的正常通信。如何确保消息通过RabbitMQ传输而不丢失数据？">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -84,14 +84,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/11/02/面向切面编程(AOP)实例解释/" title="面向切面编程(AOP)实例解释" itemprop="url">面向切面编程(AOP)实例解释</a>
+      <a href="/2018/11/26/RabbitMQ消息可靠性/" title="RabbitMQ消息可靠性" itemprop="url">RabbitMQ消息可靠性</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2016-11-02T08:07:18.000Z" itemprop="datePublished"> 发表于 2016-11-02</time>
+    <time datetime="2018-11-25T16:58:09.000Z" itemprop="datePublished"> 发表于 2018-11-26</time>
     
   </p>
 </header>
@@ -100,40 +100,23 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#面向切面编程-AOP-实例解释"><span class="toc-number">1.</span> <span class="toc-text">面向切面编程(AOP)实例解释</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#概述："><span class="toc-number">1.0.1.</span> <span class="toc-text">概述：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AOP实例-基于AOP的XML结构"><span class="toc-number">1.0.2.</span> <span class="toc-text">AOP实例(基于AOP的XML结构)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AOP实例-基于AOP的-Aspect"><span class="toc-number">1.0.3.</span> <span class="toc-text">AOP实例(基于AOP的@Aspect)</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#RabbitMQ服务器数据不丢失"><span class="toc-number">1.</span> <span class="toc-text">RabbitMQ服务器数据不丢失</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#消息生产者传输到服务器不丢包"><span class="toc-number">2.</span> <span class="toc-text">消息生产者传输到服务器不丢包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#确认消费者已经正常处理消息"><span class="toc-number">3.</span> <span class="toc-text">确认消费者已经正常处理消息</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="面向切面编程-AOP-实例解释"><a href="#面向切面编程-AOP-实例解释" class="headerlink" title="面向切面编程(AOP)实例解释"></a>面向切面编程(AOP)实例解释</h2><h4 id="概述："><a href="#概述：" class="headerlink" title="概述："></a>概述：</h4><ul>
-<li>闲暇之余，回头回顾了一下AOP的知识，下面是两个例子，一个是基于XML配置形式来定义AOP方面的，另一个例子是基于@Aspect注解来定义方面的，第二个实例是在第一个实例的基础上改动而实现的，所以为了避免代码，我将每个实例的重点代码push了出来，这两部分组合起来就是一个完整的Project 代码，而且，能够明白地将这两种什么方式区分并将两部分代码联系起来，那就理解了AOP的用法了。<h4 id="AOP实例-基于AOP的XML结构"><a href="#AOP实例-基于AOP的XML结构" class="headerlink" title="AOP实例(基于AOP的XML结构)"></a>AOP实例(基于AOP的XML结构)</h4></li>
-<li>导入jar包(通过Maven导入)：其他需要用到的自行导入<ul>
-<li><code>org.springframework</code>—&gt;<code>spring-aop</code></li>
-<li><code>org.springframework</code>—&gt;<code>spring-core</code></li>
-<li><code>org.springframework</code>—&gt;<code>spring-context</code></li>
-<li><code>org.aspectj</code>—&gt;<code>aspectjrt</code></li>
-<li><code>aopalliance</code>—&gt;<code>aopalliance</code></li>
-<li><code>cglib</code>—&gt;<code>cglib-nodep</code></li>
-</ul>
-</li>
-<li>配置XML文件：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;aop:config&gt;</span><br><span class="line">  &lt;aop:aspect id=&quot;log&quot; ref=&quot;logging&quot;&gt; &lt;!--声明切面--&gt;</span><br><span class="line">     &lt;aop:pointcut id=&quot;selectAll&quot; expression=&quot;execution(* xyz.royleo.*.*(..))&quot;/&gt;&lt;!--声明切点--&gt;</span><br><span class="line">     &lt;aop:before method=&quot;beforeAdvice&quot; pointcut-ref=&quot;selectAll&quot;/&gt;&lt;!--声明通知--&gt;</span><br><span class="line">     &lt;aop:after method=&quot;afterAdvice&quot; pointcut-ref=&quot;selectAll&quot;/&gt;</span><br><span class="line">     &lt;aop:after-returning method=&quot;afterReturningAdvice&quot; returning=&quot;retVal&quot; pointcut-ref=&quot;selectAll&quot;/&gt;</span><br><span class="line">     &lt;aop:after-throwing method=&quot;AfterThrowingAdvice&quot; throwing=&quot;ex&quot; pointcut-ref=&quot;selectAll&quot;/&gt;</span><br><span class="line">  &lt;/aop:aspect&gt;</span><br><span class="line">&lt;/aop:config&gt;</span><br><span class="line">   &lt;bean id=&quot;student&quot; class=&quot;xyz.royleo.Student&quot;&gt;</span><br><span class="line">          &lt;property name=&quot;name&quot; value=&quot;royleo&quot;/&gt;</span><br><span class="line">          &lt;property name=&quot;age&quot; value=&quot;23&quot;/&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line">   &lt;bean id=&quot;logging&quot; class=&quot;xyz.royleo.Logging&quot;/&gt;</span><br></pre></td></tr></table></figure>
+		<h4 id="RabbitMQ服务器数据不丢失"><a href="#RabbitMQ服务器数据不丢失" class="headerlink" title="RabbitMQ服务器数据不丢失"></a>RabbitMQ服务器数据不丢失</h4><ul>
+<li>在<code>RabbitMQ</code>服务器中，我们通过持久化数据，来保证服务器故障或重启之后，能够恢复数据来防治数据丢失</li>
+<li>在定义<code>channel</code>的时候, 设置该通道的消息持久化。<h4 id="消息生产者传输到服务器不丢包"><a href="#消息生产者传输到服务器不丢包" class="headerlink" title="消息生产者传输到服务器不丢包"></a>消息生产者传输到服务器不丢包</h4></li>
+<li>事务控制： 使用AMQP的自带的事务管理模式确保消息已经发送到RabbitMQ服务器，但是会带来更大的吞吐量，大量消息发送</li>
+<li>使用Confirm模式确认(异步)<ol>
+<li>将生产者<code>Channel</code>设置为<code>Confirm</code>模式，一旦<code>channel</code>进入<code>confirm</code>模式之后，所有在该信道上面发布的消息都会指派一个唯一的Id，一旦消息被投递到所匹配的队列之后，Broker就会发送一个确认给生产者，这样生产者就知道了消息已经到达目的地。</li>
+</ol>
 </li>
 </ul>
-<h4 id="AOP实例-基于AOP的-Aspect"><a href="#AOP实例-基于AOP的-Aspect" class="headerlink" title="AOP实例(基于AOP的@Aspect)"></a>AOP实例(基于AOP的@Aspect)</h4><ul>
-<li>说明，由于这两个说明是使用一个实例，所以基于XML配置部分就不放出POJO的代码，将POJO代码放在基于@Aspect注解示例部分</li>
-<li>导入的jra包跟XML实例相同</li>
-<li>配置：<ul>
-<li>在XML配置文件中启用注解：<code>&lt;aop:aspectj-autoproxy/&gt;</code></li>
-</ul>
-</li>
-<li><p>在Logging中声明切面，切点，通知</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@Aspect</span><br><span class="line">public class Logging &#123;</span><br><span class="line">    @Pointcut(&quot;execution(* xyz.royleo.*.*(..))&quot;)</span><br><span class="line">    private void selectAll()&#123;&#125;</span><br><span class="line"></span><br><span class="line">    @Before(&quot;selectAll()&quot;)</span><br><span class="line">    public void beforeAdvice()&#123;</span><br><span class="line">        System.out.println(&quot;Going to setup student profile.**方法被调用之前通知**&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    @After(&quot;selectAll()&quot;)</span><br><span class="line">    public void afterAdvice()&#123;</span><br><span class="line">        System.out.println(&quot;xyz.royleo.Student profile has been setup.**方法被调用之后通知**&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    @AfterReturning(pointcut = &quot;selectAll()&quot;,returning = &quot;retVal&quot;)</span><br><span class="line">    public void afterReturningAdvice(Object retVal)&#123;</span><br><span class="line">        System.out.println(&quot;Returning:&quot; + retVal.toString() + &quot; **方法返回值时触发通知**&quot; );</span><br><span class="line">    &#125;</span><br><span class="line">    @AfterThrowing(pointcut = &quot;selectAll()&quot;,throwing = &quot;ex&quot;)</span><br><span class="line">    public void AfterThrowingAdvice(IllegalArgumentException ex)&#123;</span><br><span class="line">        System.out.println(&quot;There has been an exception: &quot; + ex.toString() + &quot; **抛异常时触发通知(捕捉到指定异常)**&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>bean.xml配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;aop:aspectj-autoproxy/&gt;</span><br><span class="line">&lt;!-- Definition for student bean --&gt;</span><br><span class="line">&lt;bean id=&quot;student&quot; class=&quot;com.tutorialspoint.Student&quot;&gt;</span><br><span class="line">  &lt;property name=&quot;name&quot;  value=&quot;Zara&quot; /&gt;</span><br><span class="line">  &lt;property name=&quot;age&quot;  value=&quot;11&quot;/&gt;      </span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- Definition for logging aspect --&gt;</span><br><span class="line">&lt;bean id=&quot;logging&quot; class=&quot;com.tutorialspoint.Logging&quot;/&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>入口：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class MainApp &#123;</span><br><span class="line">   public static void main(String[] args) &#123;</span><br><span class="line">      ApplicationContext context = </span><br><span class="line">             new ClassPathXmlApplicationContext(&quot;Beans.xml&quot;);</span><br><span class="line">      Student student = (Student) context.getBean(&quot;student&quot;);</span><br><span class="line">      student.getName();</span><br><span class="line">      student.getAge();     </span><br><span class="line">      student.printThrowException();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<h4 id="确认消费者已经正常处理消息"><a href="#确认消费者已经正常处理消息" class="headerlink" title="确认消费者已经正常处理消息"></a>确认消费者已经正常处理消息</h4><ul>
+<li>为了保证消息正常的到达消费者，RabbitMQ提供了消息的<code>acknowledgement</code>来确认消息</li>
+<li>默认的消息确认设置是自动确认，且服务端不记录确认结果(<code>autoAck=None; isAutoAck=false</code>)；<code>autoAck=None;</code>表示消息发送现实的回复确认之后，消息才从服务器中移除，但是<code>acknowledgement</code>设置了Auto的话，那么<code>isAutoAck=true</code>就不安全了。消息发送出去之后，可能还没到达消费者，TCP链接就断开，因为配置了auto，消息发出之后，就移除消息，默认消费者已经正常处理。</li>
+<li>还可以设置<code>autoAck=Normal; isAutoAck=false</code>，那么每次的消息确认操作，就需要消费者手动确认(<code>basc.ack,basic.nack等</code>),消息从服务器队列中移除或者重新入队。</li>
 </ul>
   
 	</div>
@@ -143,7 +126,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Java/">Java</a>
+  <span></span> <a href="/tags/RabbitMQ/">RabbitMQ</a>
   </div>
 
 </div>
@@ -152,7 +135,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://prelike.xyz/2016/11/02/面向切面编程(AOP)实例解释/" data-title="面向切面编程(AOP)实例解释 | 轮子匠人" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://prelike.xyz/2018/11/26/RabbitMQ消息可靠性/" data-title="RabbitMQ消息可靠性 | 轮子匠人" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -165,19 +148,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/11/15/Git操作快速上手(日常指令)/" title="Git操作快速上手(日常指令)">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Git操作快速上手(日常指令)</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/10/16/线程同步基础之使用锁实现同步/"  title="线程同步基础之使用锁实现同步">
+<a href="/2018/11/13/快速失败机制/"  title="快速失败与安全失败机制">
  <strong>下一篇：</strong><br/> 
- <span>线程同步基础之使用锁实现同步
+ <span>快速失败与安全失败机制
 </span>
 </a>
 </div>
@@ -186,7 +161,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/11/02/面向切面编程(AOP)实例解释/" data-title="面向切面编程(AOP)实例解释" data-url="http://prelike.xyz/2016/11/02/面向切面编程(AOP)实例解释/"></div>
+	<div class="ds-thread" data-thread-key="2018/11/26/RabbitMQ消息可靠性/" data-title="RabbitMQ消息可靠性" data-url="http://prelike.xyz/2018/11/26/RabbitMQ消息可靠性/"></div>
 </section>
 
 
@@ -202,7 +177,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#面向切面编程-AOP-实例解释"><span class="toc-number">1.</span> <span class="toc-text">面向切面编程(AOP)实例解释</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#概述："><span class="toc-number">1.0.1.</span> <span class="toc-text">概述：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AOP实例-基于AOP的XML结构"><span class="toc-number">1.0.2.</span> <span class="toc-text">AOP实例(基于AOP的XML结构)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AOP实例-基于AOP的-Aspect"><span class="toc-number">1.0.3.</span> <span class="toc-text">AOP实例(基于AOP的@Aspect)</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#RabbitMQ服务器数据不丢失"><span class="toc-number">1.</span> <span class="toc-text">RabbitMQ服务器数据不丢失</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#消息生产者传输到服务器不丢包"><span class="toc-number">2.</span> <span class="toc-text">消息生产者传输到服务器不丢包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#确认消费者已经正常处理消息"><span class="toc-number">3.</span> <span class="toc-text">确认消费者已经正常处理消息</span></a></li></ol>
  
   </div>
 
