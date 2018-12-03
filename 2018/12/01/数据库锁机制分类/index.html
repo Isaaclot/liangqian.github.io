@@ -5,25 +5,25 @@
   <meta charset="UTF-8">
   
   
-    <title>Integer封装类比较大小 | 轮子匠人</title>
+    <title>数据库锁机制分类 | 轮子匠人</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Roy Leong">
     
 
     
-    <meta name="description" content="从Integer缓存池的角度看Integer比较大小">
-<meta name="keywords" content="Java">
+    <meta name="description" content="当一个系统访问量上来的时候，不只是数据库性能瓶颈问题了，数据库数据安全也会浮现，这时候合理使用数据库锁机制就显得异常重要了。">
+<meta name="keywords" content="Mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Integer封装类比较大小">
-<meta property="og:url" content="http://prelike.xyz/2018/11/06/Integer封装类比较大小/index.html">
+<meta property="og:title" content="数据库锁机制分类">
+<meta property="og:url" content="http://prelike.xyz/2018/12/01/数据库锁机制分类/index.html">
 <meta property="og:site_name" content="轮子匠人">
-<meta property="og:description" content="从Integer缓存池的角度看Integer比较大小">
+<meta property="og:description" content="当一个系统访问量上来的时候，不只是数据库性能瓶颈问题了，数据库数据安全也会浮现，这时候合理使用数据库锁机制就显得异常重要了。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-21T08:45:58.498Z">
+<meta property="og:updated_time" content="2018-12-03T15:59:59.297Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Integer封装类比较大小">
-<meta name="twitter:description" content="从Integer缓存池的角度看Integer比较大小">
+<meta name="twitter:title" content="数据库锁机制分类">
+<meta name="twitter:description" content="当一个系统访问量上来的时候，不只是数据库性能瓶颈问题了，数据库数据安全也会浮现，这时候合理使用数据库锁机制就显得异常重要了。">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -84,14 +84,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/11/06/Integer封装类比较大小/" title="Integer封装类比较大小" itemprop="url">Integer封装类比较大小</a>
+      <a href="/2018/12/01/数据库锁机制分类/" title="数据库锁机制分类" itemprop="url">数据库锁机制分类</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2018-11-06T11:21:54.000Z" itemprop="datePublished"> 发表于 2018-11-06</time>
+    <time datetime="2018-12-01T14:29:01.000Z" itemprop="datePublished"> 发表于 2018-12-01</time>
     
   </p>
 </header>
@@ -100,23 +100,50 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#先上Demo，Integer数据的比较大小"><span class="toc-number">1.</span> <span class="toc-text">先上Demo，Integer数据的比较大小</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试点分析"><span class="toc-number">2.</span> <span class="toc-text">测试点分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实验结果总结"><span class="toc-number">3.</span> <span class="toc-text">实验结果总结</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#按照封锁类型分类"><span class="toc-number">1.</span> <span class="toc-text">按照封锁类型分类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#按照锁的封锁类型分类"><span class="toc-number">2.</span> <span class="toc-text">按照锁的封锁类型分类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#按照锁的使用方式划分"><span class="toc-number">3.</span> <span class="toc-text">按照锁的使用方式划分</span></a></li></ol>
 		
 		</div>
 		
-		<h4 id="先上Demo，Integer数据的比较大小"><a href="#先上Demo，Integer数据的比较大小" class="headerlink" title="先上Demo，Integer数据的比较大小"></a>先上Demo，Integer数据的比较大小</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Integer a = <span class="number">128</span>;</span><br><span class="line">        Integer b = <span class="number">128</span>;</span><br><span class="line">        <span class="comment">//test-1</span></span><br><span class="line">        <span class="keyword">if</span> (a == b) &#123;</span><br><span class="line">            System.out.println(<span class="string">" a is equal to b"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Integer c = <span class="number">127</span>;</span><br><span class="line">        Integer d = <span class="number">127</span>;</span><br><span class="line">        <span class="comment">//test-2</span></span><br><span class="line">        <span class="keyword">if</span> (c == d) &#123;</span><br><span class="line">            System.out.println(<span class="string">"c is equal to d"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> e = <span class="number">128</span>;</span><br><span class="line">        <span class="comment">//test-3</span></span><br><span class="line">        <span class="keyword">if</span> (a == e) &#123;</span><br><span class="line">            System.out.println(<span class="string">"a is equal to e"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> f = <span class="number">127</span>;</span><br><span class="line">        <span class="comment">//test-4</span></span><br><span class="line">        <span class="keyword">if</span> (f == c) &#123;</span><br><span class="line">            System.out.println(<span class="string">"f is equal to c"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Integer g = <span class="number">129</span>;</span><br><span class="line">        <span class="comment">//test-5</span></span><br><span class="line">        <span class="keyword">if</span> (g &gt; a) &#123;</span><br><span class="line">            System.out.println(<span class="string">"g is larger to a"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//test-6</span></span><br><span class="line">        <span class="keyword">if</span> (g &gt; c) &#123;</span><br><span class="line">            System.out.println(<span class="string">"g is larger to c"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 结果：</span></span><br><span class="line"><span class="comment">         *    c is equal to d</span></span><br><span class="line"><span class="comment">         *    a is equal to e</span></span><br><span class="line"><span class="comment">         *    f is equal to c</span></span><br><span class="line"><span class="comment">         *    g is lager to a</span></span><br><span class="line"><span class="comment">         *    g is larger to c</span></span><br><span class="line"><span class="comment">         * */</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="测试点分析"><a href="#测试点分析" class="headerlink" title="测试点分析"></a>测试点分析</h4><ol>
-<li><code>test-1</code>：Intger数值超出<code>Integer.MinValue（-128）</code>和<code>Integer.MaxValue（127）</code>的范围，用等号比较大小，数值不等</li>
-<li><code>test-2</code>：Intger数值在<code>Integer.MinValue（-128）</code>和<code>Integer.MaxValue（127）</code>的范围内，用等号比较大小，数值相等</li>
-<li><code>test-3</code>和：<code>test-4</code>：Integer数值在Integer范围内或者范围外与int基本数据类型进行比较；只要数值相等，两者都相等</li>
-<li><code>test-5</code>和：<code>test-6</code>: Integer数值在不超出int的范围内进行比较，只比较数值的大小</li>
+		<h5 id="按照封锁类型分类"><a href="#按照封锁类型分类" class="headerlink" title="按照封锁类型分类"></a>按照封锁类型分类</h5><ul>
+<li>排他锁(<code>X锁</code>)：又称为写锁；如果当前事务获得X锁，会阻塞其他事务的读与写，当前事务释放当前对象的X锁之前，其他事务不能对当前对象进行读或者写；</li>
+<li>共享锁(<code>S锁</code>)：又称为读锁；如果当前事务获得了S锁，其他事务只能再对当前对象加S锁，而不能加X锁，保证其他事务可以读当前对象，不可用对当前对象作出更改</li>
+</ul>
+<h5 id="按照锁的封锁类型分类"><a href="#按照锁的封锁类型分类" class="headerlink" title="按照锁的封锁类型分类"></a>按照锁的封锁类型分类</h5><ul>
+<li>行级锁(<code>MySql InnoDb</code>支持)<ol>
+<li>优点：锁定粒度小(最小), 发生锁冲突的几率最低，并发度也最高；</li>
+<li>缺点：获取锁与释放锁需要的开销比较大；会出现死锁；如果大部分数据操作涉及到<code>order by</code>或者全表扫描的情景，效率明显比其他锁要慢</li>
 </ol>
-<h4 id="实验结果总结"><a href="#实验结果总结" class="headerlink" title="实验结果总结"></a>实验结果总结</h4><ul>
-<li>在-128~127的Integer值并且以Integer x = value;的方式赋值的Integer值在进行==和equals比较时，都会返回true；因为在此范围内的Integer的数值用的是原生数据类型int，会在内存中重用；比较的时候，只比较数值大小</li>
-<li>超出-128~127的Integer的数值比较的时候，不仅比较数值的大小，还比较对象的引用地址是否一致</li>
-<li>而Integer类型与int比较大小的时候，只比较数值大小；因为Integer会自动拆箱操作，转换成int类型再进行比较</li>
-<li>对于超出-128~127的Integer比较数值是否相等的时候，采用<code>equal()</code>方法进行比较;但是实际生成环境中，无法确定Integer的范围时候，只能都用<code>equal()</code>进行Integer类型的大小比较;</li>
-<li>jdk中<code>equal()</code>源码如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Compares this object to the specified object.  The result is</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> true&#125; if and only if the argument is not</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> null&#125; and is an &#123;<span class="doctag">@code</span> Integer&#125; object that</span></span><br><span class="line"><span class="comment"> * contains the same &#123;<span class="doctag">@code</span> int&#125; value as this object.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   obj   the object to compare with.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  &#123;<span class="doctag">@code</span> true&#125; if the objects are the same;</span></span><br><span class="line"><span class="comment"> *          &#123;<span class="doctag">@code</span> false&#125; otherwise.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> Integer) &#123;</span><br><span class="line">        <span class="keyword">return</span> value == ((Integer)obj).intValue();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>表级锁<ol>
+<li>优点：开销小，加锁与释放锁效率高</li>
+<li>缺点：锁定粒度大，发生锁冲突的概率高，并发度低。</li>
+</ol>
+</li>
+<li>页级锁(<code>MySql</code>特有)<ol>
+<li>优点：锁定粒度处于两个极端(行级锁与表级锁)之间；所以并发处理能力也处于上面两者之间</li>
+<li>缺点：页级锁定和行级锁定一样，会发生死锁</li>
+</ol>
+</li>
+<li>什么时候使用表级锁？<ul>
+<li>对于InnoDB，大多数情况下都是选择使用行级锁；因为行级锁和事务支持是我们选择使用InnoDB的理由；</li>
+<li>但是，也存在特殊情况：<ol>
+<li>事务需要更新大部分或者全部数据，表又比较大，如果使用默认的行锁，处理每条数据都需要进行加锁和释放锁的操作，导致开销非常大，事务执行效率底下；也可能导致其他事务长时间等待或锁冲突；这种情况适合采用锁表来提高事务的执行效率；</li>
+<li>事务操作设计到的表比较多，并且复杂，容易引起死锁，或者可能造成大量事务回滚。这样情况也可以考虑使用表锁进行数据库性能上的优化；</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="按照锁的使用方式划分"><a href="#按照锁的使用方式划分" class="headerlink" title="按照锁的使用方式划分"></a>按照锁的使用方式划分</h5><ul>
+<li>悲观锁<ol>
+<li>悲观并发锁(<code>PCC</code>)：总是假设最坏的情况，每次去操作数据的时候，都认为别人会进行修改，所以每次操作数据的时候都会上锁，这样别人想操作这个数据的时候，就会阻塞，知道锁被释放；共享资源每次只给一个线程\事务使用，其他线程阻塞，锁被释放才会转让操作权</li>
+<li>使用场景：适用于多写情景下；避免数据冲突导致的数据不一致的问题</li>
+</ol>
+</li>
+<li>乐观锁<ol>
+<li>乐观并发锁：总是假设最好的情况，每次去拿数据的时候都认为别人不会修改，不会加锁； 但是再更新到时候，都会判断一下在此期间别人有木有更新这个数据，这个检查的实现可以是通过版本号机制和CAS算法实现</li>
+<li>使用场景：适用于多读情景下；数据冲突发生少，可以省去锁开销</li>
+</ol>
 </li>
 </ul>
   
@@ -127,7 +154,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Java/">Java</a>
+  <span></span> <a href="/tags/Mysql/">Mysql</a>
   </div>
 
 </div>
@@ -136,7 +163,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://prelike.xyz/2018/11/06/Integer封装类比较大小/" data-title="Integer封装类比较大小 | 轮子匠人" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://prelike.xyz/2018/12/01/数据库锁机制分类/" data-title="数据库锁机制分类 | 轮子匠人" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -149,19 +176,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/11/13/快速失败机制/" title="快速失败与安全失败机制">
-  <strong>上一篇：</strong><br/>
-  <span>
-  快速失败与安全失败机制</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2018/10/26/Nginx的负载均衡策略/"  title="Nginx的负载均衡策略">
+<a href="/2018/11/26/RabbitMQ消息可靠性/"  title="RabbitMQ消息可靠性">
  <strong>下一篇：</strong><br/> 
- <span>Nginx的负载均衡策略
+ <span>RabbitMQ消息可靠性
 </span>
 </a>
 </div>
@@ -170,7 +189,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2018/11/06/Integer封装类比较大小/" data-title="Integer封装类比较大小" data-url="http://prelike.xyz/2018/11/06/Integer封装类比较大小/"></div>
+	<div class="ds-thread" data-thread-key="2018/12/01/数据库锁机制分类/" data-title="数据库锁机制分类" data-url="http://prelike.xyz/2018/12/01/数据库锁机制分类/"></div>
 </section>
 
 
@@ -186,7 +205,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#先上Demo，Integer数据的比较大小"><span class="toc-number">1.</span> <span class="toc-text">先上Demo，Integer数据的比较大小</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试点分析"><span class="toc-number">2.</span> <span class="toc-text">测试点分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实验结果总结"><span class="toc-number">3.</span> <span class="toc-text">实验结果总结</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#按照封锁类型分类"><span class="toc-number">1.</span> <span class="toc-text">按照封锁类型分类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#按照锁的封锁类型分类"><span class="toc-number">2.</span> <span class="toc-text">按照锁的封锁类型分类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#按照锁的使用方式划分"><span class="toc-number">3.</span> <span class="toc-text">按照锁的使用方式划分</span></a></li></ol>
  
   </div>
 
