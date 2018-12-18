@@ -10,5 +10,5 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 
-Sitemap: http://www.royleo.xyz/sitemap.xml
-Sitemap: http://www.royleo.xyz/baidusitemap.xml
+Sitemap: http://www.prelike.xyz/sitemap.xml
+Sitemap: http://www.prelike.xyz/baidusitemap.xml
