@@ -5,25 +5,25 @@
   <meta charset="UTF-8">
   
   
-    <title>Java反射机制之构造器操作 | 轮子匠人</title>
+    <title>Redis持久化方案 | 轮子匠人</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Roy Leong">
     
 
     
-    <meta name="description" content="利用 Java 的反射机制你可以检查一个类的构造方法，并且可以在运行期创建一个对象。这些功能都是通过 java.lang.reflect.Constructor 这个类实现的">
-<meta name="keywords" content="Java,动态代理">
+    <meta name="description" content="redis总的所有数据默认保存在内存当中的.但场景需要，有时候需要进行持久化保存">
+<meta name="keywords" content="Redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java反射机制之构造器操作">
-<meta property="og:url" content="http://prelike.xyz/archives/41e0f7bf.html">
+<meta property="og:title" content="Redis持久化方案">
+<meta property="og:url" content="http://prelike.xyz/archives/27e17559.html">
 <meta property="og:site_name" content="轮子匠人">
-<meta property="og:description" content="利用 Java 的反射机制你可以检查一个类的构造方法，并且可以在运行期创建一个对象。这些功能都是通过 java.lang.reflect.Constructor 这个类实现的">
+<meta property="og:description" content="redis总的所有数据默认保存在内存当中的.但场景需要，有时候需要进行持久化保存">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-18T02:31:40.318Z">
+<meta property="og:updated_time" content="2019-02-20T15:41:12.502Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java反射机制之构造器操作">
-<meta name="twitter:description" content="利用 Java 的反射机制你可以检查一个类的构造方法，并且可以在运行期创建一个对象。这些功能都是通过 java.lang.reflect.Constructor 这个类实现的">
+<meta name="twitter:title" content="Redis持久化方案">
+<meta name="twitter:description" content="redis总的所有数据默认保存在内存当中的.但场景需要，有时候需要进行持久化保存">
 <link rel="publisher" href="+RoyLeong">
 
     
@@ -84,14 +84,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/archives/41e0f7bf.html" title="Java反射机制之构造器操作" itemprop="url">Java反射机制之构造器操作</a>
+      <a href="/archives/27e17559.html" title="Redis持久化方案" itemprop="url">Redis持久化方案</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/+RoyLeong?rel=author" title="Roy Leong" target="_blank" itemprop="author">Roy Leong</a>
 		
   <p class="article-time">
-    <time datetime="2016-10-03T08:59:45.000Z" itemprop="datePublished"> 发表于 2016-10-03</time>
+    <time datetime="2018-12-20T13:30:56.000Z" itemprop="datePublished"> 发表于 2018-12-20</time>
     
   </p>
 </header>
@@ -100,21 +100,39 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#构造器反射"><span class="toc-number">1.</span> <span class="toc-text">构造器反射</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#获取Constructor对象"><span class="toc-number">1.0.1.</span> <span class="toc-text">获取Constructor对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#构造器参数"><span class="toc-number">1.0.2.</span> <span class="toc-text">构造器参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#利用构造器对象实例化一个类"><span class="toc-number">1.0.3.</span> <span class="toc-text">利用构造器对象实例化一个类</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#持久化方案有2种"><span class="toc-number">1.</span> <span class="toc-text">持久化方案有2种:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Rdb-快照形式"><span class="toc-number">1.1.</span> <span class="toc-text">Rdb: 快照形式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#AOF形式"><span class="toc-number">1.2.</span> <span class="toc-text">AOF形式</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#持久化方案的选择"><span class="toc-number">2.</span> <span class="toc-text">持久化方案的选择</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="构造器反射"><a href="#构造器反射" class="headerlink" title="构造器反射"></a>构造器反射</h2><h4 id="获取Constructor对象"><a href="#获取Constructor对象" class="headerlink" title="获取Constructor对象"></a>获取Constructor对象</h4><ol>
-<li><code>Constructor[] constructors = aClass.getConstructors();</code>获取构造器数组</li>
-<li><code>Constructor constructor =
-aClass.getConstructor(new Class[]{String.class});</code> 根据具体的构造器参数获取指定的构造器，如果没有匹配的方法，则抛异常<code>NoSuchMethodException</code></li>
-</ol>
-<h4 id="构造器参数"><a href="#构造器参数" class="headerlink" title="构造器参数"></a>构造器参数</h4><ol>
-<li><code>Class[] parameterTypes = constructor.getParameterTypes();</code>获取构造器的方法参数信息</li>
-</ol>
-<h4 id="利用构造器对象实例化一个类"><a href="#利用构造器对象实例化一个类" class="headerlink" title="利用构造器对象实例化一个类"></a>利用构造器对象实例化一个类</h4><ul>
-<li>constructor.newInstance()方法的方法参数是一个可变参数列表，但是当你调用构造方法的时候你必须提供精确的参数，即形参与实参必须一一对应<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Constructor constructor = Result.class.getConstructor(new Class[]&#123;String.class&#125;);</span><br><span class="line">        Result result = (Result) constructor.newInstance(&quot;tettt&quot;);</span><br><span class="line">        System.out.println(result.getName());</span><br></pre></td></tr></table></figure>
+		<h4 id="持久化方案有2种"><a href="#持久化方案有2种" class="headerlink" title="持久化方案有2种:"></a>持久化方案有2种:</h4><h5 id="Rdb-快照形式"><a href="#Rdb-快照形式" class="headerlink" title="Rdb: 快照形式"></a><code>Rdb</code>: 快照形式</h5><ul>
+<li>定期把内存中当前时刻的数据保存在硬盘中，是Redis默认支持的持久化方案</li>
+<li><code>Rdb</code>是一个半持久化模式，即按照一定的策略周期将数据保存在磁盘中，其中保存数据的文件为<code>dump.rdb</code></li>
+<li>在Redis服务重启的时候，会执行一遍备份文件中的数据</li>
+<li><p><code>Rdb</code>配置文件的默认配置方式如下(可见redis.conf)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">save 900 1    #当有一条Keys数据被改变时，900秒刷新到Disk一次</span><br><span class="line">save 300 10   #当有10条Keys数据被改变时，300秒刷新到Disk一次</span><br><span class="line">save 60 10000 #当有10000条Keys数据被改变时，60秒刷新到Disk一次</span><br></pre></td></tr></table></figure>
 </li>
+<li><p>snapshot快照持久化Redis的文件持久化方式，决定了其在持久化的时候，有可能会出现数据丢失的情况，如果Redis服务器发生故障，那么故障前保存在内存中的数据可能没有命中持久化周期，可能会丢失。</p>
+</li>
+<li>同时Redis的RDB文件，也是主从复制内部实现的重要一环<ol>
+<li>第一次Slave向master同步的实现：Salve向master发出请求同步的时候，master将数据dump到RDB文件中，然后将RDB文件全量传输给Slave，然后发送执行快照恢复的命令给Slave，实现初次同步</li>
+<li>第二次以后的同步：master将变量的快照直接实时同步给Slave</li>
+<li>只要master和Slave法师断开和重连，肯定会发生以上两个同步工序，Redis主从复制是建立在内存快照的持久化基础上的，只要有Slave就一定会有内存快照发生。</li>
+</ol>
+</li>
+</ul>
+<h5 id="AOF形式"><a href="#AOF形式" class="headerlink" title="AOF形式"></a><code>AOF</code>形式</h5><ul>
+<li><code>AOF</code>持久化时，Redis会将每一个收到的写命令都通过<code>write</code>函数追加到文件中，类似mysql的binlog，当服务器重启当时候，会执行该持久化文件进行数据恢复</li>
+<li><p>对应的参数配置如下(redis.conf)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">appendonly yes       #启用AOF持久化方式</span><br><span class="line">appendfilename appendonly.aof #AOF文件的名称，默认为appendonly.aof</span><br><span class="line"># appendfsync always #每次收到写命令就立即强制写入磁盘，是最有保证的完全的持久化，但速度也是最慢的，一般不推荐使用。</span><br><span class="line">appendfsync everysec #每秒钟强制写入磁盘一次，在性能和持久化方面做了很好的折中，是受推荐的方式。</span><br><span class="line"># appendfsync no     #完全依赖OS的写入，一般为30秒左右一次，性能最好但是持久化最没有保证，不被推荐。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>AOF</code>持久化类似于日志记录形式，每条数据的改变记录都会记录在AOF文件中，随着数据操作次数变多，AOF文件越来越臃肿，但是对于一个键值的操作，在进行数据恢复的时候，只有一条数据记录是有效的<br>为了压缩AOF文件，Redis提供bgrewriteaof命令，收到此命令的时，Redis使用与快照的方式，将内存中数据以命令的方式保存在临时文件中，最后替换原来的文件，以此控制AOF文件的增长</p>
+</li>
+<li><code>bgrewriteaof</code>使用配置如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">no-appendfsync-on-rewrite yes   #在日志重写时，不进行命令追加操作，而只是将其放在缓冲区里，避免与命令的追加造成DISK IO上的冲突。</span><br><span class="line">auto-aof-rewrite-percentage 100 #当前AOF文件大小是上次日志重写得到AOF文件大小的二倍时，自动启动新的日志重写过程。</span><br><span class="line">auto-aof-rewrite-min-size 64mb  #当前AOF文件启动新的日志重写过程的最小值，避免刚刚启动Reids时由于文件尺寸较小导致频繁的重写。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="持久化方案的选择"><a href="#持久化方案的选择" class="headerlink" title="持久化方案的选择"></a>持久化方案的选择</h4><ul>
+<li>如果能接受数据灾难带来的前几分钟的数据丢失，推荐使用RDB持久化形式</li>
+<li>如果考虑到完全使用AOF持久化会带来性能方面的问题，比如持久化带来阻塞等，可以使用RDB和AOF配合使用，RDB可以定期保存一份完整的快照，而AOF能保证减少数据丢失，提高数据保障性</li>
 </ul>
   
 	</div>
@@ -124,7 +142,7 @@ aClass.getConstructor(new Class[]{String.class});</code> 根据具体的构造�
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Java/">Java</a><a href="/tags/动态代理/">动态代理</a>
+  <span></span> <a href="/tags/Redis/">Redis</a>
   </div>
 
 </div>
@@ -133,7 +151,7 @@ aClass.getConstructor(new Class[]{String.class});</code> 根据具体的构造�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://prelike.xyz/archives/41e0f7bf.html" data-title="Java反射机制之构造器操作 | 轮子匠人" data-tsina="5357792662" class="share clearfix">
+	  <div data-url="http://prelike.xyz/archives/27e17559.html" data-title="Redis持久化方案 | 轮子匠人" data-tsina="5357792662" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -146,19 +164,11 @@ aClass.getConstructor(new Class[]{String.class});</code> 根据具体的构造�
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/archives/b0d70fcf.html" title="Java反射机制之变量操作">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Java反射机制之变量操作</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/archives/b7f7cee0.html"  title="Java线程管理">
+<a href="/archives/3eac123.html"  title="数据库锁机制分类">
  <strong>下一篇：</strong><br/> 
- <span>Java线程管理
+ <span>数据库锁机制分类
 </span>
 </a>
 </div>
@@ -167,7 +177,7 @@ aClass.getConstructor(new Class[]{String.class});</code> 根据具体的构造�
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="archives/41e0f7bf.html" data-title="Java反射机制之构造器操作" data-url="http://prelike.xyz/archives/41e0f7bf.html"></div>
+	<div class="ds-thread" data-thread-key="archives/27e17559.html" data-title="Redis持久化方案" data-url="http://prelike.xyz/archives/27e17559.html"></div>
 </section>
 
 
@@ -183,7 +193,7 @@ aClass.getConstructor(new Class[]{String.class});</code> 根据具体的构造�
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#构造器反射"><span class="toc-number">1.</span> <span class="toc-text">构造器反射</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#获取Constructor对象"><span class="toc-number">1.0.1.</span> <span class="toc-text">获取Constructor对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#构造器参数"><span class="toc-number">1.0.2.</span> <span class="toc-text">构造器参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#利用构造器对象实例化一个类"><span class="toc-number">1.0.3.</span> <span class="toc-text">利用构造器对象实例化一个类</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#持久化方案有2种"><span class="toc-number">1.</span> <span class="toc-text">持久化方案有2种:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Rdb-快照形式"><span class="toc-number">1.1.</span> <span class="toc-text">Rdb: 快照形式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#AOF形式"><span class="toc-number">1.2.</span> <span class="toc-text">AOF形式</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#持久化方案的选择"><span class="toc-number">2.</span> <span class="toc-text">持久化方案的选择</span></a></li></ol>
  
   </div>
 
