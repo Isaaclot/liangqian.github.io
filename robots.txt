@@ -10,5 +10,5 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 
-Sitemap: http://www.prelike.xyz/sitemap.xml
-Sitemap: http://www.prelike.xyz/baidusitemap.xml
+Sitemap: http://www.iconull.com/sitemap.xml
+Sitemap: http://www.iconull.com/baidusitemap.xml
