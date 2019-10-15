@@ -231,9 +231,112 @@
 		
             
 		
+            
+		
         
         <!-- render other articles -->
         
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2019-10-15 </div>
+			<div class="article-title"><a href="/archives/6e1b8bba.html" title="上手树莓派，打算将弃用的笔记本硬盘挂在树莓派主机上，作为下载机使用,由于旧硬盘是win电脑拆下来的硬盘，磁盘格式为`Microsoft basic data`...">Linux下挂载移动硬盘(ntfs格式)</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><ul>
+<li>上手树莓派，打算将弃用的笔记本硬盘挂在树莓派主机上，作为下载机使用</li>
+<li>由于旧硬盘是win电脑拆下来的硬盘，磁盘格式为<code>Microsoft basic data</code>，也就是我们所说的NTFS格式，如果挂在Linux系统上，需要手动去挂载，并且防止出现文件乱码的情况</li>
+<li>查找资料发现linux支持ntfs格式分区需要安装ntfs-3g软件，安装使用即可</li>
+</ul>
+<h4 id="安装ntfs-3g"><a href="#安装ntfs-3g" class="headerlink" title="安装ntfs-3g"></a>安装ntfs-3g</h4><ol>
+<li><p>通过编译安装</p>
+<ul>
+<li>下载地址:<a href="https://www.tuxera.com/community/open-source-ntfs-3g/" target="_blank" rel="noopener"><code>https://www.tuxera.com/community/open-source-ntfs-3g/</code></a></li>
+<li>下载好了之后，解压文件夹<ul>
+<li>The latest stable version is ntfs-3g_ntfsprogs-2017.3.23, released on March 28, 2017.</li>
+</ul>
+</li>
+<li>进入文件目录<ul>
+<li><code>./configure</code></li>
+<li><code>make</code></li>
+<li><code>make install</code></li>
+</ul>
+</li>
+<li>验证<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/media/sda165# mkntfs -h</span><br><span class="line">Failed to set locale, using default &apos;C&apos;.</span><br><span class="line">Usage: mkntfs [options] device [number-of-sectors]</span><br><span class="line">Basic options:</span><br><span class="line">    -f, --fast                      Perform a quick format</span><br><span class="line">    -Q, --quick                     Perform a quick format</span><br><span class="line">    -L, --label STRING              Set the volume label</span><br><span class="line">    -C, --enable-compression        Enable compression on the volume</span><br><span class="line">    -I, --no-indexing               Disable indexing on the volume</span><br><span class="line">    -n, --no-action                 Do not write to disk</span><br><span class="line">Advanced options:</span><br><span class="line">    -c, --cluster-size BYTES        Specify the cluster size for the volume</span><br><span class="line">    -s, --sector-size BYTES         Specify the sector size for the device</span><br><span class="line">    -p, --partition-start SECTOR    Specify the partition start sector</span><br><span class="line">    -H, --heads NUM                 Specify the number of heads</span><br><span class="line">    -S, --sectors-per-track NUM     Specify the number of sectors per track</span><br><span class="line">    -z, --mft-zone-multiplier NUM   Set the MFT zone multiplier</span><br><span class="line">    -T, --zero-time                 Fake the time to be 00:00 UTC, Jan 1, 1970</span><br><span class="line">    -F, --force                     Force execution despite errors</span><br><span class="line">Output options:</span><br><span class="line">    -q, --quiet                     Quiet execution</span><br><span class="line">    -v, --verbose                   Verbose execution</span><br><span class="line">        --debug                     Very verbose execution</span><br><span class="line"></span><br><span class="line">Help options:</span><br><span class="line">    -V, --version                   Display version</span><br><span class="line">    -l, --license                   Display licensing information</span><br><span class="line">    -h, --help                      Display this help</span><br><span class="line"></span><br><span class="line">Developers&apos; email address: ntfs-3g-devel@lists.sf.net</span><br><span class="line">News, support and information:  http://tuxera.com</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>使用Ubuntu的apt包管理器安装</p>
+<ul>
+<li>搜索<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/media/sda165# apt search ntfs-3g</span><br><span class="line">Sorting... Done</span><br><span class="line">Full Text Search... Done</span><br><span class="line">disk-manager/stable,stable 1.1.1-2 all</span><br><span class="line">  simple graphical filesystem configurator</span><br><span class="line"></span><br><span class="line">forensics-extra/stable,stable 2.8 all</span><br><span class="line">  Forensics Environment - extra console components (metapackage)</span><br><span class="line"></span><br><span class="line">libntfs-3g883/stable,stable,now 1:2017.3.23AR.3-3 armhf [installed,automatic]</span><br><span class="line">  read/write NTFS driver for FUSE (runtime library)</span><br><span class="line"></span><br><span class="line">ntfs-3g/stable,stable,now 1:2017.3.23AR.3-3 armhf [installed]</span><br><span class="line">  read/write NTFS driver for FUSE</span><br><span class="line"></span><br><span class="line">ntfs-3g-dev/stable,stable 1:2017.3.23AR.3-3 armhf</span><br><span class="line">  read/write NTFS driver for FUSE (development)</span><br><span class="line"></span><br><span class="line">ntfs-config/stable,stable 1.0.1-11+b1 armhf</span><br><span class="line">  Enable/disable write support for any NTFS devices</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>安装<ul>
+<li>选择安装ntfs-3g软件<code>apt install ntfs-3g -y</code><h4 id="挂载"><a href="#挂载" class="headerlink" title="挂载"></a>挂载</h4></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>找到待挂载的硬盘(<code>fdisk -l</code>) 本页贴出自己挂载的硬盘信息(包括磁头、分区大小等信息)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Disk /dev/sdb: 465.8 GiB, 500107862016 bytes, 976773168 sectors</span><br><span class="line">Disk model: 545050A7E380    </span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 4096 bytes</span><br><span class="line">I/O size (minimum/optimal): 4096 bytes / 4096 bytes</span><br><span class="line">Disklabel type: gpt</span><br><span class="line">Disk identifier: 92159251-D30F-4F01-91A1-7122E899C63D</span><br><span class="line"></span><br><span class="line">Device         Start       End   Sectors   Size Type</span><br><span class="line">/dev/sdb1    1083392 315269119 314185728 149.8G Microsoft basic data</span><br><span class="line">/dev/sdb2  315269120 524984319 209715200   100G Microsoft basic data</span><br><span class="line">/dev/sdb3  524984320 871014399 346030080   165G Microsoft basic data</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>建立加载点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /media/sda100</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将对应的磁盘分区挂载在建立的文件夹</p>
+</li>
+</ol>
+<ul>
+<li>不关心是否出现乱码：<code>mount –t ntfs-3g /dev/sdi1 /media</code></li>
+<li>防止出现乱码(注：对ntfs格式的磁盘分区应使用-t ntfs-3g参数，对fat32格式的磁盘分区应使用-t vfat参数。若汉字文件名显示为乱码或不显示，可以使用下面的命令格式)：<code>mount -t ntfs-3g -o iocharset=cp936 /dev/sda2 /media/sda100</code></li>
+</ul>
+<h4 id="验证结果-挂载了三个盘"><a href="#验证结果-挂载了三个盘" class="headerlink" title="验证结果(挂载了三个盘)"></a>验证结果(挂载了三个盘)</h4><ul>
+<li><code># df -h</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/media/sda165# df -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/root        15G  1.6G   13G  12% /</span><br><span class="line">devtmpfs        1.8G     0  1.8G   0% /dev</span><br><span class="line">tmpfs           2.0G     0  2.0G   0% /dev/shm</span><br><span class="line">tmpfs           2.0G  139M  1.8G   8% /run</span><br><span class="line">tmpfs           5.0M  4.0K  5.0M   1% /run/lock</span><br><span class="line">tmpfs           2.0G     0  2.0G   0% /sys/fs/cgroup</span><br><span class="line">/dev/mmcblk0p1  253M   40M  213M  16% /boot</span><br><span class="line">tmpfs           391M     0  391M   0% /run/user/0</span><br><span class="line">/dev/sda1       150G  135G   16G  90% /media/sda150</span><br><span class="line">/dev/sda2       100G   95G  5.5G  95% /media/sda100</span><br><span class="line">/dev/sdb3       165G  150G   16G  91% /media/sda165</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="设置系统重启之后自动挂载硬盘"><a href="#设置系统重启之后自动挂载硬盘" class="headerlink" title="设置系统重启之后自动挂载硬盘"></a>设置系统重启之后自动挂载硬盘</h4><ul>
+<li><p>获取磁盘分配的UUID(前提是硬盘挂载成功的基础上)</p>
+<ul>
+<li><code>sudo blkid</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:~# blkid </span><br><span class="line">/dev/mmcblk0p1: LABEL_FATBOOT=&quot;boot&quot; LABEL=&quot;boot&quot; UUID=&quot;B6BB-0F0E&quot; TYPE=&quot;vfat&quot; PARTUUID=&quot;8337a7e9-01&quot;</span><br><span class="line">/dev/mmcblk0p2: LABEL=&quot;rootfs&quot; UUID=&quot;638417fb-7220-47b1-883c-e6fee02f51ac&quot; TYPE=&quot;ext4&quot; PARTUUID=&quot;8337a7e9-02&quot;</span><br><span class="line">/dev/sda1: LABEL=&quot;M-fM-^VM-0M-eM-^JM- M-eM-^MM-7&quot; UUID=&quot;ECB83FE3B83FAB4A&quot; TYPE=&quot;ntfs&quot; PARTLABEL=&quot;Basic data partition&quot; PARTUUID=&quot;8f9ec6c4-605d-4a29-aad4-bd2cb8b09424&quot;</span><br><span class="line">/dev/sda2: LABEL=&quot;M-hM-5M-^DM-fM-^VM-^Y&quot; UUID=&quot;96B6EEE9B6EEC8B7&quot; TYPE=&quot;ntfs&quot; PARTLABEL=&quot;Basic data partition&quot; PARTUUID=&quot;fbf23a39-686c-448c-a0c6-da8a4b1408a4&quot;</span><br><span class="line">/dev/sda3: LABEL=&quot;M-fM-^VM-0M-eM-^JM- M-eM-^MM-7&quot; UUID=&quot;C4B604C3B604B846&quot; TYPE=&quot;ntfs&quot; PARTLABEL=&quot;Basic data partition&quot; PARTUUID=&quot;58bcdce9-7f85-4bc3-84d1-15eb6f23c3b7&quot;</span><br><span class="line">/dev/mmcblk0: PTUUID=&quot;8337a7e9&quot; PTTYPE=&quot;dos&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>配置开机自动挂载</p>
+<ul>
+<li>因为mount命令会在重启服务器后失效，所以要将分区信息写到/etc/fstab文件中让它永久挂载</li>
+<li><p>配置</p>
+<ul>
+<li>在文件<code>/etc/fstab</code>添加UUID配置</li>
+<li><p>规则</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;fs spec&gt; &lt;fs file&gt; &lt;fs vfstype&gt; &lt;fs mntops&gt; &lt;fsfreq&gt; &lt;fs passno&gt;</span><br><span class="line">具体说明，以挂载/dev/sdb1为例:</span><br><span class="line">&lt;fs spec&gt; :</span><br><span class="line">分区定位，可以给UUID或LABEL，例如：UUID=6E9ADAC29ADA85CD或LABEL=software</span><br><span class="line">&lt;fs file&gt; : 具体挂载点的位置，例如：/data</span><br><span class="line">&lt;fs vfstype&gt; : 挂载磁盘类型，linux分区一般为ext4，windows分区一般为ntfs</span><br><span class="line">&lt;fs mntops&gt; : 挂载参数，一般为defaults</span><br><span class="line">&lt;fs freq&gt; : 磁盘检查，默认为0</span><br><span class="line">* &lt;fs passno&gt; : 磁盘检查，默认为0,不需要检查</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>我的配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UUID=ECB83FE3B83FAB4A /media/sda150 ntfs defaults 0 1</span><br><span class="line">UUID=96B6EEE9B6EEC8B7 /media/sda100 ntfs defaults 0 1</span><br><span class="line">UUID=C4B604C3B604B846 /media/sda165 ntfs defaults 0 1</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>配置完成之后验证自动挂载参数是否正确<code>mount -a</code>;如果参数配置不正确，可能会导致系统无法启动(卒)……</p>
+</li>
+</ul>
+</li>
+</ul>
+
+	
+	</div>
+  <a type="button" href="/archives/6e1b8bba.html#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+           
+		
            
 			  
 	
@@ -686,59 +789,6 @@
 
            
 		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2018-09-01 </div>
-			<div class="article-title"><a href="/archives/130dac3d.html" title="情人节活动需求开发后续总结：Set容器对象顺序引发的血案">Set集合误用引发的血案</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="需求场景："><a href="#需求场景：" class="headerlink" title="需求场景："></a>需求场景：</h4><ol>
-<li>功能开发完成了，准备发布版本，准备下班。</li>
-<li>从Redis的<code>Zset</code>的结构中，根据<code>score</code>的倒序取出有序集合数据</li>
-</ol>
-<h4 id="罪魁祸首的业务代码"><a href="#罪魁祸首的业务代码" class="headerlink" title="罪魁祸首的业务代码"></a>罪魁祸首的业务代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public static Set&lt;String&gt; getZsetOrderByScore(final String key,final Long start , final Long end)&#123;</span><br><span class="line">		try &#123;</span><br><span class="line">			return redisTemplate.execute(new RedisCallback&lt;Set&lt;String&gt;&gt;() &#123;</span><br><span class="line">				@Override</span><br><span class="line">				public Set&lt;String&gt; doInRedis(RedisConnection redisConnection) throws DataAccessException &#123;</span><br><span class="line">					Set&lt;byte[]&gt; set = redisConnection.zRevRange(redisTemplate.getStringSerializer().serialize(key),start,end);</span><br><span class="line"></span><br><span class="line">					Set&lt;String&gt; s = set.parallelStream().map(bytes -&gt; &#123;</span><br><span class="line">						return redisTemplate.getStringSerializer().deserialize(bytes);</span><br><span class="line">					&#125;).collect(Collectors.toSet());</span><br><span class="line">					return s;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125; catch (Exception e) &#123;</span><br><span class="line">			DEBUG.error(&quot;getZsetWithCol value to redis fail...&quot;, e);</span><br><span class="line">		&#125;</span><br><span class="line">		return Collections.emptySet();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="引发问题："><a href="#引发问题：" class="headerlink" title="引发问题："></a>引发问题：</h4><ol>
-<li>Redis中的<code>ZSet</code>数据排序正常，<code>score</code>的顺序也正常，经过上面代码取出来之后,<code>Set&lt;String&gt;</code>集合中的数据排序与Redis中的<code>ZSet</code>数据排序不一致。导致数据展示错误</li>
-<li>出现问题，不能发版本，deadline在这，还是得把问题解决。</li>
-</ol>
-<h4 id="问题排查："><a href="#问题排查：" class="headerlink" title="问题排查："></a>问题排查：</h4><ol>
-<li>把刚刚从Redis中取出来的数据，反序列化之后，直接打印出来，发现数据顺序与Redis一直；排除Java代码从Redis中查询数据的时候发生顺序错误这个猜测</li>
-<li>随着数据流向，问题定位网上抛。判断刚刚反序列化就打印的数据顺序与<code>Set&lt;String&gt;</code>容器对象中的顺序，发现两者顺序不一致，发生顺序错误。</li>
-<li>问题定位在反序列化数据之后，装载在<code>Set&lt;String&gt;</code>容器的时候，发送顺序错乱。</li>
-</ol>
-<h4 id="问题分析："><a href="#问题分析：" class="headerlink" title="问题分析："></a>问题分析：</h4><ul>
-<li>使用lambda表达式的时候，聚合集合操作<code>Collectors.toSet()</code>打乱了数据的顺序</li>
-<li><code>Collectors.toSet()</code>本质是重新组装<code>Set</code>集合，先看看<code>Set</code>集合是否会对集合对象进行重新排序？<br><pre><br>Set<string> set = new HashSet&lt;&gt;();<pre><code>set.add(&quot;m&quot;);
-set.add(&quot;a&quot;);
-set.add(&quot;e&quot;);
-System.out.println(set);
-//打印结果：[a, e, m]
-</code></pre><pre></pre></string></pre></li>
-<li>果然问题出现在这里，幸好没去翻lambda的聚合源码</li>
-<li>HashSet内部使用元素的自然顺序对元素进行排序，或者根据创建set时提供的Comparator进行排序</li>
-<li>HashSet使用哈希函数对数据进寻址排序，所以数据是重新排序过的。</li>
-</ul>
-<h4 id="BUG-FIXED"><a href="#BUG-FIXED" class="headerlink" title="BUG FIXED"></a>BUG FIXED</h4><ol>
-<li>在从取出来的数据反序列化完成之后，不使用<code>Set</code>集合来存方对象，使用<code>List</code>代替之。</li>
-<li>如果能获取到Redis数据的score数值的话，也可以通过重写Comparator方法，来通过score数据排序。</li>
-</ol>
-
-	
-	</div>
-  <a type="button" href="/archives/130dac3d.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-           
-		
 
 		</div>
 
@@ -794,48 +844,48 @@ System.out.println(set);
 		<h4>标签云</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/多线程/">多线程<span>4</span></a></li>
-		
-			<li><a href="/tags/JVM/">JVM<span>1</span></a></li>
-		
 			<li><a href="/tags/Redis/">Redis<span>4</span></a></li>
-		
-			<li><a href="/tags/struts2/">struts2<span>1</span></a></li>
-		
-			<li><a href="/tags/场景/">场景<span>1</span></a></li>
-		
-			<li><a href="/tags/Nginx/">Nginx<span>1</span></a></li>
-		
-			<li><a href="/tags/Java/">Java<span>32</span></a></li>
-		
-			<li><a href="/tags/Git/">Git<span>2</span></a></li>
-		
-			<li><a href="/tags/Web/">Web<span>3</span></a></li>
-		
-			<li><a href="/tags/Spring/">Spring<span>5</span></a></li>
-		
-			<li><a href="/tags/Maven/">Maven<span>1</span></a></li>
-		
-			<li><a href="/tags/NetWorker/">NetWorker<span>2</span></a></li>
-		
-			<li><a href="/tags/Exception/">Exception<span>1</span></a></li>
-		
-			<li><a href="/tags/Mysql/">Mysql<span>9</span></a></li>
-		
-			<li><a href="/tags/TakeDown/">TakeDown<span>4</span></a></li>
-		
-			<li><a href="/tags/Hibernate/">Hibernate<span>2</span></a></li>
-		
-			<li><a href="/tags/Servlet/">Servlet<span>2</span></a></li>
-		
-			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
 		
 			<li><a href="/tags/Mybatis/">Mybatis<span>4</span></a></li>
 		
-			<li><a href="/tags/Linux/">Linux<span>2</span></a></li>
+			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
+		
+			<li><a href="/tags/Spring/">Spring<span>5</span></a></li>
+		
+			<li><a href="/tags/Git/">Git<span>2</span></a></li>
+		
+			<li><a href="/tags/Raspberry/">Raspberry<span>1</span></a></li>
+		
+			<li><a href="/tags/TakeDown/">TakeDown<span>4</span></a></li>
+		
+			<li><a href="/tags/Angular-JS/">Angular JS<span>2</span></a></li>
+		
+			<li><a href="/tags/RabbitMQ/">RabbitMQ<span>1</span></a></li>
+		
+			<li><a href="/tags/Mysql/">Mysql<span>9</span></a></li>
+		
+			<li><a href="/tags/Exception/">Exception<span>1</span></a></li>
+		
+			<li><a href="/tags/JVM/">JVM<span>1</span></a></li>
+		
+			<li><a href="/tags/NetWorker/">NetWorker<span>2</span></a></li>
+		
+			<li><a href="/tags/动态代理/">动态代理<span>4</span></a></li>
+		
+			<li><a href="/tags/struts2/">struts2<span>1</span></a></li>
+		
+			<li><a href="/tags/Nginx/">Nginx<span>1</span></a></li>
+		
+			<li><a href="/tags/多线程/">多线程<span>4</span></a></li>
+		
+			<li><a href="/tags/场景/">场景<span>1</span></a></li>
+		
+			<li><a href="/tags/Servlet/">Servlet<span>2</span></a></li>
+		
+			<li><a href="/tags/Linux/">Linux<span>3</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>24</span></a></li>
+		   <li><a href="/tags">...<span>25</span></a></li>
 		 
 		</ul>
 	</div>
@@ -846,6 +896,10 @@ System.out.println(set);
 <div class="widget">
   <h4>最新文章</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/archives/6e1b8bba.html"  title="上手树莓派，打算将弃用的笔记本硬盘挂在树莓派主机上，作为下载机使用,由于旧硬盘是win电脑拆下来的硬盘，磁盘格式为`Microsoft basic data`..." ><i class="fa fa-file-o"></i>Linux下挂载移动硬盘(ntfs格式)</a>
+      </li>
     
       <li>
         <a href="/archives/27e17559.html"  title="redis总的所有数据默认保存在内存当中的.但场景需要，有时候需要进行持久化保存" ><i class="fa fa-file-o"></i>Redis持久化方案</a>
@@ -861,10 +915,6 @@ System.out.println(set);
     
       <li>
         <a href="/archives/28d7adef.html"  title="快速失败：当在迭代一个集合的时候，如果有另外一个线程在修改这个集合，就会抛出ConcurrentModification异常，java.util下都是快速失败。 安全失败：在迭代时候会在集合二层做一个拷贝，所以在修改集合上层元素不会影响下层。在java.util.concurrent下都是安全失败" ><i class="fa fa-file-o"></i>快速失败与安全失败机制</a>
-      </li>
-    
-      <li>
-        <a href="/archives/a1cd7aa8.html"  title="从Integer缓存池的角度看Integer比较大小" ><i class="fa fa-file-o"></i>Integer封装类比较大小</a>
       </li>
     
   </ul>
