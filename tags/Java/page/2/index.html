@@ -1,849 +1,1200 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  
-  <title>第 2 页 | Java | 哈姆雷特1001</title>
-  <meta name="author" content="Rico Nut">
-  
-  <meta name="description" content="学习总结 思考感悟 知识管理">
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="学习总结 思考感悟 知识管理">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
 
-  
-  <meta property="og:site_name" content="哈姆雷特1001"/>
+    <title>
+        
+        
+        
+    </title>
 
-  
-    <meta property="og:image" content=""/>
-  
-
-  
-  
-    <link href="/favicon.png" rel="icon">
-  
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="/css/themes/cerulean.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/highlight-default.min.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/comment.css" media="screen" type="text/css">
-  <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
-  <![endif]-->
-
-  <script src="/js/jquery-2.0.3.min.js"></script>
-  
-  <!-- analytics -->
-  
-
-
-
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
 </head>
 
 <body>
-  <nav id="main-nav" class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-	<span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-       <a class="navbar-brand" href="/">哈姆雷特1001</a>
-      <div class="collapse navbar-collapse nav-menu">
-		<ul class="nav navbar-nav">
-		  
-		  <li>
-			<a href="/archives" title="All the articles.">
-			  <i class="fa fa-archive"></i>Archives
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/about" title="About me.">
-			  <i class="fa fa-user"></i>About
-			</a>
-		  </li>
-		  
-		</ul>
-      </div>
-    </div> <!-- container -->
-</nav>
-<div class="clearfix"></div>
 
-  <div class="container">
-    <div class="content">
-      
-
-<!-- title -->
-<div class="page-header page-header-inverse ">
-  <h1 class="archive-title-tag title title-inverse ">Java</h1>
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
 </div>
 
-<div class="row page">
-  <!-- cols -->
-  
-  <div class="col-md-9">
-	
-
-	  <div id="top_search"></div>
-
-      
-         <!-- display as entry -->
-	     <div class="mypage">
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2018-01-30 </div>
-			<div class="article-title"><a href="/archives/762945f0.html" >Spring事务管理</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="什么是事务："><a href="#什么是事务：" class="headerlink" title="什么是事务："></a>什么是事务：</h4><ul>
-<li><p>事务是指逻辑上的一组操作，这组操作要么成功，要么失败</p>
-</li>
-<li><p>事务的四大特性：</p>
-<ul>
-<li>原子性：指的是事务中不可分割的工作单位，事务中的操作，要么都发生，要么都不发生</li>
-<li>隔离性：多个用户并发访问数据库的时候，一个用户的事务不能被其他用户的事务干扰，多个并发事务之间的数据要互相隔离。</li>
-<li>一致性：事务执行的前后数据的完整性必须一致</li>
-<li>持久性：一个事务一旦被提交，它对数据库中的修改是永久的，即使数据库故障也不会产生影响</li>
-</ul>
-</li>
-</ul>
-<h4 id="Spring事务管理高层抽象的三个接口"><a href="#Spring事务管理高层抽象的三个接口" class="headerlink" title="Spring事务管理高层抽象的三个接口"></a>Spring事务管理高层抽象的三个接口</h4><ol>
-<li>事务管理器(PlatformTransactionManager):主要进行事务管理，而后面的定义信息，运行状态是协助管理的字段或者方法. PlatformTransactionManager单纯是一个接口类，具体的实现类会细分到不同的事务管理实现类</li>
-<li>事务定义信息(TransactionDefinition):隔离、传播、超时、只读</li>
-<li>事务具体运行状态(TransactionStatus)</li>
-</ol>
-<ul>
-<li><p>安全性问题</p>
-<ul>
-<li>脏读：一个事务读取了另一个事务改写但未提交的数据，如果这些数据被回滚，则读取到的数据无效</li>
-<li>不可重复读：在同一个事务中，多次读取同一数据返回的结果有所不同</li>
-<li>幻读：一个事务读取了几行数据之后，另一个事务插入几行，幻读就发生了。再后来的查询中，第一个事务就会发现一些原来没有的数据记录</li>
-</ul>
-</li>
-<li><p><code>TransactionDefinition</code>事务隔离级别：</p>
-<ol>
-<li>READ_UNCOMITED:允许你读取还没提交的改变了的数据，可能会出现脏，幻，不可重复读</li>
-<li>READ_COMITED:允许在并发事务已经提交后读取。可防止脏读，但是幻读和不可重复读还会发生</li>
-<li>REPEATABLE_READ:对相同字段的多次读取是一致的，除非数据被事务本身改变。可防止脏读、不可重复读，但幻读仍然可能发生</li>
-<li>SERIALIABLE:完全服从ACID的隔离级别，确保不发生脏读，幻读和不可重复读。它是在所有的隔离级别中最慢的，他是典型的通过完全锁定在事务中涉及的数据表来完成</li>
-</ol>
-</li>
-<li><code>TransactionDefinition</code>事务的传播行为:主要是为了解决业务层之间的方法(本来就有独自的事务)调用的问题<ol>
-<li>PROPAGATION_REQUIRED:支持当前的事务，如果不存在，则新建事务</li>
-<li>PROPAGATION_SUPPORTS:支持当前事务，如果不存在，则不使用事务</li>
-<li>PROPAGATION_MANATORY:支持当前事务，如果不存在，则抛出异常</li>
-<li>PROPAGATION_REQUIRE_NEW:如果当前有事务，则挂起，创建一个新的事务</li>
-<li>ROPAGATION_NOT_SUPPORTED:以非事务方式运行，如果有事务，则挂起当前事务</li>
-<li>ROPAGATION_NEVER：以非事务的方式运行，如果有事务，则抛出异常</li>
-<li>ROPAGATION_NESTED：如果当前事务存在，则使用嵌套事务执行</li>
-<li>分类归纳：1<em>、2、3可以归为一类，保持互相调用的方法的事务一致；4</em>、5、6归为一类，保持两个方法操作不在一个事务中；7为嵌套事务，一个方法执行完成，设置保存点，如果后续方法出现异常，则返回到保存点或者起点等</li>
-</ol>
-</li>
-</ul>
-<h4 id="Spring-支持两种类型的事务管理"><a href="#Spring-支持两种类型的事务管理" class="headerlink" title="Spring 支持两种类型的事务管理"></a>Spring 支持两种类型的事务管理</h4><ul>
-<li><p>编程试事务管理(代码中使用TransactionTemplate，具有灵活性却难以维护)</p>
-<ol>
-<li>在需要使用的service类中使用TransactionTemplate</li>
-<li>TransactionTemplate依赖DataSourceTransactionManager</li>
-<li>DataSourceTransactionManager依赖DataSource构造</li>
-<li>在类中用代码进行事务管理：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public void transfer(final String out,final String in,final Double money) &#123;</span><br><span class="line"></span><br><span class="line">       transactionTemplate.execute(new TransactionCallbackWithoutResult() &#123;</span><br><span class="line">           @Override</span><br><span class="line">           protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) &#123;</span><br><span class="line">               accountDao.outMoney(out,money);</span><br><span class="line">               int i = 1 / 0;    //throw execption then broken</span><br><span class="line">               accountDao.inMoney(in,money);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li><p>声明式事务管理(基于AOP配置XML的方式实现，从业务代码中分离出事务管理)</p>
-<ol>
-<li><p>基于TransactionProxyFactory的方式：通过增强需要进行事务管理的目标类，将被代理过的service注入代替原来的目标接口，进行调用即可产生事务管理效果。但这种实现方式如果需要进行事务管理的类太多，则操作会繁琐。XML的bean类配置如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--配置业务层的代理--&gt;</span><br><span class="line">    &lt;bean id=&quot;accountProxyService&quot; class=&quot;org.springframework.transaction.interceptor.TransactionProxyFactoryBean&quot;&gt;</span><br><span class="line">        &lt;!--配置代理增强的目标对象--&gt;</span><br><span class="line">        &lt;property name=&quot;target&quot; ref=&quot;accountService&quot;/&gt;</span><br><span class="line">        &lt;!--注入事务管理器--&gt;</span><br><span class="line">        &lt;property name=&quot;transactionManager&quot; ref=&quot;transactionManager&quot;/&gt;</span><br><span class="line">        &lt;!--注入事务属性--&gt;</span><br><span class="line">        &lt;property name=&quot;transactionAttributes&quot;&gt;</span><br><span class="line">            &lt;props&gt;</span><br><span class="line">                &lt;!--</span><br><span class="line">                prop的格式:</span><br><span class="line">                    PROPAGATION :事务的传播属性</span><br><span class="line">                    ISOLATION    :事务的隔离级别</span><br><span class="line">                    readOnly     : 只读（不可以发生修改，插入，删除等操作）</span><br><span class="line">                    -Exception   :发生哪些异常回滚事务</span><br><span class="line">                    +Exception   :发生哪些异常不回滚</span><br><span class="line">                --&gt;</span><br><span class="line">                &lt;prop key=&quot;transfer&quot;&gt;PROPAGATION_REQUIRED,+java.lang.ArithmeticException&lt;/prop&gt;</span><br><span class="line">            &lt;/props&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>基于AspectJ的XML方式： 通过AOP进行切点上异常监控来进行事务管理。可以借助AOP的横向切入点的方式来进行所有的业务层代码的事务管理,而且业务层代码也不会出现设计事务管理的相关代码。配置如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--声明式事务管理的配置：配置事务通知(配置增强)--&gt;</span><br><span class="line">    &lt;tx:advice id=&quot;txAdvice&quot; transaction-manager=&quot;transactionManager&quot;&gt;</span><br><span class="line">        &lt;tx:attributes&gt;</span><br><span class="line">            &lt;!--监控方法支持通配符配置--&gt;</span><br><span class="line">            &lt;!--</span><br><span class="line">                propagation      :事务传播行为</span><br><span class="line">                isolation        :事务隔离级别</span><br><span class="line">                read-only        :只读</span><br><span class="line">                rollback-for     :发生哪些异常回滚</span><br><span class="line">                no-rollback-for  :发生哪些异常不回滚</span><br><span class="line">                timeout          :超时信息</span><br><span class="line">            --&gt;</span><br><span class="line">            &lt;tx:method name=&quot;transfer*&quot; propagation=&quot;REQUIRED&quot;  /&gt;</span><br><span class="line">        &lt;/tx:attributes&gt;</span><br><span class="line">    &lt;/tx:advice&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--配置AOP切面--&gt;</span><br><span class="line">    &lt;aop:config&gt;</span><br><span class="line">        &lt;!--配置切入点--&gt;</span><br><span class="line">        &lt;aop:pointcut id=&quot;pointCut1&quot; expression=&quot;execution(* info.cloversoulmate.service.AccountService+.*(..))&quot;/&gt;</span><br><span class="line">        &lt;!--配置切面--&gt;</span><br><span class="line">        &lt;aop:advisor advice-ref=&quot;txAdvice&quot; pointcut-ref=&quot;pointCut1&quot;/&gt;</span><br><span class="line">    &lt;/aop:config&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>基于注解形式的事务管理：在目标业务类中注解生效，实现事务管理。</p>
-</li>
-</ol>
-<ul>
-<li>配置文件中开启事务管理器的注解事务：</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--给事务管理器开启注解事务--&gt;</span><br><span class="line">&lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot;/&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在类的头部加上注解，并配置相关属性</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 注解中的属性根据需求情况配置在注解括号里面，如果不配置注解属性，会按照默认方式进行</span><br><span class="line"> * propagation  :事务传播行为</span><br><span class="line"> * isolation    ：事务隔离级别</span><br><span class="line"> * readOnly     ：只读</span><br><span class="line"> * rollbackFor  ：发生哪些异常回滚</span><br><span class="line"> * noRollbackFor：发生哪些异常不回滚</span><br><span class="line"> * */</span><br><span class="line">@Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,readOnly=false)</span><br><span class="line">public class AccountServiceImpl implements AccountService &#123;</span><br></pre></td></tr></table></figure>
-
-	
-	</div>
-  <a type="button" href="/archives/762945f0.html#more" class="btn btn-default more">阅读此文</a>
+<div class="index-about">
+    <i>  </i>
 </div>
 
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-12-05 </div>
-			<div class="article-title"><a href="/archives/3e6ff0a8.html" title="抽象类和接口的区别">抽象类和接口的区别</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<ul>
-<li>一个实现类只能继承一个抽象类，但可以实现多个接口</li>
-<li>抽象类可以有构造函数，接口没有构造函数</li>
-<li>抽象类可以有普通的成员变量，接口没有普通的成员变量</li>
-<li>抽象类中可以没有抽象方法，有带方法体的普通方法，接口中都是抽象方法(默认抽象，不用加abstract关键字)</li>
-<li>抽象类可以有静态方法，静态代码块；但是接口中不能有静态方法\代码块</li>
-<li>抽象类中方法的权限修饰符可以是public、protected、default；接口只能是public</li>
-<li>抽象类和接口都可有静态成员变量,抽象类中静态成员变量访问类型任意，接口只能public static final(默认)</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/3e6ff0a8.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-08-10 </div>
-			<div class="article-title"><a href="/archives/7ccdc859.html" >多线程基本概念</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="线程和进程的区别"><a href="#线程和进程的区别" class="headerlink" title="线程和进程的区别"></a>线程和进程的区别</h4><ul>
-<li>多个进程的内部数据和状态都是完全独立的，而多线程是共享一块内存空间和一组系统资源，有可能会互相产生影响。</li>
-<li>线程本身的数据通常只有寄存器数据，而程序执行时使用堆栈，所以线程的切换比进程的切换负担成本要小。</li>
-<li>线程的目的是“最大限度地利用CPU资源”，当某个线程的处理不需要占用CPU而只需要和IO打交道的时候，让需要占用CPU资源的其他线程有机会获得CPU资源。</li>
-</ul>
-<h4 id="多线程实现"><a href="#多线程实现" class="headerlink" title="多线程实现"></a>多线程实现</h4><ul>
-<li>实现方式有两种，一种是继承Thread类来实现run()方法，在run()方法中实现需要进行的多线程任务，第二种是实现Runable接口，重写run()方法处理多线程任务。这两种方法都是需要通过start()方法启动线程，然后让start()方法准备好系统资源，再去调用并执行run()方法完成线程任务。</li>
-<li>源码上，Thread也是在实现了Runable接口的基础上实现了Runable的run()方法</li>
-<li>两种实现方法根据实际情况选择，如果该类已经继承了其他方法(单继承性)，只能通过实现Runable接口来进程多线程任务处理。</li>
-</ul>
-<h4 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h4><ul>
-<li>如图：<center><br><img src="http://qvm.lays3721.top/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png" alt="线程的生命周期"><br></center></li>
-<li>线程的生命周期分为五个阶段：创建状态、就绪状态、运行状态、阻塞状态、消亡状态。系统需要将多个线程在这五个状态之间切换来实现最大限度的运用系统资源<br><center><br><img src="http://qvm.lays3721.top/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.png" alt="线程状态转换图"><br></center><ol>
-<li>新建状态：当程序使用<code>new</code>关键字创建一个线程之后，该线程就处于新建状态，此时仅由JVM分配内存，并初始化其成员变量的值</li>
-<li>就绪状态：当线程对象调用<code>start()</code>方法之后，该线程就处于就绪状态。Java虚拟机会为其创建方法，调用栈和程序计数器，等待线程调度器调度运行</li>
-<li>运行状态：如果处于就绪状态的线程获得了CPU资源，开始执行<code>run()</code>方法的线程执行体，则该线程处于运行状态</li>
-<li>阻塞状态：当运行中的线程失去了CPU资源之后，便进入了阻塞状态。如果需要从阻塞状态进入就绪状态，需要等待线程调度器调度分配才能返回到就绪状态<ul>
-<li>线程进入阻塞状态的条件<ul>
-<li>线程调用<code>sleep()</code>方法主动放弃CPU资源</li>
-<li>线程调用了阻塞式的IO方法，在该方法返回之前，该线程处于被阻塞状态</li>
-<li>线程在等待通知(<code>notify()</code>)</li>
-<li>线程被调用<code>suspend()</code>方法进行挂起</li>
-<li>线程试图获得同步监视器，但是监视器正在被其他线程使用中</li>
-</ul>
-</li>
-<li>解除阻塞状态线程：与导致阻塞的条件相反即可解除阻塞状态</li>
-</ul>
-</li>
-<li>消亡状态：当线程对象的<code>run()</code>和<code>call()</code>方法执行完成，线程正常结束；如果线程抛出一个未捕获的<code>Execption</code>或者<code>Error</code>、直接调用该线程的<code>stop()</code>方法强行终止线程的时候，线程也会进入消亡状态，只不过这属于非正常方式结束。注意，强行执行<code>stop()</code>的方式来结束线程容易导致死锁，不推荐使用</li>
-</ol>
-</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/7ccdc859.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-07-20 </div>
-			<div class="article-title"><a href="/archives/bd778d6e.html" >多线程关键字volatile和synchronized区别</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="volatile关键字"><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a><code>volatile</code>关键字</h4><ul>
-<li>在JVM内存模型中，有主内存一说(main memory)，每个线程都有自己的memory(如寄存器)。为了性能，一个性能需要在自己的memory中保持要访问的变量副本。这样就会出现某个瞬间，线程memory数据尚未同步的时候，可能会出现每个线程内的变量副本数据不一致，或者与main memory不一致的问题。</li>
-<li>用于多线程，同步变量。线程为了提高效率，将成员变量(A)拷贝了一份(B)，某些线程中对A的访问其实就是对B这个copy体的访问。在JVM管理下某个动作才会同步A与B，这就存在A与B的不一致的情况。<code>volatile</code>就是用来避免这情况。在JVM管理中，<code>volatile</code>所修饰的变量不保留拷贝，直接访问主内存(A)</li>
-</ul>
-<h4 id="synchronized关键字-加锁"><a href="#synchronized关键字-加锁" class="headerlink" title="synchronized关键字(加锁)"></a><code>synchronized</code>关键字(加锁)</h4><ul>
-<li>多线程在共享同一片存储空间的同时，带来了方便，也带来了范围内的冲突的可能性，出现同一个数据同时被多个线程访问的情况。<code>synchronized</code>关键字可以解决这个问题，被<code>synchronized</code>修饰的方法或者代码块或者类，在同一个时间片内只能有一个访问者获得访问权限</li>
-<li>之前也有一个笔记是写关于<code>synchronized</code>锁的描述：<a href="http://royleo.xyz/2016/10/14/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%9F%BA%E7%A1%80%E4%B9%8Bsynchronized%E5%90%8C%E6%AD%A5/" target="_blank" rel="noopener">synchronized</a></li>
-<li><code>synchronized</code>修饰的方法、代码块、类具有原子性</li>
-<li>Java的每个对象都有一个锁(Lock)或者叫做监视器，当访问某个对象的<code>synchronized</code>方法或者是代码块，都意味着将该对象上说，此时其他线程无法访问，直至到锁被释放。如果一个对象有多个带<code>synchronized</code>锁的方法，在其中一个锁未被释放之前，其他线程也无法访问改对象的任何带<code>synchronized</code>的方法。</li>
-</ul>
-<h4 id="synchronized和volatile都具有同步线程间数据的能力"><a href="#synchronized和volatile都具有同步线程间数据的能力" class="headerlink" title="synchronized和volatile都具有同步线程间数据的能力"></a><code>synchronized</code>和<code>volatile</code>都具有同步线程间数据的能力</h4><ul>
-<li><code>volatile</code>同步主内存和各个副本内存里面被<code>volatile</code>所修饰的变量的数据，保证被修饰的变量在所有线程中必须是同步的，不会出现数据冲突的情况，任何线程改变了数值，其他线程马上能获得最新的数据</li>
-<li><code>synchronized</code>同样具备同步线程间数据的能力，先看<code>synchronized</code>同步数据的步骤：<ol>
-<li>线程获得请求监控对象的对象锁(如果被锁，则等待锁被释放)</li>
-<li>线程内的旧数据被消除，从主内存中读取当前最新的数据</li>
-<li>执行<code>synchronized</code>内的代码</li>
-<li>将数据改变情况写入到主内存区域中</li>
-<li>释放监控对象的对象锁</li>
-</ol>
-</li>
-<li>被<code>synchronized</code>修饰的代码块或者方法都会等待执行完成才会释放锁权限，保证了其原子性</li>
-</ul>
-<h4 id="synchronized和volatile比较"><a href="#synchronized和volatile比较" class="headerlink" title="synchronized和volatile比较"></a><code>synchronized</code>和<code>volatile</code>比较</h4><ul>
-<li><code>volatile</code>主要用于多个线程感知实例变量被更改的场合，从而使得各个线程获得最新数据。它强制线程每次从主内存中读取变量，保证了数据的可见性</li>
-<li><code>volatile</code>只是轻量级，只能修饰变量；<code>synchronized</code>还可以修饰方法、代码块或者类对象</li>
-<li><code>volatile</code>只能保证数据的可见性，不能用来同步，因为多个线程并发访问<code>volatile</code>修饰的变量不会阻塞</li>
-<li><code>synchronized</code>不仅保证了可见性，还保证了数据的原子性</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/bd778d6e.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-03-12 </div>
-			<div class="article-title"><a href="/archives/70e4edda.html" >spring Bean学习Review</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="spring-Bean学习-amp-Review"><a href="#spring-Bean学习-amp-Review" class="headerlink" title="spring Bean学习&amp;Review"></a>spring Bean学习&amp;Review</h2><h4 id="概述："><a href="#概述：" class="headerlink" title="概述："></a>概述：</h4><ul>
-<li>公司重构项目主要基于SpringBoot，发现用了这么久的Spring，却还没有认真的总结过Bean的使用以及一些需要注意的东西，这里回头总结一下下<h4 id="关于Bean"><a href="#关于Bean" class="headerlink" title="关于Bean"></a>关于Bean</h4></li>
-<li>Bean 是一个被实例化，组装，并通过 Spring IoC 容器所管理的对象</li>
-<li>配置元数据<ul>
-<li>基于XML的配置文件</li>
-<li>基于注释的配置</li>
-<li>基于Java的配置</li>
-</ul>
-</li>
-<li>bean定义的下列属性：<ul>
-<li>class :  强制性，指定用来创建的Bean类</li>
-<li>name : s 指定特定的bean 标识符</li>
-<li>scope :  指定由特定的 bean 定义创建的对象的作用域</li>
-<li>properties :  注入依赖关系</li>
-<li>initialization 方法 :  在 bean 的所有必需的属性被容器设置之后，调用回调方法。</li>
-<li>destruction 方法 :  当包含该 bean 的容器被销毁时，使用回调方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- A simple bean definition --&gt;</span><br><span class="line">   &lt;bean id=&quot;...&quot; class=&quot;...&quot;&gt;</span><br><span class="line">       &lt;!-- collaborators and configuration for this bean go here --&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- A bean definition with lazy init set on --&gt;</span><br><span class="line">   &lt;bean id=&quot;...&quot; class=&quot;...&quot; lazy-init=&quot;true&quot;&gt;</span><br><span class="line">       &lt;!-- collaborators and configuration for this bean go here --&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- A bean definition with initialization method --&gt;</span><br><span class="line">   &lt;bean id=&quot;...&quot; class=&quot;...&quot; init-method=&quot;...&quot;&gt;</span><br><span class="line">       &lt;!-- collaborators and configuration for this bean go here --&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- A bean definition with destruction method --&gt;</span><br><span class="line">   &lt;bean id=&quot;...&quot; class=&quot;...&quot; destroy-method=&quot;...&quot;&gt;</span><br><span class="line">       &lt;!-- collaborators and configuration for this bean go here --&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- more bean definitions go here --&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="scope-作用域"><a href="#scope-作用域" class="headerlink" title="scope 作用域"></a>scope 作用域</h4><ul>
-<li>singleton ： 该作用域将 bean 的定义的限制在每一个 Spring IoC 容器中的一个单一实例(默认)。</li>
-<li>prototype ：该作用域将单一 bean 的定义限制在任意数量的对象实例。</li>
-<li>request ： 该作用域将 bean 的定义限制为 HTTP 请求。只在 web-aware Spring ApplicationContext 的上下文中有效。</li>
-<li>session ： 该作用域将 bean 的定义限制为 HTTP 会话。 只在web-aware Spring ApplicationContext的上下文中有效。</li>
-<li>global-session ： 该作用域将 bean 的定义限制为全局 HTTP 会话。只在 web-aware Spring ApplicationContext 的上下文中有效。</li>
-</ul>
-<hr>
-<h4 id="Bean-后置处理器"><a href="#Bean-后置处理器" class="headerlink" title="Bean 后置处理器"></a>Bean 后置处理器</h4><ul>
-<li>重写BeanPostProcessor接口</li>
-<li>BeanPostProcessor ：初始化 bean 的之前的处理逻辑</li>
-<li>BeanPostProcessor ：初始化 bean 之后实现更复杂的逻辑<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package com.tutorialspoint;</span><br><span class="line">import org.springframework.beans.factory.config.BeanPostProcessor;</span><br><span class="line">import org.springframework.beans.BeansException;</span><br><span class="line">public class InitHelloWorld implements BeanPostProcessor &#123;</span><br><span class="line">   public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException &#123;</span><br><span class="line">      System.out.println(&quot;BeforeInitialization : &quot; + beanName);</span><br><span class="line">      return bean;  // you can return any other object as well</span><br><span class="line">   &#125;</span><br><span class="line">   public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException &#123;</span><br><span class="line">      System.out.println(&quot;AfterInitialization : &quot; + beanName);</span><br><span class="line">      return bean;  // you can return any other object as well</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">   &lt;bean id=&quot;beanTeamplate&quot; abstract=&quot;true&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;message1&quot; value=&quot;Hello World!&quot;/&gt;</span><br><span class="line">      &lt;property name=&quot;message2&quot; value=&quot;Hello Second World!&quot;/&gt;</span><br><span class="line">      &lt;property name=&quot;message3&quot; value=&quot;Namaste India!&quot;/&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">   &lt;bean id=&quot;helloIndia&quot; class=&quot;com.tutorialspoint.HelloIndia&quot; parent=&quot;beanTeamplate&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;message1&quot; value=&quot;Hello India!&quot;/&gt;</span><br><span class="line">      &lt;property name=&quot;message3&quot; value=&quot;Namaste India!&quot;/&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>父 bean 自身不能被实例化，因为它是不完整的，而且它也被明确地标记为抽象的。当一个定义是抽象的，它仅仅作为一个纯粹的模板 bean 定义来使用的，充当子定义的父定义使用</li>
-</ul>
-<hr>
-<h4 id="注入内部Beans"><a href="#注入内部Beans" class="headerlink" title="注入内部Beans"></a>注入内部Beans</h4><ul>
-<li>Inner beans 是在其他 bean 的范围内定义的 bean</li>
-<li>在XML配置文件中将各个类之间的关系描述清楚<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line"> xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line"> xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&quot;&gt;</span><br><span class="line">   &lt;bean id=&quot;outerBean&quot; class=&quot;...&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;target&quot;&gt;</span><br><span class="line">         &lt;bean id=&quot;innerBean&quot; class=&quot;...&quot;/&gt;</span><br><span class="line">      &lt;/property&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="注入集合"><a href="#注入集合" class="headerlink" title="注入集合"></a>注入集合</h4><ul>
-<li>有时候需要引入多个值</li>
-<li>Spring 提供四种集合类型的配置元素：List、set、map、props<br>|元素|描述|<br>|—|—|<br>|<code>&lt;List&gt;</code>|有助于连线，如 注入一列值，允许重复|<br>|<code>&lt;set&gt;</code>|有助于连线一组值，但不允许重复|<br>|<code>&lt;map&gt;</code>|可以用来注入键值对集合，其中，键，值可以是任何类型|<br>|<code>&lt;props&gt;</code>|可以用来注入键值对集合，其中，键，值都是字符串类型|</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/70e4edda.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-01-04 </div>
-			<div class="article-title"><a href="/archives/fc53cc9d.html" >Java关键字与总结</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="关键字final与static总结"><a href="#关键字final与static总结" class="headerlink" title="关键字final与static总结"></a>关键字<code>final</code>与<code>static</code>总结</h2><h4 id="final"><a href="#final" class="headerlink" title="final"></a><code>final</code></h4><ul>
-<li>概述：<code>final</code>有‘终态’，‘不可改变’之意，可以修饰非抽象类，非抽象成员方法和变量。但是有时候出于设计、效率和资源等方面的因素需要考虑阻止某些变量或者方法做出改变.</li>
-<li><code>final</code>关键字主要用于修饰类，方法，变量或者参数上<ol>
-<li><code>final</code>类：<ol start="2">
-<li>被<code>final</code>修饰的类，不能被继承，其中的成员方法不能被覆盖，默认都是<code>final</code>.</li>
-<li>所以，在设计一个类的时候，如果该类在后来不会再进行扩展，那可以使用<code>final</code>关键字来定义</li>
-</ol>
-</li>
-<li><code>final</code>方法<ol start="5">
-<li>能把方法锁定，防止任何继承类修改它的意义和实现</li>
-<li>高效，编译器遇到调用<code>final</code>方法的时候会将其直接转入内嵌机制，提高执行效率</li>
-</ol>
-</li>
-<li><code>final</code>参数：当<code>final</code>修饰函数的参数的时候，被修饰的参数可以被读取使用，但是不能改变参数的值</li>
-<li><code>final</code>变量(常量)<ol start="8">
-<li>用<code>final</code>修饰的变量标识常量，一旦复制，就无法改变</li>
-<li>在定义<code>final</code>变量的时候，什么的时候可以不赋值，但是在<code>final</code>变量被使用之前，必须要为其赋值才能被使用<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">public class Test3 &#123; </span><br><span class="line">        private final String S = &quot;final实例变量S&quot;; </span><br><span class="line">        private final int A = 100; </span><br><span class="line">        public final int B = 90; </span><br><span class="line">        public static final int C = 80; </span><br><span class="line">        private static final int D = 70; </span><br><span class="line">        public final int E; //final空白,必须在初始化对象的时候赋初值 </span><br><span class="line">        public Test3(int x) &#123; </span><br><span class="line">                E = x; </span><br><span class="line">        &#125; </span><br><span class="line">        public static void main(String[] args) &#123; </span><br><span class="line">                Test3 t = new Test3(2); </span><br><span class="line">                //t.A=101;    //出错,final变量的值一旦给定就无法改变 </span><br><span class="line">                //t.B=91; //出错,final变量的值一旦给定就无法改变 </span><br><span class="line">                //t.C=81; //出错,final变量的值一旦给定就无法改变 </span><br><span class="line">                //t.D=71; //出错,final变量的值一旦给定就无法改变 </span><br><span class="line">                System.out.println(t.A); </span><br><span class="line">                System.out.println(t.B); </span><br><span class="line">                System.out.println(t.C); //不推荐用对象方式访问静态字段 </span><br><span class="line">                System.out.println(t.D); //不推荐用对象方式访问静态字段 </span><br><span class="line">                System.out.println(Test3.C); </span><br><span class="line">                System.out.println(Test3.D); </span><br><span class="line">                //System.out.println(Test3.E); //出错,因为E为final空白,依据不同对象值有所不同. </span><br><span class="line">                System.out.println(t.E); </span><br><span class="line">                Test3 t1 = new Test3(3); </span><br><span class="line">                System.out.println(t1.E); //final空白变量E依据对象的不同而不同 </span><br><span class="line">        &#125; </span><br><span class="line">        private void test() &#123; </span><br><span class="line">                System.out.println(new Test3(1).A); </span><br><span class="line">                System.out.println(Test3.C); </span><br><span class="line">                System.out.println(Test3.D); </span><br><span class="line">        &#125; </span><br><span class="line">        public void test2() &#123; </span><br><span class="line">                final int a;     //final空白,在需要的时候才赋值 </span><br><span class="line">                final int b = 4;    //局部常量--final用于局部变量的情形 </span><br><span class="line">                final int c;    //final空白,一直没有给赋值.    </span><br><span class="line">                a = 3; </span><br><span class="line">                //a=4;    出错,已经给赋过值了. </span><br><span class="line">                //b=2; 出错,已经给赋过值了. </span><br><span class="line">        &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ul>
-<h4 id="static"><a href="#static" class="headerlink" title="static"></a><code>static</code></h4><ul>
-<li>概述：<code>static</code>表示“全局”或者“静态”的意思，用来修饰成员变量和成员方法，也可以形成静态<code>static</code>代码块，但是Java语言中没有全局变量的概念<ul>
-<li>被static修饰的成员变量和成员方法独立于该类的任何对象。也就是说，它不依赖类特定的实例，被类的所有实例共享。只要这个类被加载，Java虚拟机就能根据类名在运行时数据区的方法区内定找到他们。因此，static对象可以在它的任何对象创建之前访问，无需引用任何对象</li>
-<li>用public修饰的static成员变量和成员方法本质是全局变量和全局方法，当声明它类的对象市，不生成static变量的副本，而是类的所有实例共享同一个static变量</li>
-</ul>
-</li>
-<li><code>static</code>主要用于修饰静态内部类，静态变量，静态方法，静态代码块<ol>
-<li>静态内部类：它不能访问外部类的非静态成员</li>
-<li><code>static</code>变量：<ol start="2">
-<li>变量分类：根据是否被<code>static</code>修饰，可将变量分类：静态变量和实例变量<ol start="3">
-<li>静态变量：在内存中只有一个拷贝，JVM只为其分配一次内存，在加载类的过程中完成静态变量的内存分配，可用类名直接访问，也可以通过实例对象访问(不推荐了)</li>
-<li>实例变量：每创建一个实例，就会为实例变量分配一次内存，而且可以在内存中存在多个实例变量，互不影响</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><code>static</code>方法<ol start="6">
-<li>静态方法可以直接通过类名调用，任何的实例也都可以调用，因此静态方法中不能用this和super关键字，不能直接访问所属类的实例变量和实例方法(就是不带static的成员变量和成员成员方法)，只能访问所属类的静态成员变量和成员方法。因为实例成员与特定的对象关联！</li>
-</ol>
-</li>
-<li><code>static</code>代码块<ol start="8">
-<li>用static修饰的代码块表示静态代码块，当Java虚拟机（JVM）加载类时，就会执行该代码块</li>
-<li>如果static代码块有多个，JVM将按照它们在类中出现的先后顺序依次执行它们，每个代码块只会被执行一次</li>
-</ol>
-</li>
-</ol>
-</li>
-</ul>
-<h4 id="final与static配合使用"><a href="#final与static配合使用" class="headerlink" title="final与static配合使用"></a><code>final</code>与<code>static</code>配合使用</h4><ul>
-<li>用<code>final</code>与<code>static</code>修饰的方法和变量具有<code>final</code>和<code>static</code>并集的效果，也可以理解为’全局变量’</li>
-<li>被<code>final</code>与<code>static</code>修饰的变量，实例化之后不能再改变，但是对于容器类(ArrayList、HashMap)的实例变量，不可以改变容器变量的本身，但是容器中的对象可以修改。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class TestStaticFinal &#123; </span><br><span class="line">        private static final String strStaticFinalVar = &quot;aaa&quot;; </span><br><span class="line">        private static String strStaticVar = null; </span><br><span class="line">        private final String strFinalVar = null; </span><br><span class="line">        private static final int intStaticFinalVar = 0; </span><br><span class="line">        private static final Integer integerStaticFinalVar = new Integer(8); </span><br><span class="line">        private static final ArrayList&lt;String&gt; alStaticFinalVar = new ArrayList&lt;String&gt;(); </span><br><span class="line">        private void test() &#123; </span><br><span class="line">                System.out.println(&quot;-------------值处理前----------\r\n&quot;); </span><br><span class="line">                System.out.println(&quot;strStaticFinalVar=&quot; + strStaticFinalVar + &quot;\r\n&quot;); </span><br><span class="line">                System.out.println(&quot;strStaticVar=&quot; + strStaticVar + &quot;\r\n&quot;); </span><br><span class="line">                System.out.println(&quot;strFinalVar=&quot; + strFinalVar + &quot;\r\n&quot;); </span><br><span class="line">                System.out.println(&quot;intStaticFinalVar=&quot; + intStaticFinalVar + &quot;\r\n&quot;); </span><br><span class="line">                System.out.println(&quot;integerStaticFinalVar=&quot; + integerStaticFinalVar + &quot;\r\n&quot;); </span><br><span class="line">                System.out.println(&quot;alStaticFinalVar=&quot; + alStaticFinalVar + &quot;\r\n&quot;); </span><br><span class="line">                //strStaticFinalVar=&quot;不可改变&quot;;        //错误，final表示终态,不可以改变变量本身. </span><br><span class="line">                strStaticVar = &quot;可改变&quot;;                //正确，static表示类变量,值可以改变. </span><br><span class="line">                //strFinalVar=&quot;不可改变&quot;;                    //错误, final表示终态，在定义的时候就要初值（哪怕给个null），一旦给定后就不可再更改。 </span><br><span class="line">                //intStaticFinalVar=2;                        //错误, final表示终态，在定义的时候就要初值（哪怕给个null），一旦给定后就不可再更改。 </span><br><span class="line">                //integerStaticFinalVar=new Integer(8);            //错误, final表示终态，在定义的时候就要初值（哪怕给个null），一旦给定后就不可再更改。 </span><br><span class="line">                alStaticFinalVar.add(&quot;aaa&quot;);        //正确，容器变量本身没有变化，但存放内容发生了变化。这个规则是非常常用的，有很多用途。 </span><br><span class="line">                alStaticFinalVar.add(&quot;bbb&quot;);        //正确，容器变量本身没有变化，但存放内容发生了变化。这个规则是非常常用的，有很多用途。 </span><br><span class="line">                System.out.println(&quot;-------------值处理后----------\r\n&quot;); </span><br><span class="line">                System.out.println(&quot;strStaticFinalVar=&quot; + strStaticFinalVar + &quot;\r\n&quot;); </span><br><span class="line">                System.out.println(&quot;strStaticVar=&quot; + strStaticVar + &quot;\r\n&quot;); </span><br><span class="line">                System.out.println(&quot;strFinalVar=&quot; + strFinalVar + &quot;\r\n&quot;); </span><br><span class="line">                System.out.println(&quot;intStaticFinalVar=&quot; + intStaticFinalVar + &quot;\r\n&quot;); </span><br><span class="line">                System.out.println(&quot;integerStaticFinalVar=&quot; + integerStaticFinalVar + &quot;\r\n&quot;); </span><br><span class="line">                System.out.println(&quot;alStaticFinalVar=&quot; + alStaticFinalVar + &quot;\r\n&quot;); </span><br><span class="line">        &#125; </span><br><span class="line">        public static void main(String args[]) &#123; </span><br><span class="line">                new TestStaticFinal().test(); </span><br><span class="line">        &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/fc53cc9d.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2016-12-07 </div>
-			<div class="article-title"><a href="/archives/a5b55d42.html" >Map的排序(key排序/value排序)</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="Map的排序-key排序-value排序"><a href="#Map的排序-key排序-value排序" class="headerlink" title="Map的排序(key排序/value排序)"></a>Map的排序(key排序/value排序)</h2><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ul>
-<li>Map是键值对的集合接口，它的实现类主要包括：HashMap,TreeMap,Hashtable以及LinkedHashMap等</li>
-<li>Map的key默认排列方式是增序排列，区分大小写</li>
-<li>我们可以借助<code>Collections.sort()</code>重载来实现排序</li>
-<li><h4 id="按照key排序"><a href="#按照key排序" class="headerlink" title="按照key排序"></a>按照key排序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static void sortByKey(List&lt;Map.Entry&lt;String,Integer&gt;&gt; list)&#123;</span><br><span class="line">        Collections.sort(list, new Comparator&lt;Map.Entry&lt;String,Integer&gt;&gt;() &#123;</span><br><span class="line">            public int compare(Map.Entry&lt;String, Integer&gt; o1, Map.Entry&lt;String, Integer&gt; o2) &#123;</span><br><span class="line">                return o2.getKey().toString().compareTo(o1.getKey());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="按照value排序"><a href="#按照value排序" class="headerlink" title="按照value排序"></a>按照value排序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static void sortByValue(List&lt;Map.Entry&lt;String,Integer&gt;&gt; listInfo)&#123;</span><br><span class="line">        Collections.sort(listInfo, new Comparator&lt;Map.Entry&lt;String, Integer&gt;&gt;() &#123;</span><br><span class="line">            public int compare(Map.Entry&lt;String, Integer&gt; o1, Map.Entry&lt;String, Integer&gt; o2) &#123;</span><br><span class="line">                return o2.getValue().compareTo(o1.getValue());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="完整Demo"><a href="#完整Demo" class="headerlink" title="完整Demo"></a>完整Demo</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">public class CollectionSort &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        HashMap&lt;String ,Integer&gt; hashMap = new HashMap&lt;String, Integer&gt;();</span><br><span class="line">        hashMap.put(&quot;a&quot;,105);</span><br><span class="line">        hashMap.put(&quot;M&quot;,110);</span><br><span class="line">        hashMap.put(&quot;f&quot;,100);</span><br><span class="line">        hashMap.put(&quot;l&quot;,150);</span><br><span class="line">        hashMap.put(&quot;e&quot;,90);</span><br><span class="line">        System.out.println(&quot;-------排序前-------&quot;);</span><br><span class="line">        //这里将map.entrySet()转换成list</span><br><span class="line">        List&lt;Map.Entry&lt;String,Integer&gt;&gt; listInfo = new ArrayList&lt;Map.Entry&lt;String,Integer&gt;&gt;(hashMap.entrySet());</span><br><span class="line">        for (Map.Entry&lt;String,Integer&gt; map : listInfo)&#123;</span><br><span class="line">            System.out.println(map.getKey()+&quot;----&quot;+map.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">        sortByValue(listInfo);</span><br><span class="line">        System.out.println(&quot;-------排序后-------&quot;);</span><br><span class="line">        for (Map.Entry&lt;String,Integer&gt; map : listInfo)&#123;</span><br><span class="line">            System.out.println(map.getKey()+&quot;----&quot;+map.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void sortByKey(List&lt;Map.Entry&lt;String,Integer&gt;&gt; list)&#123;</span><br><span class="line">        //然后通过比较器来实现排序</span><br><span class="line">        Collections.sort(list, new Comparator&lt;Map.Entry&lt;String,Integer&gt;&gt;() &#123;</span><br><span class="line">            public int compare(Map.Entry&lt;String, Integer&gt; o1, Map.Entry&lt;String, Integer&gt; o2) &#123;</span><br><span class="line">                //降序排序</span><br><span class="line">                return o2.getKey().toString().compareTo(o1.getKey());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    public static void sortByValue(List&lt;Map.Entry&lt;String,Integer&gt;&gt; listInfo)&#123;</span><br><span class="line">        Collections.sort(listInfo, new Comparator&lt;Map.Entry&lt;String, Integer&gt;&gt;() &#123;</span><br><span class="line">            public int compare(Map.Entry&lt;String, Integer&gt; o1, Map.Entry&lt;String, Integer&gt; o2) &#123;</span><br><span class="line">                return o2.getValue().compareTo(o1.getValue());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-	
-	</div>
-  <a type="button" href="/archives/a5b55d42.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2016-11-02 </div>
-			<div class="article-title"><a href="/archives/4c8b706f.html" >面向切面编程(AOP)实例解释</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="面向切面编程-AOP-实例解释"><a href="#面向切面编程-AOP-实例解释" class="headerlink" title="面向切面编程(AOP)实例解释"></a>面向切面编程(AOP)实例解释</h2><h4 id="概述："><a href="#概述：" class="headerlink" title="概述："></a>概述：</h4><ul>
-<li>闲暇之余，回头回顾了一下AOP的知识，下面是两个例子，一个是基于XML配置形式来定义AOP方面的，另一个例子是基于@Aspect注解来定义方面的，第二个实例是在第一个实例的基础上改动而实现的，所以为了避免代码，我将每个实例的重点代码push了出来，这两部分组合起来就是一个完整的Project 代码，而且，能够明白地将这两种什么方式区分并将两部分代码联系起来，那就理解了AOP的用法了。<h4 id="AOP实例-基于AOP的XML结构"><a href="#AOP实例-基于AOP的XML结构" class="headerlink" title="AOP实例(基于AOP的XML结构)"></a>AOP实例(基于AOP的XML结构)</h4></li>
-<li>导入jar包(通过Maven导入)：其他需要用到的自行导入<ul>
-<li><code>org.springframework</code>—&gt;<code>spring-aop</code></li>
-<li><code>org.springframework</code>—&gt;<code>spring-core</code></li>
-<li><code>org.springframework</code>—&gt;<code>spring-context</code></li>
-<li><code>org.aspectj</code>—&gt;<code>aspectjrt</code></li>
-<li><code>aopalliance</code>—&gt;<code>aopalliance</code></li>
-<li><code>cglib</code>—&gt;<code>cglib-nodep</code></li>
-</ul>
-</li>
-<li>配置XML文件：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;aop:config&gt;</span><br><span class="line">  &lt;aop:aspect id=&quot;log&quot; ref=&quot;logging&quot;&gt; &lt;!--声明切面--&gt;</span><br><span class="line">     &lt;aop:pointcut id=&quot;selectAll&quot; expression=&quot;execution(* xyz.royleo.*.*(..))&quot;/&gt;&lt;!--声明切点--&gt;</span><br><span class="line">     &lt;aop:before method=&quot;beforeAdvice&quot; pointcut-ref=&quot;selectAll&quot;/&gt;&lt;!--声明通知--&gt;</span><br><span class="line">     &lt;aop:after method=&quot;afterAdvice&quot; pointcut-ref=&quot;selectAll&quot;/&gt;</span><br><span class="line">     &lt;aop:after-returning method=&quot;afterReturningAdvice&quot; returning=&quot;retVal&quot; pointcut-ref=&quot;selectAll&quot;/&gt;</span><br><span class="line">     &lt;aop:after-throwing method=&quot;AfterThrowingAdvice&quot; throwing=&quot;ex&quot; pointcut-ref=&quot;selectAll&quot;/&gt;</span><br><span class="line">  &lt;/aop:aspect&gt;</span><br><span class="line">&lt;/aop:config&gt;</span><br><span class="line">   &lt;bean id=&quot;student&quot; class=&quot;xyz.royleo.Student&quot;&gt;</span><br><span class="line">          &lt;property name=&quot;name&quot; value=&quot;royleo&quot;/&gt;</span><br><span class="line">          &lt;property name=&quot;age&quot; value=&quot;23&quot;/&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line">   &lt;bean id=&quot;logging&quot; class=&quot;xyz.royleo.Logging&quot;/&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="AOP实例-基于AOP的-Aspect"><a href="#AOP实例-基于AOP的-Aspect" class="headerlink" title="AOP实例(基于AOP的@Aspect)"></a>AOP实例(基于AOP的@Aspect)</h4><ul>
-<li>说明，由于这两个说明是使用一个实例，所以基于XML配置部分就不放出POJO的代码，将POJO代码放在基于@Aspect注解示例部分</li>
-<li>导入的jra包跟XML实例相同</li>
-<li>配置：<ul>
-<li>在XML配置文件中启用注解：<code>&lt;aop:aspectj-autoproxy/&gt;</code></li>
-</ul>
-</li>
-<li><p>在Logging中声明切面，切点，通知</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@Aspect</span><br><span class="line">public class Logging &#123;</span><br><span class="line">    @Pointcut(&quot;execution(* xyz.royleo.*.*(..))&quot;)</span><br><span class="line">    private void selectAll()&#123;&#125;</span><br><span class="line"></span><br><span class="line">    @Before(&quot;selectAll()&quot;)</span><br><span class="line">    public void beforeAdvice()&#123;</span><br><span class="line">        System.out.println(&quot;Going to setup student profile.**方法被调用之前通知**&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    @After(&quot;selectAll()&quot;)</span><br><span class="line">    public void afterAdvice()&#123;</span><br><span class="line">        System.out.println(&quot;xyz.royleo.Student profile has been setup.**方法被调用之后通知**&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    @AfterReturning(pointcut = &quot;selectAll()&quot;,returning = &quot;retVal&quot;)</span><br><span class="line">    public void afterReturningAdvice(Object retVal)&#123;</span><br><span class="line">        System.out.println(&quot;Returning:&quot; + retVal.toString() + &quot; **方法返回值时触发通知**&quot; );</span><br><span class="line">    &#125;</span><br><span class="line">    @AfterThrowing(pointcut = &quot;selectAll()&quot;,throwing = &quot;ex&quot;)</span><br><span class="line">    public void AfterThrowingAdvice(IllegalArgumentException ex)&#123;</span><br><span class="line">        System.out.println(&quot;There has been an exception: &quot; + ex.toString() + &quot; **抛异常时触发通知(捕捉到指定异常)**&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>bean.xml配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;aop:aspectj-autoproxy/&gt;</span><br><span class="line">&lt;!-- Definition for student bean --&gt;</span><br><span class="line">&lt;bean id=&quot;student&quot; class=&quot;com.tutorialspoint.Student&quot;&gt;</span><br><span class="line">  &lt;property name=&quot;name&quot;  value=&quot;Zara&quot; /&gt;</span><br><span class="line">  &lt;property name=&quot;age&quot;  value=&quot;11&quot;/&gt;      </span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- Definition for logging aspect --&gt;</span><br><span class="line">&lt;bean id=&quot;logging&quot; class=&quot;com.tutorialspoint.Logging&quot;/&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>入口：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class MainApp &#123;</span><br><span class="line">   public static void main(String[] args) &#123;</span><br><span class="line">      ApplicationContext context = </span><br><span class="line">             new ClassPathXmlApplicationContext(&quot;Beans.xml&quot;);</span><br><span class="line">      Student student = (Student) context.getBean(&quot;student&quot;);</span><br><span class="line">      student.getName();</span><br><span class="line">      student.getAge();     </span><br><span class="line">      student.printThrowException();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/4c8b706f.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2016-10-16 </div>
-			<div class="article-title"><a href="/archives/86946e12.html" >线程同步基础之使用锁实现同步</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="线程同步基础之使用锁实现同步"><a href="#线程同步基础之使用锁实现同步" class="headerlink" title="线程同步基础之使用锁实现同步"></a>线程同步基础之使用锁实现同步</h2><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ul>
-<li>使用锁实现同步是通过重写Lock接口来实现，与synchronized相比，Lock接口允许实现更复杂的临界区结构(控制的获取和释放不在同一个块结构中)</li>
-</ul>
-<h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><ul>
-<li>定义：当两个或者多个线程被阻塞并且他们等待释放的锁永远都不会是释放，就会发生死锁</li>
-</ul>
-<h4 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h4><ul>
-<li>Lock接口引入<code>tryLock()</code>方法获取锁，如果锁已经被其他线程获取，那就返回false，并继续往下执行代码(不是执行临界区代码，而且相当于事物回滚的机制)</li>
-<li>使用<code>lock()</code>方法获取对锁的控制，必须也用<code>unlock()</code>释放对锁的控制<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public void printJob(Object doc)&#123;</span><br><span class="line">        queueLock.lock();</span><br><span class="line">        try &#123;</span><br><span class="line">            long duration = (long) (Math.random()*10000);</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+&quot; OrintQueue Printing a job during &quot;+(duration/1000)+&quot;second&quot;);</span><br><span class="line">            Thread.sleep(duration);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;finally &#123;</span><br><span class="line">            queueLock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="使用读写锁实现同步数据的访问"><a href="#使用读写锁实现同步数据的访问" class="headerlink" title="使用读写锁实现同步数据的访问"></a>使用读写锁实现同步数据的访问</h4><ul>
-<li><code>ReadWriteLock</code>接口和他的实现类<code>ReenteantReadWriteLock</code>。这两个类有两个锁，一个是读操作锁(可同时允许多个人访问)，一个是写操作锁(同一时段只能一个线程操作)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public double getPrice2()&#123;</span><br><span class="line">        lock.readLock().lock();</span><br><span class="line">        double value = price2;</span><br><span class="line">        lock.readLock().unlock();</span><br><span class="line">        return value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPrice1(double price1,double price2)&#123;</span><br><span class="line">        lock.writeLock().lock();</span><br><span class="line">        this.price2=price2;</span><br><span class="line">        this.price1=price1;</span><br><span class="line">        lock.writeLock().unlock();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/86946e12.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2016-10-14 </div>
-			<div class="article-title"><a href="/archives/65a2a3a3.html" >线程同步基础之synchronized同步</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="线程同步基础之synchronized同步"><a href="#线程同步基础之synchronized同步" class="headerlink" title="线程同步基础之synchronized同步"></a>线程同步基础之synchronized同步</h2><h4 id="Java-API提供的两种基本的同步机制"><a href="#Java-API提供的两种基本的同步机制" class="headerlink" title="Java API提供的两种基本的同步机制"></a>Java API提供的两种基本的同步机制</h4><ol>
-<li>synchronized关键字机制</li>
-<li>Lock接口及其实现机制</li>
-</ol>
-<h4 id="synchronized关键字概述"><a href="#synchronized关键字概述" class="headerlink" title="synchronized关键字概述"></a>synchronized关键字概述</h4><ol>
-<li>对方法的声明定义<ul>
-<li>对于非静态方法，每个用synchronized关键字声明的方法都是一个临界区，对于同一个对象的临界区，再同一时间只有一个允许被访问</li>
-<li>对于静态方法，</li>
-</ul>
-</li>
-<li>synchronized同步块</li>
-<li>synchronized修饰一个类</li>
-</ol>
-<h4 id="使用synchronized实现同步非静态方法"><a href="#使用synchronized实现同步非静态方法" class="headerlink" title="使用synchronized实现同步非静态方法"></a>使用synchronized实现同步非静态方法</h4><ul>
-<li>使用synchronized修饰一个非静态方法是时候，修饰的是本方法，同一时间只能允许一个访问权限<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public synchronized void addAccount(double amount)&#123;</span><br><span class="line">    double tmp = balance;</span><br><span class="line">    try &#123;</span><br><span class="line">        Thread.sleep(10);</span><br><span class="line">    &#125; catch (InterruptedException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    tmp += amount;</span><br><span class="line">    balance = tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="使用synchronized实现同步静态方法"><a href="#使用synchronized实现同步静态方法" class="headerlink" title="使用synchronized实现同步静态方法"></a>使用synchronized实现同步静态方法</h4><ul>
-<li>我们知道静态方法是属于类的而不属于对象的。同样的，synchronized修饰的静态方法锁定的是这个类的所有对象<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public synchronized static void method() &#123;</span><br><span class="line">   // todo</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="synchronized修饰代码块"><a href="#synchronized修饰代码块" class="headerlink" title="synchronized修饰代码块"></a>synchronized修饰代码块</h4><ul>
-<li>当两个并发线程访问同一个对象object中的这个synchronized(this)同步代码块时，一个时间内只能有一个线程得到执行。另一个线程必须等待当前线程执行完这个代码块以后才能执行该代码块</li>
-<li>当一个线程访问object的一个synchronized(this)同步代码块时，另一个线程仍然可以访问该object中的非synchronized(this)同步代码块</li>
-<li><p>当一个线程访问object的一个synchronized(this)同步代码块时，其他线程对object中所有其它synchronized(this)同步代码块的访问将被阻塞</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public void method()  </span><br><span class="line">&#123;</span><br><span class="line">    synchronized(表达式)  </span><br><span class="line">     &#123;  </span><br><span class="line">     &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果同步快里面的表达式是<code>this</code>关键字或者是<code>CLassName.class</code>关键字的话，作用的对象是这个类的所有对象</p>
-</li>
-</ul>
-<h4 id="使用非依赖属性实现同步"><a href="#使用非依赖属性实现同步" class="headerlink" title="使用非依赖属性实现同步"></a>使用非依赖属性实现同步</h4><ul>
-<li>线程同步控制过程中，创建一个无关属性，被多个线程共享使用，在同步操作中，同步对这个非依赖属性的访问</li>
-</ul>
-<h4 id="在同步代码中使用条件"><a href="#在同步代码中使用条件" class="headerlink" title="在同步代码中使用条件"></a>在同步代码中使用条件</h4><ul>
-<li><code>wait()</code>:当一个线程调用<code>wait()</code>方法的时候，JVM将这个线程置入休眠，并且释放这个同步代码块的对象</li>
-<li><code>notify()</code>与<code>notifyAll()</code>：唤醒之前因为调用<code>wait()</code>方法的线程</li>
-<li>下面是生产者消费者模式里面的一个同步方法:当库存为零的时候，休眠次线程，不断的监听，库存是否继续为零<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public synchronized void get()&#123;</span><br><span class="line">        while (storage.size()==0)&#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                wait();</span><br><span class="line">            &#125; catch (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(&quot;Get : &quot;+storage.size()+&quot; &quot;+((LinkedList&lt;?&gt;)storage).poll());</span><br><span class="line">            notifyAll();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/65a2a3a3.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-	     </div>
-	     <div>
-	       <center>
-	         <div class="pagination">
-<ul class="pagination">
-	 
-		
-    	<li class="prev"><a href="/tags/Java/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i> 上一页</a></li>
-  		
-
-        <li><a href="/"><i class="fa fa-home"></i>Home</a></li>
-
-		
-		   <li class="next"> <a href="/tags/Java/page/3/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a> </li>          
+<div class="index-container">
+    
+    <div class="index-left">
         
-	
-</ul>
-</div>
-
-	       </center>
-	     </div>	
-      
-
-</div> <!-- col-md-9/col-md-12 -->
-
-
-<div class="col-md-3">
-	<div id="sidebar">
-	
-			
-  <div id="site_search">
-   <div class="form-group">
-    <input type="text" id="local-search-input" name="q" results="0" placeholder="搜索" class="st-search-input st-default-search-input form-control"/>
-   </div>  
-  <div id="local-search-result"></div>
-  </div>
-
-
-		
-			<div class="widget">
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/" />
+        </div>
+        <div class="name">
+            <i>Rico Nut</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li  class=active >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
     
 </div>
 
-		
-			
-		
-			
-	<div class="widget">
-		<h4>标签云</h4>
-		<ul class="tag_box inline list-unstyled">		
-		
-			<li><a href="/tags/Linux/">Linux<span>3</span></a></li>
-		
-			<li><a href="/tags/TakeDown/">TakeDown<span>4</span></a></li>
-		
-			<li><a href="/tags/Servlet/">Servlet<span>2</span></a></li>
-		
-			<li><a href="/tags/Git/">Git<span>2</span></a></li>
-		
-			<li><a href="/tags/RabbitMQ/">RabbitMQ<span>1</span></a></li>
-		
-			<li><a href="/tags/Mybatis/">Mybatis<span>4</span></a></li>
-		
-			<li><a href="/tags/Mysql/">Mysql<span>9</span></a></li>
-		
-			<li><a href="/tags/多线程/">多线程<span>4</span></a></li>
-		
-			<li><a href="/tags/Web/">Web<span>3</span></a></li>
-		
-			<li><a href="/tags/V2ray/">V2ray<span>1</span></a></li>
-		
-			<li><a href="/tags/Java/">Java<span>32</span></a></li>
-		
-			<li><a href="/tags/Raspberry/">Raspberry<span>1</span></a></li>
-		
-			<li><a href="/tags/Exception/">Exception<span>1</span></a></li>
-		
-			<li><a href="/tags/struts2/">struts2<span>1</span></a></li>
-		
-			<li><a href="/tags/Spring/">Spring<span>5</span></a></li>
-		
-			<li><a href="/tags/JVM/">JVM<span>1</span></a></li>
-		
-			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
-		
-			<li><a href="/tags/Angular-JS/">Angular JS<span>2</span></a></li>
-		
-			<li><a href="/tags/场景/">场景<span>1</span></a></li>
-		
-			<li><a href="/tags/Redis/">Redis<span>4</span></a></li>
-		
-		
-		   <li><a href="/tags">...<span>25</span></a></li>
-		 
-		</ul>
-	</div>
 
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
 
-		
-			
-<div class="widget">
-  <h4>最新文章</h4>
-  <ul class="entry list-unstyled">
-    
-      <li>
-        <a href="/archives/6e1b8bba.html"  title="上手树莓派，打算将弃用的笔记本硬盘挂在树莓派主机上，作为下载机使用,由于旧硬盘是win电脑拆下来的硬盘，磁盘格式为`Microsoft basic data`..." ><i class="fa fa-file-o"></i>Linux下挂载移动硬盘(ntfs格式)</a>
-      </li>
-    
-      <li>
-        <a href="/archives/27e17559.html"  title="redis总的所有数据默认保存在内存当中的.但场景需要，有时候需要进行持久化保存" ><i class="fa fa-file-o"></i>Redis持久化方案</a>
-      </li>
-    
-      <li>
-        <a href="/archives/3eac123.html"  title="当一个系统访问量上来的时候，不只是数据库性能瓶颈问题了，数据库数据安全也会浮现，这时候合理使用数据库锁机制就显得异常重要了。" ><i class="fa fa-file-o"></i>数据库锁机制分类</a>
-      </li>
-    
-      <li>
-        <a href="/archives/7ffea1fe.html"  title="RabbitMQ消息作为分布式消息协同工具，承担者协同各个系统之间的正常通信。如何确保消息通过RabbitMQ传输而不丢失数据？" ><i class="fa fa-file-o"></i>RabbitMQ消息可靠性</a>
-      </li>
-    
-      <li>
-        <a href="/archives/28d7adef.html"  title="快速失败：当在迭代一个集合的时候，如果有另外一个线程在修改这个集合，就会抛出ConcurrentModification异常，java.util下都是快速失败。 安全失败：在迭代时候会在集合二层做一个拷贝，所以在修改集合上层元素不会影响下层。在java.util.concurrent下都是安全失败" ><i class="fa fa-file-o"></i>快速失败与安全失败机制</a>
-      </li>
-    
-  </ul>
+        </div>
+    </div>
 </div>
 
-		
-			
-<div class="widget">
-	<h4>链接</h4>
-	<ul class="blogroll list-unstyled">
-	
-		<li><i class="fa fa-github"></i><a href="http://www.github.com/RicoNut" title="My Github account." target="_blank"]);">RicoNut Github</a></li>
-	
-	</ul>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<!-- 归档列表 -->
+
+<div class="archives-container">
+
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2019">
+                    <span class="tag-text">2019</span>
+                </span>
+    <ul>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-15</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/6e1b8bba.html">
+                        <span>
+                            Linux下挂载移动硬盘(ntfs格式)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+
+    </ul>
 </div>
 
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2018">
+                    <span class="tag-text">2018</span>
+                </span>
+    <ul>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>12-20</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/27e17559.html">
+                        <span>
+                            Redis持久化方案
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>12-01</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/3eac123.html">
+                        <span>
+                            数据库锁机制分类
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-26</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/7ffea1fe.html">
+                        <span>
+                            RabbitMQ消息可靠性
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-13</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/28d7adef.html">
+                        <span>
+                            快速失败与安全失败机制
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-06</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/a1cd7aa8.html">
+                        <span>
+                            Integer封装类比较大小
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-26</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/9b0bd708.html">
+                        <span>
+                            Nginx的负载均衡策略
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-17</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/d1b4efa1.html">
+                        <span>
+                            Java遍历Map对象的4种方法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-30</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/1ab741e2.html">
+                        <span>
+                            Array与Arrays的区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-29</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/ad76721a.html">
+                        <span>
+                            Collection与Collections的区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-01</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/130dac3d.html">
+                        <span>
+                            Set集合误用引发的血案
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-20</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4354712f.html">
+                        <span>
+                            基于Redis缓存的音频点赞排行榜功能实践
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-02</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/e8fc0d11.html">
+                        <span>
+                            Redis基础数据结构
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>04-27</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/98ee2edb.html">
+                        <span>
+                            leetcode Reserve Integer
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>03-18</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/bd43d2da.html">
+                        <span>
+                            Object 类中toString()、equal()、hashCode()之间关系
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>02-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/7416d96f.html">
+                        <span>
+                            Java异常总结
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>02-03</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/199ee4b3.html">
+                        <span>
+                            自己对Java堆和栈的理解
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>01-30</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/762945f0.html">
+                        <span>
+                            Spring事务管理
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
 
-		
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
+    </ul>
+</div>
 
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2017">
+                    <span class="tag-text">2017</span>
+                </span>
+    <ul>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>12-05</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/3e6ff0a8.html">
+                        <span>
+                            抽象类和接口的区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-28</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/6c6825f6.html">
+                        <span>
+                            iptables防火墙及其命令
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-12</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/1db25542.html">
+                        <span>
+                            Mybatis 修饰符`#{}`和`${}`的区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-09</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/8bdd2473.html">
+                        <span>
+                            JDBC SQL预编译
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/efb286cc.html">
+                        <span>
+                            Mybatis 如何获取保存对象之后生成的自增主键?
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-10</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/7ccdc859.html">
+                        <span>
+                            多线程基本概念
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-20</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/bd778d6e.html">
+                        <span>
+                            多线程关键字volatile和synchronized区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/466fafff.html">
+                        <span>
+                            mysql连接查询
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>03-12</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/70e4edda.html">
+                        <span>
+                            spring Bean学习Review
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>02-02</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/3170f59.html">
+                        <span>
+                            Mybatis延迟加载
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>01-04</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/fc53cc9d.html">
+                        <span>
+                            Java关键字与总结
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
 
+    </ul>
+</div>
 
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2016">
+                    <span class="tag-text">2016</span>
+                </span>
+    <ul>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>12-07</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/a5b55d42.html">
+                        <span>
+                            Map的排序(key排序/value排序)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-15</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/89baa56d.html">
+                        <span>
+                            Git操作快速上手(日常指令)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-02</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4c8b706f.html">
+                        <span>
+                            面向切面编程(AOP)实例解释
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/86946e12.html">
+                        <span>
+                            线程同步基础之使用锁实现同步
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-14</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/65a2a3a3.html">
+                        <span>
+                            线程同步基础之synchronized同步
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-10</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/faa9c2f.html">
+                        <span>
+                            Java反射机制之动态代理
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/affd1e49.html">
+                        <span>
+                            Java反射机制之方法操作
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-04</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/b0d70fcf.html">
+                        <span>
+                            Java反射机制之变量操作
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-03</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/41e0f7bf.html">
+                        <span>
+                            Java反射机制之构造器操作
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-30</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/b7f7cee0.html">
+                        <span>
+                            Java线程管理
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-17</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/971c3dff.html">
+                        <span>
+                            'Mysql多表操作以及其实例'
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-12</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/d2cfd72b.html">
+                        <span>
+                            epuals与'=='区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4be26d16.html">
+                        <span>
+                            v2ray_科学手段
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/861d9c25.html">
+                        <span>
+                            原生JDBC操作数据库的思考总结
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-10</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/bef463.html">
+                        <span>
+                            java 重定向与转发的异同
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-01</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/5574abb0.html">
+                        <span>
+                            TCP通信三次握手协议原理与过程分析
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-31</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4a1b8e6e.html">
+                        <span>
+                            Spring中添加REST功能
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-29</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/ac0ee78d.html">
+                        <span>
+                            JSP九大内置对象、四个作用域以及六大基本动作
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-28</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/3fb7ed9.html">
+                        <span>
+                            Mybatis 实现原理与结构解析
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-28</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4b2bec15.html">
+                        <span>
+                            Java 迭代器Iterator的用法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-26</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/69b20980.html">
+                        <span>
+                            Mysql视图技术原理与应用
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-25</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/64423a64.html">
+                        <span>
+                            mysql触发器学与用
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-24</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/39b075e7.html">
+                        <span>
+                            Java 实现TCP/IP Socket通信
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-22</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/5970580b.html">
+                        <span>
+                            struts2基础笔记(1)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-19</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4ac038bf.html">
+                        <span>
+                            比较http请求方法中的GET与POST方法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-19</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/86b8ba8f.html">
+                        <span>
+                            Spring MVC常用的控制器方法与使用
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/5b142d5f.html">
+                        <span>
+                            AngularJS 核心特性
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/5a644a79.html">
+                        <span>
+                            Spring-MVC请求处理工作流程
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-15</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/897c0a7c.html">
+                        <span>
+                            Angular JS 基础笔记
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/7ae62b4c.html">
+                        <span>
+                            hibernate实现原理与思考
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/8314bbf6.html">
+                        <span>
+                            Mysql管理用户操作(创建用户，删除用户，修改用户密码，权限分配以及相关授权)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-05</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/faff5c20.html">
+                        <span>
+                            Hibernate出现Caused by: java.sql.SQLException: Field 'id' doesn't have a default value的解决方法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-05</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/f8defb4e.html">
+                        <span>
+                            关于Maven 打包时 缺失properties和xml后缀的文件
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>05-10</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/b4e8978.html">
+                        <span>
+                            无法连接远程Mysql数据库的解决办法 I
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>05-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/db1953ee.html">
+                        <span>
+                            Java垃圾回收之finalize()
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>05-07</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/57584ce4.html">
+                        <span>
+                            Java常识之构造器
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>03-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/a9d721e9.html">
+                        <span>
+                            在Github创建静态网站预览的方法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+
+    </ul>
+</div>
+
+</div>
 
     </div>
-  </div>
-  <div class="container-narrow">
-    <footer> <p>
-  &copy; 2019 Rico Nut
-  
-      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
-</p> </footer>
-  </div> <!-- container-narrow -->
-  
+</div>
 
 
-  
-<a id="gotop" href="#">   
-  <span>▲</span> 
-</a>
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
 
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+        
 
+        
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
+        
 
+        
 
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
 
 
-<!-- syntax highlighting -->
 
 
 </body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = false
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
 </html>

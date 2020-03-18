@@ -1,811 +1,1200 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  
-  <title>Java | 哈姆雷特1001</title>
-  <meta name="author" content="Rico Nut">
-  
-  <meta name="description" content="学习总结 思考感悟 知识管理">
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="学习总结 思考感悟 知识管理">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
 
-  
-  <meta property="og:site_name" content="哈姆雷特1001"/>
+    <title>
+        
+        
+        
+    </title>
 
-  
-    <meta property="og:image" content=""/>
-  
-
-  
-  
-    <link href="/favicon.png" rel="icon">
-  
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="/css/themes/cerulean.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/highlight-default.min.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/comment.css" media="screen" type="text/css">
-  <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
-  <![endif]-->
-
-  <script src="/js/jquery-2.0.3.min.js"></script>
-  
-  <!-- analytics -->
-  
-
-
-
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
 </head>
 
 <body>
-  <nav id="main-nav" class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-	<span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-       <a class="navbar-brand" href="/">哈姆雷特1001</a>
-      <div class="collapse navbar-collapse nav-menu">
-		<ul class="nav navbar-nav">
-		  
-		  <li>
-			<a href="/archives" title="All the articles.">
-			  <i class="fa fa-archive"></i>Archives
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/about" title="About me.">
-			  <i class="fa fa-user"></i>About
-			</a>
-		  </li>
-		  
-		</ul>
-      </div>
-    </div> <!-- container -->
-</nav>
-<div class="clearfix"></div>
 
-  <div class="container">
-    <div class="content">
-      
-
-<!-- title -->
-<div class="page-header page-header-inverse ">
-  <h1 class="archive-title-tag title title-inverse ">Java</h1>
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
 </div>
 
-<div class="row page">
-  <!-- cols -->
-  
-  <div class="col-md-9">
-	
-
-	  <div id="top_search"></div>
-
-      
-         <!-- display as entry -->
-	     <div class="mypage">
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2018-11-13 </div>
-			<div class="article-title"><a href="/archives/28d7adef.html" title="快速失败：当在迭代一个集合的时候，如果有另外一个线程在修改这个集合，就会抛出ConcurrentModification异常，java.util下都是快速失败。 安全失败：在迭代时候会在集合二层做一个拷贝，所以在修改集合上层元素不会影响下层。在java.util.concurrent下都是安全失败">快速失败与安全失败机制</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="快速失败机制-fail-fast"><a href="#快速失败机制-fail-fast" class="headerlink" title="快速失败机制(fail-fast)"></a>快速失败机制(<code>fail-fast</code>)</h4><ul>
-<li>在迭代器迭代的时候对集合进行修改：</li>
-</ul>
-<p><code>案例代码：</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">list.add(&quot;UML&quot;);</span><br><span class="line">list.add(&quot;PDF&quot;);</span><br><span class="line">list.add(&quot;VRP&quot;);</span><br><span class="line">// 1. 使用iterator遍历的时候发生更改，会导致 ConcurrentModificationException</span><br><span class="line">//        Iterator iterator = list.iterator();</span><br><span class="line">//        while (iterator.hasNext()) &#123;</span><br><span class="line">//            list.remove(1);</span><br><span class="line">//        &#125;</span><br><span class="line">//2. 使用foreach遍历的时候发生更改，会导致 ConcurrentModificationException</span><br><span class="line">//        for (String str : list)&#123;</span><br><span class="line">//            list.remove(1);</span><br><span class="line">//        &#125;</span><br><span class="line">//3. 使用for i 的形式遍历的时候发生更改，不会导致 ConcurrentModificationException。</span><br><span class="line">//        for (int i = 0; i &lt; list.size(); i++) &#123;</span><br><span class="line">//            list.remove(1);</span><br><span class="line">//        &#125;</span><br></pre></td></tr></table></figure></p>
-<p><code>执行的异常结果：</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.util.ConcurrentModificationException</span><br><span class="line">	at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:909)</span><br><span class="line">	at java.util.ArrayList$Itr.next(ArrayList.java:859)</span><br></pre></td></tr></table></figure></p>
-<p><code>结果分析：</code>当迭代器遍历一个集合对象的时候，对集合对象进行内容修改(包括：赠删改)，则会抛出异常：<code>ConcurrentModificationException</code></p>
-<ul>
-<li>《Java编程思想》对快速失败(快速报错)的解释<ol>
-<li>Java容器有一种保护机制，能够防止多个进程同时修改一个容器的内容。如果你正在迭代遍历某个容器的过程中，另一个线程对介入，并插入、删除、或修改容器中的某个对象，那么就会出现问题：也许迭代过程中已经处理了该对象，也许没有处理，也需要在调用<code>size()</code>方法之后容器的尺寸收缩了—–还有许多的灾难情景。</li>
-<li>Java容器类类库采用<code>快速报错(fail-fast)</code>机制。它会探查容器上任何除了你的线程所进行的操作以外其他的所有变化，一旦发现其他线程对容器进行修改，就会立刻抛出<code>ConcurrentModificationException</code>异常</li>
-<li>引用自书籍《Java编程思想》<code>17.11.3</code>章节</li>
-</ol>
-</li>
-<li>快速失败原理：<ul>
-<li>迭代器在便利一个集合对象时，并且在遍历过程中使用一个<code>modCount</code>变量。集合在遍历期间如果内容发生变化，就会改变<code>modCount</code>的值。每当迭代器使用<code>hashNext()/next()</code>遍历下一个元素的时候，都会检测<code>modCount</code>变量是否为<code>expectedmodCount</code>的值，如果是，则返回便利；否则抛出异常，终止便利。这里异常的抛出条件是检测到 <code>modCount！=expectedmodCount</code> 这个条件。如果集合发生变化时修改<code>modCount</code>值刚好又设置为了<code>expectedmodCount</code>值.</li>
-<li>场景参考：java.util包下的集合类都是快速失败的，不能在多线程下发生并发修改(指的是迭代过程中被修改)<h4 id="安全失败机制-fail-safe"><a href="#安全失败机制-fail-safe" class="headerlink" title="安全失败机制(fail-safe)"></a>安全失败机制(<code>fail-safe</code>)</h4></li>
-</ul>
-</li>
-<li>java.util.concurrent包下list执行迭代时修改操作<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">        //同样的代码：采用具备安全失败(fail-safe)的集合容器来创建对象</span><br><span class="line">        List&lt;String&gt; list = new CopyOnWriteArrayList&lt;&gt;();</span><br><span class="line">        list.add(&quot;UML&quot;);</span><br><span class="line">        list.add(&quot;PDF&quot;);</span><br><span class="line">        list.add(&quot;VRP&quot;);</span><br><span class="line">        // 1. 使用iterator遍历的时候发生更改，不会导致 ConcurrentModificationException</span><br><span class="line">//        Iterator iterator = list.iterator();</span><br><span class="line">//        while (iterator.hasNext()) &#123;</span><br><span class="line">//            list.remove(1);</span><br><span class="line">//            break;</span><br><span class="line">//        &#125;</span><br><span class="line">        //2. 使用foreach遍历的时候发生更改，不会导致 ConcurrentModificationException</span><br><span class="line">//        for (String str : list)&#123;</span><br><span class="line">//            list.remove(1);</span><br><span class="line">//            break;</span><br><span class="line">//        &#125;</span><br><span class="line">        //3. 使用for i 的形式遍历的时候发生更改，不会导致 ConcurrentModificationException。</span><br><span class="line">//        for (int i = 0; i &lt; list.size(); i++) &#123;</span><br><span class="line">//            list.remove(1);</span><br><span class="line">//            break;</span><br><span class="line">//        &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><code>执行正常</code></p>
-<ul>
-<li>安全失败机制<ul>
-<li>原理：由于迭代的时候，对原集合的拷贝进行遍历，所以在遍历过程中，对原集合所做的修改不能被迭代器检测到，所以不会触发<code>ConcurrentModificationException</code>异常</li>
-<li>缺点：基于拷贝内容的容器虽然是避免来<code>ConcurrentModificationException</code>异常，但是同样地，拷贝出来的内容不能同步到原集合中内容信息的修改，可能会造成容器数据版本落后。</li>
-<li>场景参考：<code>java.util.concurrent</code>包下的容器都是安全失败的，可以在多线程并发下使用，并发修改。</li>
-<li>快速失败，安全失败是相对于迭代器而言的，包括iterator和foreach，不包括for i ；</li>
-</ul>
-</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/28d7adef.html#more" class="btn btn-default more">阅读此文</a>
+<div class="index-about">
+    <i>  </i>
 </div>
 
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2018-11-06 </div>
-			<div class="article-title"><a href="/archives/a1cd7aa8.html" title="从Integer缓存池的角度看Integer比较大小">Integer封装类比较大小</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="先上Demo，Integer数据的比较大小"><a href="#先上Demo，Integer数据的比较大小" class="headerlink" title="先上Demo，Integer数据的比较大小"></a>先上Demo，Integer数据的比较大小</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Integer a = <span class="number">128</span>;</span><br><span class="line">        Integer b = <span class="number">128</span>;</span><br><span class="line">        <span class="comment">//test-1</span></span><br><span class="line">        <span class="keyword">if</span> (a == b) &#123;</span><br><span class="line">            System.out.println(<span class="string">" a is equal to b"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Integer c = <span class="number">127</span>;</span><br><span class="line">        Integer d = <span class="number">127</span>;</span><br><span class="line">        <span class="comment">//test-2</span></span><br><span class="line">        <span class="keyword">if</span> (c == d) &#123;</span><br><span class="line">            System.out.println(<span class="string">"c is equal to d"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> e = <span class="number">128</span>;</span><br><span class="line">        <span class="comment">//test-3</span></span><br><span class="line">        <span class="keyword">if</span> (a == e) &#123;</span><br><span class="line">            System.out.println(<span class="string">"a is equal to e"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> f = <span class="number">127</span>;</span><br><span class="line">        <span class="comment">//test-4</span></span><br><span class="line">        <span class="keyword">if</span> (f == c) &#123;</span><br><span class="line">            System.out.println(<span class="string">"f is equal to c"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Integer g = <span class="number">129</span>;</span><br><span class="line">        <span class="comment">//test-5</span></span><br><span class="line">        <span class="keyword">if</span> (g &gt; a) &#123;</span><br><span class="line">            System.out.println(<span class="string">"g is larger to a"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//test-6</span></span><br><span class="line">        <span class="keyword">if</span> (g &gt; c) &#123;</span><br><span class="line">            System.out.println(<span class="string">"g is larger to c"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 结果：</span></span><br><span class="line"><span class="comment">         *    c is equal to d</span></span><br><span class="line"><span class="comment">         *    a is equal to e</span></span><br><span class="line"><span class="comment">         *    f is equal to c</span></span><br><span class="line"><span class="comment">         *    g is lager to a</span></span><br><span class="line"><span class="comment">         *    g is larger to c</span></span><br><span class="line"><span class="comment">         * */</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="测试点分析"><a href="#测试点分析" class="headerlink" title="测试点分析"></a>测试点分析</h4><ol>
-<li><code>test-1</code>：Intger数值超出<code>Integer.MinValue（-128）</code>和<code>Integer.MaxValue（127）</code>的范围，用等号比较大小，数值不等</li>
-<li><code>test-2</code>：Intger数值在<code>Integer.MinValue（-128）</code>和<code>Integer.MaxValue（127）</code>的范围内，用等号比较大小，数值相等</li>
-<li><code>test-3</code>和：<code>test-4</code>：Integer数值在Integer范围内或者范围外与int基本数据类型进行比较；只要数值相等，两者都相等</li>
-<li><code>test-5</code>和：<code>test-6</code>: Integer数值在不超出int的范围内进行比较，只比较数值的大小</li>
-</ol>
-<h4 id="实验结果总结"><a href="#实验结果总结" class="headerlink" title="实验结果总结"></a>实验结果总结</h4><ul>
-<li>在-128~127的Integer值并且以Integer x = value;的方式赋值的Integer值在进行==和equals比较时，都会返回true；因为在此范围内的Integer的数值用的是原生数据类型int，会在内存中重用；比较的时候，只比较数值大小</li>
-<li>超出-128~127的Integer的数值比较的时候，不仅比较数值的大小，还比较对象的引用地址是否一致</li>
-<li>而Integer类型与int比较大小的时候，只比较数值大小；因为Integer会自动拆箱操作，转换成int类型再进行比较</li>
-<li>对于超出-128~127的Integer比较数值是否相等的时候，采用<code>equal()</code>方法进行比较;但是实际生成环境中，无法确定Integer的范围时候，只能都用<code>equal()</code>进行Integer类型的大小比较;</li>
-<li>jdk中<code>equal()</code>源码如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Compares this object to the specified object.  The result is</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> true&#125; if and only if the argument is not</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> null&#125; and is an &#123;<span class="doctag">@code</span> Integer&#125; object that</span></span><br><span class="line"><span class="comment"> * contains the same &#123;<span class="doctag">@code</span> int&#125; value as this object.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   obj   the object to compare with.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  &#123;<span class="doctag">@code</span> true&#125; if the objects are the same;</span></span><br><span class="line"><span class="comment"> *          &#123;<span class="doctag">@code</span> false&#125; otherwise.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> Integer) &#123;</span><br><span class="line">        <span class="keyword">return</span> value == ((Integer)obj).intValue();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/a1cd7aa8.html#more" class="btn btn-default more">阅读此文</a>
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/" />
+        </div>
+        <div class="name">
+            <i>Rico Nut</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li  class=active >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
 </div>
 
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2018-10-17 </div>
-			<div class="article-title"><a href="/archives/d1b4efa1.html" title="遍历Map对象的时候，遍历效率对于遍历的开销影响不小，需要谨慎选择">Java遍历Map对象的4种方法</a></div>						
-		</h3>
-	
 
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
 
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="Foreach遍历Map-Entry对象（O-n-）"><a href="#Foreach遍历Map-Entry对象（O-n-）" class="headerlink" title="Foreach遍历Map.Entry对象（O(n)）"></a>Foreach遍历Map.Entry对象（O(n)）</h4><ul>
-<li>最普遍的遍历方式。但是遍历的Map不可为Null，需要做空指针判断<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//foreach遍历Entry实例</span><br><span class="line">public static void forEachMap(Map&lt;String,String&gt; stringMap)&#123;</span><br><span class="line">    if (stringMap==null) return;    //如果要遍历的Map为空，则终止遍历#NullPointerException</span><br><span class="line">    for (Map.Entry&lt;String,String&gt; entry : stringMap.entrySet())&#123;</span><br><span class="line">        System.out.println(&quot;key:&quot;+entry.getKey()+&quot;,value:&quot;+entry.getValue());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="Foreach直接遍历key-value-（O-n-）"><a href="#Foreach直接遍历key-value-（O-n-）" class="headerlink" title="Foreach直接遍历key/value （O(n)）"></a>Foreach直接遍历key/value （O(n)）</h4><ul>
-<li>通过Map的<code>keySet()</code>和<code>getValues()</code>对象直接获取key/value集合，再遍历得到数据<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//单独遍历Map对象中的key/value</span><br><span class="line">public static void forEachKeyOrValue(Map&lt;String,String&gt; map)&#123;</span><br><span class="line">    for (String key : map.keySet())&#123;</span><br><span class="line">        System.out.println(&quot;key:&quot;+key);</span><br><span class="line">    &#125;</span><br><span class="line">    for (String value : map.values())&#123;</span><br><span class="line">        System.out.println(&quot;value:&quot;+value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="根据取出来的key集合来遍历value-（O-n-n-）"><a href="#根据取出来的key集合来遍历value-（O-n-n-）" class="headerlink" title="根据取出来的key集合来遍历value （O(n*n)）"></a>根据取出来的key集合来遍历value （O(n*n)）</h4><ul>
-<li>这种方法有种多此一举的感觉…<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> /**</span><br><span class="line"> * 先取出Map的key值，再通过遍历取出来的key来获取value值</span><br><span class="line"> * 但是该方法效率低，取出key已经很消耗资源，再遍历一遍value，已经是翻倍的成本</span><br><span class="line"> * */</span><br><span class="line">public static void forEachByKey(Map&lt;String,String&gt; map)&#123;</span><br><span class="line">    for (String key : map.keySet())&#123;</span><br><span class="line">        System.out.println(&quot;key:&quot;+key+&quot;,value:&quot;+map.get(key));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>####使用迭代器遍历Map对象 </p>
-<ul>
-<li><p>使用迭代器遍历Map的泛型数据<code>（O(n)）</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//通过迭代器Iterator遍历Map，使用泛型</span><br><span class="line">    public static void iteratorMap(Map&lt;String,String&gt; map)&#123;</span><br><span class="line">        Iterator&lt;Map.Entry&lt;String, String&gt;&gt; iterator = map.entrySet().iterator();</span><br><span class="line">        while (iterator.hasNext())&#123;</span><br><span class="line">            Map.Entry&lt;String,String&gt; entry = iterator.next();</span><br><span class="line">            System.out.println(&quot;key:&quot;+entry.getKey()+&quot;,value:&quot;+entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用迭代器遍历键值数据<code>（O(n*n)）</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 先取出Map的key值，再通过遍历取出来的key来获取value值</span><br><span class="line"> * 但是该方法效率低，取出key已经很消耗资源，再遍历一遍value，已经是翻倍的成本</span><br><span class="line"> * */</span><br><span class="line">public static void forEachByKey(Map&lt;String,String&gt; map)&#123;</span><br><span class="line">    for (String key : map.keySet())&#123;</span><br><span class="line">        System.out.println(&quot;key:&quot;+key+&quot;,value:&quot;+map.get(key));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/d1b4efa1.html#more" class="btn btn-default more">阅读此文</a>
+        </div>
+    </div>
 </div>
 
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2018-09-30 </div>
-			<div class="article-title"><a href="/archives/1ab741e2.html" title="数组类Array VS 静态类Arrays">Array与Arrays的区别</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="Array数组类"><a href="#Array数组类" class="headerlink" title="Array数组类"></a><code>Array</code>数组类</h4><ul>
-<li><code>Array</code>数组是Java提供的一个基本的存储结构</li>
-<li>提供了动态创建和访问 Java 数组的方法。其中的元素的类型必须相同</li>
-<li>效率高，但是容量固定且无法改变；如果涉及扩展，需要重新创建数组并复制数据</li>
-</ul>
-<h4 id="Arrays静态类"><a href="#Arrays静态类" class="headerlink" title="Arrays静态类"></a><code>Arrays</code>静态类</h4><ul>
-<li><code>Arrays</code>是一个数组的工具类，专门用于操作数组</li>
-<li>具备齐全的处理工具方法；例如：搜索，排序，复制等静态方法</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/1ab741e2.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2018-09-29 </div>
-			<div class="article-title"><a href="/archives/ad76721a.html" title="Collection是集合接口类；Collections是集合工具类">Collection与Collections的区别</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="java-util-Collection是一个集合接口"><a href="#java-util-Collection是一个集合接口" class="headerlink" title="java.util.Collection是一个集合接口"></a><code>java.util.Collection</code>是一个集合接口</h4><ul>
-<li><code>Collection</code>是个接口类，旗下派生出我们常用以及不常用的一些容器，如下：</li>
-<li><code>java.util.Collection</code><ul>
-<li>Queue</li>
-<li>Set<ul>
-<li>AbstractSet<ul>
-<li>HashSet<ul>
-<li>LinkedHashSet</li>
-</ul>
-</li>
-<li>TreeSet</li>
-</ul>
-</li>
-<li>SortSet</li>
-</ul>
-</li>
-<li>List<ul>
-<li>AbstractList<ul>
-<li>ArrayList</li>
-<li>AbstractSequentialList<ul>
-<li>LinkedList</li>
-</ul>
-</li>
-<li>Vector<ul>
-<li>Stack</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="java-util-Collections-是一个静态工具类"><a href="#java-util-Collections-是一个静态工具类" class="headerlink" title="java.util.Collections 是一个静态工具类"></a><code>java.util.Collections</code> 是一个静态工具类</h4><ul>
-<li><code>java.util.Collection</code>主要用于操作集合容器，工具方法齐全</li>
-<li>提供一系列的静态方法实现对各种几何的搜索、排序、线程安全化等操作</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/ad76721a.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2018-09-01 </div>
-			<div class="article-title"><a href="/archives/130dac3d.html" title="情人节活动需求开发后续总结：Set容器对象顺序引发的血案">Set集合误用引发的血案</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="需求场景："><a href="#需求场景：" class="headerlink" title="需求场景："></a>需求场景：</h4><ol>
-<li>功能开发完成了，准备发布版本，准备下班。</li>
-<li>从Redis的<code>Zset</code>的结构中，根据<code>score</code>的倒序取出有序集合数据</li>
-</ol>
-<h4 id="罪魁祸首的业务代码"><a href="#罪魁祸首的业务代码" class="headerlink" title="罪魁祸首的业务代码"></a>罪魁祸首的业务代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public static Set&lt;String&gt; getZsetOrderByScore(final String key,final Long start , final Long end)&#123;</span><br><span class="line">		try &#123;</span><br><span class="line">			return redisTemplate.execute(new RedisCallback&lt;Set&lt;String&gt;&gt;() &#123;</span><br><span class="line">				@Override</span><br><span class="line">				public Set&lt;String&gt; doInRedis(RedisConnection redisConnection) throws DataAccessException &#123;</span><br><span class="line">					Set&lt;byte[]&gt; set = redisConnection.zRevRange(redisTemplate.getStringSerializer().serialize(key),start,end);</span><br><span class="line"></span><br><span class="line">					Set&lt;String&gt; s = set.parallelStream().map(bytes -&gt; &#123;</span><br><span class="line">						return redisTemplate.getStringSerializer().deserialize(bytes);</span><br><span class="line">					&#125;).collect(Collectors.toSet());</span><br><span class="line">					return s;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125; catch (Exception e) &#123;</span><br><span class="line">			DEBUG.error(&quot;getZsetWithCol value to redis fail...&quot;, e);</span><br><span class="line">		&#125;</span><br><span class="line">		return Collections.emptySet();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="引发问题："><a href="#引发问题：" class="headerlink" title="引发问题："></a>引发问题：</h4><ol>
-<li>Redis中的<code>ZSet</code>数据排序正常，<code>score</code>的顺序也正常，经过上面代码取出来之后,<code>Set&lt;String&gt;</code>集合中的数据排序与Redis中的<code>ZSet</code>数据排序不一致。导致数据展示错误</li>
-<li>出现问题，不能发版本，deadline在这，还是得把问题解决。</li>
-</ol>
-<h4 id="问题排查："><a href="#问题排查：" class="headerlink" title="问题排查："></a>问题排查：</h4><ol>
-<li>把刚刚从Redis中取出来的数据，反序列化之后，直接打印出来，发现数据顺序与Redis一直；排除Java代码从Redis中查询数据的时候发生顺序错误这个猜测</li>
-<li>随着数据流向，问题定位网上抛。判断刚刚反序列化就打印的数据顺序与<code>Set&lt;String&gt;</code>容器对象中的顺序，发现两者顺序不一致，发生顺序错误。</li>
-<li>问题定位在反序列化数据之后，装载在<code>Set&lt;String&gt;</code>容器的时候，发送顺序错乱。</li>
-</ol>
-<h4 id="问题分析："><a href="#问题分析：" class="headerlink" title="问题分析："></a>问题分析：</h4><ul>
-<li>使用lambda表达式的时候，聚合集合操作<code>Collectors.toSet()</code>打乱了数据的顺序</li>
-<li><code>Collectors.toSet()</code>本质是重新组装<code>Set</code>集合，先看看<code>Set</code>集合是否会对集合对象进行重新排序？<br><pre><br>Set<string> set = new HashSet&lt;&gt;();<pre><code>set.add(&quot;m&quot;);
-set.add(&quot;a&quot;);
-set.add(&quot;e&quot;);
-System.out.println(set);
-//打印结果：[a, e, m]
-</code></pre><pre></pre></string></pre></li>
-<li>果然问题出现在这里，幸好没去翻lambda的聚合源码</li>
-<li>HashSet内部使用元素的自然顺序对元素进行排序，或者根据创建set时提供的Comparator进行排序</li>
-<li>HashSet使用哈希函数对数据进寻址排序，所以数据是重新排序过的。</li>
-</ul>
-<h4 id="BUG-FIXED"><a href="#BUG-FIXED" class="headerlink" title="BUG FIXED"></a>BUG FIXED</h4><ol>
-<li>在从取出来的数据反序列化完成之后，不使用<code>Set</code>集合来存方对象，使用<code>List</code>代替之。</li>
-<li>如果能获取到Redis数据的score数值的话，也可以通过重写Comparator方法，来通过score数据排序。</li>
-</ol>
-
-	
-	</div>
-  <a type="button" href="/archives/130dac3d.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2018-08-20 </div>
-			<div class="article-title"><a href="/archives/4354712f.html" title="项目组七夕情人节活动需求，微信端录制情话音频，上传，点赞，排行榜。">基于Redis缓存的音频点赞排行榜功能实践</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h5 id="需求背景"><a href="#需求背景" class="headerlink" title="需求背景"></a>需求背景</h5><ul>
-<li>情人节情话音频点赞排行榜功能：用户录制并上传一段音频，分享朋友/朋友圈，用户(包括自己)对录制的音频进行点赞，并根据点赞数量排序(排行榜)，并且，一个用户每天只能点赞一次，第二天可以继续点赞。</li>
-</ul>
-<h5 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h5><ul>
-<li>DB表：<ol>
-<li>音频信息表：包括音频的基本信息，音频的被点赞总数量</li>
-<li>点赞信息表：包括每个音频被用户的点赞情况，不保存取消点赞的行为信息</li>
-</ol>
-</li>
-<li>缓存结构：<ol>
-<li><code>缓存结构1</code>:音频信息列表通过字符串的结构保存到缓存中，每个音频信息一个key，对应一个音频信息对象的序列化<code>JSON</code>数据，取出来的时候，反序列化下。但是其中的点赞数据以<code>[2]</code>中的<code>zSet</code>结构保存的点赞数量为主。</li>
-<li><code>缓存结构2</code>:音频排行榜通过<code>zSet</code>结构保存，每条记录的<code>score</code>参数为音频的点赞数量</li>
-<li><code>缓存结构3</code>:音频的点赞情况，即音频id与点赞用户id的对应关系，用<code>Set</code>结构保存一个音频，对应的点赞用户。因为需要满足不可重复点赞的功能，通过<code>Set</code>结构来对数据去重。另外，由于需求中提到一天之内点赞一次，所以，这个数据去重只能一天设置一个统计结构。所以，这个<code>Set</code>结构的key应该与日期联系起来，保证隔天之后，用户可以再次点赞，以及用户的点赞数据尽量持久化到DB中。</li>
-</ol>
-</li>
-</ul>
-<h4 id="技术方案"><a href="#技术方案" class="headerlink" title="技术方案"></a>技术方案</h4><ul>
-<li>用户上传录制音频：<ol>
-<li>前端的小伙伴负责，音频信息保存在微信的临时素材中，不过只能保持三天；</li>
-<li>如果过了三天怎么办？通过获取前端上传给微信临时素材的id，后端在素材即将过期的时候，对素材进行续传，获取新的音频素材id；通过定时任务解决。</li>
-<li>点赞数据上传完毕，并将该条信息初始化到缓存中，包括缓存基础信息、缓存排行榜的排序列表、点赞情况信息缓存则在用户点赞之后再创建这个结构。</li>
-</ol>
-</li>
-<li>用户点赞/取消点赞：<ol>
-<li>点赞/取消点赞的时候，发起异步请求，将请求结果保持在<code>Redis</code>缓存中</li>
-<li>如果是点赞信息，则添加到点赞情况缓存中，如果是取消单赞，则在缓存中去掉该用户的点赞信息。</li>
-</ol>
-</li>
-<li>排行榜数据：<ul>
-<li>读取：数据从缓存排行榜中获取所有音频信息的排序，根据这个排序，根据音频id，从<code>缓存结构1</code>中将音频的详细信息反序列化出来，其中的点赞数据采用<code>ZSet</code>结构的<code>score</code></li>
-<li>持久化：将缓存中的点赞数据缓存到DB中。何时进行持久化？在缓存中设置一个持久化周期时间标记，每次用户点赞的时候，检测这个持久化标记，达到了持久化周期，则对数据进行持久化，写入DB中。由于涉及到日期变更，缓存数据重置的问题，在持久化的时候，对前一天的保存点赞情况的<code>Set</code>结构的key检测一下存在性，如果存在，则先将该部分数据进行持久化，持久化成功之后，将这个key删除；后续再进行当天缓存数据的持久化操作。</li>
-</ul>
-</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/4354712f.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2018-03-18 </div>
-			<div class="article-title"><a href="/archives/bd43d2da.html" title="在项目中遇到了在哈希散列集合中添加对象添加失败的情景，引发了对散列集合对象唯一性判断的思考。去查看了一下源码，发现判断标准是类中的hashCode散列值的唯一性来判断集合容器中对象的唯一性。">Object 类中toString()、equal()、hashCode()之间关系</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="未重写，从源码中区分"><a href="#未重写，从源码中区分" class="headerlink" title="未重写，从源码中区分"></a>未重写，从源码中区分</h4><ol>
-<li><code>toString()</code></li>
-</ol>
-<ul>
-<li>toString()方法返回的是一个对象的字符串,</li>
-<li>这个字符串的组成格式由类名（对象是该类的一个实例）、at 标记符“@”和此对象哈希码的无符号十六进制表示组成(<code>getClass().getName() + &quot;@&quot; + Integer.toHexString(hashCode())</code>),源码如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public String toString() &#123;</span><br><span class="line">        return getClass().getName() + &quot;@&quot; + Integer.toHexString(hashCode());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ol start="2">
-<li><code>equals()</code></li>
-</ol>
-<ul>
-<li><code>equals()</code>:针对两个非空引用值x和y，当前仅当x和y引用同一个对象时，两个对象才相等，即返回true。因为不是引用同一个对象，两个引用值在堆中创建了两个对象存储地址。</li>
-</ul>
-<ol start="3">
-<li><code>hashCode()</code></li>
-</ol>
-<ul>
-<li><code>hashCode()</code>:由Object类定义的hashCode()方法确实会针对不同的对象返回不同的整数值，通过对象的内部地址转换来实现。主要通过区分返回的散列值不同，而区分每个对象。主要用于散列集合容器中，在往散列集合插入一个对象的时候，通过管理对象的散列值，检测每个对象的hashCode散列值，如果集合中已经存在该对象的散列值，则说明对象已经存在，反之。</li>
-<li>而Object类只有<code>hashCode()</code>方法的定义，但是没有具体的实现，而具体的实现会针对不同的类中，分别有不同的实现。如：String的<code>hashCode()</code>源码实现如下： (至于String的hashCode实现机制中为什么要使用31？这个真能保证对象散列值的唯一性吗？这个问题尚未深究)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> public int hashCode() &#123;</span><br><span class="line"></span><br><span class="line">        int h = hash;</span><br><span class="line">        if (h == 0 &amp;&amp; value.length &gt; 0) &#123;</span><br><span class="line">            char val[] = value;</span><br><span class="line"></span><br><span class="line">            for (int i = 0; i &lt; value.length; i++) &#123;</span><br><span class="line">                h = 31 * h + val[i];</span><br><span class="line">            &#125;</span><br><span class="line">            hash = h;</span><br><span class="line">        &#125;</span><br><span class="line">        return h;</span><br><span class="line">    &#125;</span><br><span class="line">hash的定义：</span><br><span class="line"> /** Cache the hash code for the string */</span><br><span class="line">    private int hash; // Default to 0</span><br><span class="line"></span><br><span class="line">/** The value is used for character storage. */</span><br><span class="line">    private final char value[];</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="重写之后，根据重写规则区分"><a href="#重写之后，根据重写规则区分" class="headerlink" title="重写之后，根据重写规则区分"></a>重写之后，根据重写规则区分</h4><ol>
-<li><code>toString()</code>方法重写之后，一般返回更加直观的数据，返回对象的属性与相关值组成的字符串拼接</li>
-<li><code>equal()</code>方法重写之后，一般只要自定义为两个对象的所有属性值相等就返回true</li>
-<li><code>hashCode()</code>重写也可以根据自定义算法返回所需的整型值</li>
-</ol>
-<ul>
-<li>所以对象相等，hashCode一定相等</li>
-<li>hashCode返回值相等，则对象未必相等，而即使对象不相等，也有可能返回相等的哈希散列码，这个根据具体的重写规则决定</li>
-</ul>
-<h4 id="判断两个对象相等的条件："><a href="#判断两个对象相等的条件：" class="headerlink" title="判断两个对象相等的条件："></a>判断两个对象相等的条件：</h4><ol>
-<li>如果没有重写，只要hashCode不相等，则两个对象一定不相等</li>
-<li>如果重写了，首先判断hashCode，如果不相等，那么这两个对象不相等(针对上述hashCode方法重写规则)，如果hashCode一样，再比较equals，如果两个条件都相等，那么这两个对象相等。</li>
-</ol>
-<h4 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h4><ul>
-<li><code>finalize()</code>：当垃圾回收器确定该对象不存在更多的引用值的时候，由对象的垃圾回收器调用次方法，进行系统资源的重新配置与清除。可以在子类中重写<code>finalize</code>方法，进行手动垃圾回收。但是，一般情况下，不建议重写<code>finalize()</code>方法（并在其中实现任何功能逻辑），请相信<code>JVM</code>的<code>GC</code>。</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/bd43d2da.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2018-02-08 </div>
-			<div class="article-title"><a href="/archives/7416d96f.html" title="Java异常发生的时候，是你程序出故障和修改的参考，但是也阻碍了程序达到预期目标，所以需要对异常进行有效的处理和维护。下面是Java异常的知识点总结和异常处理的误区和经验的总结。">Java异常总结</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="Java异常类结构图"><a href="#Java异常类结构图" class="headerlink" title="Java异常类结构图"></a>Java异常类结构图</h4><ul>
-<li>Java.lang.Throwable<ul>
-<li>Java.lang.Error<ul>
-<li>Java.lang.OutOfMemoryError</li>
-<li>…</li>
-</ul>
-</li>
-<li>Java.lang.Exception<ul>
-<li>(<code>RuntimeException</code>):<ul>
-<li>Java.lang.ArithmeticException</li>
-<li>Java.lang.IndexOutOfBoundsException</li>
-<li>Java.lang.NullPointerException</li>
-<li>Java.lang.ArrayStoreExcetpion</li>
-<li>Java.lang.ClassCastException</li>
-<li>…</li>
-</ul>
-</li>
-<li>(<code>checkedException</code>):<ul>
-<li>Java.lang.IOException</li>
-<li>Java.lang.ClassNotFoundException</li>
-<li>Java.lang.SQLException</li>
-<li>Java.lang.CloneNotSupportException</li>
-<li>…</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Throwable"><a href="#Throwable" class="headerlink" title="Throwable"></a>Throwable</h4><ul>
-<li>Throwable是所有异常和错误的根(超类)</li>
-</ul>
-<h4 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h4><ul>
-<li>代表编译时间和系统错误，程序发生的不可控或者不可处理的错误</li>
-<li>发送错误的时候，最好的做法是立刻终止程序的执行，而且Error以及子类的错误都不用捕获抛出</li>
-<li>Error由Java虚拟机生成并抛出，包括动态链接失败，虚拟机错误等。程序对其不做处理。</li>
-</ul>
-<h4 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h4><ul>
-<li>一般将Exception异常分配两类：Checked异常和Runtime异常<h5 id="Checked异常"><a href="#Checked异常" class="headerlink" title="Checked异常"></a>Checked异常</h5></li>
-<li>Checked异常是指可以被处理的异常，程序中需要手动显式处理Checked异常，否则会导致在编译期就发生异常而无法编译。</li>
-<li>处理Checked类异常一般有两种方法：<ol>
-<li>确定已知的异常之后，采用<code>try...catch</code>的方式捕获可能出现的异常</li>
-<li>也可以在方法定义的时候，在后面加上<code>throws exceptionName</code>的方式来抛出异常<h5 id="Runtime异常"><a href="#Runtime异常" class="headerlink" title="Runtime异常"></a>Runtime异常</h5></li>
-</ol>
-</li>
-<li>也指非检查异常，例如除数是0或者数组越界的异常，产生频繁，如果处理会降低效率，所以这类异常交由系统自动检测并将他们交给缺省的异常处理程序</li>
-<li>注意：这类异常并非不可以捕获，如果必须，也可以捕获处理</li>
-</ul>
-<h4 id="Java-异常处理的误区和经验总结"><a href="#Java-异常处理的误区和经验总结" class="headerlink" title="Java 异常处理的误区和经验总结"></a>Java 异常处理的误区和经验总结</h4><ul>
-<li>对于异常捕获的finally区域，应该尽量避免在 finally 块中抛异常或者包含 return 语句。否则会影响try或者catch部分程序的运行，因为在 finally 块中抛出的任何异常都会覆盖掉在其前面由 try 或者 catch 块抛出异常。包含 return 语句的情形相似,实例代码在gist中。<ol>
-<li>try-catch 块与 finally 块同时抛异常–&gt; <a href="https://gist.github.com/liangqian/0bcaa6d3b775d24cf53e20ac651935df" target="_blank" rel="noopener">try-catch 块与 finally 块同时抛异常</a></li>
-<li>try-catch 块与 finally 块同时包含 return 语句–&gt;<a href="https://gist.github.com/liangqian/b63f6a658a0ed04f81caf2ddd0cb7263" target="_blank" rel="noopener">try-catch 块与 finally 块同时包含 return 语句</a></li>
-</ol>
-</li>
-<li>参考：<a href="https://www.ibm.com/developerworks/cn/java/j-lo-exception-misdirection/" target="_blank" rel="noopener">Java 异常处理的误区和经验总结
-</a></li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/7416d96f.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2018-02-03 </div>
-			<div class="article-title"><a href="/archives/199ee4b3.html" title="对堆和栈在Java或者JVM中的角色和职能，自己去网上找资料整理的笔记。其中还有对于线程和进程的一点小记录">自己对Java堆和栈的理解</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="预备知识：线程和进程"><a href="#预备知识：线程和进程" class="headerlink" title="预备知识：线程和进程"></a>预备知识：线程和进程</h4><ul>
-<li>进程：进程是具有一定独立功能的程序关于某个数据集合上的一次运行活动，进程是进行资源分配和调度的一个独立单位</li>
-<li>线程：线程是进程的一个实体，是CPU进行调度和分派的基本单位，是比进程更小的能独立运行的基本单位，但是线程不能独立运行，需要在应用程序中控制执行<ul>
-<li>线程基本自己不拥有系统资源，只拥有一点在运行中必不可少的资源(程序计数器，一组寄存器和栈)，但是它可以和进程下的其他的线程共享该进程所有的资源</li>
-<li>一个线程可以创建和撤销其他线程，同一个进程中可以并发执行多个线程(多线程)</li>
-</ul>
-</li>
-</ul>
-<h4 id="操作系统角度中的堆和栈"><a href="#操作系统角度中的堆和栈" class="headerlink" title="操作系统角度中的堆和栈"></a>操作系统角度中的堆和栈</h4><ul>
-<li>堆是应用程序在运行的时候，请求操作系统分配的内存空间，运行过程中也可以向系统申请额外的空间，但是用完之后，需要进行回收，不然就会导致内存泄漏</li>
-<li>栈是线程独有的内存空间，保存其运行状态和局部自动变量。栈在线程初始化的时候创建，每个栈都是相互独立，因此栈是线程安全。操作系统在切换线程的时候会自动切换栈。</li>
-</ul>
-<h4 id="Java中的堆和栈"><a href="#Java中的堆和栈" class="headerlink" title="Java中的堆和栈"></a>Java中的堆和栈</h4><ul>
-<li>内存分配策略：程序运行的内存分配策略有三种，分别是静态的，栈式的，堆式的。<ol>
-<li>静态存储分配：在编译期就能确定每个数据目标在运行时所需要的存储空间需求，因而在编译时就能给他们分配所需的内存空间。这种策略要求在程序代码中不允许有可变数据结构，不允许有嵌套和递归的结构出现，否则会导致编译程序无法准备计算存储空间需求</li>
-<li>栈式存储分配(动态)：和静态分配策略相反，程序在对数据区的需求在编译期无法预知，而在运行时能够确定的内存分配使用栈式存储分配策略。但是规定在运行中进入一个程序模块时,必须知道该程序模块所需的数据区大小才能够为其分配内存。和数据结构的栈一样，按照先进后出的原则进行分配</li>
-<li>堆式存储分配：堆式存储分配策略是以上两个分配策略的补充，静态存储分配要求在编译期就能知道所有变量的存储需求，栈式存储要求在运行进入程序入口时就必须知道变量的存储要求，而堆式则专门针对静态存储分配策略和栈式存储分配策略无法确定存储要求的数据结构进行内存分配，比如可变长度串，或者对象实例。堆由大片的可利用块或者空闲块组成，堆中的内存可以按照任意的顺序分配和释放</li>
-</ol>
-</li>
-<li>Java中的堆和栈<ul>
-<li>Java把内存划分为两类：栈内存、堆内存</li>
-<li>栈内存：在函数中定义的一些基本类型的变量和对象的引用都由栈内存进行分配内存空间，当分配的空间超过了变量的作用域之后，java会释放该变量分配的内存空间。</li>
-<li>堆内存：主要用于存储new创建的对象和数组。在堆中创建的数组或者对象还可以在栈中创建一个特性变量，让这个变量的取值指向堆中某个对象或者数组在堆中的内存首地址，栈中的这个变量就成了堆中对象或者数组 的引用变量。在堆中分配的内存，由Java虚拟机的自动垃圾回收器来管理。</li>
-</ul>
-</li>
-<li>Java中堆和栈的对比<ol>
-<li>Java的堆是一个运行时数据区，优势是可以动态分配内存大小，生存期也不必事先告诉编译器，因为是在运行时动态分配内存的，事后Java的垃圾回收机制也会回收那些不使用的内存数据，但缺点是，由于要在运行时动态分配内存，存取速度较慢。 </li>
-<li>栈的优势是，存取速度比堆要快，仅次于寄存器，栈数据可以共享。但缺点是，存在栈中的数据大小与生存期必须是确定的，缺乏灵活性。栈中主要存放一些基本类型的变量(,int, short, long, byte, float, double, boolean, char)和对象句柄。<br>栈有一个很重要的特殊性，就是存在栈中的数据可以共享。假设我们同时定义：<br><center><code>int a = 2</code></center><br><center><code>int b = 2</code></center><br>编译器先处理<code>int a = 2</code>，首先在栈中创建一个变量为a的引用，然后在栈中查找是否有值为2的数据块，如果已经有值为2 的数据块，则直接将变量a的引用指向值为2 的数据块，否则将数据2存入新建的数据块，并将a指向2。同理，对处理<code>int b = 2</code>语句的时候，也会经过必要的检测，检测栈中是否已经存在值为2的数据块。这样就出现了变量a、b同时指向2的情况。而再令<code>a=4</code>，修改a的值的时候，会重新在栈中检查\创建值为4的数据块，再将a重新指向4.因此，在这种数据共享的前提下，一个变量数值改变，不会影响都另一个变量的数值。<br>注意：这种数据的共享和两个对象的引用同时指向一个对象的这种共享不同，因为一个对象的变量修改，则直接修改变对象的内部状态，会影响到另一个对象的引用变量。</li>
-</ol>
-</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/199ee4b3.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-	     </div>
-	     <div>
-	       <center>
-	         <div class="pagination">
-<ul class="pagination">
-	 
-		
-          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
         
 
-        <li><a href="/"><i class="fa fa-home"></i>Home</a></li>
 
-		
-		   <li class="next"> <a href="/tags/Java/page/2/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a> </li>          
+<!-- 归档列表 -->
+
+<div class="archives-container">
+
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2019">
+                    <span class="tag-text">2019</span>
+                </span>
+    <ul>
         
-	
-</ul>
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-15</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/6e1b8bba.html">
+                        <span>
+                            Linux下挂载移动硬盘(ntfs格式)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+
+    </ul>
 </div>
 
-	       </center>
-	     </div>	
-      
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2018">
+                    <span class="tag-text">2018</span>
+                </span>
+    <ul>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>12-20</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/27e17559.html">
+                        <span>
+                            Redis持久化方案
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>12-01</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/3eac123.html">
+                        <span>
+                            数据库锁机制分类
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-26</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/7ffea1fe.html">
+                        <span>
+                            RabbitMQ消息可靠性
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-13</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/28d7adef.html">
+                        <span>
+                            快速失败与安全失败机制
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-06</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/a1cd7aa8.html">
+                        <span>
+                            Integer封装类比较大小
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-26</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/9b0bd708.html">
+                        <span>
+                            Nginx的负载均衡策略
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-17</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/d1b4efa1.html">
+                        <span>
+                            Java遍历Map对象的4种方法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-30</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/1ab741e2.html">
+                        <span>
+                            Array与Arrays的区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-29</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/ad76721a.html">
+                        <span>
+                            Collection与Collections的区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-01</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/130dac3d.html">
+                        <span>
+                            Set集合误用引发的血案
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-20</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4354712f.html">
+                        <span>
+                            基于Redis缓存的音频点赞排行榜功能实践
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-02</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/e8fc0d11.html">
+                        <span>
+                            Redis基础数据结构
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>04-27</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/98ee2edb.html">
+                        <span>
+                            leetcode Reserve Integer
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>03-18</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/bd43d2da.html">
+                        <span>
+                            Object 类中toString()、equal()、hashCode()之间关系
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>02-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/7416d96f.html">
+                        <span>
+                            Java异常总结
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>02-03</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/199ee4b3.html">
+                        <span>
+                            自己对Java堆和栈的理解
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>01-30</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/762945f0.html">
+                        <span>
+                            Spring事务管理
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
 
-</div> <!-- col-md-9/col-md-12 -->
-
-
-<div class="col-md-3">
-	<div id="sidebar">
-	
-			
-  <div id="site_search">
-   <div class="form-group">
-    <input type="text" id="local-search-input" name="q" results="0" placeholder="搜索" class="st-search-input st-default-search-input form-control"/>
-   </div>  
-  <div id="local-search-result"></div>
-  </div>
-
-
-		
-			<div class="widget">
-    
+    </ul>
 </div>
 
-		
-			
-		
-			
-	<div class="widget">
-		<h4>标签云</h4>
-		<ul class="tag_box inline list-unstyled">		
-		
-			<li><a href="/tags/场景/">场景<span>1</span></a></li>
-		
-			<li><a href="/tags/Mybatis/">Mybatis<span>4</span></a></li>
-		
-			<li><a href="/tags/JVM/">JVM<span>1</span></a></li>
-		
-			<li><a href="/tags/Raspberry/">Raspberry<span>1</span></a></li>
-		
-			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
-		
-			<li><a href="/tags/RabbitMQ/">RabbitMQ<span>1</span></a></li>
-		
-			<li><a href="/tags/动态代理/">动态代理<span>4</span></a></li>
-		
-			<li><a href="/tags/Spring/">Spring<span>5</span></a></li>
-		
-			<li><a href="/tags/Maven/">Maven<span>1</span></a></li>
-		
-			<li><a href="/tags/Exception/">Exception<span>1</span></a></li>
-		
-			<li><a href="/tags/NetWorker/">NetWorker<span>2</span></a></li>
-		
-			<li><a href="/tags/Hibernate/">Hibernate<span>2</span></a></li>
-		
-			<li><a href="/tags/Redis/">Redis<span>4</span></a></li>
-		
-			<li><a href="/tags/V2ray/">V2ray<span>1</span></a></li>
-		
-			<li><a href="/tags/多线程/">多线程<span>4</span></a></li>
-		
-			<li><a href="/tags/Angular-JS/">Angular JS<span>2</span></a></li>
-		
-			<li><a href="/tags/Java/">Java<span>32</span></a></li>
-		
-			<li><a href="/tags/Web/">Web<span>3</span></a></li>
-		
-			<li><a href="/tags/TakeDown/">TakeDown<span>4</span></a></li>
-		
-			<li><a href="/tags/Linux/">Linux<span>3</span></a></li>
-		
-		
-		   <li><a href="/tags">...<span>25</span></a></li>
-		 
-		</ul>
-	</div>
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2017">
+                    <span class="tag-text">2017</span>
+                </span>
+    <ul>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>12-05</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/3e6ff0a8.html">
+                        <span>
+                            抽象类和接口的区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-28</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/6c6825f6.html">
+                        <span>
+                            iptables防火墙及其命令
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-12</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/1db25542.html">
+                        <span>
+                            Mybatis 修饰符`#{}`和`${}`的区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-09</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/8bdd2473.html">
+                        <span>
+                            JDBC SQL预编译
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/efb286cc.html">
+                        <span>
+                            Mybatis 如何获取保存对象之后生成的自增主键?
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-10</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/7ccdc859.html">
+                        <span>
+                            多线程基本概念
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-20</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/bd778d6e.html">
+                        <span>
+                            多线程关键字volatile和synchronized区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/466fafff.html">
+                        <span>
+                            mysql连接查询
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>03-12</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/70e4edda.html">
+                        <span>
+                            spring Bean学习Review
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>02-02</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/3170f59.html">
+                        <span>
+                            Mybatis延迟加载
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>01-04</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/fc53cc9d.html">
+                        <span>
+                            Java关键字与总结
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
 
-
-		
-			
-<div class="widget">
-  <h4>最新文章</h4>
-  <ul class="entry list-unstyled">
-    
-      <li>
-        <a href="/archives/6e1b8bba.html"  title="上手树莓派，打算将弃用的笔记本硬盘挂在树莓派主机上，作为下载机使用,由于旧硬盘是win电脑拆下来的硬盘，磁盘格式为`Microsoft basic data`..." ><i class="fa fa-file-o"></i>Linux下挂载移动硬盘(ntfs格式)</a>
-      </li>
-    
-      <li>
-        <a href="/archives/27e17559.html"  title="redis总的所有数据默认保存在内存当中的.但场景需要，有时候需要进行持久化保存" ><i class="fa fa-file-o"></i>Redis持久化方案</a>
-      </li>
-    
-      <li>
-        <a href="/archives/3eac123.html"  title="当一个系统访问量上来的时候，不只是数据库性能瓶颈问题了，数据库数据安全也会浮现，这时候合理使用数据库锁机制就显得异常重要了。" ><i class="fa fa-file-o"></i>数据库锁机制分类</a>
-      </li>
-    
-      <li>
-        <a href="/archives/7ffea1fe.html"  title="RabbitMQ消息作为分布式消息协同工具，承担者协同各个系统之间的正常通信。如何确保消息通过RabbitMQ传输而不丢失数据？" ><i class="fa fa-file-o"></i>RabbitMQ消息可靠性</a>
-      </li>
-    
-      <li>
-        <a href="/archives/28d7adef.html"  title="快速失败：当在迭代一个集合的时候，如果有另外一个线程在修改这个集合，就会抛出ConcurrentModification异常，java.util下都是快速失败。 安全失败：在迭代时候会在集合二层做一个拷贝，所以在修改集合上层元素不会影响下层。在java.util.concurrent下都是安全失败" ><i class="fa fa-file-o"></i>快速失败与安全失败机制</a>
-      </li>
-    
-  </ul>
+    </ul>
 </div>
 
-		
-			
-<div class="widget">
-	<h4>链接</h4>
-	<ul class="blogroll list-unstyled">
-	
-		<li><i class="fa fa-github"></i><a href="http://www.github.com/RicoNut" title="My Github account." target="_blank"]);">RicoNut Github</a></li>
-	
-	</ul>
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2016">
+                    <span class="tag-text">2016</span>
+                </span>
+    <ul>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>12-07</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/a5b55d42.html">
+                        <span>
+                            Map的排序(key排序/value排序)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-15</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/89baa56d.html">
+                        <span>
+                            Git操作快速上手(日常指令)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-02</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4c8b706f.html">
+                        <span>
+                            面向切面编程(AOP)实例解释
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/86946e12.html">
+                        <span>
+                            线程同步基础之使用锁实现同步
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-14</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/65a2a3a3.html">
+                        <span>
+                            线程同步基础之synchronized同步
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-10</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/faa9c2f.html">
+                        <span>
+                            Java反射机制之动态代理
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/affd1e49.html">
+                        <span>
+                            Java反射机制之方法操作
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-04</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/b0d70fcf.html">
+                        <span>
+                            Java反射机制之变量操作
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-03</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/41e0f7bf.html">
+                        <span>
+                            Java反射机制之构造器操作
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-30</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/b7f7cee0.html">
+                        <span>
+                            Java线程管理
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-17</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/971c3dff.html">
+                        <span>
+                            'Mysql多表操作以及其实例'
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-12</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/d2cfd72b.html">
+                        <span>
+                            epuals与'=='区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4be26d16.html">
+                        <span>
+                            v2ray_科学手段
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/861d9c25.html">
+                        <span>
+                            原生JDBC操作数据库的思考总结
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-10</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/bef463.html">
+                        <span>
+                            java 重定向与转发的异同
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-01</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/5574abb0.html">
+                        <span>
+                            TCP通信三次握手协议原理与过程分析
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-31</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4a1b8e6e.html">
+                        <span>
+                            Spring中添加REST功能
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-29</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/ac0ee78d.html">
+                        <span>
+                            JSP九大内置对象、四个作用域以及六大基本动作
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-28</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/3fb7ed9.html">
+                        <span>
+                            Mybatis 实现原理与结构解析
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-28</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4b2bec15.html">
+                        <span>
+                            Java 迭代器Iterator的用法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-26</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/69b20980.html">
+                        <span>
+                            Mysql视图技术原理与应用
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-25</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/64423a64.html">
+                        <span>
+                            mysql触发器学与用
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-24</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/39b075e7.html">
+                        <span>
+                            Java 实现TCP/IP Socket通信
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-22</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/5970580b.html">
+                        <span>
+                            struts2基础笔记(1)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-19</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4ac038bf.html">
+                        <span>
+                            比较http请求方法中的GET与POST方法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-19</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/86b8ba8f.html">
+                        <span>
+                            Spring MVC常用的控制器方法与使用
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/5b142d5f.html">
+                        <span>
+                            AngularJS 核心特性
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/5a644a79.html">
+                        <span>
+                            Spring-MVC请求处理工作流程
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-15</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/897c0a7c.html">
+                        <span>
+                            Angular JS 基础笔记
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/7ae62b4c.html">
+                        <span>
+                            hibernate实现原理与思考
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/8314bbf6.html">
+                        <span>
+                            Mysql管理用户操作(创建用户，删除用户，修改用户密码，权限分配以及相关授权)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-05</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/faff5c20.html">
+                        <span>
+                            Hibernate出现Caused by: java.sql.SQLException: Field 'id' doesn't have a default value的解决方法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-05</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/f8defb4e.html">
+                        <span>
+                            关于Maven 打包时 缺失properties和xml后缀的文件
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>05-10</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/b4e8978.html">
+                        <span>
+                            无法连接远程Mysql数据库的解决办法 I
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>05-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/db1953ee.html">
+                        <span>
+                            Java垃圾回收之finalize()
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>05-07</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/57584ce4.html">
+                        <span>
+                            Java常识之构造器
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>03-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/a9d721e9.html">
+                        <span>
+                            在Github创建静态网站预览的方法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+
+    </ul>
 </div>
 
-
-		
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
-
-
-
+</div>
 
     </div>
-  </div>
-  <div class="container-narrow">
-    <footer> <p>
-  &copy; 2019 Rico Nut
-  
-      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
-</p> </footer>
-  </div> <!-- container-narrow -->
-  
+</div>
 
 
-  
-<a id="gotop" href="#">   
-  <span>▲</span> 
-</a>
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
 
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+        
 
+        
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
+        
 
+        
 
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
 
 
-<!-- syntax highlighting -->
 
 
 </body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = false
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
 </html>

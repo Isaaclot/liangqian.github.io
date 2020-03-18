@@ -1,707 +1,1200 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  
-  <title>Spring | 哈姆雷特1001</title>
-  <meta name="author" content="Rico Nut">
-  
-  <meta name="description" content="学习总结 思考感悟 知识管理">
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="学习总结 思考感悟 知识管理">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
 
-  
-  <meta property="og:site_name" content="哈姆雷特1001"/>
+    <title>
+        
+        
+        
+    </title>
 
-  
-    <meta property="og:image" content=""/>
-  
-
-  
-  
-    <link href="/favicon.png" rel="icon">
-  
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="/css/themes/cerulean.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/highlight-default.min.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/comment.css" media="screen" type="text/css">
-  <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
-  <![endif]-->
-
-  <script src="/js/jquery-2.0.3.min.js"></script>
-  
-  <!-- analytics -->
-  
-
-
-
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
 </head>
 
 <body>
-  <nav id="main-nav" class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-	<span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-       <a class="navbar-brand" href="/">哈姆雷特1001</a>
-      <div class="collapse navbar-collapse nav-menu">
-		<ul class="nav navbar-nav">
-		  
-		  <li>
-			<a href="/archives" title="All the articles.">
-			  <i class="fa fa-archive"></i>Archives
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/about" title="About me.">
-			  <i class="fa fa-user"></i>About
-			</a>
-		  </li>
-		  
-		</ul>
-      </div>
-    </div> <!-- container -->
-</nav>
-<div class="clearfix"></div>
 
-  <div class="container">
-    <div class="content">
-      
-
-<!-- title -->
-<div class="page-header page-header-inverse ">
-  <h1 class="archive-title-tag title title-inverse ">Spring</h1>
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
 </div>
 
-<div class="row page">
-  <!-- cols -->
-  
-  <div class="col-md-9">
-	
-
-	  <div id="top_search"></div>
-
-      
-         <!-- display as entry -->
-	     <div class="mypage">
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2018-01-30 </div>
-			<div class="article-title"><a href="/archives/762945f0.html" >Spring事务管理</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="什么是事务："><a href="#什么是事务：" class="headerlink" title="什么是事务："></a>什么是事务：</h4><ul>
-<li><p>事务是指逻辑上的一组操作，这组操作要么成功，要么失败</p>
-</li>
-<li><p>事务的四大特性：</p>
-<ul>
-<li>原子性：指的是事务中不可分割的工作单位，事务中的操作，要么都发生，要么都不发生</li>
-<li>隔离性：多个用户并发访问数据库的时候，一个用户的事务不能被其他用户的事务干扰，多个并发事务之间的数据要互相隔离。</li>
-<li>一致性：事务执行的前后数据的完整性必须一致</li>
-<li>持久性：一个事务一旦被提交，它对数据库中的修改是永久的，即使数据库故障也不会产生影响</li>
-</ul>
-</li>
-</ul>
-<h4 id="Spring事务管理高层抽象的三个接口"><a href="#Spring事务管理高层抽象的三个接口" class="headerlink" title="Spring事务管理高层抽象的三个接口"></a>Spring事务管理高层抽象的三个接口</h4><ol>
-<li>事务管理器(PlatformTransactionManager):主要进行事务管理，而后面的定义信息，运行状态是协助管理的字段或者方法. PlatformTransactionManager单纯是一个接口类，具体的实现类会细分到不同的事务管理实现类</li>
-<li>事务定义信息(TransactionDefinition):隔离、传播、超时、只读</li>
-<li>事务具体运行状态(TransactionStatus)</li>
-</ol>
-<ul>
-<li><p>安全性问题</p>
-<ul>
-<li>脏读：一个事务读取了另一个事务改写但未提交的数据，如果这些数据被回滚，则读取到的数据无效</li>
-<li>不可重复读：在同一个事务中，多次读取同一数据返回的结果有所不同</li>
-<li>幻读：一个事务读取了几行数据之后，另一个事务插入几行，幻读就发生了。再后来的查询中，第一个事务就会发现一些原来没有的数据记录</li>
-</ul>
-</li>
-<li><p><code>TransactionDefinition</code>事务隔离级别：</p>
-<ol>
-<li>READ_UNCOMITED:允许你读取还没提交的改变了的数据，可能会出现脏，幻，不可重复读</li>
-<li>READ_COMITED:允许在并发事务已经提交后读取。可防止脏读，但是幻读和不可重复读还会发生</li>
-<li>REPEATABLE_READ:对相同字段的多次读取是一致的，除非数据被事务本身改变。可防止脏读、不可重复读，但幻读仍然可能发生</li>
-<li>SERIALIABLE:完全服从ACID的隔离级别，确保不发生脏读，幻读和不可重复读。它是在所有的隔离级别中最慢的，他是典型的通过完全锁定在事务中涉及的数据表来完成</li>
-</ol>
-</li>
-<li><code>TransactionDefinition</code>事务的传播行为:主要是为了解决业务层之间的方法(本来就有独自的事务)调用的问题<ol>
-<li>PROPAGATION_REQUIRED:支持当前的事务，如果不存在，则新建事务</li>
-<li>PROPAGATION_SUPPORTS:支持当前事务，如果不存在，则不使用事务</li>
-<li>PROPAGATION_MANATORY:支持当前事务，如果不存在，则抛出异常</li>
-<li>PROPAGATION_REQUIRE_NEW:如果当前有事务，则挂起，创建一个新的事务</li>
-<li>ROPAGATION_NOT_SUPPORTED:以非事务方式运行，如果有事务，则挂起当前事务</li>
-<li>ROPAGATION_NEVER：以非事务的方式运行，如果有事务，则抛出异常</li>
-<li>ROPAGATION_NESTED：如果当前事务存在，则使用嵌套事务执行</li>
-<li>分类归纳：1<em>、2、3可以归为一类，保持互相调用的方法的事务一致；4</em>、5、6归为一类，保持两个方法操作不在一个事务中；7为嵌套事务，一个方法执行完成，设置保存点，如果后续方法出现异常，则返回到保存点或者起点等</li>
-</ol>
-</li>
-</ul>
-<h4 id="Spring-支持两种类型的事务管理"><a href="#Spring-支持两种类型的事务管理" class="headerlink" title="Spring 支持两种类型的事务管理"></a>Spring 支持两种类型的事务管理</h4><ul>
-<li><p>编程试事务管理(代码中使用TransactionTemplate，具有灵活性却难以维护)</p>
-<ol>
-<li>在需要使用的service类中使用TransactionTemplate</li>
-<li>TransactionTemplate依赖DataSourceTransactionManager</li>
-<li>DataSourceTransactionManager依赖DataSource构造</li>
-<li>在类中用代码进行事务管理：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public void transfer(final String out,final String in,final Double money) &#123;</span><br><span class="line"></span><br><span class="line">       transactionTemplate.execute(new TransactionCallbackWithoutResult() &#123;</span><br><span class="line">           @Override</span><br><span class="line">           protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) &#123;</span><br><span class="line">               accountDao.outMoney(out,money);</span><br><span class="line">               int i = 1 / 0;    //throw execption then broken</span><br><span class="line">               accountDao.inMoney(in,money);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li><p>声明式事务管理(基于AOP配置XML的方式实现，从业务代码中分离出事务管理)</p>
-<ol>
-<li><p>基于TransactionProxyFactory的方式：通过增强需要进行事务管理的目标类，将被代理过的service注入代替原来的目标接口，进行调用即可产生事务管理效果。但这种实现方式如果需要进行事务管理的类太多，则操作会繁琐。XML的bean类配置如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--配置业务层的代理--&gt;</span><br><span class="line">    &lt;bean id=&quot;accountProxyService&quot; class=&quot;org.springframework.transaction.interceptor.TransactionProxyFactoryBean&quot;&gt;</span><br><span class="line">        &lt;!--配置代理增强的目标对象--&gt;</span><br><span class="line">        &lt;property name=&quot;target&quot; ref=&quot;accountService&quot;/&gt;</span><br><span class="line">        &lt;!--注入事务管理器--&gt;</span><br><span class="line">        &lt;property name=&quot;transactionManager&quot; ref=&quot;transactionManager&quot;/&gt;</span><br><span class="line">        &lt;!--注入事务属性--&gt;</span><br><span class="line">        &lt;property name=&quot;transactionAttributes&quot;&gt;</span><br><span class="line">            &lt;props&gt;</span><br><span class="line">                &lt;!--</span><br><span class="line">                prop的格式:</span><br><span class="line">                    PROPAGATION :事务的传播属性</span><br><span class="line">                    ISOLATION    :事务的隔离级别</span><br><span class="line">                    readOnly     : 只读（不可以发生修改，插入，删除等操作）</span><br><span class="line">                    -Exception   :发生哪些异常回滚事务</span><br><span class="line">                    +Exception   :发生哪些异常不回滚</span><br><span class="line">                --&gt;</span><br><span class="line">                &lt;prop key=&quot;transfer&quot;&gt;PROPAGATION_REQUIRED,+java.lang.ArithmeticException&lt;/prop&gt;</span><br><span class="line">            &lt;/props&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>基于AspectJ的XML方式： 通过AOP进行切点上异常监控来进行事务管理。可以借助AOP的横向切入点的方式来进行所有的业务层代码的事务管理,而且业务层代码也不会出现设计事务管理的相关代码。配置如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--声明式事务管理的配置：配置事务通知(配置增强)--&gt;</span><br><span class="line">    &lt;tx:advice id=&quot;txAdvice&quot; transaction-manager=&quot;transactionManager&quot;&gt;</span><br><span class="line">        &lt;tx:attributes&gt;</span><br><span class="line">            &lt;!--监控方法支持通配符配置--&gt;</span><br><span class="line">            &lt;!--</span><br><span class="line">                propagation      :事务传播行为</span><br><span class="line">                isolation        :事务隔离级别</span><br><span class="line">                read-only        :只读</span><br><span class="line">                rollback-for     :发生哪些异常回滚</span><br><span class="line">                no-rollback-for  :发生哪些异常不回滚</span><br><span class="line">                timeout          :超时信息</span><br><span class="line">            --&gt;</span><br><span class="line">            &lt;tx:method name=&quot;transfer*&quot; propagation=&quot;REQUIRED&quot;  /&gt;</span><br><span class="line">        &lt;/tx:attributes&gt;</span><br><span class="line">    &lt;/tx:advice&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--配置AOP切面--&gt;</span><br><span class="line">    &lt;aop:config&gt;</span><br><span class="line">        &lt;!--配置切入点--&gt;</span><br><span class="line">        &lt;aop:pointcut id=&quot;pointCut1&quot; expression=&quot;execution(* info.cloversoulmate.service.AccountService+.*(..))&quot;/&gt;</span><br><span class="line">        &lt;!--配置切面--&gt;</span><br><span class="line">        &lt;aop:advisor advice-ref=&quot;txAdvice&quot; pointcut-ref=&quot;pointCut1&quot;/&gt;</span><br><span class="line">    &lt;/aop:config&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>基于注解形式的事务管理：在目标业务类中注解生效，实现事务管理。</p>
-</li>
-</ol>
-<ul>
-<li>配置文件中开启事务管理器的注解事务：</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--给事务管理器开启注解事务--&gt;</span><br><span class="line">&lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot;/&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在类的头部加上注解，并配置相关属性</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 注解中的属性根据需求情况配置在注解括号里面，如果不配置注解属性，会按照默认方式进行</span><br><span class="line"> * propagation  :事务传播行为</span><br><span class="line"> * isolation    ：事务隔离级别</span><br><span class="line"> * readOnly     ：只读</span><br><span class="line"> * rollbackFor  ：发生哪些异常回滚</span><br><span class="line"> * noRollbackFor：发生哪些异常不回滚</span><br><span class="line"> * */</span><br><span class="line">@Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,readOnly=false)</span><br><span class="line">public class AccountServiceImpl implements AccountService &#123;</span><br></pre></td></tr></table></figure>
-
-	
-	</div>
-  <a type="button" href="/archives/762945f0.html#more" class="btn btn-default more">阅读此文</a>
+<div class="index-about">
+    <i>  </i>
 </div>
 
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-03-12 </div>
-			<div class="article-title"><a href="/archives/70e4edda.html" >spring Bean学习Review</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="spring-Bean学习-amp-Review"><a href="#spring-Bean学习-amp-Review" class="headerlink" title="spring Bean学习&amp;Review"></a>spring Bean学习&amp;Review</h2><h4 id="概述："><a href="#概述：" class="headerlink" title="概述："></a>概述：</h4><ul>
-<li>公司重构项目主要基于SpringBoot，发现用了这么久的Spring，却还没有认真的总结过Bean的使用以及一些需要注意的东西，这里回头总结一下下<h4 id="关于Bean"><a href="#关于Bean" class="headerlink" title="关于Bean"></a>关于Bean</h4></li>
-<li>Bean 是一个被实例化，组装，并通过 Spring IoC 容器所管理的对象</li>
-<li>配置元数据<ul>
-<li>基于XML的配置文件</li>
-<li>基于注释的配置</li>
-<li>基于Java的配置</li>
-</ul>
-</li>
-<li>bean定义的下列属性：<ul>
-<li>class :  强制性，指定用来创建的Bean类</li>
-<li>name : s 指定特定的bean 标识符</li>
-<li>scope :  指定由特定的 bean 定义创建的对象的作用域</li>
-<li>properties :  注入依赖关系</li>
-<li>initialization 方法 :  在 bean 的所有必需的属性被容器设置之后，调用回调方法。</li>
-<li>destruction 方法 :  当包含该 bean 的容器被销毁时，使用回调方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- A simple bean definition --&gt;</span><br><span class="line">   &lt;bean id=&quot;...&quot; class=&quot;...&quot;&gt;</span><br><span class="line">       &lt;!-- collaborators and configuration for this bean go here --&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- A bean definition with lazy init set on --&gt;</span><br><span class="line">   &lt;bean id=&quot;...&quot; class=&quot;...&quot; lazy-init=&quot;true&quot;&gt;</span><br><span class="line">       &lt;!-- collaborators and configuration for this bean go here --&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- A bean definition with initialization method --&gt;</span><br><span class="line">   &lt;bean id=&quot;...&quot; class=&quot;...&quot; init-method=&quot;...&quot;&gt;</span><br><span class="line">       &lt;!-- collaborators and configuration for this bean go here --&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- A bean definition with destruction method --&gt;</span><br><span class="line">   &lt;bean id=&quot;...&quot; class=&quot;...&quot; destroy-method=&quot;...&quot;&gt;</span><br><span class="line">       &lt;!-- collaborators and configuration for this bean go here --&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- more bean definitions go here --&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="scope-作用域"><a href="#scope-作用域" class="headerlink" title="scope 作用域"></a>scope 作用域</h4><ul>
-<li>singleton ： 该作用域将 bean 的定义的限制在每一个 Spring IoC 容器中的一个单一实例(默认)。</li>
-<li>prototype ：该作用域将单一 bean 的定义限制在任意数量的对象实例。</li>
-<li>request ： 该作用域将 bean 的定义限制为 HTTP 请求。只在 web-aware Spring ApplicationContext 的上下文中有效。</li>
-<li>session ： 该作用域将 bean 的定义限制为 HTTP 会话。 只在web-aware Spring ApplicationContext的上下文中有效。</li>
-<li>global-session ： 该作用域将 bean 的定义限制为全局 HTTP 会话。只在 web-aware Spring ApplicationContext 的上下文中有效。</li>
-</ul>
-<hr>
-<h4 id="Bean-后置处理器"><a href="#Bean-后置处理器" class="headerlink" title="Bean 后置处理器"></a>Bean 后置处理器</h4><ul>
-<li>重写BeanPostProcessor接口</li>
-<li>BeanPostProcessor ：初始化 bean 的之前的处理逻辑</li>
-<li>BeanPostProcessor ：初始化 bean 之后实现更复杂的逻辑<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package com.tutorialspoint;</span><br><span class="line">import org.springframework.beans.factory.config.BeanPostProcessor;</span><br><span class="line">import org.springframework.beans.BeansException;</span><br><span class="line">public class InitHelloWorld implements BeanPostProcessor &#123;</span><br><span class="line">   public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException &#123;</span><br><span class="line">      System.out.println(&quot;BeforeInitialization : &quot; + beanName);</span><br><span class="line">      return bean;  // you can return any other object as well</span><br><span class="line">   &#125;</span><br><span class="line">   public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException &#123;</span><br><span class="line">      System.out.println(&quot;AfterInitialization : &quot; + beanName);</span><br><span class="line">      return bean;  // you can return any other object as well</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">   &lt;bean id=&quot;beanTeamplate&quot; abstract=&quot;true&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;message1&quot; value=&quot;Hello World!&quot;/&gt;</span><br><span class="line">      &lt;property name=&quot;message2&quot; value=&quot;Hello Second World!&quot;/&gt;</span><br><span class="line">      &lt;property name=&quot;message3&quot; value=&quot;Namaste India!&quot;/&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">   &lt;bean id=&quot;helloIndia&quot; class=&quot;com.tutorialspoint.HelloIndia&quot; parent=&quot;beanTeamplate&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;message1&quot; value=&quot;Hello India!&quot;/&gt;</span><br><span class="line">      &lt;property name=&quot;message3&quot; value=&quot;Namaste India!&quot;/&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>父 bean 自身不能被实例化，因为它是不完整的，而且它也被明确地标记为抽象的。当一个定义是抽象的，它仅仅作为一个纯粹的模板 bean 定义来使用的，充当子定义的父定义使用</li>
-</ul>
-<hr>
-<h4 id="注入内部Beans"><a href="#注入内部Beans" class="headerlink" title="注入内部Beans"></a>注入内部Beans</h4><ul>
-<li>Inner beans 是在其他 bean 的范围内定义的 bean</li>
-<li>在XML配置文件中将各个类之间的关系描述清楚<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line"> xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line"> xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&quot;&gt;</span><br><span class="line">   &lt;bean id=&quot;outerBean&quot; class=&quot;...&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;target&quot;&gt;</span><br><span class="line">         &lt;bean id=&quot;innerBean&quot; class=&quot;...&quot;/&gt;</span><br><span class="line">      &lt;/property&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="注入集合"><a href="#注入集合" class="headerlink" title="注入集合"></a>注入集合</h4><ul>
-<li>有时候需要引入多个值</li>
-<li>Spring 提供四种集合类型的配置元素：List、set、map、props<br>|元素|描述|<br>|—|—|<br>|<code>&lt;List&gt;</code>|有助于连线，如 注入一列值，允许重复|<br>|<code>&lt;set&gt;</code>|有助于连线一组值，但不允许重复|<br>|<code>&lt;map&gt;</code>|可以用来注入键值对集合，其中，键，值可以是任何类型|<br>|<code>&lt;props&gt;</code>|可以用来注入键值对集合，其中，键，值都是字符串类型|</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/70e4edda.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2016-07-31 </div>
-			<div class="article-title"><a href="/archives/4a1b8e6e.html" title="近年来以信息为中心的表属性状态转移(Respresentational State Transfer REST)已经成为替代传统SOAP　Web服务的流行方案；而且Spring封装对REST的良好支撑">Spring中添加REST功能</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="REST基本原理："><a href="#REST基本原理：" class="headerlink" title="REST基本原理："></a>REST基本原理：</h4><ul>
-<li>通过简单的HTTP URL触发事件</li>
-<li>REST是将资源最合适地从服务端转移到客户端(或者反之)</li>
-<li>REST与RPC(远程过程调用)：REST面向资源，强调描述应用程序的事物和名词;RPC面向服务，关注于行为和行动<h4 id="Spring如何支持REST？"><a href="#Spring如何支持REST？" class="headerlink" title="Spring如何支持REST？"></a>Spring如何支持REST？</h4></li>
-<li>控制器可以处理所有的HTTP方法：GET、POST、DELETE、PUT…</li>
-<li>@PathVariable 注解使控制器能够处理参数化的URL(带参数变量的URL)</li>
-<li>Spring表单绑定JSP标签库的<code>&lt;form:form&gt;</code>标签以及新的HidenHttpMethodFilter，使得通过HTML转发提交的PUT，DELETE请求成为可能(即使mou’xie)</li>
-<li>使用String的视图和视图解析器，资源可以以各种形式表述，包括将数据模型表示为：XML、JSON、ATOM、RSS等</li>
-<li>使用新的ContentNegotiatingResolver来选择合适的客户端表述</li>
-<li>类似的，使用@ResponseBody注解以及HttpMethodConverter实现可以将传入的HTTP数据转化为传入控制器的处理方法的Java对象</li>
-<li>RestTemplate简化客户端对REST资源的使用</li>
-</ul>
-<h4 id="RESTful-URL"><a href="#RESTful-URL" class="headerlink" title="RESTful URL"></a>RESTful URL</h4><ul>
-<li>格式：<code>http://localhost:8080/spitter/spittles/123</code><ul>
-<li>协议：//域名：端口号/Servlet上下文路径/资源类型/特定的spittle</li>
-<li>REST　URL是用来标识资源</li>
-</ul>
-</li>
-<li>RESTful　URL是有层级结构的，每个层标识一种资源</li>
-<li>其中，URL还可以参数化，在控制器中获取该参数<code>@PathVariable(&quot;id&quot;) long id</code></li>
-</ul>
-<h4 id="执行REST动作"><a href="#执行REST动作" class="headerlink" title="执行REST动作"></a>执行REST动作</h4><ul>
-<li>HTTP提供来操作资源的方法，主要是四个</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>描述</th>
-<th>是否安全</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GET</td>
-<td>从服务器上检索资源信息，资源通过请求的URL来进行标识</td>
-<td>是</td>
-</tr>
-<tr>
-<td>POST</td>
-<td>传送数据到服务器，数据会由监听该请求的URL处理器进行处理</td>
-<td>否</td>
-</tr>
-<tr>
-<td>PUT</td>
-<td>按照请求的URＬ，防治资源到服务器指定位置</td>
-<td>否</td>
-</tr>
-<tr>
-<td>DELETE</td>
-<td>将请求URL标识的资源从服务器上删除</td>
-<td>否</td>
-</tr>
-</tbody>
-</table>
-<h4 id="表述资源"><a href="#表述资源" class="headerlink" title="表述资源"></a>表述资源</h4><ul>
-<li>Spring提供两种形式，将资源的Java表述形式转换为发送给客户端的表述形式：<ul>
-<li>基于视图渲染进行协商</li>
-<li>HTTP消息转换器</li>
-</ul>
-</li>
-<li>协商资源表述<br>bean配置:<figure class="highlight plain"><figcaption><span>根据客户端的不同的请求决定不同的view进行响应, 如/blog/1.json/blog/1.xml--></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">    &lt;bean class=&quot;org.springframework.web.servlet.view.ContentNegotiatingViewResolver&quot;&gt;</span><br><span class="line">&lt;!-- 设置为true以忽略对Accept Header的支持--&gt;</span><br><span class="line">         ##&lt;property name=&quot;ignoreAcceptHeader&quot; value=&quot;true&quot;/&gt;</span><br><span class="line"> &lt;!-- 在没有扩展名时即: &quot;/user/1&quot; 时的默认展现形式 --&gt;</span><br><span class="line">        &lt;property name=&quot;defaultContentType&quot; value=&quot;text/html&quot;/&gt;</span><br><span class="line">&lt;!-- 扩展名至mimeType的映射,即 /user.json =&gt; application/json --&gt;</span><br><span class="line">        &lt;property name=&quot;mediaTypes&quot;&gt;</span><br><span class="line">            &lt;map&gt;</span><br><span class="line">                &lt;entry key=&quot;json&quot; value=&quot;application/json&quot; /&gt;</span><br><span class="line">                &lt;entry key=&quot;xml&quot; value=&quot;application/xml&quot; /&gt;</span><br><span class="line">            &lt;/map&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ol>
-<li>确定请求的媒体类型<ul>
-<li>ViewResolver首先查找URL中的文件扩展名，将文件扩展名与mediatype的条目匹配，如果找到匹配项，则使用该媒体类型，并覆盖accpt头信息中的任何媒体类型</li>
-<li>如果找不到URL中的扩展名，那么就使用Accept中的头信息的媒体类型</li>
-<li>如果请求头中不包含Accept头信息，那么就使用defaultContentType属性中设置的媒体类型</li>
-</ul>
-</li>
-<li>影响如何选择类型<ul>
-<li>将favorPathExtension属性设置为false，将会使得ContextNegotiatingViewResolver忽略URL路径扩展名</li>
-<li>将JAF添加到类路径下将会使得ContextNegotiatingViewResolver除了使用mediaTypes属性中的条目外，在路径扩展名确定媒体类型时还会借助JAF</li>
-<li>将favorParameter属性设置为true，并且请求中包含名为format参数，那么format参数的值将会mediatype属性来进行匹配，即使URL文件中没有文件扩展名也能匹配其中的媒体类型</li>
-<li>ignoreAcceptHeader属性设置为true，将会忽略Accept头信息</li>
-</ul>
-</li>
-<li>查找视图<ul>
-<li>ContextNegotiatingViewResolver循环所有保存的媒体类型，找到能与之匹配内容类型的视图，完成视图解析匹配</li>
-<li>如果ContextNegotiatingViewResolver没有找到合适的视图，那么它将返回null视图，或者如果useNotAcceptableStatusCode属性被设置为true，那么将返回带有http状态码406(Not Acceptable)的视图</li>
-</ul>
-</li>
-</ol>
-
-	
-	</div>
-  <a type="button" href="/archives/4a1b8e6e.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2016-07-19 </div>
-			<div class="article-title"><a href="/archives/86b8ba8f.html" >Spring MVC常用的控制器方法与使用</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="Spring-mvc-控制器与方法"><a href="#Spring-mvc-控制器与方法" class="headerlink" title="Spring mvc 控制器与方法"></a>Spring mvc 控制器与方法</h2><h4 id="Controller定义一个Controller控制器"><a href="#Controller定义一个Controller控制器" class="headerlink" title="@Controller定义一个Controller控制器"></a>@Controller定义一个Controller控制器</h4><ul>
-<li>在使用这个标记主注解之前需要配置控制器(两种方法)    <ul>
-<li>在Spring MVC配置文件中添加<code>&lt;bean&gt;</code>对象：<code>&lt;bean class=&quot;xyz.royleo.vice&quot;/&gt;</code></li>
-<li>在spring配置文件中@Controller控制器的位置：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt; context:component-scan base-package = &quot;com.host.app.web.controller&quot; &gt;  </span><br><span class="line">   &lt; context:exclude-filter type = &quot;annotation&quot;  </span><br><span class="line">       expression = &quot;org.springframework.stereotype.Service&quot; /&gt;  </span><br><span class="line">&lt;/ context:component-scan &gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="RequestMapping来映射Request请求与控制器"><a href="#RequestMapping来映射Request请求与控制器" class="headerlink" title="@RequestMapping来映射Request请求与控制器"></a>@RequestMapping来映射Request请求与控制器</h4><ul>
-<li><p>通过URL模板实现 : 在URL模板中含有变量值,再在<code>@requestMapping</code>的方法里面，通过<code>@PathVariable</code>获取通过RUL传过来的值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Controller  </span><br><span class="line">@RequestMapping ( &quot;/test/&#123;variable1&#125;&quot; )  </span><br><span class="line">public class MyController &#123;  </span><br><span class="line">    @RequestMapping ( &quot;/showView/&#123;variable2&#125;&quot; )  </span><br><span class="line">    public ModelAndView showView( @PathVariable String variable1, @PathVariable ( &quot;variable2&quot; ) int variable2) &#123;  </span><br><span class="line">		//do something </span><br><span class="line">       return modelAndView;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用<code>@RequestParam</code>绑定HttpServletRequest请求参数到控制器方法参数</p>
-<ul>
-<li>其中，有requested=false是可选的参数，默认是必须的<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping ( &quot;requestParam&quot; )  </span><br><span class="line">ublic String testRequestParam( @RequestParam(required=false) String name, @RequestParam ( &quot;age&quot; ) int age) &#123;  </span><br><span class="line">   return &quot;requestParam&quot; ;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="HttpServletRequest-amp-HttpServletResponse-amp-HttpSession…"><a href="#HttpServletRequest-amp-HttpServletResponse-amp-HttpSession…" class="headerlink" title="HttpServletRequest &amp; HttpServletResponse &amp; HttpSession…"></a>HttpServletRequest &amp; HttpServletResponse &amp; HttpSession…</h4><ul>
-<li>跟普通的Servlet一样，spring mvc中也可以用servlet里面的方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&quot;/somePath&quot;)</span><br><span class="line">   public String requestResponseExample(HttpServletRequest request, HttpServletResponse reponses, HttpSession session, Model model) &#123;</span><br><span class="line">	 // Todo something here</span><br><span class="line">       return &quot;someView&quot;;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="控制器的重定向"><a href="#控制器的重定向" class="headerlink" title="控制器的重定向"></a>控制器的重定向</h4><ul>
-<li>使用前缀：<code>redirect</code>该方法返回字符串，可以重定向到另一页面<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value = &quot;/redirect&quot;, method = RequestMethod.GET)</span><br><span class="line">    public String authorInfo(Model model) &#123;</span><br><span class="line">	 // Do somethong here</span><br><span class="line">	  return &quot;redirect:/hello&quot;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="使用-CookieValue绑定cookie数值到Controller方法参数"><a href="#使用-CookieValue绑定cookie数值到Controller方法参数" class="headerlink" title="使用@CookieValue绑定cookie数值到Controller方法参数"></a>使用<code>@CookieValue</code>绑定cookie数值到Controller方法参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping ( &quot;cookieValue&quot; )</span><br><span class="line">public String testCookieValue( @CookieValue ( &quot;hello&quot; ) String cookieValue, @CookieValue String hello) &#123;</span><br><span class="line"> //do something</span><br><span class="line">   return &quot;cookieValue&quot; ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="使用-RequestHeader注解绑定HttpServletRequest头信息到Controller方法参数"><a href="#使用-RequestHeader注解绑定HttpServletRequest头信息到Controller方法参数" class="headerlink" title="使用@RequestHeader注解绑定HttpServletRequest头信息到Controller方法参数"></a>使用<code>@RequestHeader</code>注解绑定HttpServletRequest头信息到Controller方法参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping ( &quot;testRequestHeader&quot; )</span><br><span class="line">public String testRequestHeader( @RequestHeader ( &quot;Host&quot; ) String hostAddr, @RequestHeader String Host, @RequestHeader String host ) &#123;</span><br><span class="line">   //use Host... do something</span><br><span class="line">    return &quot;requestHeader&quot; ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="RequestMapping的一些高级应用"><a href="#RequestMapping的一些高级应用" class="headerlink" title="@RequestMapping的一些高级应用"></a><code>@RequestMapping</code>的一些高级应用</h4><ul>
-<li>RequestMapping除了指定的路径value值之外，还有其他的一些属性，如：params，method，headers等,便于缩小映射范围</li>
-<li><p><code>params</code>属性：</p>
-<ul>
-<li>例子说明：代码中定义了映射的路径，params的三个参数，当映射路径<code>/testParams.do</code>并且满足params的规则(param1等于value1，param2必须存在，值无所谓，param3必须不存在)，才能正确映射到testParams()方法. 即：<code>/testParams.do?param2=value&amp;param2=value2</code>才能访问指定方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping (value= &quot;testParams&quot; , params=&#123; &quot;param1=value1&quot; , &quot;param2&quot; , &quot;!param3&quot; &#125;)  </span><br><span class="line">public String testParams() &#123;  </span><br><span class="line">   System. out .println( &quot;test Params...........&quot; );  </span><br><span class="line">   return &quot;testParams&quot; ;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>method属性:主要用于限制能访问的方法类型(GET,POST,DELETE…)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping (value= &quot;testMethod&quot; , method=&#123;RequestMethod. GET , RequestMethod. DELETE &#125;)  </span><br><span class="line">public String testMethod() &#123;  </span><br><span class="line">   return &quot;method&quot; ;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>headers</code>属性</p>
-<ul>
-<li>headers 属性的用法和功能与params 属性相似。在上面的代码中当请求/testHeaders.do 的时候只有当请求头包含Accept 信息，且请求的host 为localhost 的时候才能正确的访问到testHeaders 方法。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping (value= &quot;testHeaders&quot; , headers=&#123; &quot;host=localhost&quot; , &quot;Accept&quot; &#125;)  </span><br><span class="line">public String testHeaders() &#123;  </span><br><span class="line">   return &quot;headers&quot; ;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="以-RequestMapping-标记的处理器方法支持的方法参数和返回类型"><a href="#以-RequestMapping-标记的处理器方法支持的方法参数和返回类型" class="headerlink" title="以 @RequestMapping 标记的处理器方法支持的方法参数和返回类型"></a>以 @RequestMapping 标记的处理器方法支持的方法参数和返回类型</h4><ul>
-<li>支持的方法参数类型<ul>
-<li>HttpServlet对象：HttpServletRequest、HttpServletResponse、HttpSession</li>
-<li>Spring自己的WebRequest对象</li>
-<li>InputStream、OutputStream、read、write</li>
-<li>使用 @pathVariable @RequestParam @CookieValue @RequestHeader 标记的参数</li>
-<li>使用 @ModelAttribute 标记的参数</li>
-<li>java.util.Map 、Spring 封装的Model 和ModelMap：用来展现视图</li>
-<li>实体类</li>
-<li>Spring封装的MutipartFile,用来上传文件</li>
-<li>Spring 封装的Errors 和BindingResult 对象</li>
-</ul>
-</li>
-<li>支持的返回类型<ul>
-<li>一个包含模型和视图的ModelAndView 对象</li>
-<li>一个模型对象，这主要包括Spring 封装好的Model 和ModelMap ，以及java.util.Map ，当没有视图返回的时候视图名称将由RequestToViewNameTranslator 来决定</li>
-<li>一个View 对象。这个时候如果在渲染视图的过程中模型的话就可以给处理器方法定义一个模型参数，然后在方法体里面往模型中添加值</li>
-<li>一个String字符串、返回JSON对象(主要是Restful风格，前后端通信)</li>
-<li>返回值是void：主要方法体接受传值，执行相关逻辑，返回值可以忽略</li>
-<li>如果处理器方法被注解@ResponseBody 标记的话，那么处理器方法的任何返回类型都会通过HttpMessageConverters 转换之后写到HttpServletResponse 中，而不会像上面的那些情况一样当做视图或者模型来处理</li>
-<li>除以上几种情况之外的其他任何返回类型都会被当做模型中的一个属性来处理，而返回的视图还是由RequestToViewNameTranslator 来决定，添加到模型中的属性名称可以在该方法上用@ModelAttribute(“attributeName”) 来定义，否则将使用返回类型的类名称的首字母小写形式来表示。使用@ModelAttribute 标记的方法会在@RequestMapping 标记的方法执行之前执行<h4 id="使用-ModelAttribute-和-SessionAttributes-传递和保存数据"><a href="#使用-ModelAttribute-和-SessionAttributes-传递和保存数据" class="headerlink" title="使用 @ModelAttribute 和 @SessionAttributes 传递和保存数据"></a>使用 @ModelAttribute 和 @SessionAttributes 传递和保存数据</h4></li>
-</ul>
-</li>
-<li>@ModelAttribute标记一般放在需要标记的上面，并指定相关值，当@RequestMapping调用属性参数获取的时候执行</li>
-<li>@SessionAttribute 标记一般放在@RequestMapping注解的下面，类名的上面。被@SessionAttribute标记的参数的数值需要被添加到Session中之后，在读取出来之后才有内容；当然，添加的标记的参数类型可以是字符串，数组，实体对象等</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/86b8ba8f.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2016-07-16 </div>
-			<div class="article-title"><a href="/archives/5a644a79.html" >Spring-MVC请求处理工作流程</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
-<li>Spring Web MVC框架提供了model-view-controller 的体系结构，可以用来开发灵活的，借助spring的AOP特性，实现松耦合的Web应用程序组件；</li>
-<li>MVC模式导致了应用程序不同方面的分离(输入业务、逻辑业务和UI逻辑)，同时提供了这些元素之间的松散耦合<ul>
-<li>Model：封装应用程序数据，并且通常由POJO组成</li>
-<li>View: 主要用于呈现模型数据，并且由它生成客户端浏览器能够解析的HTML输出</li>
-<li>Controller：主要用于处理客户请求，并且构建合适的模型，并传递给视图呈现</li>
-</ul>
-</li>
-</ul>
-<h2 id="DispatcherServlet"><a href="#DispatcherServlet" class="headerlink" title="DispatcherServlet"></a>DispatcherServlet</h2><ul>
-<li>Spring MVC框架中，DispatcherServlet用来处理所有的HTTP请求和响应<h4 id="工作流程如下："><a href="#工作流程如下：" class="headerlink" title="工作流程如下："></a>工作流程如下：</h4><img src="http://qvm.lays3721.top/mvc1.png" alt="DispatcherServlet"><h4 id="当请求触发的时候…"><a href="#当请求触发的时候…" class="headerlink" title="当请求触发的时候…"></a>当请求触发的时候…</h4></li>
-<li>收到一个HTTP请求之后，DispatcherServlet根据HandlerMapping来选择并且调用适当的控制器</li>
-<li>控制器接受请求，并基于使用GET或者POST方法来调用适当的Service方法。Service方法将设置基于定义业务逻辑的数据模型，并返回视图名称到DispatcherServlet中</li>
-<li>DispatcherServlet在ViewResolver的协助下，检索获取指定的视图</li>
-<li>当视图确定之后，DispatcherServlet把模型数据传递给视图，最后在浏览器中呈现<h2 id="部分配置以及代码说明"><a href="#部分配置以及代码说明" class="headerlink" title="部分配置以及代码说明"></a>部分配置以及代码说明</h2></li>
-<li><p>初始化DispatcherServlet,导入Servlet-Name的应用配置文件<code>{servlet-name}-servlet.xml</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">      &lt;servlet-name&gt;HelloWeb&lt;/servlet-name&gt;</span><br><span class="line">      &lt;servlet-class&gt;</span><br><span class="line">         org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">      &lt;/servlet-class&gt;</span><br><span class="line">      &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</span><br><span class="line">   &lt;/servlet&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>定义处理的URL类型(对应servlet-name)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">      &lt;servlet-name&gt;HelloWeb&lt;/servlet-name&gt;</span><br><span class="line">      &lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt;</span><br><span class="line">   &lt;/servlet-mapping&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>定义视图解决方案</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot; /&gt;</span><br><span class="line">      &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot; /&gt;	//收到DispatcherServlet返回的视图名称之后，显示`[viewName].jsp`文件</span><br><span class="line">   &lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>定义控制器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Controller</span><br><span class="line">@RequestMapping(&quot;/hello&quot;)  //url路径</span><br><span class="line">public class HelloController&#123;</span><br><span class="line">   @RequestMapping(method = RequestMethod.GET) 		//使用GET方法</span><br><span class="line">   public String printHello(ModelMap model) &#123;</span><br><span class="line">      model.addAttribute(&quot;message&quot;, &quot;Hello Spring MVC Framework!&quot;); 	//绑定Message属性的值，并传递给DispatcherServlet</span><br><span class="line">      return &quot;viewName&quot;;  		//返回给DispatcherServlet的视图名称</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>视图,下例是一个jsp文件的部分代码，message是在控制器内部设置的属性</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">   &lt;head&gt;</span><br><span class="line">   &lt;title&gt;Hello Spring MVC&lt;/title&gt;</span><br><span class="line">   &lt;/head&gt;</span><br><span class="line">   &lt;body&gt;</span><br><span class="line">   &lt;h2&gt;$&#123;message&#125;&lt;/h2&gt;</span><br><span class="line">   &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><ul>
-<li>目前流行的Restful风格的设计，可以借助Spring-MVC实现，更好的实现前后端分离，控制器之间通过DispatcherServlet，给View页面传递一组 JSON 或者是 XML 等形式的数据，view接受到数据之后，通过Angular JS /reaact等其他一些Javascript的一些单页框架，处理后端传过来的数据，并显示出来.</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/5a644a79.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-	     </div>
-	     <div>
-	       <center>
-	         <div class="pagination">
-<ul class="pagination">
-	 
-</ul>
-</div>
-
-	       </center>
-	     </div>	
-      
-
-</div> <!-- col-md-9/col-md-12 -->
-
-
-<div class="col-md-3">
-	<div id="sidebar">
-	
-			
-  <div id="site_search">
-   <div class="form-group">
-    <input type="text" id="local-search-input" name="q" results="0" placeholder="搜索" class="st-search-input st-default-search-input form-control"/>
-   </div>  
-  <div id="local-search-result"></div>
-  </div>
-
-
-		
-			<div class="widget">
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/" />
+        </div>
+        <div class="name">
+            <i>Rico Nut</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li  class=active >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
     
 </div>
 
-		
-			
-		
-			
-	<div class="widget">
-		<h4>标签云</h4>
-		<ul class="tag_box inline list-unstyled">		
-		
-			<li><a href="/tags/动态代理/">动态代理<span>4</span></a></li>
-		
-			<li><a href="/tags/NetWorker/">NetWorker<span>2</span></a></li>
-		
-			<li><a href="/tags/Redis/">Redis<span>4</span></a></li>
-		
-			<li><a href="/tags/TakeDown/">TakeDown<span>4</span></a></li>
-		
-			<li><a href="/tags/Git/">Git<span>2</span></a></li>
-		
-			<li><a href="/tags/struts2/">struts2<span>1</span></a></li>
-		
-			<li><a href="/tags/Spring/">Spring<span>5</span></a></li>
-		
-			<li><a href="/tags/Java/">Java<span>32</span></a></li>
-		
-			<li><a href="/tags/场景/">场景<span>1</span></a></li>
-		
-			<li><a href="/tags/Mysql/">Mysql<span>9</span></a></li>
-		
-			<li><a href="/tags/Web/">Web<span>3</span></a></li>
-		
-			<li><a href="/tags/Nginx/">Nginx<span>1</span></a></li>
-		
-			<li><a href="/tags/Servlet/">Servlet<span>2</span></a></li>
-		
-			<li><a href="/tags/多线程/">多线程<span>4</span></a></li>
-		
-			<li><a href="/tags/Linux/">Linux<span>3</span></a></li>
-		
-			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
-		
-			<li><a href="/tags/Raspberry/">Raspberry<span>1</span></a></li>
-		
-			<li><a href="/tags/JVM/">JVM<span>1</span></a></li>
-		
-			<li><a href="/tags/Exception/">Exception<span>1</span></a></li>
-		
-			<li><a href="/tags/Mybatis/">Mybatis<span>4</span></a></li>
-		
-		
-		   <li><a href="/tags">...<span>25</span></a></li>
-		 
-		</ul>
-	</div>
 
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
 
-		
-			
-<div class="widget">
-  <h4>最新文章</h4>
-  <ul class="entry list-unstyled">
-    
-      <li>
-        <a href="/archives/6e1b8bba.html"  title="上手树莓派，打算将弃用的笔记本硬盘挂在树莓派主机上，作为下载机使用,由于旧硬盘是win电脑拆下来的硬盘，磁盘格式为`Microsoft basic data`..." ><i class="fa fa-file-o"></i>Linux下挂载移动硬盘(ntfs格式)</a>
-      </li>
-    
-      <li>
-        <a href="/archives/27e17559.html"  title="redis总的所有数据默认保存在内存当中的.但场景需要，有时候需要进行持久化保存" ><i class="fa fa-file-o"></i>Redis持久化方案</a>
-      </li>
-    
-      <li>
-        <a href="/archives/3eac123.html"  title="当一个系统访问量上来的时候，不只是数据库性能瓶颈问题了，数据库数据安全也会浮现，这时候合理使用数据库锁机制就显得异常重要了。" ><i class="fa fa-file-o"></i>数据库锁机制分类</a>
-      </li>
-    
-      <li>
-        <a href="/archives/7ffea1fe.html"  title="RabbitMQ消息作为分布式消息协同工具，承担者协同各个系统之间的正常通信。如何确保消息通过RabbitMQ传输而不丢失数据？" ><i class="fa fa-file-o"></i>RabbitMQ消息可靠性</a>
-      </li>
-    
-      <li>
-        <a href="/archives/28d7adef.html"  title="快速失败：当在迭代一个集合的时候，如果有另外一个线程在修改这个集合，就会抛出ConcurrentModification异常，java.util下都是快速失败。 安全失败：在迭代时候会在集合二层做一个拷贝，所以在修改集合上层元素不会影响下层。在java.util.concurrent下都是安全失败" ><i class="fa fa-file-o"></i>快速失败与安全失败机制</a>
-      </li>
-    
-  </ul>
+        </div>
+    </div>
 </div>
 
-		
-			
-<div class="widget">
-	<h4>链接</h4>
-	<ul class="blogroll list-unstyled">
-	
-		<li><i class="fa fa-github"></i><a href="http://www.github.com/RicoNut" title="My Github account." target="_blank"]);">RicoNut Github</a></li>
-	
-	</ul>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<!-- 归档列表 -->
+
+<div class="archives-container">
+
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2019">
+                    <span class="tag-text">2019</span>
+                </span>
+    <ul>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-15</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/6e1b8bba.html">
+                        <span>
+                            Linux下挂载移动硬盘(ntfs格式)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+
+    </ul>
 </div>
 
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2018">
+                    <span class="tag-text">2018</span>
+                </span>
+    <ul>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>12-20</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/27e17559.html">
+                        <span>
+                            Redis持久化方案
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>12-01</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/3eac123.html">
+                        <span>
+                            数据库锁机制分类
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-26</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/7ffea1fe.html">
+                        <span>
+                            RabbitMQ消息可靠性
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-13</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/28d7adef.html">
+                        <span>
+                            快速失败与安全失败机制
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-06</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/a1cd7aa8.html">
+                        <span>
+                            Integer封装类比较大小
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-26</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/9b0bd708.html">
+                        <span>
+                            Nginx的负载均衡策略
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-17</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/d1b4efa1.html">
+                        <span>
+                            Java遍历Map对象的4种方法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-30</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/1ab741e2.html">
+                        <span>
+                            Array与Arrays的区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-29</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/ad76721a.html">
+                        <span>
+                            Collection与Collections的区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-01</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/130dac3d.html">
+                        <span>
+                            Set集合误用引发的血案
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-20</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4354712f.html">
+                        <span>
+                            基于Redis缓存的音频点赞排行榜功能实践
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-02</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/e8fc0d11.html">
+                        <span>
+                            Redis基础数据结构
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>04-27</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/98ee2edb.html">
+                        <span>
+                            leetcode Reserve Integer
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>03-18</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/bd43d2da.html">
+                        <span>
+                            Object 类中toString()、equal()、hashCode()之间关系
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>02-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/7416d96f.html">
+                        <span>
+                            Java异常总结
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>02-03</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/199ee4b3.html">
+                        <span>
+                            自己对Java堆和栈的理解
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>01-30</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/762945f0.html">
+                        <span>
+                            Spring事务管理
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
 
-		
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
+    </ul>
+</div>
 
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2017">
+                    <span class="tag-text">2017</span>
+                </span>
+    <ul>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>12-05</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/3e6ff0a8.html">
+                        <span>
+                            抽象类和接口的区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-28</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/6c6825f6.html">
+                        <span>
+                            iptables防火墙及其命令
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-12</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/1db25542.html">
+                        <span>
+                            Mybatis 修饰符`#{}`和`${}`的区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-09</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/8bdd2473.html">
+                        <span>
+                            JDBC SQL预编译
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/efb286cc.html">
+                        <span>
+                            Mybatis 如何获取保存对象之后生成的自增主键?
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-10</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/7ccdc859.html">
+                        <span>
+                            多线程基本概念
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-20</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/bd778d6e.html">
+                        <span>
+                            多线程关键字volatile和synchronized区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/466fafff.html">
+                        <span>
+                            mysql连接查询
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>03-12</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/70e4edda.html">
+                        <span>
+                            spring Bean学习Review
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>02-02</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/3170f59.html">
+                        <span>
+                            Mybatis延迟加载
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>01-04</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/fc53cc9d.html">
+                        <span>
+                            Java关键字与总结
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
 
+    </ul>
+</div>
 
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2016">
+                    <span class="tag-text">2016</span>
+                </span>
+    <ul>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>12-07</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/a5b55d42.html">
+                        <span>
+                            Map的排序(key排序/value排序)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-15</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/89baa56d.html">
+                        <span>
+                            Git操作快速上手(日常指令)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-02</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4c8b706f.html">
+                        <span>
+                            面向切面编程(AOP)实例解释
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/86946e12.html">
+                        <span>
+                            线程同步基础之使用锁实现同步
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-14</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/65a2a3a3.html">
+                        <span>
+                            线程同步基础之synchronized同步
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-10</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/faa9c2f.html">
+                        <span>
+                            Java反射机制之动态代理
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/affd1e49.html">
+                        <span>
+                            Java反射机制之方法操作
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-04</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/b0d70fcf.html">
+                        <span>
+                            Java反射机制之变量操作
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-03</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/41e0f7bf.html">
+                        <span>
+                            Java反射机制之构造器操作
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-30</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/b7f7cee0.html">
+                        <span>
+                            Java线程管理
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-17</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/971c3dff.html">
+                        <span>
+                            'Mysql多表操作以及其实例'
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-12</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/d2cfd72b.html">
+                        <span>
+                            epuals与'=='区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4be26d16.html">
+                        <span>
+                            v2ray_科学手段
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/861d9c25.html">
+                        <span>
+                            原生JDBC操作数据库的思考总结
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-10</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/bef463.html">
+                        <span>
+                            java 重定向与转发的异同
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-01</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/5574abb0.html">
+                        <span>
+                            TCP通信三次握手协议原理与过程分析
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-31</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4a1b8e6e.html">
+                        <span>
+                            Spring中添加REST功能
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-29</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/ac0ee78d.html">
+                        <span>
+                            JSP九大内置对象、四个作用域以及六大基本动作
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-28</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/3fb7ed9.html">
+                        <span>
+                            Mybatis 实现原理与结构解析
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-28</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4b2bec15.html">
+                        <span>
+                            Java 迭代器Iterator的用法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-26</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/69b20980.html">
+                        <span>
+                            Mysql视图技术原理与应用
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-25</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/64423a64.html">
+                        <span>
+                            mysql触发器学与用
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-24</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/39b075e7.html">
+                        <span>
+                            Java 实现TCP/IP Socket通信
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-22</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/5970580b.html">
+                        <span>
+                            struts2基础笔记(1)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-19</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4ac038bf.html">
+                        <span>
+                            比较http请求方法中的GET与POST方法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-19</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/86b8ba8f.html">
+                        <span>
+                            Spring MVC常用的控制器方法与使用
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/5b142d5f.html">
+                        <span>
+                            AngularJS 核心特性
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/5a644a79.html">
+                        <span>
+                            Spring-MVC请求处理工作流程
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-15</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/897c0a7c.html">
+                        <span>
+                            Angular JS 基础笔记
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/7ae62b4c.html">
+                        <span>
+                            hibernate实现原理与思考
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/8314bbf6.html">
+                        <span>
+                            Mysql管理用户操作(创建用户，删除用户，修改用户密码，权限分配以及相关授权)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-05</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/faff5c20.html">
+                        <span>
+                            Hibernate出现Caused by: java.sql.SQLException: Field 'id' doesn't have a default value的解决方法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-05</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/f8defb4e.html">
+                        <span>
+                            关于Maven 打包时 缺失properties和xml后缀的文件
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>05-10</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/b4e8978.html">
+                        <span>
+                            无法连接远程Mysql数据库的解决办法 I
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>05-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/db1953ee.html">
+                        <span>
+                            Java垃圾回收之finalize()
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>05-07</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/57584ce4.html">
+                        <span>
+                            Java常识之构造器
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>03-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/a9d721e9.html">
+                        <span>
+                            在Github创建静态网站预览的方法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+
+    </ul>
+</div>
+
+</div>
 
     </div>
-  </div>
-  <div class="container-narrow">
-    <footer> <p>
-  &copy; 2019 Rico Nut
-  
-      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
-</p> </footer>
-  </div> <!-- container-narrow -->
-  
+</div>
 
 
-  
-<a id="gotop" href="#">   
-  <span>▲</span> 
-</a>
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
 
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+        
 
+        
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
+        
 
+        
 
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
 
 
-<!-- syntax highlighting -->
 
 
 </body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = false
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
 </html>

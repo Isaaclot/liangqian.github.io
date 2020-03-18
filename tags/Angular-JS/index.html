@@ -1,396 +1,1200 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  
-  <title>Angular JS | 哈姆雷特1001</title>
-  <meta name="author" content="Rico Nut">
-  
-  <meta name="description" content="学习总结 思考感悟 知识管理">
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="学习总结 思考感悟 知识管理">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
 
-  
-  <meta property="og:site_name" content="哈姆雷特1001"/>
+    <title>
+        
+        
+        
+    </title>
 
-  
-    <meta property="og:image" content=""/>
-  
-
-  
-  
-    <link href="/favicon.png" rel="icon">
-  
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="/css/themes/cerulean.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/highlight-default.min.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/comment.css" media="screen" type="text/css">
-  <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
-  <![endif]-->
-
-  <script src="/js/jquery-2.0.3.min.js"></script>
-  
-  <!-- analytics -->
-  
-
-
-
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
 </head>
 
 <body>
-  <nav id="main-nav" class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-	<span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-       <a class="navbar-brand" href="/">哈姆雷特1001</a>
-      <div class="collapse navbar-collapse nav-menu">
-		<ul class="nav navbar-nav">
-		  
-		  <li>
-			<a href="/archives" title="All the articles.">
-			  <i class="fa fa-archive"></i>Archives
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/about" title="About me.">
-			  <i class="fa fa-user"></i>About
-			</a>
-		  </li>
-		  
-		</ul>
-      </div>
-    </div> <!-- container -->
-</nav>
-<div class="clearfix"></div>
 
-  <div class="container">
-    <div class="content">
-      
-
-<!-- title -->
-<div class="page-header page-header-inverse ">
-  <h1 class="archive-title-tag title title-inverse ">Angular JS</h1>
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
 </div>
 
-<div class="row page">
-  <!-- cols -->
-  
-  <div class="col-md-9">
-	
-
-	  <div id="top_search"></div>
-
-      
-         <!-- display as entry -->
-	     <div class="mypage">
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2016-07-16 </div>
-			<div class="article-title"><a href="/archives/5b142d5f.html" >AngularJS 核心特性</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<ul>
-<li>MVC : Model - View - Controller<ul>
-<li>切分代码职责</li>
-<li>更好的复用代码</li>
-<li>便于模块化管理</li>
-<li>终极目标：实现模块化，复用</li>
-</ul>
-</li>
-<li>模块化Module：一起都是从模块开始，其他都是在module的基础上调用</li>
-<li><p>指令系统 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">angular.module(&quot;mymodule&quot;,[]).directive(&quot;hello&quot;,function()&#123;</span><br><span class="line">	return &#123;</span><br><span class="line">		restrict: &quot;E&quot;,</span><br><span class="line">		template: &apos;&lt;div&gt;Hi everyone&lt;/div&gt;&apos;</span><br><span class="line">		replace: true</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>双向数据绑定</p>
-<ul>
-<li>单向数据绑定：先定义好模板跟数据结合，通过数据绑定机制，将模板跟数据生成一段html标签，再把生成的HTML标签加入到文档流中，但是当数据变化的时候，再去改变view页面的数据，复杂度高；并且view中的数据变换(输入)的时候，无法将改变传回来给model数据<br><img src="http://qvm.lays3721.top/%E5%8D%95%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A.png" alt="单向数据绑定"></li>
-<li>双向数据绑定：view中的数据变化的时候，数据模型发生变化，当model中的数据发生变化的时候，其中改变能直接反馈给view页面<br><img src="http://qvm.lays3721.top/%E5%8F%8C%E5%90%91.png" alt="双向数据绑定"></li>
-</ul>
-</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/archives/5b142d5f.html#more" class="btn btn-default more">阅读此文</a>
+<div class="index-about">
+    <i>  </i>
 </div>
 
-	       
-		     
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2016-07-15 </div>
-			<div class="article-title"><a href="/archives/897c0a7c.html" >Angular JS 基础笔记</a></div>						
-		</h3>
-	
-
-
-		     <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="AngularJS-开发"><a href="#AngularJS-开发" class="headerlink" title="AngularJS 开发"></a>AngularJS 开发</h2><ul>
-<li>使得开发现代的单一页面应用程序（SPAs：Single Page Applications）变得更加容易。</li>
-<li>Angular JS 把应用程序数据绑定到HTML元素</li>
-<li>Angular JS 可以克隆和重复HTML元素</li>
-<li>Angular JS 可以隐藏/显示HTML元素</li>
-<li>Angular JS 可以在元素背后添加代码</li>
-<li>Angular JS 支持输入验证</li>
-</ul>
-<h2 id="scope-作用域"><a href="#scope-作用域" class="headerlink" title="$scope 作用域"></a>$scope 作用域</h2><ul>
-<li>$scope 对象当作一个参数传递</li>
-<li>带有属性和方法，这些属性和方法可以在视图和控制器中使用</li>
-<li>根作用域<code>$rootScope</code>: 可作用于整个应用中。是各个 controller 中 scope 的桥梁。用 rootscope 定义的值，可以在各个 controller 中使用。</li>
-</ul>
-<h2 id="Angular-JS-服务"><a href="#Angular-JS-服务" class="headerlink" title="Angular JS 服务"></a>Angular JS 服务</h2><ul>
-<li>$location : 返回当前页面的 URL 地址 ($location.absUrl();)</li>
-<li><p>$http :(例子)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var app = angular.module(&apos;myApp&apos;, []);</span><br><span class="line">app.controller(&apos;myCtrl&apos;, function($scope, $http) &#123;</span><br><span class="line">    $http.get(&quot;welcome.htm&quot;).then(function (response) &#123;</span><br><span class="line">        $scope.myWelcome = response.data;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>$timeout 访问在规定的毫秒数后执行指定函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$timeout(function () &#123;</span><br><span class="line">      $scope.myHeader = &quot;How are you today?&quot;;</span><br><span class="line">  &#125;, 2000);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>$interval 访问在指定的周期(以毫秒计)来调用函数或计算表达式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$interval(function () &#123;</span><br><span class="line">     $scope.theTime = new Date().toLocaleTimeString();</span><br><span class="line"> &#125;, 1000);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建自定义服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">app.service(&apos;hexafy&apos;, function() &#123;</span><br><span class="line">    this.myFunc = function (x) &#123;</span><br><span class="line">        return x.toString(16);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用自定义服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.controller(&apos;myCtrl&apos;, function($scope, hexafy) &#123;</span><br><span class="line">    $scope.hex = hexafy.myFunc(255);</span><br><span class="line">&#125;); //不加`$`区分自带和自定义服务</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Angular-JS-指令"><a href="#Angular-JS-指令" class="headerlink" title="Angular JS 指令"></a>Angular JS 指令</h2><ul>
-<li>ng-app 指令初始化一个AngularJS应用程序</li>
-<li>ng-init 初始化一个应用程序数据</li>
-<li>ng-model 把元素值(比如输入域的值)绑定到应用程序中</li>
-<li><p>ng-repeat 指令会重复一个HTML元素</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div ng-app=&quot;&quot; ng-init=&quot;names=[&apos;Jani&apos;,&apos;Hege&apos;,&apos;dasd&apos;];in=100&quot;&gt;</span><br><span class="line">  &lt;p&gt;使用 ng-repeat 来循环数组&lt;/p&gt;</span><br><span class="line">	&lt;input type=number ng-model=&quot;in&quot; &gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li ng-repeat=&quot;x in names&quot;&gt;</span><br><span class="line">      &#123;&#123; x &#125;&#125;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">	  &lt;li&gt;&#123;&#123;in&#125;&#125;&lt;/li&gt;</span><br><span class="line">  &lt;/ul&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>ng-disabled : 直接绑定应用程序数据到HTML的disabled属性 ; 当 标记记作 <code>true</code> 被标记的元素失效</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;button ng-disabled=&quot;mySwitch&quot;&gt;点我!&lt;/button&gt;</span><br><span class="line">&lt;input type=&quot;checkbox&quot; ng-model=&quot;mySwitch&quot;&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>ng-show : 被标记元素标记为true时，改元素可见</p>
-</li>
-<li>ng-hide :  true —&gt; 不可见</li>
-</ul>
-<h2 id="Angular-JS-事件"><a href="#Angular-JS-事件" class="headerlink" title="Angular JS 事件"></a>Angular JS 事件</h2><ul>
-<li>ng-click : 定义ng的点击触发事件</li>
-</ul>
-<hr>
-<h2 id="未完待续……"><a href="#未完待续……" class="headerlink" title="未完待续……"></a>未完待续……</h2>
-	
-	</div>
-  <a type="button" href="/archives/897c0a7c.html#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-	       
-	     </div>
-	     <div>
-	       <center>
-	         <div class="pagination">
-<ul class="pagination">
-	 
-</ul>
-</div>
-
-	       </center>
-	     </div>	
-      
-
-</div> <!-- col-md-9/col-md-12 -->
-
-
-<div class="col-md-3">
-	<div id="sidebar">
-	
-			
-  <div id="site_search">
-   <div class="form-group">
-    <input type="text" id="local-search-input" name="q" results="0" placeholder="搜索" class="st-search-input st-default-search-input form-control"/>
-   </div>  
-  <div id="local-search-result"></div>
-  </div>
-
-
-		
-			<div class="widget">
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/" />
+        </div>
+        <div class="name">
+            <i>Rico Nut</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li  class=active >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
     
 </div>
 
-		
-			
-		
-			
-	<div class="widget">
-		<h4>标签云</h4>
-		<ul class="tag_box inline list-unstyled">		
-		
-			<li><a href="/tags/场景/">场景<span>1</span></a></li>
-		
-			<li><a href="/tags/Mybatis/">Mybatis<span>4</span></a></li>
-		
-			<li><a href="/tags/多线程/">多线程<span>4</span></a></li>
-		
-			<li><a href="/tags/NetWorker/">NetWorker<span>2</span></a></li>
-		
-			<li><a href="/tags/TakeDown/">TakeDown<span>4</span></a></li>
-		
-			<li><a href="/tags/Exception/">Exception<span>1</span></a></li>
-		
-			<li><a href="/tags/Git/">Git<span>2</span></a></li>
-		
-			<li><a href="/tags/Linux/">Linux<span>3</span></a></li>
-		
-			<li><a href="/tags/Spring/">Spring<span>5</span></a></li>
-		
-			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
-		
-			<li><a href="/tags/Hibernate/">Hibernate<span>2</span></a></li>
-		
-			<li><a href="/tags/RabbitMQ/">RabbitMQ<span>1</span></a></li>
-		
-			<li><a href="/tags/动态代理/">动态代理<span>4</span></a></li>
-		
-			<li><a href="/tags/Mysql/">Mysql<span>9</span></a></li>
-		
-			<li><a href="/tags/Servlet/">Servlet<span>2</span></a></li>
-		
-			<li><a href="/tags/Java/">Java<span>32</span></a></li>
-		
-			<li><a href="/tags/V2ray/">V2ray<span>1</span></a></li>
-		
-			<li><a href="/tags/Angular-JS/">Angular JS<span>2</span></a></li>
-		
-			<li><a href="/tags/JVM/">JVM<span>1</span></a></li>
-		
-			<li><a href="/tags/Redis/">Redis<span>4</span></a></li>
-		
-		
-		   <li><a href="/tags">...<span>25</span></a></li>
-		 
-		</ul>
-	</div>
 
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
 
-		
-			
-<div class="widget">
-  <h4>最新文章</h4>
-  <ul class="entry list-unstyled">
-    
-      <li>
-        <a href="/archives/6e1b8bba.html"  title="上手树莓派，打算将弃用的笔记本硬盘挂在树莓派主机上，作为下载机使用,由于旧硬盘是win电脑拆下来的硬盘，磁盘格式为`Microsoft basic data`..." ><i class="fa fa-file-o"></i>Linux下挂载移动硬盘(ntfs格式)</a>
-      </li>
-    
-      <li>
-        <a href="/archives/27e17559.html"  title="redis总的所有数据默认保存在内存当中的.但场景需要，有时候需要进行持久化保存" ><i class="fa fa-file-o"></i>Redis持久化方案</a>
-      </li>
-    
-      <li>
-        <a href="/archives/3eac123.html"  title="当一个系统访问量上来的时候，不只是数据库性能瓶颈问题了，数据库数据安全也会浮现，这时候合理使用数据库锁机制就显得异常重要了。" ><i class="fa fa-file-o"></i>数据库锁机制分类</a>
-      </li>
-    
-      <li>
-        <a href="/archives/7ffea1fe.html"  title="RabbitMQ消息作为分布式消息协同工具，承担者协同各个系统之间的正常通信。如何确保消息通过RabbitMQ传输而不丢失数据？" ><i class="fa fa-file-o"></i>RabbitMQ消息可靠性</a>
-      </li>
-    
-      <li>
-        <a href="/archives/28d7adef.html"  title="快速失败：当在迭代一个集合的时候，如果有另外一个线程在修改这个集合，就会抛出ConcurrentModification异常，java.util下都是快速失败。 安全失败：在迭代时候会在集合二层做一个拷贝，所以在修改集合上层元素不会影响下层。在java.util.concurrent下都是安全失败" ><i class="fa fa-file-o"></i>快速失败与安全失败机制</a>
-      </li>
-    
-  </ul>
+        </div>
+    </div>
 </div>
 
-		
-			
-<div class="widget">
-	<h4>链接</h4>
-	<ul class="blogroll list-unstyled">
-	
-		<li><i class="fa fa-github"></i><a href="http://www.github.com/RicoNut" title="My Github account." target="_blank"]);">RicoNut Github</a></li>
-	
-	</ul>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<!-- 归档列表 -->
+
+<div class="archives-container">
+
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2019">
+                    <span class="tag-text">2019</span>
+                </span>
+    <ul>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-15</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/6e1b8bba.html">
+                        <span>
+                            Linux下挂载移动硬盘(ntfs格式)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+
+    </ul>
 </div>
 
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2018">
+                    <span class="tag-text">2018</span>
+                </span>
+    <ul>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>12-20</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/27e17559.html">
+                        <span>
+                            Redis持久化方案
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>12-01</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/3eac123.html">
+                        <span>
+                            数据库锁机制分类
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-26</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/7ffea1fe.html">
+                        <span>
+                            RabbitMQ消息可靠性
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-13</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/28d7adef.html">
+                        <span>
+                            快速失败与安全失败机制
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-06</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/a1cd7aa8.html">
+                        <span>
+                            Integer封装类比较大小
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-26</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/9b0bd708.html">
+                        <span>
+                            Nginx的负载均衡策略
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-17</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/d1b4efa1.html">
+                        <span>
+                            Java遍历Map对象的4种方法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-30</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/1ab741e2.html">
+                        <span>
+                            Array与Arrays的区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-29</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/ad76721a.html">
+                        <span>
+                            Collection与Collections的区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-01</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/130dac3d.html">
+                        <span>
+                            Set集合误用引发的血案
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-20</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4354712f.html">
+                        <span>
+                            基于Redis缓存的音频点赞排行榜功能实践
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-02</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/e8fc0d11.html">
+                        <span>
+                            Redis基础数据结构
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>04-27</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/98ee2edb.html">
+                        <span>
+                            leetcode Reserve Integer
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>03-18</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/bd43d2da.html">
+                        <span>
+                            Object 类中toString()、equal()、hashCode()之间关系
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>02-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/7416d96f.html">
+                        <span>
+                            Java异常总结
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>02-03</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/199ee4b3.html">
+                        <span>
+                            自己对Java堆和栈的理解
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>01-30</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/762945f0.html">
+                        <span>
+                            Spring事务管理
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
 
-		
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
+    </ul>
+</div>
 
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2017">
+                    <span class="tag-text">2017</span>
+                </span>
+    <ul>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>12-05</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/3e6ff0a8.html">
+                        <span>
+                            抽象类和接口的区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-28</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/6c6825f6.html">
+                        <span>
+                            iptables防火墙及其命令
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-12</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/1db25542.html">
+                        <span>
+                            Mybatis 修饰符`#{}`和`${}`的区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-09</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/8bdd2473.html">
+                        <span>
+                            JDBC SQL预编译
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/efb286cc.html">
+                        <span>
+                            Mybatis 如何获取保存对象之后生成的自增主键?
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-10</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/7ccdc859.html">
+                        <span>
+                            多线程基本概念
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-20</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/bd778d6e.html">
+                        <span>
+                            多线程关键字volatile和synchronized区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/466fafff.html">
+                        <span>
+                            mysql连接查询
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>03-12</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/70e4edda.html">
+                        <span>
+                            spring Bean学习Review
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>02-02</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/3170f59.html">
+                        <span>
+                            Mybatis延迟加载
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>01-04</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/fc53cc9d.html">
+                        <span>
+                            Java关键字与总结
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
 
+    </ul>
+</div>
 
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2016">
+                    <span class="tag-text">2016</span>
+                </span>
+    <ul>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>12-07</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/a5b55d42.html">
+                        <span>
+                            Map的排序(key排序/value排序)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-15</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/89baa56d.html">
+                        <span>
+                            Git操作快速上手(日常指令)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>11-02</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4c8b706f.html">
+                        <span>
+                            面向切面编程(AOP)实例解释
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/86946e12.html">
+                        <span>
+                            线程同步基础之使用锁实现同步
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-14</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/65a2a3a3.html">
+                        <span>
+                            线程同步基础之synchronized同步
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-10</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/faa9c2f.html">
+                        <span>
+                            Java反射机制之动态代理
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/affd1e49.html">
+                        <span>
+                            Java反射机制之方法操作
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-04</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/b0d70fcf.html">
+                        <span>
+                            Java反射机制之变量操作
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-03</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/41e0f7bf.html">
+                        <span>
+                            Java反射机制之构造器操作
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-30</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/b7f7cee0.html">
+                        <span>
+                            Java线程管理
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-17</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/971c3dff.html">
+                        <span>
+                            'Mysql多表操作以及其实例'
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-12</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/d2cfd72b.html">
+                        <span>
+                            epuals与'=='区别
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4be26d16.html">
+                        <span>
+                            v2ray_科学手段
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/861d9c25.html">
+                        <span>
+                            原生JDBC操作数据库的思考总结
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-10</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/bef463.html">
+                        <span>
+                            java 重定向与转发的异同
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-01</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/5574abb0.html">
+                        <span>
+                            TCP通信三次握手协议原理与过程分析
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-31</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4a1b8e6e.html">
+                        <span>
+                            Spring中添加REST功能
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-29</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/ac0ee78d.html">
+                        <span>
+                            JSP九大内置对象、四个作用域以及六大基本动作
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-28</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/3fb7ed9.html">
+                        <span>
+                            Mybatis 实现原理与结构解析
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-28</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4b2bec15.html">
+                        <span>
+                            Java 迭代器Iterator的用法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-26</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/69b20980.html">
+                        <span>
+                            Mysql视图技术原理与应用
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-25</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/64423a64.html">
+                        <span>
+                            mysql触发器学与用
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-24</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/39b075e7.html">
+                        <span>
+                            Java 实现TCP/IP Socket通信
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-22</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/5970580b.html">
+                        <span>
+                            struts2基础笔记(1)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-19</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/4ac038bf.html">
+                        <span>
+                            比较http请求方法中的GET与POST方法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-19</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/86b8ba8f.html">
+                        <span>
+                            Spring MVC常用的控制器方法与使用
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/5b142d5f.html">
+                        <span>
+                            AngularJS 核心特性
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/5a644a79.html">
+                        <span>
+                            Spring-MVC请求处理工作流程
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-15</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/897c0a7c.html">
+                        <span>
+                            Angular JS 基础笔记
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/7ae62b4c.html">
+                        <span>
+                            hibernate实现原理与思考
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/8314bbf6.html">
+                        <span>
+                            Mysql管理用户操作(创建用户，删除用户，修改用户密码，权限分配以及相关授权)
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-05</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/faff5c20.html">
+                        <span>
+                            Hibernate出现Caused by: java.sql.SQLException: Field 'id' doesn't have a default value的解决方法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>06-05</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/f8defb4e.html">
+                        <span>
+                            关于Maven 打包时 缺失properties和xml后缀的文件
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>05-10</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/b4e8978.html">
+                        <span>
+                            无法连接远程Mysql数据库的解决办法 I
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>05-08</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/db1953ee.html">
+                        <span>
+                            Java垃圾回收之finalize()
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>05-07</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/57584ce4.html">
+                        <span>
+                            Java常识之构造器
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>03-16</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/archives/a9d721e9.html">
+                        <span>
+                            在Github创建静态网站预览的方法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+
+    </ul>
+</div>
+
+</div>
 
     </div>
-  </div>
-  <div class="container-narrow">
-    <footer> <p>
-  &copy; 2019 Rico Nut
-  
-      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
-</p> </footer>
-  </div> <!-- container-narrow -->
-  
+</div>
 
 
-  
-<a id="gotop" href="#">   
-  <span>▲</span> 
-</a>
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
 
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+        
 
+        
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
+        
 
+        
 
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
 
 
-<!-- syntax highlighting -->
 
 
 </body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = false
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
 </html>
