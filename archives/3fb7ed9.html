@@ -181,14 +181,14 @@
 </ol>
 <ul>
 <li>基于XML配置文件获取配置信息</li>
-<li>基于Java API的方式<center><br><img src="http://aliosw.oss-cn-hangzhou.aliyuncs.com//%E5%8A%9F%E8%83%BD%E6%9E%B6%E6%9E%84.png" alt="Mybatis功能架构"><br></center></li>
+<li>基于Java API的方式<center><br><img src="http://aliosw.oss-cn-hangzhou.aliyuncs.com/%E5%8A%9F%E8%83%BD%E6%9E%B6%E6%9E%84.png" alt="Mybatis功能架构"><br></center></li>
 </ul>
 </li>
 <li>框架架构：<ol>
 <li>加载配置：配置来源于两个地方，一处是配置文件，一处是Java代码的注解，将SQL的配置信息加载为宜个MappedStatement对象(包括传入参数映射配置，执行的SQL语句，结果映射配置)　，存储在内存中</li>
 <li>SQL解析：当API接口层接收到调用请求时，会接受到传入SQL的ID和传入对象(可以是Map、JavaBean对象或者是基本数据类型)，Mybatis会根据SQL的ID找到对应的MappedStatement，然后根据传入参数对象对MappedStatement进行解析，解析后可以得到最终要执行的SQL语句和参数</li>
 <li>SQL执行：将最终得到的SQL语句和参数传入数据库中执行，得到数据库返回的执行结果</li>
-<li>结果映射：将操作数据库的结果按照映射的配置进行转换，可以转换成HashMap，JavaBean或者基本数据类型，并将最终结果返回<center><br><img src="http://aliosw.oss-cn-hangzhou.aliyuncs.com//%E5%8A%9F%E8%83%BD%E6%9E%B6%E6%9E%84.png" alt="Mybatis框架架构"><br>Panda<br></center>
+<li>结果映射：将操作数据库的结果按照映射的配置进行转换，可以转换成HashMap，JavaBean或者基本数据类型，并将最终结果返回<center><br><img src="http://aliosw.oss-cn-hangzhou.aliyuncs.com/%E5%8A%9F%E8%83%BD%E6%9E%B6%E6%9E%84.png" alt="Mybatis框架架构"><br>Panda<br></center>
 </li>
 </ol>
 </li>

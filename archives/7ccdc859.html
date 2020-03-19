@@ -152,8 +152,8 @@
 <li>两种实现方法根据实际情况选择，如果该类已经继承了其他方法(单继承性)，只能通过实现Runable接口来进程多线程任务处理。</li>
 </ul>
 <h4 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h4><ul>
-<li>如图：<center><br><img src="http://aliosw.oss-cn-hangzhou.aliyuncs.com//%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png" alt="线程的生命周期"><br></center></li>
-<li>线程的生命周期分为五个阶段：创建状态、就绪状态、运行状态、阻塞状态、消亡状态。系统需要将多个线程在这五个状态之间切换来实现最大限度的运用系统资源<br><center><br><img src="http://aliosw.oss-cn-hangzhou.aliyuncs.com//%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.png" alt="线程状态转换图"><br></center><ol>
+<li>如图：<center><br><img src="http://aliosw.oss-cn-hangzhou.aliyuncs.com/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png" alt="线程的生命周期"><br></center></li>
+<li>线程的生命周期分为五个阶段：创建状态、就绪状态、运行状态、阻塞状态、消亡状态。系统需要将多个线程在这五个状态之间切换来实现最大限度的运用系统资源<br><center><br><img src="http://aliosw.oss-cn-hangzhou.aliyuncs.com/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.png" alt="线程状态转换图"><br></center><ol>
 <li>新建状态：当程序使用<code>new</code>关键字创建一个线程之后，该线程就处于新建状态，此时仅由JVM分配内存，并初始化其成员变量的值</li>
 <li>就绪状态：当线程对象调用<code>start()</code>方法之后，该线程就处于就绪状态。Java虚拟机会为其创建方法，调用栈和程序计数器，等待线程调度器调度运行</li>
 <li>运行状态：如果处于就绪状态的线程获得了CPU资源，开始执行<code>run()</code>方法的线程执行体，则该线程处于运行状态</li>

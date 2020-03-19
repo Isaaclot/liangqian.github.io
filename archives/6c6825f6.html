@@ -160,7 +160,7 @@
 <li>raw：优先级最高，设置raw时一般是为了不再让iptables做数据包的链接跟踪处理，提高性能</li>
 </ul>
 </li>
-<li>表在数据进入服务器到输出的流程<center><img src="http://aliosw.oss-cn-hangzhou.aliyuncs.com//iptables%E8%A1%A8%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%8C%85%E6%B5%81%E7%A8%8B%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8.gif" alt="数据传输"><br></center></li>
+<li>表在数据进入服务器到输出的流程<center><img src="http://aliosw.oss-cn-hangzhou.aliyuncs.com/iptables%E8%A1%A8%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%8C%85%E6%B5%81%E7%A8%8B%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8.gif" alt="数据传输"><br></center></li>
 <li>规则链(5个)：<ul>
 <li><code>PREROUTING</code>链：数据包进入路由表之前</li>
 <li><code>INPUT</code>链：处理输入数据包，通过路由表目的地为本机</li>
@@ -169,7 +169,7 @@
 <li><code>POSTROUTING</code>链：发送到网卡接口之前</li>
 </ul>
 </li>
-<li>表与规则链的对应关系<center><br><img src="http://aliosw.oss-cn-hangzhou.aliyuncs.com//iptables%E8%A1%A8%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%8C%85%E6%B5%81%E7%A8%8B%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8.gif" alt="表与规则链的对应关系"><br></center></li>
+<li>表与规则链的对应关系<center><br><img src="http://aliosw.oss-cn-hangzhou.aliyuncs.com/iptables%E8%A1%A8%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%8C%85%E6%B5%81%E7%A8%8B%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8.gif" alt="表与规则链的对应关系"><br></center></li>
 <li>动作：<ul>
 <li>ACCEPT：接收数据包</li>
 <li>DROP：丢弃数据包</li>
